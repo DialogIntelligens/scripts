@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         AILogo: "http://dialogintelligens.dk/wp-content/uploads/2024/04/logo-3.png",
         headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Chatbot-ikon-Brandbjerg.png",
         themeColor: "#e18107",
-        pagePath: "https://dialogintelligens.dk/",
+        pagePath: "https://brandbjerg.dk/",
         headerTitleG: "Brandbjergs AI Drage",
         headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         titleG: "Brandbjerg Højskole",
