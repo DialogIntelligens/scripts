@@ -50,8 +50,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-    // Now that the elements are in the DOM, we can add event listeners and functions
-
     // Cookie functions
     function setCookie(name, value, days, domain) {
       var expires = "";
@@ -109,13 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
 
-      window.addEventListener('message', function(event) {
-        if (event.origin === "https://brandbjerg.onrender.com" && event.data.ack === 'integrationOptionsReceived') {
-          console.log("Iframe acknowledged receiving integration options");
-          retryAttempts = maxRetryAttempts;
-        }
-      });
-
       iframe.onload = function() {
         retryAttempts = 0;
         trySendingMessage();
@@ -129,6 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }, retryDelay);
     }
 
+    // Move the event listener outside the function to avoid adding it multiple times
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://brandbjerg.onrender.com") return;
 
@@ -139,6 +131,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-iframe').style.display = 'none';
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
+      } else if (event.data.ack === 'integrationOptionsReceived') {
+        console.log("Iframe acknowledged receiving integration options");
+        retryAttempts = maxRetryAttempts;
       }
     });
 
@@ -181,8 +176,6 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
       iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
       iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
-
-      sendMessageToIframe(); // Ensure message data is updated and sent
     }
 
     function manageSpeechBalloon() {
