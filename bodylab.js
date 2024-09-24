@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
         titleG: "Bodylab AI",
         isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
         isPhoneView: window.innerWidth < 800,
-        // Add a unique identifier
         messageSource: 'chatWidget'
       };
 
@@ -72,13 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Received message from origin:", event.origin);
       console.log("Event data:", event.data);
 
-      // Check if the message is from the iframe and intended for this script
-      var isFromIframe = event.origin === "https://bodylab.onrender.com";
+      // Allowed origins list
+      var allowedOrigins = ['https://bodylab.onrender.com', 'https://www.bodylab.dk'];
+
+      // Check if the message is from an allowed origin and intended for this script
+      var isFromAllowedOrigin = allowedOrigins.includes(event.origin);
       var isIntendedMessage = event.data && event.data.messageSource === 'chatIframe';
 
-      // Process messages only if they are from the iframe and intended for this script
-      if (isFromIframe && isIntendedMessage) {
-        // Handle the 'toggleSize' and 'closeChat' actions
+      // Process messages only if they are from an allowed origin and intended for this script
+      if (isFromAllowedOrigin && isIntendedMessage) {
         if (event.data.action === 'toggleSize') {
           isIframeEnlarged = !isIframeEnlarged;
           adjustIframeSize();
@@ -88,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('chatWindowState', 'closed');
         }
       } else {
-        // Ignore messages not intended for this script
+        // Ignore messages not from allowed origins or unintended messages
         console.warn("Received message from unauthorized origin or unintended source:", event.origin);
       }
     });
