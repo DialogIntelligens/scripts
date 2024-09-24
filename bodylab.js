@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
         titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
         headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
         themeColor: "#75bddc",
-        pagePath: "https://dialogintelligens.dk/",
+        pagePath: "https://bodylab.dk/",
         headerTitleG: "Bodylab AI",
         titleG: "Bodylab AI",
         isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
