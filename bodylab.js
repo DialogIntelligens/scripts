@@ -22,8 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-    // Now that the elements are in the DOM, we can proceed to add event listeners and functions
-
     var isIframeEnlarged = false;
     var maxRetryAttempts = 5;
     var retryDelay = 500;
@@ -54,13 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
 
-      window.addEventListener('message', function(event) {
-        if (event.origin === "https://bodylab.onrender.com" && event.data.ack === 'integrationOptionsReceived') {
-          console.log("Iframe acknowledged receiving integration options");
-          retryAttempts = maxRetryAttempts;
-        }
-      });
-
       iframe.onload = function() {
         retryAttempts = 0;
         trySendingMessage();
@@ -74,9 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
       }, retryDelay);
     }
 
+    // Global message event listener
     window.addEventListener('message', function(event) {
-      if (event.origin !== "https://bodylab.onrender.com") return;
+      console.log("Received message from origin:", event.origin);
+      console.log("Event data:", event.data);
 
+      // Allow messages only from bodylab.onrender.com
+      if (!event.origin.includes("bodylab.onrender.com")) {
+        console.warn("Received message from unauthorized origin:", event.origin);
+        return;
+      }
+
+      // Handle the 'toggleSize' and 'closeChat' actions
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
