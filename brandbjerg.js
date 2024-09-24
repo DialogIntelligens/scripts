@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
           setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain); // Set cookie with domain covering subdomains
           // Call showBalloon function again after 10 minutes (without needing to reload)
           setTimeout(showBalloon, 600000); // 10 minutes wait before showing the balloon again
-        }, 11000); // 11 seconds open duration
-      }, delay || 10000); // Initial 10-second delay before first show
+        }, 10000); // 11 seconds open duration
+      }, delay || 60000); // Initial 10-second delay before first show
     }
 
     // Close button functionality
