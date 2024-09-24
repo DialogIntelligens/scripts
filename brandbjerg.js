@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inject HTML into the body
     var chatbotHTML = `
     <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 20px; right: 20px; background: none; border: none; z-index: 401;">
-      <img src="http://dialogintelligens.dk/wp-content/uploads/2024/04/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
+      <img src="https://dialogintelligens.dk/wp-content/uploads/2024/04/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
     </button>
 
     <div id="speech-balloon">
@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', function() {
         SOCKET_SERVER_URL: "https://den-megtige-maskine.onrender.com",
         apiEndpoint: "https://den-megtige-maskine.onrender.com/api/v1/prediction/f0243d9a-338a-4adf-82c5-fb037a667a8e",
         titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/04/chatIcon.png",
-        AILogo: "http://dialogintelligens.dk/wp-content/uploads/2024/04/logo-3.png",
-        headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Chatbot-ikon-Brandbjerg.png",
+        AILogo: "https://dialogintelligens.dk/wp-content/uploads/2024/04/logo-3.png",
+        headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/08/Chatbot-ikon-Brandbjerg.png",
         themeColor: "#e18107",
         pagePath: "https://brandbjerg.dk/",
         headerTitleG: "Brandbjergs AI Drage",
