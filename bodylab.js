@@ -23,108 +23,93 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
     var isIframeEnlarged = false;
-    var maxRetryAttempts = 5;
-    var retryDelay = 500;
-    var retryAttempts = 0;
+    var iframeWindow;
 
     function sendMessageToIframe() {
-      var iframe = document.getElementById('chat-iframe');
-      var iframeWindow = iframe.contentWindow;
+        var iframe = document.getElementById('chat-iframe');
+        iframeWindow = iframe.contentWindow;
 
-      var messageData = {
-        action: 'integrationOptions',
-        titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
-        headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
-        themeColor: "#75bddc",
-        pagePath: "https://dialogintelligens.dk/",
-        headerTitleG: "Bodylab AI",
-        titleG: "Bodylab AI",
-        isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-        isPhoneView: window.innerWidth < 800
-      };
+        var messageData = {
+            action: 'integrationOptions',
+            titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
+            headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
+            themeColor: "#75bddc",
+            pagePath: "https://dialogintelligens.dk/",
+            headerTitleG: "Bodylab AI",
+            titleG: "Bodylab AI",
+            isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
+            isPhoneView: window.innerWidth < 800
+        };
 
-      function trySendingMessage() {
-        if (retryAttempts < maxRetryAttempts) {
-          iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
-          retryAttempts++;
-        } else {
-          console.error("Failed to send message to iframe after multiple attempts");
+        iframe.onload = function() {
+            iframeWindow = iframe.contentWindow;
+            iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+        };
+
+        // Try to send message immediately in case the iframe is already loaded
+        try {
+            iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+        } catch (e) {
+            // Ignore errors; message will be sent on iframe load
         }
-      }
-
-      iframe.onload = function() {
-        retryAttempts = 0;
-        trySendingMessage();
-      };
-
-      setTimeout(function retrySending() {
-        if (retryAttempts < maxRetryAttempts) {
-          trySendingMessage();
-          setTimeout(retrySending, retryDelay);
-        }
-      }, retryDelay);
     }
 
     // Global message event listener
     window.addEventListener('message', function(event) {
-      console.log("Received message from origin:", event.origin);
-      console.log("Event data:", event.data);
+        // Only process messages from our iframe
+        if (event.source !== iframeWindow) {
+            return;
+        }
 
-      // Allow messages only from bodylab.onrender.com
-      if (!event.origin.includes("bodylab.onrender.com")) {
-        console.warn("Received message from unauthorized origin:", event.origin);
-        return;
-      }
-
-      // Handle the 'toggleSize' and 'closeChat' actions
-      if (event.data.action === 'toggleSize') {
-        isIframeEnlarged = !isIframeEnlarged;
-        adjustIframeSize();
-      } else if (event.data.action === 'closeChat') {
-        document.getElementById('chat-iframe').style.display = 'none';
-        document.getElementById('chat-button').style.display = 'block';
-        localStorage.setItem('chatWindowState', 'closed');
-      }
+        // Handle the 'toggleSize' and 'closeChat' actions
+        if (event.data.action === 'toggleSize') {
+            isIframeEnlarged = !isIframeEnlarged;
+            adjustIframeSize();
+        } else if (event.data.action === 'closeChat') {
+            document.getElementById('chat-iframe').style.display = 'none';
+            document.getElementById('chat-button').style.display = 'block';
+            localStorage.setItem('chatWindowState', 'closed');
+        }
     });
 
     function toggleChatWindow() {
-      var iframe = document.getElementById('chat-iframe');
-      var button = document.getElementById('chat-button');
-      
-      var isCurrentlyOpen = iframe.style.display !== 'none';
-      
-      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-      button.style.display = isCurrentlyOpen ? 'block' : 'none';
-      
-      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-      
-      adjustIframeSize();
-      sendMessageToIframe(); 
+        var iframe = document.getElementById('chat-iframe');
+        var button = document.getElementById('chat-button');
+        
+        var isCurrentlyOpen = iframe.style.display !== 'none';
+        
+        iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+        button.style.display = isCurrentlyOpen ? 'block' : 'none';
+        
+        localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+        
+        adjustIframeSize();
+        sendMessageToIframe(); 
     }
 
     function adjustIframeSize() {
-      var iframe = document.getElementById('chat-iframe');
-      console.log("Adjusting iframe size. Window width: ", window.innerWidth);
+        var iframe = document.getElementById('chat-iframe');
+        console.log("Adjusting iframe size. Window width: ", window.innerWidth);
 
-      var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
-      var isPhoneView = window.innerWidth < 800;
+        var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
+        var isPhoneView = window.innerWidth < 800;
 
-      if (isIframeEnlarged) {
-        iframe.style.width = 'calc(2 * 45vh + 6vw)';
-        iframe.style.height = '90vh';
-      } else {
-        iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
-        iframe.style.height = '90vh';
-      }
+        if (isIframeEnlarged) {
+            iframe.style.width = 'calc(2 * 45vh + 6vw)';
+            iframe.style.height = '90vh';
+        } else {
+            iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+            iframe.style.height = '90vh';
+        }
 
-      iframe.style.position = 'fixed';
-      iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
-      iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
-      iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
-      iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
-      iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+        iframe.style.position = 'fixed';
+        iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
+        iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
+        iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
+        iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
+        iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
 
-      sendMessageToIframe(); // Ensure message data is updated and sent
+        sendMessageToIframe(); // Ensure message data is updated and sent
     }
 
     // Initial load and resize adjustments
@@ -137,12 +122,12 @@ document.addEventListener('DOMContentLoaded', function() {
     var button = document.getElementById('chat-button');
 
     if (savedState === 'open') {
-      iframe.style.display = 'block';
-      button.style.display = 'none';
-      sendMessageToIframe();
+        iframe.style.display = 'block';
+        button.style.display = 'none';
+        sendMessageToIframe();
     } else {
-      iframe.style.display = 'none';
-      button.style.display = 'block';
+        iframe.style.display = 'none';
+        button.style.display = 'block';
     }
 
     // Attach event listener to the chat button
