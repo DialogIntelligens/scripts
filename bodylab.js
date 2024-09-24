@@ -36,11 +36,13 @@ document.addEventListener('DOMContentLoaded', function() {
         titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
         headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
         themeColor: "#75bddc",
-        pagePath: "https://bodylab.dk/",
+        pagePath: "https://dialogintelligens.dk/",
         headerTitleG: "Bodylab AI",
         titleG: "Bodylab AI",
         isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-        isPhoneView: window.innerWidth < 800
+        isPhoneView: window.innerWidth < 800,
+        // Add a unique identifier
+        messageSource: 'chatWidget'
       };
 
       function trySendingMessage() {
@@ -70,20 +72,24 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Received message from origin:", event.origin);
       console.log("Event data:", event.data);
 
-      // Allow messages only from bodylab.onrender.com
-      if (!event.origin.includes("bodylab.onrender.com")) {
-        console.warn("Received message from unauthorized origin:", event.origin);
-        return;
-      }
+      // Check if the message is from the iframe and intended for this script
+      var isFromIframe = event.origin === "https://bodylab.onrender.com";
+      var isIntendedMessage = event.data && event.data.messageSource === 'chatIframe';
 
-      // Handle the 'toggleSize' and 'closeChat' actions
-      if (event.data.action === 'toggleSize') {
-        isIframeEnlarged = !isIframeEnlarged;
-        adjustIframeSize();
-      } else if (event.data.action === 'closeChat') {
-        document.getElementById('chat-iframe').style.display = 'none';
-        document.getElementById('chat-button').style.display = 'block';
-        localStorage.setItem('chatWindowState', 'closed');
+      // Process messages only if they are from the iframe and intended for this script
+      if (isFromIframe && isIntendedMessage) {
+        // Handle the 'toggleSize' and 'closeChat' actions
+        if (event.data.action === 'toggleSize') {
+          isIframeEnlarged = !isIframeEnlarged;
+          adjustIframeSize();
+        } else if (event.data.action === 'closeChat') {
+          document.getElementById('chat-iframe').style.display = 'none';
+          document.getElementById('chat-button').style.display = 'block';
+          localStorage.setItem('chatWindowState', 'closed');
+        }
+      } else {
+        // Ignore messages not intended for this script
+        console.warn("Received message from unauthorized origin or unintended source:", event.origin);
       }
     });
 
