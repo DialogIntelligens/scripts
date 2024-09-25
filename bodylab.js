@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inject CSS into the head
     var css = `
       #chat-button:hover {
-        opacity: 0.7;
+        opacity: 0.5;
         transform: scale(1.1);
       }
     `;
