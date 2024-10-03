@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 50px;  /* Adjusted to be further right */
       width: 270px;   /* Updated width */
       height: 120px;  /* Updated height */
-      background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-7.gif');
+      background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
