@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_trafikteori.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/wmtrafik.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
       themeColor: "#f7c800",
