@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var chatbotHTML = `
   <!-- Chat Button -->
   <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/whitemessagetrafik.png" alt="Chat with us" style="width: 70px; height: 70px; transition: opacity 0.3s;">
+    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/billogo.png" alt="Chat with us" style="width: 70px; height: 70px; transition: opacity 0.3s;">
   </button>
 
   <!-- Speech Balloon GIF with Close Button -->
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/trafikteoriwhitemessageicon.png",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/whitemessagetrafik.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
       themeColor: "#f7952a",
       headerTitleG: "Trafikteori Virtuelle Assistent",
