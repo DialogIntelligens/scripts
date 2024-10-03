@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var chatbotHTML = `
   <!-- Chat Button -->
   <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
+    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/bot.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
   </button>
 
   <!-- Speech Balloon GIF with Close Button -->
@@ -105,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3APIBackup: "",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
-      themeColor: "#2a803c",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/bot.png",
+      themeColor: "#f5c000",
       headerTitleG: "Trafikteori Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Trafikteori",
