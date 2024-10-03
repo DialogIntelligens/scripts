@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_trafikteori.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/wmtrafik.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
-      themeColor: "#f7c800",
+      themeColor: "#291810",
       headerTitleG: "Trafikteori Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Trafikteori",
