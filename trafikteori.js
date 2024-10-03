@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   </div>
 
   <!-- Chat Iframe -->
-  <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
+  <iframe id="chat-iframe" src="https://skalerbartproduktchatbottrafik.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
   `;
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function trySendingMessage() {
       if (retryAttempts < maxRetryAttempts) {
-        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+        iframeWindow.postMessage(messageData, "https://skalerbartproduktchatbottrafik.onrender.com");
         retryAttempts++;
       } else {
         console.error("Failed to send message to iframe after multiple attempts");
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('message', function(event) {
-      if (event.origin === "https://skalerbartprodukt.onrender.com" && event.data.ack === 'integrationOptionsReceived') {
+      if (event.origin === "https://skalerbartproduktchatbottrafik.onrender.com" && event.data.ack === 'integrationOptionsReceived') {
         console.log("Iframe acknowledged receiving integration options");
         retryAttempts = maxRetryAttempts;
       }
@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   window.addEventListener('message', function(event) {
-    if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+    if (event.origin !== "https://skalerbartproduktchatbottrafik.onrender.com") return;
 
     if (event.data.action === 'toggleSize') {
       isIframeEnlarged = !isIframeEnlarged;
