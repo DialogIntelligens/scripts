@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/whitemessagetrafik.png",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/wmtrafik.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
       themeColor: "#f7c800",
       headerTitleG: "Trafikteori Virtuelle Assistent",
