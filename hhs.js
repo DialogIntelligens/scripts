@@ -11,8 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     #speech-balloon {
       display: none;
       position: fixed;
-      bottom: 75px;
-      right: 80px;
+      bottom: 88px;
+      right: 88px;
       width: 205px;
       height: 90px;
       background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain); // Set cookie with domain covering subdomains
         // Call showBalloon function again after 10 minutes (without needing to reload)
         setTimeout(showBalloon, 600000); // 10 minutes wait before showing the balloon again
-      }, 100000); // 10 seconds open duration
+      }, 10000); // 10 seconds open duration
     }, delay || 25000); // Initial 25-second delay before first show
   }
 
