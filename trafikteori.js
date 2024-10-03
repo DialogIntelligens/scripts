@@ -110,8 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Trafikteori Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Trafikteori",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗
-        Jeg er trænet på teoribogen og undervisningsplanen for kørekort kategori b.",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med? Jeg er trænet på teoribogen og undervisningsplanen for kørekort kategori b.",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
