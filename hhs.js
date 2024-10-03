@@ -8,19 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* Speech balloon GIF with updated position and size */
-  #speech-balloon {
+    #speech-balloon {
       display: none;
       position: fixed;
-      bottom: 70px; /* Adjusted to be further down */
-      right: 50px;  /* Adjusted to be further right */
-      width: 270px;   /* Updated width */
-      height: 120px;  /* Updated height */
+      bottom: 75px;
+      right: 80px;
+      width: 205px;
+      height: 90px;
       background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
       z-index: 1500;
-  }
+    }
 
   #close-balloon {
     color: white;
