@@ -8,19 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* Speech balloon GIF with updated position and size */
-    #speech-balloon {
-      display: none;
-      position: fixed;
-      bottom: 88px;
-      right: 88px;
-      width: 205px;
-      height: 90px;
-      background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 1500;
-    }
+  #speech-balloon {
+    display: none;
+    position: fixed;
+    bottom: 88px;
+    right: 88px;
+    width: 205px;
+    height: 90px;
+    background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 1500;
+  }
 
   #close-balloon {
     color: white;
@@ -82,6 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
   var retryDelay = 500;
   var retryAttempts = 0;
 
+  var autoOpenOnNavigate = false; // Set to true or false to control auto-open behavior
+
+  
   function sendMessageToIframe() {
     var iframe = document.getElementById('chat-iframe');
     var iframeWindow = iframe.contentWindow;
@@ -155,9 +158,10 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
+      // Before navigating, set a flag in localStorage
+      localStorage.setItem('navigationFromChatbot', 'true');
       window.location.href = event.data.url;
     }
-    
   });
 
   function toggleChatWindow() {
@@ -200,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
-  // Replaced manageSpeechBalloon function with the one from the first code
+  // Speech balloon management
   function manageSpeechBalloon() {
     var hasClosedBalloon = getCookie("hasClosedBalloon");
     if (hasClosedBalloon) {
@@ -208,37 +212,30 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // Get next scheduled show time from cookie
     var nextShowTime = getCookie("nextSpeechBalloonShowTime");
     var now = new Date().getTime();
     var delay = 0;
 
     if (nextShowTime && parseInt(nextShowTime) > now) {
-      // Balloon is scheduled to be shown in the future
       delay = parseInt(nextShowTime) - now;
     }
 
-    // Schedule the balloon to be shown after 'delay' or initial 10-second delay
     setTimeout(function showBalloon() {
-      document.getElementById("speech-balloon").style.display = "block"; // Show the balloon
-      // Hide the balloon after 10 seconds
+      document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none"; // Hide balloon after 10 seconds
-        // Update the next scheduled show time to 10 minutes from now
-        var nextTime = new Date().getTime() + 600000; // 10 minutes in milliseconds
+        document.getElementById("speech-balloon").style.display = "none";
+        var nextTime = new Date().getTime() + 600000;
         var domain = window.location.hostname;
         var domainParts = domain.split(".");
         if (domainParts.length > 2) {
-          // Assume domain is in the format subdomain.domain.tld
           domain = "." + domainParts.slice(-2).join(".");
         } else {
           domain = "." + domain;
         }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain); // Set cookie with domain covering subdomains
-        // Call showBalloon function again after 10 minutes (without needing to reload)
-        setTimeout(showBalloon, 600000); // 10 minutes wait before showing the balloon again
-      }, 10000); // 10 seconds open duration
-    }, delay || 25000); // Initial 25-second delay before first show
+        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
+        setTimeout(showBalloon, 600000);
+      }, 10000);
+    }, delay || 25000);
   }
 
   // Initial load and resize adjustments
@@ -248,10 +245,22 @@ document.addEventListener('DOMContentLoaded', function() {
   // Attach event listener to chat-button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
+  // Modify the initial chat window state logic
   var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
-  
+
+  var navigationFromChatbot = localStorage.getItem('navigationFromChatbot') === 'true';
+
+  // If the navigation came from the chatbot, and autoOpenOnNavigate is false, we don't open the chatbot
+  if (navigationFromChatbot) {
+    if (!autoOpenOnNavigate) {
+      savedState = 'closed';
+    }
+    // Clear the flag
+    localStorage.removeItem('navigationFromChatbot');
+  }
+
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
@@ -261,20 +270,19 @@ document.addEventListener('DOMContentLoaded', function() {
     button.style.display = 'block';
   }
 
-  // Close button functionality
+  // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
   if (closeBalloonButton) {
     closeBalloonButton.addEventListener('click', function() {
       var domain = window.location.hostname;
       var domainParts = domain.split(".");
       if (domainParts.length > 2) {
-        // Assume domain is in the format subdomain.domain.tld
         domain = "." + domainParts.slice(-2).join(".");
       } else {
         domain = "." + domain;
       }
       document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain); // Store state in cookie for 1 year
+      setCookie("hasClosedBalloon", "true", 365, domain);
     });
   }
 
