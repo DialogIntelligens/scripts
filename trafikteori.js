@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var messageData = {
       action: 'integrationOptions',
       chatbotID: "trafikteori",
-      pagePath: "https://dialogintelligens.dk/",
+      pagePath: window.location.href,
       statestikAPI: "https://flowise-j0lr.onrender.com/api/v1/prediction/9dd0fc67-6caa-4dd2-87be-d29b7420aeb2",
       SOCKET_SERVER_URL: "https://flowise-j0lr.onrender.com/",
       apiEndpoint: "https://flowise-j0lr.onrender.com/api/v1/prediction/1c4cec07-d0e0-4f91-b2fd-7fcd54fa062b",
