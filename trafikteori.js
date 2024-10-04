@@ -154,6 +154,8 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
+    } else if (event.data.action === 'navigate') {
+      window.location.href = event.data.url;
     }
   });
 
