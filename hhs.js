@@ -157,9 +157,15 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
-      // Before navigating, set a flag in localStorage
-      localStorage.setItem('navigationFromChatbot', 'true');
-      localStorage.setItem('chatWindowState', 'open'); // Ensure chat window state is 'open'
+      // Before navigating, close the chat window and set state to 'closed'
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+
+      // Optional: Clear conversation if needed
+      // localStorage.removeItem('conversation');
+
+      // Navigate to the new URL
       window.location.href = event.data.url;
     }
   });
@@ -252,13 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var navigationFromChatbot = localStorage.getItem('navigationFromChatbot') === 'true';
 
-  // If the navigation came from the chatbot
-  if (navigationFromChatbot) {
-    // We don't need to change savedState; it has been set to 'open' before navigation
-    // Clear the flag
-    localStorage.removeItem('navigationFromChatbot');
-  }
-
+  // Since we close the chat window when navigating, we don't need to handle navigationFromChatbot
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
