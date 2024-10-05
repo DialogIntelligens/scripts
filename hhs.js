@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var chatbotHTML = `
   <!-- Chat Button -->
   <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
+    <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
   </button>
 
   <!-- Speech Balloon GIF with Close Button -->
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
+      privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
@@ -157,7 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
+      // Before navigating, set a flag in localStorage
       localStorage.setItem('navigationFromChatbot', 'true');
+      localStorage.setItem('chatWindowState', 'open'); // Ensure chat window state is 'open'
       window.location.href = event.data.url;
     }
   });
@@ -165,20 +167,22 @@ document.addEventListener('DOMContentLoaded', function() {
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-
+    
     var isCurrentlyOpen = iframe.style.display !== 'none';
-
+    
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     button.style.display = isCurrentlyOpen ? 'block' : 'none';
-
+    
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-
+    
     adjustIframeSize();
-    sendMessageToIframe();
+    sendMessageToIframe(); 
   }
 
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
+    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
+
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
 
@@ -197,9 +201,10 @@ document.addEventListener('DOMContentLoaded', function() {
     iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
     iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
 
-    sendMessageToIframe();
+    sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
+  // Speech balloon management
   function manageSpeechBalloon() {
     var hasClosedBalloon = getCookie("hasClosedBalloon");
     if (hasClosedBalloon) {
@@ -233,21 +238,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }, delay || 25000);
   }
 
+  // Initial load and resize adjustments
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
 
+  // Attach event listener to chat-button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
+  // Modify the initial chat window state logic
   var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
 
   var navigationFromChatbot = localStorage.getItem('navigationFromChatbot') === 'true';
 
+  // If the navigation came from the chatbot
   if (navigationFromChatbot) {
-    if (!autoOpenOnNavigate) {
-      savedState = 'closed';
-    }
+    // We don't need to change savedState; it has been set to 'open' before navigation
+    // Clear the flag
     localStorage.removeItem('navigationFromChatbot');
   }
 
@@ -260,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     button.style.display = 'block';
   }
 
+  // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
   if (closeBalloonButton) {
     closeBalloonButton.addEventListener('click', function() {
@@ -275,5 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+  // Start the speech balloon management when the page loads
   manageSpeechBalloon();
 });
