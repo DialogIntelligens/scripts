@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pagePath: "https://skadedyrshop.dk/",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/de8a623e-a5cc-4792-8789-5486f587dcc0",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d7334623-3f5a-46bc-874f-23ff77912fc3",
       flow2Key: "category",
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2eb50e09-56ed-45d3-9885-4e28108f9360",
