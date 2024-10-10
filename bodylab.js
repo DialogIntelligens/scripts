@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
       #speech-balloon {
         display: none;
         position: fixed;
-        bottom: 88px;
-        right: 88px;
-        width: 205px;
-        height: 90px;
+        bottom: 105px;
+        right: 110px;
+        width: 220px;
+        height: 95px;
         /* background-image will be set dynamically */
         background-size: cover;
         background-repeat: no-repeat;
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       <!-- Speech Balloon GIF with Close Button -->
       <div id="speech-balloon">
-        <button id="close-balloon" style="position: absolute; top: 5px; right: 5px; background-color: transparent; border: none; font-size: 16px; cursor: pointer;">&times;</button>
+        <button id="close-balloon" style="position: absolute; top: -4px; right: -5px; background-color: transparent; border: none; font-size: 16px; cursor: pointer;">&times;</button>
       </div>
       
       <iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Array of GIF URLs
     var gifUrls = [
-        'https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif',
-        'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
-        'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
         // Add new GIF URLs here
     ];
 
@@ -214,11 +214,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 6000;
+                var nextTime = new Date().getTime() + 300000;
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 6000);
+                setTimeout(showBalloon, 300000);
             }, 10000);
-        }, delay || 25000);
+        }, delay || 20000);
     }
     
     // Close button functionality for the speech balloon
