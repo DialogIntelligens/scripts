@@ -205,7 +205,7 @@ function manageSpeechBalloon() {
         document.getElementById("speech-balloon").style.display = "block";
         setTimeout(function hideBalloon() {
             document.getElementById("speech-balloon").style.display = "none";
-            var nextTime = new Date().getTime() + 600000;
+            var nextTime = new Date().getTime() + 6000;
             var domain = window.location.hostname;
             var domainParts = domain.split(".");
             if (domainParts.length > 2) {
@@ -214,9 +214,9 @@ function manageSpeechBalloon() {
                 domain = "." + domain;
             }
             setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-            setTimeout(showBalloon, 600000);
-        }, 100000);
-    }, delay || 25000);
+            setTimeout(showBalloon, 6000);
+        }, 10000);
+    }, delay || 2500);
 }
 
 
