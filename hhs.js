@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Define the array of GIF URLs
   var gifUrls = [
-    'https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif',
     'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
     'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
     // Add new GIF URLs here
@@ -21,8 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 88px;
     right: 88px;
-    width: 205px;
-    height: 90px;
+    width: 230px;
+    height: 100px;
     /* background-image will be set dynamically */
     background-size: cover;
     background-repeat: no-repeat;
