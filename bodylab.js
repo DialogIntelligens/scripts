@@ -1,7 +1,7 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Inject CSS into the head
-    var css = `
+    var css = 
       #chat-button:hover {
         opacity: 0.5;
         transform: scale(1.1);
@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', function() {
       #close-balloon:hover {
         color: red;
       }
-    `;
+    ;
 
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
 
     // Inject HTML into the body
-    var chatbotHTML = `
+    var chatbotHTML = 
       <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
         <img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
       </button>
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
       
       <iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
-    `;
+    ;
 
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
@@ -175,51 +175,44 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
-// Speech balloon management
-function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-        document.getElementById('speech-balloon').style.display = 'none';
-        return;
+    // Speech balloon management
+    function manageSpeechBalloon() {
+        var hasClosedBalloon = getCookie("hasClosedBalloon");
+        if (hasClosedBalloon) {
+            document.getElementById('speech-balloon').style.display = 'none';
+            return;
+        }
+
+        var nextShowTime = getCookie("nextSpeechBalloonShowTime");
+        var now = new Date().getTime();
+        var delay = 0;
+
+        if (nextShowTime && parseInt(nextShowTime) > now) {
+            delay = parseInt(nextShowTime) - now;
+        }
+
+        setTimeout(function showBalloon() {
+            // Randomly select a GIF URL
+            var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+            // Set the background-image style
+            document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+
+            document.getElementById("speech-balloon").style.display = "block";
+            setTimeout(function hideBalloon() {
+                document.getElementById("speech-balloon").style.display = "none";
+                var nextTime = new Date().getTime() + 600000;
+                var domain = window.location.hostname;
+                var domainParts = domain.split(".");
+                if (domainParts.length > 2) {
+                    domain = "." + domainParts.slice(-2).join(".");
+                } else {
+                    domain = "." + domain;
+                }
+                setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
+                setTimeout(showBalloon, 600000);
+            }, 100000);
+        }, delay || 25000);
     }
-
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-        delay = parseInt(nextShowTime) - now;
-    }
-
-    // Index to track the current GIF in sequence
-    var gifIndex = 0;
-
-    setTimeout(function showBalloon() {
-        // Select the GIF URL based on gifIndex
-        var gifUrl = gifUrls[gifIndex];
-        gifIndex = (gifIndex + 1) % gifUrls.length; // Move to the next GIF in sequence
-
-        // Set the background-image style
-        document.getElementById('speech-balloon').style.backgroundImage = 'url(' + gifUrl + ')';
-
-        document.getElementById("speech-balloon").style.display = "block";
-        setTimeout(function hideBalloon() {
-            document.getElementById("speech-balloon").style.display = "none";
-            var nextTime = new Date().getTime() + 6000;
-            var domain = window.location.hostname;
-            var domainParts = domain.split(".");
-            if (domainParts.length > 2) {
-                domain = "." + domainParts.slice(-2).join(".");
-            } else {
-                domain = "." + domain;
-            }
-            setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-            setTimeout(showBalloon, 6000);
-        }, 10000);
-    }, delay || 2500);
-}
-
-
 
     // Close button functionality for the speech balloon
     var closeBalloonButton = document.getElementById('close-balloon');
