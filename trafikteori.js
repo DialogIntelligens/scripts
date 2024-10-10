@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', function() {
   #speech-balloon {
       display: none;
       position: fixed;
-      bottom: 70px; /* Adjusted to be further down */
-      right: 50px;  /* Adjusted to be further right */
-      width: 270px;   /* Updated width */
-      height: 120px;  /* Updated height */
+      bottom: 90px; /* Adjusted to be further down */
+      right: 100px;  /* Adjusted to be further right */
+      width: 250px;   /* Updated width */
+      height: 110px;  /* Updated height */
       background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/10/trafiktoeri.gif');
       background-size: cover;
       background-repeat: no-repeat;
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain); // Set cookie with domain covering subdomains
         // Call showBalloon function again after 10 minutes (without needing to reload)
         setTimeout(showBalloon, 600000); // 10 minutes wait before showing the balloon again
-      }, 100000); // 10 seconds open duration
+      }, 10000); // 10 seconds open duration
     }, delay || 25000); // Initial 25-second delay before first show
   }
 
