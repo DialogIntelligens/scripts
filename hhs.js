@@ -1,5 +1,13 @@
 // Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // Define the array of GIF URLs
+  var gifUrls = [
+    'https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif',
+    'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
+    'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+    // Add new GIF URLs here
+  ];
+
   // Inject CSS into the head
   var css = `
   #chat-button:hover {
@@ -15,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 88px;
     width: 205px;
     height: 90px;
-    background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
+    /* background-image will be set dynamically */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -90,31 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skadedyrshop",
-      pagePath: "https://skadedyrshop.dk/",
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
-      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/de8a623e-a5cc-4792-8789-5486f587dcc0",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d7334623-3f5a-46bc-874f-23ff77912fc3",
-      flow2Key: "category",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2eb50e09-56ed-45d3-9885-4e28108f9360",
-      flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/27ed7773-f94f-43b3-acfb-5d7480b6ccca",
-      SOCKET_SERVER_URL_Backup: "",
-      apiEndpointBackup: "",
-      fordelingsflowAPIBackup: "",
-      flow2APIBackup: "",
-      flow3APIBackup: "",
-      privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
-      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
-      themeColor: "#2a803c",
-      headerTitleG: "SkadedyrShops Virtuelle Assistent",
-      headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "SkadedyrShop",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝",
-      isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800
+      // ... (rest of your messageData)
     };
 
     function trySendingMessage() {
@@ -227,6 +211,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     setTimeout(function showBalloon() {
+      // Randomly select a GIF URL
+      var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+      // Set the background-image style
+      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+
       document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
         document.getElementById("speech-balloon").style.display = "none";
