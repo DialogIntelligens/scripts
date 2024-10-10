@@ -214,10 +214,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 600000;
+                var nextTime = new Date().getTime() + 6000;
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 600000);
-            }, 100000);
+                setTimeout(showBalloon, 6000);
+            }, 10000);
         }, delay || 25000);
     }
     
