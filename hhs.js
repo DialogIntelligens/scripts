@@ -13,9 +13,8 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 88px;
     right: 88px;
-    width: 205px;
-    height: 90px;
-    background-image: url('https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif');
+    width: 220px;
+    height: 100px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -210,39 +209,53 @@ document.addEventListener('DOMContentLoaded', function() {
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
+  var gifUrls = [
+    'https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif',
+    'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
+    'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+    // Add new GIF URLs here
+  ];
+
+
   // Speech balloon management
-  function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-      document.getElementById('speech-balloon').style.display = 'none';
-      return;
-    }
-
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-      delay = parseInt(nextShowTime) - now;
-    }
-
-    setTimeout(function showBalloon() {
-      document.getElementById("speech-balloon").style.display = "block";
-      setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 600000;
-        var domain = window.location.hostname;
-        var domainParts = domain.split(".");
-        if (domainParts.length > 2) {
-          domain = "." + domainParts.slice(-2).join(".");
-        } else {
-          domain = "." + domain;
-        }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 600000);
-      }, 10000);
-    }, delay || 25000);
+function manageSpeechBalloon() {
+  var hasClosedBalloon = getCookie("hasClosedBalloon");
+  if (hasClosedBalloon) {
+    document.getElementById('speech-balloon').style.display = 'none';
+    return;
   }
+
+  var nextShowTime = getCookie("nextSpeechBalloonShowTime");
+  var now = new Date().getTime();
+  var delay = 0;
+
+  if (nextShowTime && parseInt(nextShowTime) > now) {
+    delay = parseInt(nextShowTime) - now;
+  }
+
+  setTimeout(function showBalloon() {
+    // Randomly select a GIF URL
+    var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+    // Set the background-image style
+    document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+
+    document.getElementById("speech-balloon").style.display = "block";
+    setTimeout(function hideBalloon() {
+      document.getElementById("speech-balloon").style.display = "none";
+      var nextTime = new Date().getTime() + 600000;
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
+      setTimeout(showBalloon, 600000);
+    }, 10000);
+  }, delay || 25000);
+}
+
 
   // Initial load and resize adjustments
   adjustIframeSize();
