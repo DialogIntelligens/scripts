@@ -146,9 +146,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Array of GIF URLs
     var gifUrls = [
-        'https://dialogintelligens.dk/wp-content/uploads/2024/09/Speech-balloon-11.gif',
-        'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
-        'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/traening.gif',
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif',
+        'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif'
         // Add new GIF URLs here
     ];
 
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
                 setTimeout(showBalloon, 600000);
-            }, 10000);
+            }, 100000);
         }, delay || 25000);
     }
 
