@@ -250,21 +250,27 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('speech-balloon').style.display = 'none';
       return;
     }
-
+  
     var nextShowTime = getCookie("nextSpeechBalloonShowTime");
     var now = new Date().getTime();
     var delay = 0;
-
+  
     if (nextShowTime && parseInt(nextShowTime) > now) {
       delay = parseInt(nextShowTime) - now;
     }
-
+  
     setTimeout(function showBalloon() {
+      // Add this code at the beginning of showBalloon()
+      var hasClosedBalloon = getCookie("hasClosedBalloon");
+      if (hasClosedBalloon) {
+        return; // User has closed the balloon; do not show it again
+      }
+  
       // Randomly select a GIF URL
       var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
       // Set the background-image style
       document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
-
+  
       document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
         document.getElementById("speech-balloon").style.display = "none";
@@ -281,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 10000);
     }, delay || 25000);
   }
+
 
   // Initial load and resize adjustments
   adjustIframeSize();
