@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
     #speech-balloon {
       display: none;
       position: absolute;
-      bottom: 70px; /* Position it above the chat button */
-      right: 0;
+      bottom: 78px; /* Position it above the chat button */
+      right: 78px;
       width: 230px;
       height: 100px;
       background-size: cover;
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
           domain = "." + domain;
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 600000);
+        setTimeout(showBalloon, 6000);
       }, 10000);
     }, delay || 25000);
   }
