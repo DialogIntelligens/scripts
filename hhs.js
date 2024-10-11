@@ -215,51 +215,45 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add new GIF URLs here
   ];
 
-    function manageSpeechBalloon() {
-        var hasClosedBalloon = getCookie("hasClosedBalloon");
-        if (hasClosedBalloon) {
-            document.getElementById('speech-balloon').style.display = 'none';
-            return;
-        }
-    
-        var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-        var now = new Date().getTime();
-        var delay = 0;
-    
-        if (nextShowTime && parseInt(nextShowTime) > now) {
-            delay = parseInt(nextShowTime) - now;
-        }
-    
-        setTimeout(function showBalloon() {
-            // Get current GIF index from cookie
-            var gifIndex = parseInt(getCookie("gifIndex")) || 0;
-            // Get the GIF URL at the current index
-            var gifUrl = gifUrls[gifIndex];
-            // Set the background-image style
-            document.getElementById('speech-balloon').style.backgroundImage = 'url(' + gifUrl + ')';
-    
-            document.getElementById("speech-balloon").style.display = "block";
-    
-            // Increment the index, wrapping around
-            gifIndex = (gifIndex + 1) % gifUrls.length;
-            // Save the updated index in cookie
-            var domain = window.location.hostname;
-            var domainParts = domain.split(".");
-            if (domainParts.length > 2) {
-                domain = "." + domainParts.slice(-2).join(".");
-            } else {
-                domain = "." + domain;
-            }
-            setCookie("gifIndex", gifIndex, 1, domain);
-    
-            setTimeout(function hideBalloon() {
-                document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 300000;
-                setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 300000);
-            }, 10000);
-        }, delay || 20000);
-    }
+
+  // Speech balloon management
+function manageSpeechBalloon() {
+  var hasClosedBalloon = getCookie("hasClosedBalloon");
+  if (hasClosedBalloon) {
+    document.getElementById('speech-balloon').style.display = 'none';
+    return;
+  }
+
+  var nextShowTime = getCookie("nextSpeechBalloonShowTime");
+  var now = new Date().getTime();
+  var delay = 0;
+
+  if (nextShowTime && parseInt(nextShowTime) > now) {
+    delay = parseInt(nextShowTime) - now;
+  }
+
+  setTimeout(function showBalloon() {
+    // Randomly select a GIF URL
+    var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+    // Set the background-image style
+    document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+
+    document.getElementById("speech-balloon").style.display = "block";
+    setTimeout(function hideBalloon() {
+      document.getElementById("speech-balloon").style.display = "none";
+      var nextTime = new Date().getTime() + 600000;
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
+      setTimeout(showBalloon, 600000);
+    }, 10000);
+  }, delay || 25000);
+}
 
 
   // Initial load and resize adjustments
