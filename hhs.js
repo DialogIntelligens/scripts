@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
     #speech-balloon {
       display: none;
       position: absolute;
-      bottom: 78px; /* Position it above the chat button */
-      right: 78px;
-      width: 230px;
-      height: 100px;
+      bottom: 52px; /* Position it above the chat button */
+      right: 52px;
+      width: 220px;
+      height: 95px;
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Close button styles */
     #close-balloon {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 6px;
+      right: 20px;
       background-color: transparent;
       border: none;
       font-size: 16px;
