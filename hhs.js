@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
         document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 600000;
+        var nextTime = new Date().getTime() + 12000;
         var domain = window.location.hostname;
         var domainParts = domain.split(".");
         if (domainParts.length > 2) {
