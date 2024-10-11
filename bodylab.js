@@ -244,9 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 10000;
+                var nextTime = new Date().getTime() + 300000;
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 10000);
+                setTimeout(showBalloon, 300000);
             }, 10000);
         }, delay || 20000);
     }
