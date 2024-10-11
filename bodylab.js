@@ -2,27 +2,55 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Inject CSS into the head
     var css = `
-      #chat-button:hover {
+      /* Container for chat button and speech balloon */
+      #chat-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 401;
+      }
+
+      /* Chat button styles */
+      #chat-button {
+        cursor: pointer;
+        background: none;
+        border: none;
+      }
+
+      #chat-button img {
+        width: 60px;
+        height: 60px;
+        transition: opacity 0.3s;
+      }
+
+      #chat-button:hover img {
         opacity: 0.5;
         transform: scale(1.1);
       }
-      
-      /* Speech balloon GIF with updated position and size */
+
+      /* Speech balloon styles */
       #speech-balloon {
         display: none;
-        position: fixed;
-        bottom: 105px;
-        right: 110px;
+        position: absolute;
+        bottom: 70px; /* Adjust this value to position the balloon above the chat button */
+        right: 0;
         width: 220px;
         height: 95px;
-        /* background-image will be set dynamically */
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
         z-index: 1500;
       }
 
+      /* Close button styles */
       #close-balloon {
+        position: absolute;
+        top: -4px;
+        right: -5px;
+        background-color: transparent;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
         color: white;
         font-weight: bold;
       }
@@ -38,13 +66,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Inject HTML into the body
     var chatbotHTML = `
-      <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-        <img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
-      </button>
-      
-      <!-- Speech Balloon GIF with Close Button -->
-      <div id="speech-balloon">
-        <button id="close-balloon" style="position: absolute; top: -4px; right: -5px; background-color: transparent; border: none; font-size: 16px; cursor: pointer;">&times;</button>
+      <div id="chat-container">
+        <button id="chat-button">
+          <img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us">
+        </button>
+        
+        <!-- Speech Balloon GIF with Close Button -->
+        <div id="speech-balloon">
+          <button id="close-balloon">&times;</button>
+        </div>
       </div>
       
       <iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
@@ -87,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Global message event listener
     window.addEventListener('message', function(event) {
         // Only process messages from our iframe
-        if (event.source !== iframeWindow) {
+        if (event.origin !== "https://bodylab.onrender.com") {
             return;
         }
 
@@ -214,9 +244,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 300000;
+                var nextTime = new Date().getTime() + 30000;
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 300000);
+                setTimeout(showBalloon, 30000);
             }, 10000);
         }, delay || 20000);
     }
