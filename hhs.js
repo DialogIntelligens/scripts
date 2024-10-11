@@ -2,33 +2,62 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Inject CSS into the head
   var css = `
-  #chat-button:hover {
-    opacity: 0.7;
-    transform: scale(1.1);
-  }
+    /* Container for chat button and speech balloon */
+    #chat-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 401;
+    }
 
-  /* Speech balloon GIF with updated position and size */
-  #speech-balloon {
-    display: none;
-    position: fixed;
-    bottom: 88px;
-    right: 88px;
-    width: 230px;
-    height: 100px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 1500;
-  }
+    /* Chat button styles */
+    #chat-button {
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
 
-  #close-balloon {
-    color: white;
-    font-weight: bold;
-  }
+    #chat-button img {
+      width: 60px;
+      height: 60px;
+      transition: opacity 0.3s;
+    }
 
-  #close-balloon:hover {
-    color: red;
-  }
+    #chat-button:hover img {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+
+    /* Speech balloon styles */
+    #speech-balloon {
+      display: none;
+      position: absolute;
+      bottom: 70px; /* Position it above the chat button */
+      right: 0;
+      width: 230px;
+      height: 100px;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 1500;
+    }
+
+    /* Close button styles */
+    #close-balloon {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: transparent;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: white;
+      font-weight: bold;
+    }
+
+    #close-balloon:hover {
+      color: red;
+    }
   `;
 
   var style = document.createElement('style');
@@ -37,18 +66,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Inject HTML into the body
   var chatbotHTML = `
-  <!-- Chat Button -->
-  <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-    <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us" style="width: 60px; height: 60px; transition: opacity 0.3s;">
-  </button>
+    <div id="chat-container">
+      <!-- Chat Button -->
+      <button id="chat-button">
+        <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us">
+      </button>
 
-  <!-- Speech Balloon GIF with Close Button -->
-  <div id="speech-balloon">
-    <button id="close-balloon" style="position: absolute; top: 5px; right: 5px; background-color: transparent; border: none; font-size: 16px; cursor: pointer;">&times;</button>
-  </div>
+      <!-- Speech Balloon GIF with Close Button -->
+      <div id="speech-balloon">
+        <button id="close-balloon">&times;</button>
+      </div>
+    </div>
 
-  <!-- Chat Iframe -->
-  <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
+    <!-- Chat Iframe -->
+    <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
   `;
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -161,9 +192,6 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
 
-      // Optional: Clear conversation if needed
-      // localStorage.removeItem('conversation');
-
       // Navigate to the new URL
       window.location.href = event.data.url;
     }
@@ -215,46 +243,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add new GIF URLs here
   ];
 
-
   // Speech balloon management
-function manageSpeechBalloon() {
-  var hasClosedBalloon = getCookie("hasClosedBalloon");
-  if (hasClosedBalloon) {
-    document.getElementById('speech-balloon').style.display = 'none';
-    return;
+  function manageSpeechBalloon() {
+    var hasClosedBalloon = getCookie("hasClosedBalloon");
+    if (hasClosedBalloon) {
+      document.getElementById('speech-balloon').style.display = 'none';
+      return;
+    }
+
+    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
+    var now = new Date().getTime();
+    var delay = 0;
+
+    if (nextShowTime && parseInt(nextShowTime) > now) {
+      delay = parseInt(nextShowTime) - now;
+    }
+
+    setTimeout(function showBalloon() {
+      // Randomly select a GIF URL
+      var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+      // Set the background-image style
+      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+
+      document.getElementById("speech-balloon").style.display = "block";
+      setTimeout(function hideBalloon() {
+        document.getElementById("speech-balloon").style.display = "none";
+        var nextTime = new Date().getTime() + 600000;
+        var domain = window.location.hostname;
+        var domainParts = domain.split(".");
+        if (domainParts.length > 2) {
+          domain = "." + domainParts.slice(-2).join(".");
+        } else {
+          domain = "." + domain;
+        }
+        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
+        setTimeout(showBalloon, 600000);
+      }, 10000);
+    }, delay || 25000);
   }
-
-  var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-  var now = new Date().getTime();
-  var delay = 0;
-
-  if (nextShowTime && parseInt(nextShowTime) > now) {
-    delay = parseInt(nextShowTime) - now;
-  }
-
-  setTimeout(function showBalloon() {
-    // Randomly select a GIF URL
-    var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
-    // Set the background-image style
-    document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
-
-    document.getElementById("speech-balloon").style.display = "block";
-    setTimeout(function hideBalloon() {
-      document.getElementById("speech-balloon").style.display = "none";
-      var nextTime = new Date().getTime() + 600000;
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-      setTimeout(showBalloon, 600000);
-    }, 10000);
-  }, delay || 25000);
-}
-
 
   // Initial load and resize adjustments
   adjustIframeSize();
@@ -268,9 +294,6 @@ function manageSpeechBalloon() {
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
 
-  var navigationFromChatbot = localStorage.getItem('navigationFromChatbot') === 'true';
-
-  // Since we close the chat window when navigating, we don't need to handle navigationFromChatbot
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
