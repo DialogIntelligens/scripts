@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 var nextTime = new Date().getTime() + 300000;
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
                 setTimeout(showBalloon, 300000);
-            }, 100000);
+            }, 10000);
         }, delay || 20000);
     }
     
