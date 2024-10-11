@@ -32,8 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
       #speech-balloon {
         display: none;
         position: absolute;
-        bottom: 52px; /* Position it above the chat button */
-        right: 52px;
+        bottom: 78px; /* Position it above the chat button */
+        right: 78px;
         width: 220px;
         height: 95px;
         background-size: cover;
@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
       /* Close button styles */
       #close-balloon {
         position: absolute;
-        top: 6px;
-        right: 20px;
+        top: -5px;
+        right: -4px;
         background-color: transparent;
         border: none;
         font-size: 16px;
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("speech-balloon").style.display = "block";
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 15000;
+                var nextTime = new Date().getTime() + 300000;
                 var domain = window.location.hostname;
                 var domainParts = domain.split(".");
                 if (domainParts.length > 2) {
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     domain = "." + domain;
                 }
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 6000);
+                setTimeout(showBalloon, 300000);
             }, 10000);
         }, delay || 25000);
     }
