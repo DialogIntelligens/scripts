@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/MessageIcon.png" alt="Chat with us">
+        <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
@@ -120,24 +120,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "localliving",
-      pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ee079953-c506-4bd6-8b58-cb8500eb7275",
+      chatbotID: "skadedyrshop",
+      pagePath: "https://skadedyrshop.dk/",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ed794470-f7f4-42b1-8992-567917b375ac",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/de8a623e-a5cc-4792-8789-5486f587dcc0",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d7334623-3f5a-46bc-874f-23ff77912fc3",
-      flow2Key: "isaajd",
-      flow2API: "",
+      flow2Key: "category",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2eb50e09-56ed-45d3-9885-4e28108f9360",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/648aa1d5-f1bc-4de3-9b02-3a79696562ab",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/27ed7773-f94f-43b3-acfb-5d7480b6ccca",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
       privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/WhiteMessageIcon.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Locallivinglogo.png",
+      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
+      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
       headerTitleG: "SkadedyrShops Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
