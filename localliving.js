@@ -138,11 +138,11 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/WhiteMessageIcon.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Locallivinglogo.png",
-      themeColor: "#2a803c",
-      headerTitleG: "SkadedyrShops Virtuelle Assistent",
+      themeColor: "#7f9039",
+      headerTitleG: "Local Livings Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "SkadedyrShop",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝",
+      titleG: "Local Living",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?☀️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
