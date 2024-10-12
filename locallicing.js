@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/MessageIcon.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
@@ -136,8 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
-      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/WhiteMessageIcon.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Locallivinglogo.png",
       themeColor: "#2a803c",
       headerTitleG: "SkadedyrShops Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
