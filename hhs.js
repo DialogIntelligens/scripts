@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-      privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
