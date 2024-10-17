@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var messageData = {
       action: 'integrationOptions',
       chatbotID: "imagetest",
-      pagePath: "https://skadedyrshop.dk/",
+      pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/de8a623e-a5cc-4792-8789-5486f587dcc0",
