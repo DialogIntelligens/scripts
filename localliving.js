@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ed794470-f7f4-42b1-8992-567917b375ac",
       metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a03415f3-6cab-496e-abe2-ed41b1652b7d",
       metaDataKey: "product",
-      metaDataVar: "url",
+      metaDataVar: "available_weeks",
       metaDataParameter: "$eq",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
