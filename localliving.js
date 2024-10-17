@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
       metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a03415f3-6cab-496e-abe2-ed41b1652b7d",
       metaDataKey: "product",
       metaDataVar: "available_weeks",
-      metaDataParameter: "$eq",
+      metaDataParameter: "$regex",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
