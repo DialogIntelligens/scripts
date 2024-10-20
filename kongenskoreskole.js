@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var chatbotHTML = `
   <!-- Chat Button -->
   <button id="chat-button" style="cursor: pointer; position: fixed; bottom: 30px; right: 30px; background: none; border: none; z-index: 401;">
-    <img src="https://dialogintelligens.dk/wp-content/uploads/2024/10/billogo.png" alt="Chat with us" style="width: 70px; height: 70px; transition: opacity 0.3s;">
+    <img src="http://dialogintelligens.dk/wp-content/uploads/2024/10/koreskolemessagelogo.png" alt="Chat with us" style="width: 70px; height: 70px; transition: opacity 0.3s;">
   </button>
 
   <!-- Speech Balloon GIF with Close Button -->
@@ -104,9 +104,9 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_trafikteori.pdf",
-      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/wmtrafik.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
-      themeColor: "#f7c800",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/koreskolewhitemessagelogo.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/koreskolelogo.png",
+      themeColor: "#ee9000",
       headerTitleG: "Kongens Køreskoles AI Assistent",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Kongens Køreskoles",
