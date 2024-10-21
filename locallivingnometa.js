@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2Key: "isaajd",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/90a030c2-5669-439a-a946-bfec339728b5",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a94c7d62-1bb7-4d1d-9127-edc3fce45969",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
