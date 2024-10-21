@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3305c13a-f8d9-4e4a-9e78-4d2675a14e32",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d7334623-3f5a-46bc-874f-23ff77912fc3",
       flow2Key: "category",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2eb50e09-56ed-45d3-9885-4e28108f9360",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/655cd3a9-477a-4f83-99f2-6b5477b1a148",
       flow3Key: "product",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/89b806f8-8710-464b-b26c-599e59391781",
       SOCKET_SERVER_URL_Backup: "",
