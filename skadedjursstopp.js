@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', // Ensure this is true in your integrationOptions data
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_skadedjursstopp.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
