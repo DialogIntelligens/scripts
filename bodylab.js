@@ -103,12 +103,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         iframe.onload = function() {
             iframeWindow = iframe.contentWindow;
-            iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+            iframeWindow.postMessage(messageData, window.location.href);
         };
 
         // Try to send message immediately in case the iframe is already loaded
         try {
-            iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+            iframeWindow.postMessage(messageData, window.location.href);
         } catch (e) {
             // Ignore errors; message will be sent on iframe load
         }
