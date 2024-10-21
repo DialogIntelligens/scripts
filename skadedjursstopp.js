@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var messageData = {
       action: 'integrationOptions',
       chatbotID: "skadedyrshop",
-      pagePath: "https://skadedyrshop.dk/",
+      pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3305c13a-f8d9-4e4a-9e78-4d2675a14e32",
@@ -142,10 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
-      headerTitleG: "SkadedyrShops Virtuelle Assistent",
-      headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "SkadedyrShop",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝",
+      headerTitleG: "SkadedjursStopps Virtuelle Assistent",
+      headerSubtitleG: "Du skriver med en AI. Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy.",
+      titleG: "SkadedjursStopp",
+      firstMessage: "Hej😊 Vad kan jag hjälpa dig med?🐝",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
