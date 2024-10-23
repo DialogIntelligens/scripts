@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById("speech-balloon").style.display = "block";
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 3000;
+                var nextTime = new Date().getTime() + 13000;
                 var domain = window.location.hostname;
                 var domainParts = domain.split(".");
                 if (domainParts.length > 2) {
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     domain = "." + domain;
                 }
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 3000);
+                setTimeout(showBalloon, 13000);
             }, 12700);
         }, delay || 25000);
     }
