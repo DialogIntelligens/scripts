@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
                 setTimeout(showBalloon, 13000);
             }, 12700);
-        }, delay || 25000);
+        }, delay || 5000);
     }
 
 
