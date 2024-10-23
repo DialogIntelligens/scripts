@@ -181,7 +181,9 @@ document.addEventListener('DOMContentLoaded', function() {
         'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
         // Add new GIF URLs here
     ];
-
+    
+    var gifIndex = 0;  // Keep track of which GIF to show next
+    
     // Cookie functions
     function setCookie(name, value, days, domain) {
         var expires = "";
@@ -193,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var domainStr = domain ? "; domain=" + domain : "";
         document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
     }
-
+    
     function getCookie(name) {
         var nameEQ = name + "=";
         var ca = document.cookie.split(";");
@@ -204,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return null;
     }
-
+    
     // Updated speech balloon management function
     function manageSpeechBalloon() {
         var hasClosedBalloon = getCookie("hasClosedBalloon");
@@ -226,16 +228,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (hasClosedBalloon) {
                 return; // User has closed the balloon; do not show it again
             }
-      
-            // Randomly select a GIF URL
-            var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
+    
+            // Select the next GIF in sequence
+            var nextGifUrl = gifUrls[gifIndex];
+            gifIndex = (gifIndex + 1) % gifUrls.length;  // Cycle through the GIFs in order
+    
             // Set the background-image style
-            document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
+            document.getElementById('speech-balloon').style.backgroundImage = 'url(' + nextGifUrl + ')';
       
             document.getElementById("speech-balloon").style.display = "block";
             setTimeout(function hideBalloon() {
                 document.getElementById("speech-balloon").style.display = "none";
-                var nextTime = new Date().getTime() + 300000;
+                var nextTime = new Date().getTime() + 3000;
                 var domain = window.location.hostname;
                 var domainParts = domain.split(".");
                 if (domainParts.length > 2) {
@@ -244,10 +248,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     domain = "." + domain;
                 }
                 setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-                setTimeout(showBalloon, 300000);
-            }, 10000);
+                setTimeout(showBalloon, 3000);
+            }, 12700);
         }, delay || 25000);
     }
+
 
     // Close button functionality for the speech balloon
     var closeBalloonButton = document.getElementById('close-balloon');
