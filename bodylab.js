@@ -119,29 +119,34 @@ onDOMReady(function() {
   }
 
   function adjustIframeSize() {
-    var iframe = document.getElementById('chat-iframe');
-    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
+  var iframe = document.getElementById('chat-iframe');
+  console.log("Adjusting iframe size. Window width: ", window.innerWidth);
 
-    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
-    var isPhoneView = window.innerWidth < 800;
+  var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
+  var isPhoneView = window.innerWidth < 800;
 
-    if (isIframeEnlarged) {
-      iframe.style.width = 'calc(2 * 45vh + 6vw)';
-      iframe.style.height = '90vh';
-    } else {
-      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
-      iframe.style.height = '90vh';
-    }
+  // Definer maksimale dimensioner
+  var maxIframeWidth = 500; // Maksimal bredde i pixels
+  var maxIframeHeight = 700; // Maksimal højde i pixels
 
-    iframe.style.position = 'fixed';
-    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
-    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
-    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
-
-    sendMessageToIframe(); // Ensure message data is updated and sent
+  if (isIframeEnlarged) {
+    iframe.style.width = window.innerWidth < 1000 ? '95vw' : (maxIframeWidth * 1.5) + 'px';
+    iframe.style.height = window.innerWidth < 1000 ? '90vh' : (maxIframeHeight * 1.5) + 'px';
+  } else {
+    iframe.style.width = window.innerWidth < 1000 ? '95vw' : maxIframeWidth + 'px';
+    iframe.style.height = window.innerWidth < 1000 ? '90vh' : maxIframeHeight + 'px';
   }
+
+  iframe.style.position = 'fixed';
+  iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
+  iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
+  iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
+  iframe.style.bottom = window.innerWidth < 1000 ? '' : '30px'; // Juster efter behov
+  iframe.style.right = window.innerWidth < 1000 ? '' : '30px';  // Juster efter behov
+
+  sendMessageToIframe(); // Sørg for, at beskeddata opdateres og sendes
+}
+
 
   // --- Updated Speech Balloon Functionality Below ---
   // --- Updated Speech Balloon Functionality Below ---
