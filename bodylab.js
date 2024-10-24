@@ -127,8 +127,8 @@ onDOMReady(function() {
 
 if (window.innerWidth >= 2100) {
   // Fixed size for monitor screens
-  iframe.style.width = '400px';
-  iframe.style.height = '600px';
+  iframe.style.width = '500px';
+  iframe.style.height = '700px';
 } else if (isIframeEnlarged) {
   iframe.style.width = 'calc(2 * 45vh + 6vw)';
   iframe.style.height = '90vh';
