@@ -64,7 +64,7 @@ onDOMReady(function() {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
-      themeColor: "#75bddc",
+      themeColor: "#65bddb",
       pagePath: window.location.href,
       headerTitleG: "Buddy",
       titleG: "Buddy",
