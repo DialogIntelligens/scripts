@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        z-index: 401;
+        z-index: 150;
       }
 
       /* Chat button styles */
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-        z-index: 1500;
+        z-index: 150;
       }
 
       /* Close button styles */
