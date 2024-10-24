@@ -63,7 +63,7 @@ onDOMReady(function() {
     var messageData = {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
+      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
       themeColor: "#75bddc",
       pagePath: window.location.href,
       headerTitleG: "Buddy",
