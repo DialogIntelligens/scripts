@@ -1,13 +1,4 @@
-// Define the onDOMReady function
-function onDOMReady(callback) {
-  if (document.readyState === "interactive" || document.readyState === "complete") {
-    callback();
-  } else {
-    document.addEventListener("DOMContentLoaded", callback);
-  }
-}
-
-onDOMReady(function() {
+window.onload = function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
