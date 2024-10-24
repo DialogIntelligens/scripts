@@ -211,7 +211,7 @@ window.onload = function() {
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
         setTimeout(showBalloon, 300000);
       }, 12700);
-    }, delay || 25000);
+    }, delay || 2500000000000000000000000);
   }
 
   // Close button functionality for the speech balloon
