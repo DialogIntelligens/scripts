@@ -274,5 +274,5 @@ window.onload = function() {
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
   // Start the speech balloon management when the page loads
-  manageSpeechBalloon();
+//  manageSpeechBalloon();
 };
