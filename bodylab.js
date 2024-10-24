@@ -1,4 +1,4 @@
-<script>
+window.onload = function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -257,25 +257,22 @@
   window.addEventListener('resize', adjustIframeSize);
 
   // Initialize the chat window state
-  // Initialize the chat window state
-var savedState = localStorage.getItem('chatWindowState');
-var iframe = document.getElementById('chat-iframe');
-var button = document.getElementById('chat-button');
+  var savedState = localStorage.getItem('chatWindowState');
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
 
-if (savedState === 'open') {
-  iframe.style.display = 'block';
-  button.style.display = 'none';
-  sendMessageToIframe();
-} else {
-  iframe.style.display = 'none';
-  button.style.display = 'block';
-  localStorage.setItem('chatWindowState', 'closed'); // Add this line
-}
-
+  if (savedState === 'open') {
+    iframe.style.display = 'block';
+    button.style.display = 'none';
+    sendMessageToIframe();
+  } else {
+    iframe.style.display = 'none';
+    button.style.display = 'block';
+  }
 
   // Attach event listener to the chat button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-</script>
+
   // Start the speech balloon management when the page loads
 //  manageSpeechBalloon();
-
+};
