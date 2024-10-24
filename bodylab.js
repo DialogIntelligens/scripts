@@ -2,7 +2,7 @@ window.onload = function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
-    "position: fixed; bottom: 30px; right: 30px; z-index: 401;" +
+    "position: fixed; bottom: 30px; right: 30px; z-index: 150;" +
     "}" +
     "/* Chat button styles */" +
     "#chat-button {" +
@@ -16,7 +16,7 @@ window.onload = function() {
     "}" +
     "/* Speech balloon styles */" +
     "#speech-balloon {" +
-    "display: none; position: absolute; bottom: 78px; right: 78px; width: 220px; height: 95px; background-size: cover; background-repeat: no-repeat; background-position: center; z-index: 1500;" +
+    "display: none; position: absolute; bottom: 78px; right: 78px; width: 220px; height: 95px; background-size: cover; background-repeat: no-repeat; background-position: center; z-index: 150;" +
     "}" +
     "/* Close button styles */" +
     "#close-balloon {" +
@@ -39,7 +39,7 @@ window.onload = function() {
     '<button id="close-balloon">&times;</button>' +
     '</div>' +
     '</div>' +
-    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>';
+    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 3000;"></iframe>';
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
