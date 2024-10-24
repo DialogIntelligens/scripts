@@ -125,7 +125,7 @@ onDOMReady(function() {
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
 
-if (window.innerWidth >= 2400) {
+if (window.innerWidth >= 2000) {
   // Fixed size for monitor screens
   iframe.style.width = '100px';
   iframe.style.height = '300px';
