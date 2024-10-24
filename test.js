@@ -1,6 +1,14 @@
-document.addEventListener("DOMContentLoaded", function() {
+function onDOMReady(callback) {
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    callback();
+  } else {
+    document.addEventListener("DOMContentLoaded", callback);
+  }
+}
+
+onDOMReady(function() {
   // Inject CSS into the head
-  var css = "/* Container for chat button and speech balloon */" +
+  var css = "/* Your CSS styles here */" +
     "#chat-container {" +
     "  position: fixed; bottom: 30px; right: 30px; z-index: 150;" +
     "}" +
@@ -20,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function() {
     "  width: 220px; height: 95px; background-size: cover;" +
     "  background-repeat: no-repeat; background-position: center; z-index: 150;" +
     "}" +
-    "/* Close button styles */" +
     "#close-balloon {" +
     "  position: absolute; top: -5px; right: -4px; background-color: transparent;" +
     "  border: none; font-size: 16px; cursor: pointer; color: white; font-weight: bold;" +
@@ -48,14 +55,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-  var isIframeEnlarged = false;
   var iframe = document.getElementById('chat-iframe');
   var iframeWindow;
 
-  // Wait for the iframe to load before interacting with it
-  iframe.addEventListener('load', function() {
-    iframeWindow = iframe.contentWindow;
-    sendMessageToIframe();
+  // Use requestAnimationFrame to ensure rendering has completed
+  requestAnimationFrame(function() {
+    iframe.addEventListener('load', function() {
+      iframeWindow = iframe.contentWindow;
+      sendMessageToIframe();
+    });
   });
 
   // Define sendMessageToIframe function
@@ -79,31 +87,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  // Global message event listener
-  window.addEventListener('message', function(event) {
-    // Only process messages from our iframe
-    if (event.origin !== "https://bodylab.onrender.com") {
-      return;
-    }
-
-    // Handle the 'toggleSize' and 'closeChat' actions
-    if (event.data.action === 'toggleSize') {
-      isIframeEnlarged = !isIframeEnlarged;
-      adjustIframeSize();
-    } else if (event.data.action === 'closeChat') {
-      document.getElementById('chat-iframe').style.display = 'none';
-      document.getElementById('chat-button').style.display = 'block';
-      localStorage.setItem('chatWindowState', 'closed');
-    }
-  });
-
   // Attach event listener to the chat button
   var chatButton = document.getElementById('chat-button');
   if (chatButton) {
     chatButton.addEventListener('click', toggleChatWindow);
   }
 
-  // Define toggleChatWindow function
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
@@ -163,12 +152,6 @@ document.addEventListener("DOMContentLoaded", function() {
   if (closeBalloonButton) {
     closeBalloonButton.addEventListener('click', function() {
       document.getElementById('speech-balloon').style.display = 'none';
-      // Optionally set a cookie or localStorage to remember the user's choice
     });
   }
-
-  // You can include the speech balloon functionality here if needed
-  // For example, the manageSpeechBalloon() function
-
-  // If you have any other initialization code, include it here
 });
