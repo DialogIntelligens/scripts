@@ -64,12 +64,12 @@ window.onload = function() {
 
     iframe.onload = function() {
       iframeWindow = iframe.contentWindow;
-      iframeWindow.postMessage(messageData, window.location.href);
+      iframeWindow.postMessage(messageData, "*");
     };
 
     // Try to send message immediately in case the iframe is already loaded
     try {
-      iframeWindow.postMessage(messageData, window.location.href);
+      iframeWindow.postMessage(messageData, "*");
     } catch (e) {
       // Ignore errors; message will be sent on iframe load
     }
