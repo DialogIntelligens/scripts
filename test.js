@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
             titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
             headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
             themeColor: "#75bddc",
-            pagePath: "https://www.bodylab.dk/",
+            pagePath: window.location.href,
             headerTitleG: "Buddy",
             titleG: "Buddy",
             isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
