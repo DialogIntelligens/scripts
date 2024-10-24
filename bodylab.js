@@ -89,7 +89,12 @@ window.onload = function() {
     } else if (event.data.action === 'closeChat') {
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
-      localStorage.setItem('chatWindowState', 'closed');
+      // Use try...catch in case localStorage is not available
+      try {
+        localStorage.setItem('chatWindowState', 'closed');
+      } catch (e) {
+        // Handle or log the error if necessary
+      }
     }
   });
 
@@ -102,7 +107,12 @@ window.onload = function() {
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     button.style.display = isCurrentlyOpen ? 'block' : 'none';
 
-    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    // Use try...catch in case localStorage is not available
+    try {
+      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    } catch (e) {
+      // Handle or log the error if necessary
+    }
 
     adjustIframeSize();
     sendMessageToIframe(); 
@@ -133,134 +143,73 @@ window.onload = function() {
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
-  // --- Updated Speech Balloon Functionality Below ---
+  // Close button functionality for the speech balloon
+  var closeBalloonButton = document.getElementById('close-balloon');
+  if (closeBalloonButton) {
+    closeBalloonButton.addEventListener('click', function() {
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      document.getElementById('speech-balloon').style.display = 'none';
+      // Wrap setCookie in try...catch in case cookies are not available
+      try {
+        setCookie("hasClosedBalloon", "true", 365, domain);
+      } catch (e) {
+        // Handle or log the error if necessary
+      }
+    });
+  }
 
-  // --- Updated Speech Balloon Functionality Below ---
-
-  // Array of GIF URLs (kept unchanged)
-   var gifUrls = [
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
-  ];
-
-  var gifIndex = 0;  // Keep track of which GIF to show next
-
-  // Cookie functions
+  // Function definitions for setCookie and getCookie (wrap in try...catch)
   function setCookie(name, value, days, domain) {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
+    try {
+      var expires = "";
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        expires = "; expires=" + date.toUTCString();
+      }
+      var domainStr = domain ? "; domain=" + domain : "";
+      document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
+    } catch (e) {
+      // Handle or log the error if necessary
     }
-    var domainStr = domain ? "; domain=" + domain : "";
-    document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
   function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    try {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(";");
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+    } catch (e) {
+      // Handle or log the error if necessary
     }
     return null;
   }
-  /*
-
-  // Updated speech balloon management function
-  function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-      document.getElementById('speech-balloon').style.display = 'none';
-      return;
-    }
-
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-      delay = parseInt(nextShowTime) - now;
-    }
-
-    setTimeout(function showBalloon() {
-      var hasClosedBalloon = getCookie("hasClosedBalloon");
-      if (hasClosedBalloon) {
-        return; // User has closed the balloon; do not show it again
-      }
-
-      // Select the next GIF in sequence
-      var nextGifUrl = gifUrls[gifIndex];
-      gifIndex = (gifIndex + 1) % gifUrls.length;  // Cycle through the GIFs in order
-
-      // Set the background-image style
-      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + nextGifUrl + ')';
-
-      document.getElementById("speech-balloon").style.display = "block";
-      setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 300000;
-        var domain = window.location.hostname;
-        var domainParts = domain.split(".");
-        if (domainParts.length > 2) {
-          domain = "." + domainParts.slice(-2).join(".");
-        } else {
-          domain = "." + domain;
-        }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 300000);
-      }, 12700);
-    }, delay || 250000);
-  }
-  */
-
-  // Close button functionality for the speech balloon
-  var closeBalloonButton = document.getElementById('close-balloon');
-  if (closeBalloonButton) {
-    closeBalloonButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain);
-    });
-  }
-
-
-
-  // Close button functionality for the speech balloon
-  var closeBalloonButton = document.getElementById('close-balloon');
-  if (closeBalloonButton) {
-    closeBalloonButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain);
-    });
-  }
-
-  // --- End of Updated Speech Balloon Functionality ---
 
   // Initial load and resize adjustments
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
 
   // Initialize the chat window state
-  var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
+  var savedState = null;
+
+  // Wrap localStorage access in try...catch
+  try {
+    savedState = localStorage.getItem('chatWindowState');
+  } catch (e) {
+    // Handle or log the error if necessary
+  }
 
   if (savedState === 'open') {
     iframe.style.display = 'block';
@@ -273,7 +222,4 @@ window.onload = function() {
 
   // Attach event listener to the chat button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-
-  // Start the speech balloon management when the page loads
-//  manageSpeechBalloon();
 };
