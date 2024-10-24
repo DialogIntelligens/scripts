@@ -135,12 +135,13 @@ window.onload = function() {
 
   // --- Updated Speech Balloon Functionality Below ---
 
+  // --- Updated Speech Balloon Functionality Below ---
+
   // Array of GIF URLs (kept unchanged)
-  var gifUrls = [
+  /* var gifUrls = [
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
-    // Add new GIF URLs here
   ];
 
   var gifIndex = 0;  // Keep track of which GIF to show next
@@ -213,6 +214,25 @@ window.onload = function() {
       }, 12700);
     }, delay || 250000);
   }
+  */
+
+  // Close button functionality for the speech balloon
+  var closeBalloonButton = document.getElementById('close-balloon');
+  if (closeBalloonButton) {
+    closeBalloonButton.addEventListener('click', function() {
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      document.getElementById('speech-balloon').style.display = 'none';
+      setCookie("hasClosedBalloon", "true", 365, domain);
+    });
+  }
+
+
 
   // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
