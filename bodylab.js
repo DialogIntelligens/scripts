@@ -1,4 +1,4 @@
-window.onload = function() {
+onDOMReady(function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
