@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+(function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -275,4 +275,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Start the speech balloon management when the page loads
 //  manageSpeechBalloon();
-});
+})();
