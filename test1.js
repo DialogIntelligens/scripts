@@ -1,8 +1,8 @@
-window.onload = function() {
+(function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
-    "position: fixed; bottom: 30px; right: 30px; z-index: 401;" +
+    "position: fixed; bottom: 30px; right: 30px; z-index: 150;" +
     "}" +
     "/* Chat button styles */" +
     "#chat-button {" +
@@ -16,7 +16,7 @@ window.onload = function() {
     "}" +
     "/* Speech balloon styles */" +
     "#speech-balloon {" +
-    "display: none; position: absolute; bottom: 78px; right: 78px; width: 220px; height: 95px; background-size: cover; background-repeat: no-repeat; background-position: center; z-index: 1500;" +
+    "display: none; position: absolute; bottom: 78px; right: 78px; width: 220px; height: 95px; background-size: cover; background-repeat: no-repeat; background-position: center; z-index: 150;" +
     "}" +
     "/* Close button styles */" +
     "#close-balloon {" +
@@ -39,7 +39,7 @@ window.onload = function() {
     '<button id="close-balloon">&times;</button>' +
     '</div>' +
     '</div>' +
-    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>';
+    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 3000;"></iframe>';
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
@@ -64,12 +64,12 @@ window.onload = function() {
 
     iframe.onload = function() {
       iframeWindow = iframe.contentWindow;
-      iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+      iframeWindow.postMessage(messageData, "*");
     };
 
     // Try to send message immediately in case the iframe is already loaded
     try {
-      iframeWindow.postMessage(messageData, "https://bodylab.onrender.com");
+      iframeWindow.postMessage(messageData, "*");
     } catch (e) {
       // Ignore errors; message will be sent on iframe load
     }
@@ -135,12 +135,13 @@ window.onload = function() {
 
   // --- Updated Speech Balloon Functionality Below ---
 
+  // --- Updated Speech Balloon Functionality Below ---
+
   // Array of GIF URLs (kept unchanged)
-  var gifUrls = [
+  /* var gifUrls = [
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
-    // Add new GIF URLs here
   ];
 
   var gifIndex = 0;  // Keep track of which GIF to show next
@@ -211,8 +212,27 @@ window.onload = function() {
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
         setTimeout(showBalloon, 300000);
       }, 12700);
-    }, delay || 25000);
+    }, delay || 250000);
   }
+  */
+
+  // Close button functionality for the speech balloon
+  var closeBalloonButton = document.getElementById('close-balloon');
+  if (closeBalloonButton) {
+    closeBalloonButton.addEventListener('click', function() {
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      document.getElementById('speech-balloon').style.display = 'none';
+      setCookie("hasClosedBalloon", "true", 365, domain);
+    });
+  }
+
+
 
   // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
@@ -254,5 +274,5 @@ window.onload = function() {
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
   // Start the speech balloon management when the page loads
-  manageSpeechBalloon();
-};
+//  manageSpeechBalloon();
+})();
