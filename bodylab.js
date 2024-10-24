@@ -125,10 +125,10 @@ onDOMReady(function() {
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
 
-if (window.innerWidth >= 2000) {
+if (window.innerWidth >= 2100) {
   // Fixed size for monitor screens
-  iframe.style.width = '100px';
-  iframe.style.height = '300px';
+  iframe.style.width = '400px';
+  iframe.style.height = '600px';
 } else if (isIframeEnlarged) {
   iframe.style.width = 'calc(2 * 45vh + 6vw)';
   iframe.style.height = '90vh';
