@@ -1,4 +1,4 @@
-<script>
+window.onload = function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -55,7 +55,7 @@
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/customLogo.png",
       themeColor: "#75bddc",
-      pagePath: "https://www.bodylab.dk/",
+      pagePath: window.location.href,
       headerTitleG: "Buddy",
       titleG: "Buddy",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
@@ -255,4 +255,4 @@
 
   // Start the speech balloon management when the page loads
   manageSpeechBalloon();
-</script>
+};
