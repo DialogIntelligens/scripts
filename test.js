@@ -1,4 +1,5 @@
-<script>
+window.onload = function() {
+  <script>
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -256,3 +257,4 @@
   // Start the speech balloon management when the page loads
   manageSpeechBalloon();
 </script>
+};
