@@ -138,7 +138,7 @@ window.onload = function() {
   // --- Updated Speech Balloon Functionality Below ---
 
   // Array of GIF URLs (kept unchanged)
-  /* var gifUrls = [
+   var gifUrls = [
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
     'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
@@ -168,6 +168,7 @@ window.onload = function() {
     }
     return null;
   }
+  /*
 
   // Updated speech balloon management function
   function manageSpeechBalloon() {
