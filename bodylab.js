@@ -1,4 +1,14 @@
-window.onload = function() {
+// Define the onDOMReady function
+function onDOMReady(callback) {
+  if (document.readyState === "interactive" || document.readyState === "complete") {
+    callback();
+  } else {
+    document.addEventListener("DOMContentLoaded", callback);
+  }
+}
+
+// Use onDOMReady to execute your code after the DOM is ready
+onDOMReady(function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -53,7 +63,7 @@ window.onload = function() {
     var messageData = {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
+      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
       themeColor: "#75bddc",
       pagePath: window.location.href,
       headerTitleG: "Buddy",
@@ -105,7 +115,7 @@ window.onload = function() {
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
 
     adjustIframeSize();
-    sendMessageToIframe(); 
+    sendMessageToIframe();
   }
 
   function adjustIframeSize() {
@@ -134,7 +144,6 @@ window.onload = function() {
   }
 
   // --- Updated Speech Balloon Functionality Below ---
-
   // --- Updated Speech Balloon Functionality Below ---
 
   // Array of GIF URLs (kept unchanged)
@@ -232,8 +241,6 @@ window.onload = function() {
     });
   }
 
-
-
   // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
   if (closeBalloonButton) {
@@ -274,5 +281,5 @@ window.onload = function() {
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
   // Start the speech balloon management when the page loads
-//  manageSpeechBalloon();
-};
+  // manageSpeechBalloon();
+});
