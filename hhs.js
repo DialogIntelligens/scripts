@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
       headerTitleG: "SkadedyrShops Virtuelle Assistent",
-      headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "SkadedyrShop",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
