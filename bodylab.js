@@ -1,6 +1,6 @@
 // Define the onDOMReady function
 function onDOMReady(callback) {
-  if (document.readyState === "interactive" || document.readyState === "complete") {
+  if (document.readyState !== "loading") {
     callback();
   } else {
     document.addEventListener("DOMContentLoaded", callback);
