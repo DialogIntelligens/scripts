@@ -40,7 +40,7 @@ onDOMReady(function() {
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
-  // Inject HTML into the body
+  // Inject HTML into a temporary div
   var chatbotHTML = '<div id="chat-container">' +
     '<button id="chat-button">' +
     '<img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us">' +
@@ -49,14 +49,16 @@ onDOMReady(function() {
     '<button id="close-balloon">&times;</button>' +
     '</div>' +
     '</div>' +
-    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 3000;"></iframe>';
+    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" ' +
+    'style="display: none; position: fixed; bottom: 3vh; right: 2vw; ' +
+    'width: 50vh; height: 90vh; border: none; z-index: 3000;"></iframe>';
 
-  document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+  // Create a temporary div element
+  var tempDiv = document.createElement('div');
+  tempDiv.innerHTML = chatbotHTML;
 
-  var isIframeEnlarged = false;
-  var iframeWindow;
-
-  var iframe = document.getElementById('chat-iframe');
+  // Get the iframe element from the temporary div
+  var iframe = tempDiv.querySelector('#chat-iframe');
 
   // Function to handle iframe load
   function onIframeLoad() {
@@ -65,19 +67,18 @@ onDOMReady(function() {
     sendMessageToIframe();
   }
 
-  // Add event listener for iframe load
+  // Attach event listener to the iframe
   iframe.addEventListener('load', onIframeLoad);
 
-  // Check if iframe is already loaded (for cached iframes)
-  setTimeout(function() {
-    try {
-      if (iframe.contentWindow && iframe.contentWindow.location.href !== 'about:blank') {
-        onIframeLoad();
-      }
-    } catch (e) {
-      // Ignore cross-origin errors
-    }
-  }, 300);
+  // Append the contents of the temporary div to the body
+  while (tempDiv.firstChild) {
+    document.body.appendChild(tempDiv.firstChild);
+  }
+
+  var isIframeEnlarged = false;
+  var iframeWindow;
+
+  // The rest of your code remains the same
 
   function sendMessageToIframe() {
     var messageData = {
@@ -97,7 +98,7 @@ onDOMReady(function() {
       if (iframeWindow) {
         iframeWindow.postMessage(messageData, "*");
       } else {
-        // Retry after 100ms if iframeWindow is not yet available
+        // Retry after 200ms if iframeWindow is not yet available
         setTimeout(postMessage, 200);
       }
     }
@@ -117,19 +118,17 @@ onDOMReady(function() {
       isIframeEnlarged = !isIframeEnlarged;
       adjustIframeSize();
     } else if (event.data.action === 'closeChat') {
-      document.getElementById('chat-iframe').style.display = 'none';
+      iframe.style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     }
   });
 
   function toggleChatWindow() {
-    var iframe = document.getElementById('chat-iframe');
-    var button = document.getElementById('chat-button');
     var isCurrentlyOpen = iframe.style.display !== 'none';
 
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    document.getElementById('chat-button').style.display = isCurrentlyOpen ? 'block' : 'none';
 
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
 
@@ -138,7 +137,6 @@ onDOMReady(function() {
   }
 
   function adjustIframeSize() {
-    var iframe = document.getElementById('chat-iframe');
     console.log("Adjusting iframe size. Window width: ", window.innerWidth);
 
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
@@ -163,8 +161,6 @@ onDOMReady(function() {
     iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
     iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
   }
-
-  // --- Speech Balloon Functionality (unchanged and commented out) ---
 
   // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
