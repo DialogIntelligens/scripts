@@ -57,11 +57,27 @@ onDOMReady(function() {
   var iframeWindow;
 
   var iframe = document.getElementById('chat-iframe');
-  iframe.onload = function() {
+
+  // Function to handle iframe load
+  function onIframeLoad() {
     iframeWindow = iframe.contentWindow;
     adjustIframeSize();
     sendMessageToIframe();
-  };
+  }
+
+  // Add event listener for iframe load
+  iframe.addEventListener('load', onIframeLoad);
+
+  // Check if iframe is already loaded (for cached iframes)
+  setTimeout(function() {
+    try {
+      if (iframe.contentWindow && iframe.contentWindow.location.href !== 'about:blank') {
+        onIframeLoad();
+      }
+    } catch (e) {
+      // Ignore cross-origin errors
+    }
+  }, 100);
 
   function sendMessageToIframe() {
     var messageData = {
@@ -76,10 +92,17 @@ onDOMReady(function() {
       isPhoneView: window.innerWidth < 800
     };
 
-    // Ensure the iframe window is available
-    if (iframeWindow) {
-      iframeWindow.postMessage(messageData, "*");
+    // Function to send message when iframeWindow is available
+    function postMessage() {
+      if (iframeWindow) {
+        iframeWindow.postMessage(messageData, "*");
+      } else {
+        // Retry after 100ms if iframeWindow is not yet available
+        setTimeout(postMessage, 100);
+      }
     }
+
+    postMessage();
   }
 
   // Global message event listener
@@ -103,7 +126,6 @@ onDOMReady(function() {
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-
     var isCurrentlyOpen = iframe.style.display !== 'none';
 
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
@@ -111,11 +133,8 @@ onDOMReady(function() {
 
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
 
-    // If iframe is already loaded, adjust size and send message
-    if (iframeWindow) {
-      adjustIframeSize();
-      sendMessageToIframe();
-    }
+    adjustIframeSize();
+    sendMessageToIframe();
   }
 
   function adjustIframeSize() {
@@ -143,91 +162,9 @@ onDOMReady(function() {
     iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
     iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
     iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
-
-    sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
-  // --- Updated Speech Balloon Functionality Below ---
-  // --- Updated Speech Balloon Functionality Below ---
-
-  // Array of GIF URLs (kept unchanged)
-  /* var gifUrls = [
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/Hjaelp-stong.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/produktanbefaldning.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/10/kostplan.gif'
-  ];
-
-  var gifIndex = 0;  // Keep track of which GIF to show next
-
-  // Cookie functions
-  function setCookie(name, value, days, domain) {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    var domainStr = domain ? "; domain=" + domain : "";
-    document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
-  }
-
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-  // Updated speech balloon management function
-  function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-      document.getElementById('speech-balloon').style.display = 'none';
-      return;
-    }
-
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-      delay = parseInt(nextShowTime) - now;
-    }
-
-    setTimeout(function showBalloon() {
-      var hasClosedBalloon = getCookie("hasClosedBalloon");
-      if (hasClosedBalloon) {
-        return; // User has closed the balloon; do not show it again
-      }
-
-      // Select the next GIF in sequence
-      var nextGifUrl = gifUrls[gifIndex];
-      gifIndex = (gifIndex + 1) % gifUrls.length;  // Cycle through the GIFs in order
-
-      // Set the background-image style
-      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + nextGifUrl + ')';
-
-      document.getElementById("speech-balloon").style.display = "block";
-      setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 300000;
-        var domain = window.location.hostname;
-        var domainParts = domain.split(".");
-        if (domainParts.length > 2) {
-          domain = "." + domainParts.slice(-2).join(".");
-        } else {
-          domain = "." + domain;
-        }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 300000);
-      }, 12700);
-    }, delay || 250000);
-  }
-  */
+  // --- Speech Balloon Functionality (unchanged and commented out) ---
 
   // Close button functionality for the speech balloon
   var closeBalloonButton = document.getElementById('close-balloon');
@@ -244,24 +181,6 @@ onDOMReady(function() {
       setCookie("hasClosedBalloon", "true", 365, domain);
     });
   }
-
-  // Close button functionality for the speech balloon
-  var closeBalloonButton = document.getElementById('close-balloon');
-  if (closeBalloonButton) {
-    closeBalloonButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain);
-    });
-  }
-
-  // --- End of Updated Speech Balloon Functionality ---
 
   // Initialize the chat window state
   var savedState = localStorage.getItem('chatWindowState');
@@ -270,11 +189,9 @@ onDOMReady(function() {
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
-    // If iframe is already loaded, adjust size and send message
-    if (iframeWindow) {
-      adjustIframeSize();
-      sendMessageToIframe();
-    }
+    // Adjust size and send message (will wait if iframeWindow is not ready)
+    adjustIframeSize();
+    sendMessageToIframe();
   } else {
     iframe.style.display = 'none';
     button.style.display = 'block';
@@ -283,13 +200,8 @@ onDOMReady(function() {
   // Attach event listener to the chat button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
-  // Start the speech balloon management when the page loads
-  // manageSpeechBalloon();
-
   // Handle window resize
   window.addEventListener('resize', function() {
-    if (iframeWindow) {
-      adjustIframeSize();
-    }
+    adjustIframeSize();
   });
 });
