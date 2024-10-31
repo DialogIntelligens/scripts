@@ -40,25 +40,41 @@ onDOMReady(function() {
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
-  // Inject HTML into a temporary div
-  var chatbotHTML = '<div id="chat-container">' +
+  // Inject HTML into the body (without the iframe)
+  var chatContainerHTML = '<div id="chat-container">' +
     '<button id="chat-button">' +
     '<img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us">' +
     '</button>' +
     '<div id="speech-balloon">' +
     '<button id="close-balloon">&times;</button>' +
     '</div>' +
-    '</div>' +
-    '<iframe id="chat-iframe" src="https://bodylab.onrender.com" ' +
-    'style="display: none; position: fixed; bottom: 3vh; right: 2vw; ' +
-    'width: 50vh; height: 90vh; border: none; z-index: 3000;"></iframe>';
+    '</div>';
 
-  // Create a temporary div element
-  var tempDiv = document.createElement('div');
-  tempDiv.innerHTML = chatbotHTML;
+  document.body.insertAdjacentHTML('beforeend', chatContainerHTML);
 
-  // Get the iframe element from the temporary div
-  var iframe = tempDiv.querySelector('#chat-iframe');
+  var isIframeEnlarged = false;
+  var iframeWindow;
+
+  // Create the iframe element
+  var iframe = document.createElement('iframe');
+  iframe.id = 'chat-iframe';
+  iframe.style.display = 'none';
+  iframe.style.position = 'fixed';
+  iframe.style.bottom = '3vh';
+  iframe.style.right = '2vw';
+  iframe.style.width = '50vh';
+  iframe.style.height = '90vh';
+  iframe.style.border = 'none';
+  iframe.style.zIndex = '3000';
+
+  // Set the onload event handler before setting the src
+  iframe.onload = onIframeLoad;
+
+  // Now set the src
+  iframe.src = 'https://bodylab.onrender.com';
+
+  // Append the iframe to the body
+  document.body.appendChild(iframe);
 
   // Function to handle iframe load
   function onIframeLoad() {
@@ -67,18 +83,18 @@ onDOMReady(function() {
     sendMessageToIframe();
   }
 
-  // Attach event listener to the iframe
-  iframe.addEventListener('load', onIframeLoad);
-
-  // Append the contents of the temporary div to the body
-  while (tempDiv.firstChild) {
-    document.body.appendChild(tempDiv.firstChild);
-  }
-
-  var isIframeEnlarged = false;
-  var iframeWindow;
-
-  // The rest of your code remains the same
+  // As a backup, check if iframe is already loaded (for cached iframes)
+  setTimeout(function() {
+    if (!iframeWindow) {
+      try {
+        if (iframe.contentWindow && iframe.contentWindow.location.href !== 'about:blank') {
+          onIframeLoad();
+        }
+      } catch (e) {
+        // Ignore cross-origin errors
+      }
+    }
+  }, 500); // Delay slightly longer
 
   function sendMessageToIframe() {
     var messageData = {
