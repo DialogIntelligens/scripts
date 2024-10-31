@@ -56,10 +56,14 @@ onDOMReady(function() {
   var isIframeEnlarged = false;
   var iframeWindow;
 
-  function sendMessageToIframe() {
-    var iframe = document.getElementById('chat-iframe');
+  var iframe = document.getElementById('chat-iframe');
+  iframe.onload = function() {
     iframeWindow = iframe.contentWindow;
+    adjustIframeSize();
+    sendMessageToIframe();
+  };
 
+  function sendMessageToIframe() {
     var messageData = {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
@@ -72,16 +76,9 @@ onDOMReady(function() {
       isPhoneView: window.innerWidth < 800
     };
 
-    iframe.onload = function() {
-      iframeWindow = iframe.contentWindow;
+    // Ensure the iframe window is available
+    if (iframeWindow) {
       iframeWindow.postMessage(messageData, "*");
-    };
-
-    // Try to send message immediately in case the iframe is already loaded
-    try {
-      iframeWindow.postMessage(messageData, "*");
-    } catch (e) {
-      // Ignore errors; message will be sent on iframe load
     }
   }
 
@@ -114,8 +111,11 @@ onDOMReady(function() {
 
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
 
-    adjustIframeSize();
-    sendMessageToIframe();
+    // If iframe is already loaded, adjust size and send message
+    if (iframeWindow) {
+      adjustIframeSize();
+      sendMessageToIframe();
+    }
   }
 
   function adjustIframeSize() {
@@ -125,18 +125,17 @@ onDOMReady(function() {
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
 
-if (window.innerWidth >= 1500) {
-  // Fixed size for monitor screens
-  iframe.style.width = '500px';
-  iframe.style.height = '700px';
-} else if (isIframeEnlarged) {
-  iframe.style.width = 'calc(2 * 45vh + 6vw)';
-  iframe.style.height = '90vh';
-} else {
-  iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
-  iframe.style.height = '90vh';
-}
-
+    if (window.innerWidth >= 1500) {
+      // Fixed size for monitor screens
+      iframe.style.width = '500px';
+      iframe.style.height = '700px';
+    } else if (isIframeEnlarged) {
+      iframe.style.width = 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = '90vh';
+    } else {
+      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+      iframe.style.height = '90vh';
+    }
 
     iframe.style.position = 'fixed';
     iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
@@ -264,19 +263,18 @@ if (window.innerWidth >= 1500) {
 
   // --- End of Updated Speech Balloon Functionality ---
 
-  // Initial load and resize adjustments
-  adjustIframeSize();
-  window.addEventListener('resize', adjustIframeSize);
-
   // Initialize the chat window state
   var savedState = localStorage.getItem('chatWindowState');
-  var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
 
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
-    sendMessageToIframe();
+    // If iframe is already loaded, adjust size and send message
+    if (iframeWindow) {
+      adjustIframeSize();
+      sendMessageToIframe();
+    }
   } else {
     iframe.style.display = 'none';
     button.style.display = 'block';
@@ -287,4 +285,11 @@ if (window.innerWidth >= 1500) {
 
   // Start the speech balloon management when the page loads
   // manageSpeechBalloon();
+
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    if (iframeWindow) {
+      adjustIframeSize();
+    }
+  });
 });
