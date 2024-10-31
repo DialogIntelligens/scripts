@@ -77,7 +77,7 @@ onDOMReady(function() {
     } catch (e) {
       // Ignore cross-origin errors
     }
-  }, 100);
+  }, 300);
 
   function sendMessageToIframe() {
     var messageData = {
@@ -98,7 +98,7 @@ onDOMReady(function() {
         iframeWindow.postMessage(messageData, "*");
       } else {
         // Retry after 100ms if iframeWindow is not yet available
-        setTimeout(postMessage, 100);
+        setTimeout(postMessage, 200);
       }
     }
 
