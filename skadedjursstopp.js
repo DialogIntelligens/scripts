@@ -247,8 +247,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
-    'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+    'https://dialogintelligens.dk/wp-content/uploads/2024/11/hhs-hjaelp-11.gif',
+    'https://dialogintelligens.dk/wp-content/uploads/2024/11/hhs-produkt.gif'
     // Add new GIF URLs here
   ];
 
