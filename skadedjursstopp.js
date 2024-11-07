@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "SkadedjursStopps Virtuelle Assistent",
       headerSubtitleG: "Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy. Du skriver med konstgjord intelligens.",
       titleG: "SkadedjursStopp",
-      firstMessage: "Hej😊 Vad kan jag hjälpa dig med?🐝",
+      firstMessage: "Hej 😊 Vad kan jag hjälpa dig med? 🐝 (Du kan ställa en fråga eller ladda upp en bild 📷)",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
