@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "SkadedyrShops Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "SkadedyrShop",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål eller uploade et billede📷)",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
