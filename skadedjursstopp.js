@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#2a803c",
       headerTitleG: "SkadedjursStopps Virtuelle Assistent",
-      headerSubtitleG: "Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy. Du skriver med konstgjord intelligens.",
+      headerSubtitleG: "Du skriver med konstgjord intelligens. Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy.",
       titleG: "SkadedjursStopp",
       firstMessage: "Hej 😊 Vad kan jag hjälpa dig med? 🐝 (Du kan ställa en fråga eller ladda upp en bild 📷)",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
