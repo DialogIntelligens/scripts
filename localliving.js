@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3APIBackup: "",
       metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a03415f3-6cab-496e-abe2-ed41b1652b7d",
       metaDataKey: "product",
-      metaDataVar: "metadataavailable",
+      metaDataVar: "url",
       metaDataParameter: "$in",
       privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Privatlivspolitik_HHS.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/WhiteMessageIcon.png",
