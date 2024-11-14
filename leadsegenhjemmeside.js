@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 		privacyLink: "",
-		titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/04/titleLogo.png",
+		titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/04/DIlogo.png",
 		headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/04/DIlogo.png",
 		themeColor: "#5083e3",
 		headerTitleG: "Virtuel assistent",
