@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveMessageLogo.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
@@ -139,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
-      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
-      themeColor: "#2a803c",
-      headerTitleG: "SkadedyrShops Virtuelle Assistent",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveWhiteMessageLogo.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveLogo.png",
+      themeColor: "#8251f7",
+      headerTitleG: "Vegan Actives Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "SkadedyrShop",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål eller uploade et billede📷)",
+      titleG: "Vegan Active",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🌱",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
