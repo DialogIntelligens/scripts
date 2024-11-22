@@ -283,7 +283,7 @@ function toggleChatWindow() {
       document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
         document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 30000;
+        var nextTime = new Date().getTime() + 300000;
         var domain = window.location.hostname;
         var domainParts = domain.split(".");
         if (domainParts.length > 2) {
@@ -292,8 +292,8 @@ function toggleChatWindow() {
           domain = "." + domain;
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 30000);
-      }, 10000);
+        setTimeout(showBalloon, 300000);
+      }, 12000);
     }, delay || 15000);
   }
 
