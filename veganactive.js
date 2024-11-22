@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Vegan Actives Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Vegan Active",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🌱",
+      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Hvad kan jeg hjælpe dig med?🌱",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
