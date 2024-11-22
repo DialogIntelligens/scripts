@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: '',
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/11/Kobsaftale-vegan-active.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveWhiteMessageLogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveLogo.png",
       themeColor: "#8251f7",
