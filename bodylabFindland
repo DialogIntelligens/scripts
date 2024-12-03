@@ -109,7 +109,7 @@ onDOMReady(function() {
 Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om jag får säga det själv. Så om du har en fråga kan jag med stor sannolikhet hjälpa dig. Jag är dock bara en robot, och precis som människor kan jag också göra fel. Om du tycker att jag pratar strunt kan du bara kontakta vår",
       contactLink: "https://www.bodylab.dk/shop/cms-contact.html",
       contactTitle: "kundeservice",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tietosuojakaytanto_BodylabSuomi.docx",
       
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
