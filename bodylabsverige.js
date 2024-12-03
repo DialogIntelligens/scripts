@@ -96,7 +96,7 @@ onDOMReady(function() {
     }
   }, 500); // Delay slightly longer
 
-  function sendMessageToIframe() {
+   function sendMessageToIframe() {
     var messageData = {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
@@ -105,10 +105,11 @@ onDOMReady(function() {
       pagePath: window.location.href,
       headerTitleG: "Buddy",
       titleG: "Buddy",
-      headerSubtitleG: "Du chatter med Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores",
-      contactLink: "https://www.bodylab.dk/shop/cms-contact.html",
-      contactTitle: "kundeservice",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
+      headerSubtitleG: "
+Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om jag får säga det själv. Så om du har en fråga kan jag med stor sannolikhet hjälpa dig. Jag är dock bara en robot, och precis som människor kan jag också göra fel. Om du tycker att jag pratar strunt kan du bara kontakta vår",
+      contactLink: "https://www.bodylab.se/shop/cms-contact.html",
+      contactTitle: "kundtjänst",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Integritetspolicy_BodylabSverige.docx",
       
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
@@ -116,7 +117,7 @@ onDOMReady(function() {
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
 
       firstMessage1: "Hej",
-      firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
+      firstMessage2: "Mitt namn är Buddy. Jag är din virtuella träningspartner som kan hjälpa dig med allt från produktrekommendationer till träningstips. Ställ en fråga till mig – så hittar vi en lösning tillsammans! När du skriver accepterar du samtidigt att vår konversation behandlas och sparas 🤖",
       
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -134,6 +135,7 @@ onDOMReady(function() {
 
     postMessage();
   }
+
 
   // Global message event listener
   window.addEventListener('message', function(event) {
