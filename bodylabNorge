@@ -105,8 +105,7 @@ onDOMReady(function() {
       pagePath: window.location.href,
       headerTitleG: "Buddy",
       titleG: "Buddy",
-      headerSubtitleG: "
-Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om jag får säga det själv. Så om du har en fråga kan jag med stor sannolikhet hjälpa dig. Jag är dock bara en robot, och precis som människor kan jag också göra fel. Om du tycker att jag pratar strunt kan du bara kontakta vår",
+      headerSubtitleG: "Du chatter med Buddy. Jeg vet det meste om trening og Bodylab-produkter, om jeg skal si det selv. Så hvis du har et spørsmål, kan jeg med stor sannsynlighet hjelpe deg. Jeg er imidlertid bare en robot, og akkurat som mennesker kan jeg også gjøre feil. Hvis du synes jeg snakker tull, kan du bare kontakte vår",
       contactLink: "https://www.bodylab.dk/shop/cms-contact.html",
       contactTitle: "kundeservice",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdfhttp://dialogintelligens.dk/wp-content/uploads/2024/12/Personvernerklaering_BodylabNorge.docx",
