@@ -112,10 +112,11 @@ onDOMReady(function() {
       inputText: "Skriv spørsmålet ditt her...",
       chatbotID: "bodylabnorge",
       
-      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
-      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
-      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
-      recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
+      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/61b94d81-2d58-4bf7-b94c-174974941c91",
+      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4f53bc4f-108b-469a-bfb1-208114e24eda",
+      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4bba0508-02e9-4b9e-8546-4bfaaf128e16",
+      recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/da015a4e-77c8-4dd1-944e-ef9b085504e4",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dea8aba7-907c-4bbd-bd39-41468b977be7",
 
       firstMessage1: "Hei",
       firstMessage2: "Mitt navn er Buddy. Jeg er din virtuelle treningspartner som kan hjelpe deg med alt fra produktanbefalinger til treningstips. Still meg et spørsmål – så finner vi en løsning sammen! Når du skriver, godtar du samtidig at samtalen vår behandles og lagres 🤖",
