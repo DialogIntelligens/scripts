@@ -111,7 +111,7 @@ onDOMReady(function() {
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Integritetspolicy_BodylabSverige.docx",
       inputText: "Skriv din fråga här...",
       
-      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
+      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bd6a3a34-cab6-4fbc-865e-a908f838ac87",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9f3f29e6-d5d8-400f-850f-c63f2bcee8fa",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/47340237-0736-4392-9c6a-d559b34f54aa",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b5b78a1a-1e48-4cda-bece-6903c4ddc476",
