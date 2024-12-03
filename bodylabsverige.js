@@ -115,6 +115,7 @@ onDOMReady(function() {
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9f3f29e6-d5d8-400f-850f-c63f2bcee8fa",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/47340237-0736-4392-9c6a-d559b34f54aa",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/28a65501-95e9-4e68-8895-30f9dc1c3754",
       chatbotID: "bodylabsverige",
 
       firstMessage1: "Hej",
