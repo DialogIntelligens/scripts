@@ -115,6 +115,7 @@ onDOMReady(function() {
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
+      chatbotID: "bodylabsverige",
 
       firstMessage1: "Hej",
       firstMessage2: "Mitt namn är Buddy. Jag är din virtuella träningspartner som kan hjälpa dig med allt från produktrekommendationer till träningstips. Ställ en fråga till mig – så hittar vi en lösning tillsammans! När du skriver accepterar du samtidigt att vår konversation behandlas och sparas 🤖",
