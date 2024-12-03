@@ -109,6 +109,7 @@ onDOMReady(function() {
       contactLink: "https://www.bodylab.se/shop/cms-contact.html",
       contactTitle: "kundtjänst",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Integritetspolicy_BodylabSverige.docx",
+      inputText: "Skriv din fråga här...",
       
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
