@@ -96,7 +96,7 @@ onDOMReady(function() {
     }
   }, 500); // Delay slightly longer
 
-   function sendMessageToIframe() {
+  function sendMessageToIframe() {
     var messageData = {
       action: 'integrationOptions',
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
@@ -105,8 +105,7 @@ onDOMReady(function() {
       pagePath: window.location.href,
       headerTitleG: "Buddy",
       titleG: "Buddy",
-      headerSubtitleG: "
-Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om jag får säga det själv. Så om du har en fråga kan jag med stor sannolikhet hjälpa dig. Jag är dock bara en robot, och precis som människor kan jag också göra fel. Om du tycker att jag pratar strunt kan du bara kontakta vår",
+      headerSubtitleG: "Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om jag får säga det själv. Så om du har en fråga kan jag med stor sannolikhet hjälpa dig. Jag är dock bara en robot, och precis som människor kan jag också göra fel. Om du tycker att jag pratar strunt kan du bara kontakta vår",
       contactLink: "https://www.bodylab.se/shop/cms-contact.html",
       contactTitle: "kundtjänst",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Integritetspolicy_BodylabSverige.docx",
@@ -135,7 +134,6 @@ Du chattar med Buddy. Jag vet det mesta om träning och Bodylab-produkter, om ja
 
     postMessage();
   }
-
 
   // Global message event listener
   window.addEventListener('message', function(event) {
