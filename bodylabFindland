@@ -112,10 +112,11 @@ onDOMReady(function() {
       inputText: "Kirjoita kysymyksesi tähän...",
       chatbotID: "bodylabfindland",
       
-      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
-      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
-      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
-      recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
+      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d4e4cb71-7cd3-4a36-9023-325bd329627e",
+      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e3d78f8-c3f9-4a9e-88e4-a009f36b37ea",
+      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b2db8571-e8cc-47b6-b7f6-a0f2ff7c6bf0",
+      recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bd5fcd35-8707-400d-ac40-6d676b6240b6",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0b21f2da-9eda-4eba-af81-141ce4b38590",
 
       firstMessage1: "Hei",
       firstMessage2: "Nimeni on Buddy. Olen virtuaalinen treenikaverisi, joka voi auttaa sinua kaikessa tuotesuosituksista treenivinkkeihin. Kysy minulta kysymys – niin löydämme ratkaisun yhdessä! Kun kirjoitat, hyväksyt samalla, että keskustelumme käsitellään ja tallennetaan 🤖",
