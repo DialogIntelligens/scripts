@@ -112,8 +112,8 @@ onDOMReady(function() {
       inputText: "Skriv din fråga här...",
       
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
-      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
-      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
+      weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9f3f29e6-d5d8-400f-850f-c63f2bcee8fa",
+      productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/47340237-0736-4392-9c6a-d559b34f54aa",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
       chatbotID: "bodylabsverige",
 
