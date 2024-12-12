@@ -108,7 +108,7 @@ onDOMReady(function() {
       headerSubtitleG: "Du chatter med Buddy. Jeg vet det meste om trening og Bodylab-produkter, om jeg skal si det selv. Så hvis du har et spørsmål, kan jeg med stor sannsynlighet hjelpe deg. Jeg er imidlertid bare en robot, og akkurat som mennesker kan jeg også gjøre feil. Hvis du synes jeg snakker tull, kan du bare kontakte vår",
       contactLink: "https://www.bodylab.no/shop/cms-contact.html",
       contactTitle: "kundeservice",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdfhttp://dialogintelligens.dk/wp-content/uploads/2024/12/Personvernerklaering_BodylabNorge.docx",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Personvernerklaering_BodylabNorge.pdf",
       inputText: "Skriv spørsmålet ditt her...",
       chatbotID: "bodylabnorge",
       
