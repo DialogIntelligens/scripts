@@ -118,6 +118,18 @@ onDOMReady(function() {
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/28a65501-95e9-4e68-8895-30f9dc1c3754",
       chatbotID: "bodylabsverige",
 
+      mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-1500-kcal.pdf",
+      mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-2000-kcal.pdf",
+      mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-2500-kcal.pdf",
+      mealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-3000-kcal.pdf",
+      mealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-3500-kcal.pdf",
+      vægttabmealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SETabdiet-plan-1500-kcal.pdf",
+      vægttabmealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SETabdiet-plan-2000-kcal.pdf",
+      vægttabmealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SETabdiet-plan-2500-kcal.pdf",
+      vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SETabdiet-plan-3000-kcal.pdf",
+      vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SETabdiet-plan-3500-kcal.pdf",
+
+
       firstMessage1: "Hej",
       firstMessage2: "Mitt namn är Buddy. Jag är din virtuella träningspartner som kan hjälpa dig med allt från produktrekommendationer till träningstips. Ställ en fråga till mig – så hittar vi en lösning tillsammans! När du skriver accepterar du samtidigt att vår konversation behandlas och sparas 🤖",
       
