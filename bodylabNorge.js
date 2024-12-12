@@ -129,17 +129,6 @@ onDOMReady(function() {
       vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOTabdiet-plan-3000-kcal.pdf",
       vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOTabdiet-plan-3500-kcal.pdf",
 
-      mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-1500-kcal.pdf",
-      mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2000-kcal.pdf",
-      mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2500-kcal.pdf",
-      mealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-3000-kcal.pdf",
-      mealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-3500-kcal.pdf",
-      vægttabmealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-1500-kcal.pdf",
-      vægttabmealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-2000-kcal.pdf",
-      vægttabmealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-2500-kcal.pdf",
-      vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-3000-kcal.pdf",
-      vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-3500-kcal.pdf",
-
       firstMessage1: "Hei",
       firstMessage2: "Mitt navn er Buddy. Jeg er din virtuelle treningspartner som kan hjelpe deg med alt fra produktanbefalinger til treningstips. Still meg et spørsmål – så finner vi en løsning sammen! Når du skriver, godtar du samtidig at samtalen vår behandles og lagres 🤖",
       
