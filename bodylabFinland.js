@@ -108,7 +108,7 @@ onDOMReady(function() {
       headerSubtitleG: "Keskustelet Buddy-nimisen kanssa. Tiedän melkein kaiken treenaamisesta ja Bodylab-tuotteista, jos saan itse sanoa niin. Joten jos sinulla on kysyttävää, voin todennäköisesti auttaa sinua. Olen kuitenkin vain robotti, ja aivan kuten ihmiset, voin myös tehdä virheitä. Jos mielestäsi puhun hölynpölyä, voit vain ottaa yhteyttä meidän",
       contactLink: "https://www.bodylab.fi/shop/cms-contact.html",
       contactTitle: "asiakaspalvelu",
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tietosuojakaytanto_BodylabSuomi.docx",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tietosuojakaytanto_BodylabSuomi.pdf",
       inputText: "Kirjoita kysymyksesi tähän...",
       chatbotID: "bodylabfinland",
       
