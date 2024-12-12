@@ -118,6 +118,17 @@ onDOMReady(function() {
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bd5fcd35-8707-400d-ac40-6d676b6240b6",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0b21f2da-9eda-4eba-af81-141ce4b38590",
 
+      mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-1500-kcal.pdf",
+      mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2000-kcal.pdf",
+      mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2500-kcal.pdf",
+      mealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-3000-kcal.pdf",
+      mealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-3500-kcal.pdf",
+      vægttabmealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-1500-kcal.pdf",
+      vægttabmealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-2000-kcal.pdf",
+      vægttabmealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-2500-kcal.pdf",
+      vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-3000-kcal.pdf",
+      vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FITabdiet-plan-3500-kcal.pdf",
+
       firstMessage1: "Hei",
       firstMessage2: "Nimeni on Buddy. Olen virtuaalinen treenikaverisi, joka voi auttaa sinua kaikessa tuotesuosituksista treenivinkkeihin. Kysy minulta kysymys – niin löydämme ratkaisun yhdessä! Kun kirjoitat, hyväksyt samalla, että keskustelumme käsitellään ja tallennetaan 🤖",
       
