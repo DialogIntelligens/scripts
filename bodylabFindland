@@ -110,7 +110,7 @@ onDOMReady(function() {
       contactTitle: "asiakaspalvelu",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tietosuojakaytanto_BodylabSuomi.docx",
       inputText: "Kirjoita kysymyksesi tähän...",
-      chatbotID: "bodylabfindland",
+      chatbotID: "bodylabfinland",
       
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d4e4cb71-7cd3-4a36-9023-325bd329627e",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e3d78f8-c3f9-4a9e-88e4-a009f36b37ea",
