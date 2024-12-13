@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveMessageLogo.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/padelRackMessageLogo.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
