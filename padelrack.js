@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "padelrack",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14627b78-d036-4625-9202-2883333f8b38",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/598ed7be-e947-4cca-9d03-96be35422f3d",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0441facd-04b8-4e09-a874-4f3b43efb33e",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f1c6362b-2bbe-4d17-81d2-aae5c340b92b",
