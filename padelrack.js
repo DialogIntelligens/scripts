@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/11/Privatlivspolitik_VeganActive.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/whitemessageLogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/padelRackLogo.png",
-      themeColor: "#282828",
+      themeColor: "#e0e557",
       headerTitleG: "Padel Racks Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Padel Rack",
