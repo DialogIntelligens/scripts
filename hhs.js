@@ -126,6 +126,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   var autoOpenOnNavigate = false; // Set to true or false to control auto-open behavior
 
+    // Retrieve or create websiteuserid in parent domain's localStorage
+  let websiteuserid = localStorage.getItem('websiteuserid');
+  if (!websiteuserid) {
+    websiteuserid = Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('websiteuserid', websiteuserid);
+  }
+
   function sendMessageToIframe() {
     var iframe = document.getElementById('chat-iframe');
     var iframeWindow = iframe.contentWindow;
@@ -159,7 +166,9 @@ document.addEventListener('DOMContentLoaded', function () {
       titleG: "SkadedyrShop",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål eller uploade et billede📷)",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800
+      isPhoneView: window.innerWidth < 800,
+
+      parentWebsiteUserId: websiteuserid
     };
 
     function trySendingMessage() {
