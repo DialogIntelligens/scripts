@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "veganactive",
+      chatbotID: "jagttegnkurser",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14627b78-d036-4625-9202-2883333f8b38",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -141,11 +141,11 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/11/Privatlivspolitik_VeganActive.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveWhiteMessageLogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveLogo.png",
-      themeColor: "#8251f7",
-      headerTitleG: "Vegan Actives Virtuelle Assistent",
+      themeColor: "#626b4e",
+      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Vegan Active",
-      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Hvad kan jeg hjælpe dig med?🌱",
+      titleG: "Jagttegn kurser",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
