@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveMessageLogo.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserMessageLogo.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
@@ -139,8 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/11/Privatlivspolitik_VeganActive.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveWhiteMessageLogo.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/11/VeganActiveLogo.png",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
       themeColor: "#626b4e",
       headerTitleG: "Jagttegn kursers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
