@@ -126,8 +126,8 @@ document.addEventListener('DOMContentLoaded', function() {
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0441facd-04b8-4e09-a874-4f3b43efb33e",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f1c6362b-2bbe-4d17-81d2-aae5c340b92b",
-      flow2Key: "",
-      flow2API: "",
+      flow2Key: "productnofilter",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d672920f-133c-4cd2-8c51-b043dea4cf66",
       flow3Key: "product",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d672920f-133c-4cd2-8c51-b043dea4cf66",
       SOCKET_SERVER_URL_Backup: "",
@@ -135,6 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
+
+      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9570b830-9e47-4eed-ba88-7b1ba8cfb66c",
+      metaDataKey: "product",
 
       imageAPI: '',
       
