@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: '',
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/11/Privatlivspolitik_VeganActive.pdf",
+      privacyLink: "https://image-hosting-pi.vercel.app/jagttegn.gif",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/whitemessageLogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/padelRackLogo.png",
       themeColor: "#1a4283",
