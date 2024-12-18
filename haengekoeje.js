@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "haengekoeje",
+      chatbotID: "haengekoejer",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af218a0a-4bda-44e1-9b6e-ba6d433744ba",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
