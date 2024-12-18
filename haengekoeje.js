@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/padelRackMessageLogo.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/haengekoejerMessageLogo.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
@@ -138,9 +138,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: '',
       
-      privacyLink: "https://image-hosting-pi.vercel.app/jagttegn.gif",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/whitemessageLogo.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/padelRackLogo.png",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/haengekoejerWhiteMessageLogo.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/haengekoejerLogo.png",
       themeColor: "#1a4283",
       headerTitleG: "Tropical Hængekøjers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
