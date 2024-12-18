@@ -250,8 +250,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://dialogintelligens.dk/wp-content/uploads/2024/11/Hjaelp-stong-1.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/11/Hjaelp-stong-2.gif'
+    'https://image-hosting-pi.vercel.app/padel.gif',
+    'https://image-hosting-pi.vercel.app/padel.gif'
     // Add new GIF URLs here
   ];
 
