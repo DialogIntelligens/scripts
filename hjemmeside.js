@@ -38,13 +38,13 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1);
       }
       100% {
-        transform: scale(4);
+        transform: scale(2,5);
       }
     }
     
     @keyframes pulse-fade-out {
       0% {
-        opacity: 0.2;
+        opacity: 0.13;
       }
       100% {
         opacity: 0;
