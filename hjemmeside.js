@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     #BeaconFabButtonPulse.is-visible {
       display: block !important;
-      opacity: 0.2;
+      opacity: 0.13;
       animation: 
         1.03s cubic-bezier(0.28, 0.53, 0.7, 1) pulse-scale 0.13s both,
         0.76s cubic-bezier(0.42, 0, 0.58, 1) pulse-fade-out 0.4s both;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1);
       }
       100% {
-        transform: scale(2,5);
+        transform: scale(2.5);
       }
     }
     
