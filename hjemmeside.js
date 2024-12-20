@@ -16,10 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
       position: absolute;
       width: 60px;
       height: 60px;
-      top: -10px;
-      left: -10px;
+      top: -8px;
+      left: -8px;
       fill: var(--pulse-background);
-      fill: #FF5733;
+      fill: #FFFFFF;
       z-index: -1;
       pointer-events: none;
       display: none;
