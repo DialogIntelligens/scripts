@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
       top: var(--pulse-top-offset);
       left: var(--pulse-left-offset);
       fill: var(--pulse-background);
+      fill: #FF5733;
       z-index: -1;
       pointer-events: none;
       display: none;
