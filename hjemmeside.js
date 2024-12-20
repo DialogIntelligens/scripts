@@ -9,6 +9,49 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 30px;
       z-index: 401;
     }
+    
+    
+    
+    #BeaconFabButtonPulse {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      top: var(--pulse-top-offset);
+      left: var(--pulse-left-offset);
+      fill: var(--pulse-background);
+      z-index: -1;
+      pointer-events: none;
+      display: none;
+    }
+    
+    #BeaconFabButtonPulse.is-visible {
+      display: block !important;
+      opacity: 0.2;
+      animation: 
+        1.03s cubic-bezier(0.28, 0.53, 0.7, 1) pulse-scale 0.13s both,
+        0.76s cubic-bezier(0.42, 0, 0.58, 1) pulse-fade-out 0.4s both;
+    }
+    
+    @keyframes pulse-scale {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(4);
+      }
+    }
+    
+    @keyframes pulse-fade-out {
+      0% {
+        opacity: 0.2;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+
+
 
     /* Chat button styles */
     #chat-button {
@@ -71,12 +114,18 @@ document.addEventListener('DOMContentLoaded', function() {
       <button id="chat-button">
         <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserMessageLogo.png" alt="Chat with us">
       </button>
-
+      <!-- Pulse Animation -->
+      <div id="BeaconFabButtonPulse" class="is-visible">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M60 30C60 51.25 51.25 60 30 60C8.75 60 0 51.25 0 30C0 8.75 8.75 0 30 0C51.25 0 60 8.75 60 30Z"></path>
+        </svg>
+      </div>
       <!-- Speech Balloon GIF with Close Button -->
       <div id="speech-balloon">
         <button id="close-balloon">&times;</button>
       </div>
     </div>
+
 
     <!-- Chat Iframe -->
     <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
@@ -114,6 +163,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var autoOpenOnNavigate = false; // Set to true or false to control auto-open behavior
 
+// Function to toggle the pulse animation
+  function togglePulseAnimation(show) {
+    const pulseElement = document.querySelector('#BeaconFabButtonPulse'); // Use # for ID
+    if (show) {
+      pulseElement.classList.add('is-visible');
+    } else {
+      pulseElement.classList.remove('is-visible');
+    }
+  }
+  
+  // Trigger animation when the chat button is hovered
+  document.getElementById('chat-button').addEventListener('mouseenter', () => {
+    togglePulseAnimation(true);
+  });
+  
+  // Hide animation when mouse leaves
+  document.getElementById('chat-button').addEventListener('mouseleave', () => {
+    togglePulseAnimation(false);
+  });
+
+
+
+  
   function sendMessageToIframe() {
     var iframe = document.getElementById('chat-iframe');
     var iframeWindow = iframe.contentWindow;
