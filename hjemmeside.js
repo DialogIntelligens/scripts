@@ -246,11 +246,11 @@ function toggleChatWindow() {
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
-  var gifUrls = [
-    'https://image-hosting-pi.vercel.app/jagttegn.gif',
-    'https://image-hosting-pi.vercel.app/jagttegn.gif'
+  //var gifUrls = [
+    //'https://image-hosting-pi.vercel.app/jagttegn.gif',
+    //'https://image-hosting-pi.vercel.app/jagttegn.gif'
     // Add new GIF URLs here
-  ];
+  ///];
 
   // Speech balloon management
   function manageSpeechBalloon() {
