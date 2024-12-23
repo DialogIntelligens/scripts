@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
       top: 0px;
       left: 6px;
       fill: var(--pulse-background);
-      fill: #FFFFFF;
+      fill: #13B981;
       z-index: -1;
       pointer-events: none;
       display: none;
