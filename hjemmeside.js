@@ -133,8 +133,8 @@ document.addEventListener('DOMContentLoaded', function() {
   `;
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
-
-  // Cookie functions
+  
+    // Cookie functions
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
@@ -145,17 +145,36 @@ document.addEventListener('DOMContentLoaded', function() {
     var domainStr = domain ? "; domain=" + domain : "";
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
-
+  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
-      while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      while (c.charAt(0) === " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
   }
+  
+  /********** Show Pulse Only Once **********/
+  (function checkPulseCookie() {
+    var hasSeenPulse = getCookie("hasSeenPulse");
+    if (hasSeenPulse) {
+      document.getElementById("BeaconFabButtonPulse").classList.remove("is-visible");
+    } else {
+      // Use the same domain logic you apply elsewhere
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      // Set the hasSeenPulse cookie so user doesn't see pulse again
+      setCookie("hasSeenPulse", "true", 365, domain);
+    }
+  })();
 
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
