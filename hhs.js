@@ -171,8 +171,10 @@ document.addEventListener('DOMContentLoaded', function () {
   /********** Show Pulse Only Once **********/
   (function checkPulseCookie() {
     var hasSeenPulse = getCookie("hasSeenPulse");
+    var pulseElement = document.getElementById("BeaconFabButtonPulse");
+  
     if (hasSeenPulse) {
-      document.getElementById("BeaconFabButtonPulse").classList.remove("is-visible");
+      pulseElement.classList.remove("is-visible");
     } else {
       // Use the same domain logic you apply elsewhere
       var domain = window.location.hostname;
@@ -182,10 +184,17 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         domain = "." + domain;
       }
+  
       // Set the hasSeenPulse cookie so user doesn't see pulse again
       setCookie("hasSeenPulse", "true", 365, domain);
+  
+      // Add a delay of 3 seconds before showing the pulse
+      setTimeout(function () {
+        pulseElement.classList.add("is-visible");
+      }, 3000); // 3000ms = 3 seconds
     }
   })();
+
 
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
