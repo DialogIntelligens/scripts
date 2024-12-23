@@ -10,6 +10,52 @@ document.addEventListener('DOMContentLoaded', function() {
       z-index: 401;
     }
 
+
+    
+    #BeaconFabButtonPulse {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      top: 0px;
+      left: 6px;
+      fill: var(--pulse-background);
+      fill: #FFFFFF;
+      z-index: -1;
+      pointer-events: none;
+      display: none;
+    }
+    
+    #BeaconFabButtonPulse.is-visible {
+      display: block !important;
+      opacity: 0.13;
+      animation: 
+        1.03s cubic-bezier(0.28, 0.53, 0.7, 1) pulse-scale 0.13s both,
+        0.76s cubic-bezier(0.42, 0, 0.58, 1) pulse-fade-out 0.4s both;
+    }
+    
+    @keyframes pulse-scale {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(2.5);
+      }
+    }
+    
+    @keyframes pulse-fade-out {
+      0% {
+        opacity: 0.13;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+
+
+
+
+
     /* Chat button styles */
     #chat-button {
       cursor: pointer;
@@ -71,7 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
       <button id="chat-button">
         <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserMessageLogo.png" alt="Chat with us">
       </button>
-
+      <!-- Pulse Animation -->
+      <div id="BeaconFabButtonPulse" class="is-visible">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M60 30C60 51.25 51.25 60 30 60C8.75 60 0 51.25 0 30C0 8.75 8.75 0 30 0C51.25 0 60 8.75 60 30Z"></path>
+        </svg>
+      </div>
       <!-- Speech Balloon GIF with Close Button -->
       <div id="speech-balloon">
         <button id="close-balloon">&times;</button>
@@ -84,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-  // Cookie functions
+    // Cookie functions
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
@@ -95,17 +146,36 @@ document.addEventListener('DOMContentLoaded', function() {
     var domainStr = domain ? "; domain=" + domain : "";
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
-
+  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
-      while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      while (c.charAt(0) === " ") c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
   }
+  
+  /********** Show Pulse Only Once **********/
+  (function checkPulseCookie() {
+    var hasSeenPulse = getCookie("hasSeenPulse");
+    if (hasSeenPulse) {
+      document.getElementById("BeaconFabButtonPulse").classList.remove("is-visible");
+    } else {
+      // Use the same domain logic you apply elsewhere
+      var domain = window.location.hostname;
+      var domainParts = domain.split(".");
+      if (domainParts.length > 2) {
+        domain = "." + domainParts.slice(-2).join(".");
+      } else {
+        domain = "." + domain;
+      }
+      // Set the hasSeenPulse cookie so user doesn't see pulse again
+      setCookie("hasSeenPulse", "true", 365, domain);
+    }
+  })();
 
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
@@ -113,6 +183,16 @@ document.addEventListener('DOMContentLoaded', function() {
   var retryAttempts = 0;
 
   var autoOpenOnNavigate = false; // Set to true or false to control auto-open behavior
+
+// Function to toggle the pulse animation
+  function togglePulseAnimation(show) {
+    const pulseElement = document.querySelector('#BeaconFabButtonPulse'); // Use # for ID
+    if (show) {
+      pulseElement.classList.add('is-visible');
+    } else {
+      pulseElement.classList.remove('is-visible');
+    }
+  }
 
   function sendMessageToIframe() {
     var iframe = document.getElementById('chat-iframe');
