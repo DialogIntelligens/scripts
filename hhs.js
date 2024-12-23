@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       width: 60px;
       height: 60px;
       top: 0px;
-      left: 8px;
+      left: 0px;
       fill: var(--pulse-background);
       fill: #13B981;
       z-index: -1;
