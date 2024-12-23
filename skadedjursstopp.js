@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
       width: 60px;
       height: 60px;
       top: 0px;
-      left: 6px;
+      left: 0px;
       fill: var(--pulse-background);
       fill: #13B981;
       z-index: -1;
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     #BeaconFabButtonPulse.is-visible {
       display: block !important;
-      opacity: 0.13;
+      opacity: 0.20;
       animation: 
         1.03s cubic-bezier(0.28, 0.53, 0.7, 1) pulse-scale 0.13s both,
         0.76s cubic-bezier(0.42, 0, 0.58, 1) pulse-fade-out 0.4s both;
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     @keyframes pulse-fade-out {
       0% {
-        opacity: 0.13;
+        opacity: 0.20;
       }
       100% {
         opacity: 0;
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserMessageLogo.png" alt="Chat with us">
       </button>
       <!-- Pulse Animation -->
-      <div id="BeaconFabButtonPulse" class="is-visible">
+      <div id="BeaconFabButtonPulse">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" preserveAspectRatio="none" aria-hidden="true">
           <path d="M60 30C60 51.25 51.25 60 30 60C8.75 60 0 51.25 0 30C0 8.75 8.75 0 30 0C51.25 0 60 8.75 60 30Z"></path>
         </svg>
@@ -137,11 +137,11 @@ document.addEventListener('DOMContentLoaded', function () {
         <button id="close-balloon">&times;</button>
       </div>
     </div>
-
-
+  
     <!-- Chat Iframe -->
     <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
   `;
+
 
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
@@ -171,8 +171,11 @@ document.addEventListener('DOMContentLoaded', function () {
   /********** Show Pulse Only Once **********/
   (function checkPulseCookie() {
     var hasSeenPulse = getCookie("hasSeenPulse");
+    var pulseElement = document.getElementById("BeaconFabButtonPulse");
+  
     if (hasSeenPulse) {
-      document.getElementById("BeaconFabButtonPulse").classList.remove("is-visible");
+      // Do not show pulse animation
+      pulseElement.classList.remove("is-visible");
     } else {
       // Use the same domain logic you apply elsewhere
       var domain = window.location.hostname;
@@ -182,8 +185,14 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         domain = "." + domain;
       }
+  
       // Set the hasSeenPulse cookie so user doesn't see pulse again
       setCookie("hasSeenPulse", "true", 365, domain);
+  
+      // Add a delay of 3 seconds before showing the pulse
+      setTimeout(function () {
+        pulseElement.classList.add("is-visible");
+      }, 3000); // 3000ms = 3 seconds
     }
   })();
 
