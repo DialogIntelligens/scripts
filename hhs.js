@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserMessageLogo.png" alt="Chat with us">
+        <img src="http://dialogintelligens.dk/wp-content/uploads/2024/09/messageIcon.png" alt="Chat with us">
       </button>
       <!-- Pulse Animation -->
       <div id="BeaconFabButtonPulse">
