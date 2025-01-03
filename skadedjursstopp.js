@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_skadedjursstopp.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
-      themeColor: "#2a803c",
+      themeColor: "#18803E",
       headerTitleG: "SkadedjursStopps Virtuelle Assistent",
       headerSubtitleG: "Du skriver med konstgjord intelligens. Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy.",
       titleG: "SkadedjursStopp",
