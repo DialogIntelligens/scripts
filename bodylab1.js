@@ -262,24 +262,25 @@ onDOMReady(function() {
   // Indsæt HTML til selve popup-elementet
   // ---------------------------------------
   var popupHTML = '<div id="chatbase-message-bubbles" ' +
-      'style="position: fixed; bottom: 85px; border-radius: 10px; font-family: sans-serif; ' +
+      'style="position: fixed; bottom: 150px; right: 50px; border-radius: 10px; font-family: sans-serif; ' +
       'font-size: 15px; z-index: 2147483644; cursor: pointer; flex-direction: column; ' +
-      'gap: 50px; max-width: 70vw; display: none; right: 1rem; left: unset; ' +
-      'transform: scale(0.6); transform-origin: bottom right;">' +
+      'gap: 50px; max-width: 60vw; display: none; transform: scale(1.2); transform-origin: bottom right;">' +
         '<div style="position: absolute; top: -7px; right: -7px; font-weight: bold; ' +
-        'display: none; justify-content: center; align-items: center; z-index: 2147483643; ' +
+        'display: flex; justify-content: center; align-items: center; z-index: 2147483643; ' +
         'width: 23px; height: 23px; border-radius: 50%; text-align: center; font-size: 12px; ' +
         'cursor: pointer; background-color: rgb(224, 224, 224); color: black; ' +
         'box-shadow: rgba(150, 150, 150, 0.15) 0px 6px 24px 0px, ' +
         'rgba(150, 150, 150, 0.15) 0px 0px 0px 1px;">✕</div>' +
         '<div style="display: flex; justify-content: flex-end;">' +
           '<div style="background-color: white; color: black; box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, ' +
-          'rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; border-radius: 10px; padding: 20px; ' +
-          'margin: 8px; font-size: 15px; opacity: 1; transform: scale(1); ' +
-          'transition: opacity 1s, transform 1s;">Hej, jeg er Buddy, klar til at hjælpe ' +
-          'med produktspørgsmål og træningstips! 😊</div>' +
+          'rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; border-radius: 10px; padding: 15px; ' +
+          'margin: 8px; font-size: 15px; opacity: 1; transform: scale(1.2); ' +
+          'transition: opacity 1s, transform 1s;">Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀</div>' +
         '</div>' +
       '</div>';
+  
+  document.body.insertAdjacentHTML('beforeend', popupHTML);
+
 
 
   document.body.insertAdjacentHTML('beforeend', popupHTML);
