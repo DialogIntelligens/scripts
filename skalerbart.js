@@ -58,20 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
       z-index: 2147483647;
     }
 
-    /* Speech balloon tail */
-    #chatbase-message-bubbles::after {
-      content: '';
-      position: absolute;
-      bottom: -10px; /* Places the tail just under the box */
-      right: 20px; /* Tail points slightly off-center towards the button */
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 10px 0 10px; /* Creates a downward-pointing triangle */
-      border-color: white transparent transparent transparent; /* Matches box background */
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
-    }
-
     /* Popup close button (the small "✕") */
     #close-popup {
       position: absolute;
@@ -117,6 +103,33 @@ document.addEventListener('DOMContentLoaded', function() {
     <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com"></iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+  // ----------------------------
+  // Inject the Popup HTML
+  // ----------------------------
+  var popupHTML = `
+    <div id="chatbase-message-bubbles">
+      <!-- Close Button (the small "✕") -->
+      <div id="close-popup">✕</div>
+      <div style="display: flex; justify-content: flex-end;">
+        <div style="
+            background-color: white; 
+            color: black; 
+            box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, 
+                        rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 8px; 
+            font-size: 15px; 
+            transform: scale(1); 
+            transition: opacity 1s, transform 1s;">
+          Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', popupHTML);
+});
 
   // ----------------------------
   // Inject the Popup HTML
