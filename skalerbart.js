@@ -62,13 +62,13 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles::after {
       content: '';
       position: absolute;
-      bottom: -10px;
-      right: 20px; /* Position tail toward chat button */
+      bottom: -10px; /* Places the tail just under the box */
+      right: 20px; /* Tail points slightly off-center towards the button */
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 10px 10px 0 10px;
-      border-color: white transparent transparent transparent;
+      border-width: 10px 10px 0 10px; /* Creates a downward-pointing triangle */
+      border-color: white transparent transparent transparent; /* Matches box background */
       box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
     }
 
