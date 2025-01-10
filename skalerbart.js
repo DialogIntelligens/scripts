@@ -136,15 +136,13 @@ document.addEventListener('DOMContentLoaded', function() {
             margin: 8px; 
             font-size: 15px; 
             transform: scale(1); 
-            transition: opacity 1s, transform 1s;
-          ">
+            transition: opacity 1s, transform 1s;">
           Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
         </div>
       </div>
     </div>
   `;
   document.body.insertAdjacentHTML('beforeend', popupHTML);
-
   // ----------------------------
   // Cookie functions
   // ----------------------------
