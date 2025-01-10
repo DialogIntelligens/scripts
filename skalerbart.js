@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #chat-button img {
       width: 60px;
       height: 60px;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, transform 0.3s;
     }
 
     #chat-button:hover img {
@@ -44,19 +44,32 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup bubble styles */
     #chatbase-message-bubbles {
       position: fixed;
-      bottom: 150px;
-      right: 50px;
+      bottom: 100px; /* Space above chat button */
+      right: 30px; /* Align with chat button */
+      max-width: 280px;
+      padding: 20px;
       border-radius: 10px;
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
       font-size: 15px;
-      z-index: 2147483644;
-      cursor: pointer;
-      flex-direction: column;
-      gap: 50px;
-      max-width: 60vw;
+      background-color: white;
+      color: black;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
       display: none;
-      transform: scale(1.2);
-      transform-origin: bottom right;
+      z-index: 2147483647;
+    }
+
+    /* Speech balloon tail */
+    #chatbase-message-bubbles::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      right: 20px; /* Position tail toward chat button */
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 10px 0 10px;
+      border-color: white transparent transparent transparent;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px;
     }
 
     /* Popup close button (the small "✕") */
@@ -106,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   // ----------------------------
-  // Inject the Popup HTML (from the first code snippet)
+  // Inject the Popup HTML
   // ----------------------------
   var popupHTML = `
     <div id="chatbase-message-bubbles">
@@ -122,8 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 15px; 
             margin: 8px; 
             font-size: 15px; 
-            opacity: 1; 
-            transform: scale(1.2); 
+            transform: scale(1); 
             transition: opacity 1s, transform 1s;
           ">
           Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
@@ -355,7 +367,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Hide it automatically after 200 seconds
       setTimeout(function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 200000);
+      }, 2000000);
 
     }, 10000);
   }
