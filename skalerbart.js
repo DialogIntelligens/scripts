@@ -1,8 +1,9 @@
-// Wait until the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
+  // ----------------------------
   // Inject CSS into the head
+  // ----------------------------
   var css = `
-    /* Container for chat button and speech balloon */
+    /* Container for chat button */
     #chat-container {
       position: fixed;
       bottom: 30px;
@@ -28,68 +29,118 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: scale(1.1);
     }
 
-    /* Speech balloon styles */
-    #speech-balloon {
+    /* Chat iframe styles */
+    #chat-iframe {
       display: none;
-      position: absolute;
-      bottom: 52px; /* Position it above the chat button */
-      right: 52px;
-      width: 220px;
-      height: 95px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 1500;
-    }
-
-    /* Close button styles */
-    #close-balloon {
-      position: absolute;
-      top: 6px;
-      right: 20px;
-      background-color: transparent;
+      position: fixed;
+      bottom: 3vh;
+      right: 2vw;
+      width: 50vh;
+      height: 90vh;
       border: none;
-      font-size: 16px;
-      cursor: pointer;
-      color: white;
-      font-weight: bold;
+      z-index: 40000;
     }
 
-    #close-balloon:hover {
-      color: red;
+    /* Popup bubble styles */
+    #chatbase-message-bubbles {
+      position: fixed;
+      bottom: 150px;
+      right: 50px;
+      border-radius: 10px;
+      font-family: sans-serif;
+      font-size: 15px;
+      z-index: 2147483644;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 50px;
+      max-width: 60vw;
+      display: none;
+      transform: scale(1.2);
+      transform-origin: bottom right;
+    }
+
+    /* Popup close button (the small "✕") */
+    #close-popup {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2147483643;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      background-color: rgb(224, 224, 224);
+      color: black;
+      box-shadow: rgba(150, 150, 150, 0.15) 0px 6px 24px 0px,
+                  rgba(150, 150, 150, 0.15) 0px 0px 0px 1px;
+    }
+
+    #close-popup:hover {
+      background-color: #ccc;
     }
   `;
-
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
+  // ----------------------------
   // Inject HTML into the body
+  // ----------------------------
   var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
         <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
       </button>
-
-      <!-- Speech Balloon GIF with Close Button -->
-      <div id="speech-balloon">
-        <button id="close-balloon">&times;</button>
-      </div>
     </div>
 
     <!-- Chat Iframe -->
-    <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com" style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"></iframe>
+    <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com"></iframe>
   `;
-
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
+  // ----------------------------
+  // Inject the Popup HTML (from the first code snippet)
+  // ----------------------------
+  var popupHTML = `
+    <div id="chatbase-message-bubbles">
+      <!-- Close Button (the small "✕") -->
+      <div id="close-popup">✕</div>
+      <div style="display: flex; justify-content: flex-end;">
+        <div style="
+            background-color: white; 
+            color: black; 
+            box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, 
+                        rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 8px; 
+            font-size: 15px; 
+            opacity: 1; 
+            transform: scale(1.2); 
+            transition: opacity 1s, transform 1s;
+          ">
+          Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML('beforeend', popupHTML);
+
+  // ----------------------------
   // Cookie functions
+  // ----------------------------
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
       var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
       expires = "; expires=" + date.toUTCString();
     }
     var domainStr = domain ? "; domain=" + domain : "";
@@ -102,11 +153,14 @@ document.addEventListener('DOMContentLoaded', function() {
     for (var i = 0; i < ca.length; i++) {
       var c = ca[i];
       while (c.charAt(0) == " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
   }
 
+  // ----------------------------
+  // Chat iframe logic
+  // ----------------------------
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
   var retryDelay = 500;
@@ -159,6 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
 
+    // Listen for ack from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin === "https://skalerbartprodukt.onrender.com" && event.data.ack === 'integrationOptionsReceived') {
         console.log("Iframe acknowledged receiving integration options");
@@ -166,11 +221,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
 
+    // Reset and try to send when iframe loads
     iframe.onload = function() {
       retryAttempts = 0;
       trySendingMessage();
     };
 
+    // Keep trying to send a few times in case of slow load
     setTimeout(function retrySending() {
       if (retryAttempts < maxRetryAttempts) {
         trySendingMessage();
@@ -190,43 +247,45 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
-      // Before navigating, close the chat window and set state to 'closed'
+      // Before navigating, close chat and set state to 'closed'
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
 
-      // Navigate to the new URL
+      // Now navigate
       window.location.href = event.data.url;
     }
   });
 
-function toggleChatWindow() {
-  var iframe = document.getElementById('chat-iframe');
-  var button = document.getElementById('chat-button');
-  
-  var isCurrentlyOpen = iframe.style.display !== 'none';
-  
-  iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-  button.style.display = isCurrentlyOpen ? 'block' : 'none';
-  
-  localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-  
-  adjustIframeSize();
-  sendMessageToIframe();
+  // ----------------------------
+  // Toggle chat window
+  // ----------------------------
+  function toggleChatWindow() {
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    
+    var isCurrentlyOpen = (iframe.style.display !== 'none');
+    
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    
+    adjustIframeSize();
+    sendMessageToIframe();
 
-  // Send a message to the iframe when the chat is opened
-  if (!isCurrentlyOpen) {
-    iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+    // Notify iframe if chat was just opened
+    if (!isCurrentlyOpen) {
+      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+    }
   }
-}
 
-
+  // ----------------------------
+  // Adjust Iframe Size
+  // ----------------------------
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
     console.log("Adjusting iframe size. Window width: ", window.innerWidth);
-
-    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
-    var isPhoneView = window.innerWidth < 800;
 
     if (isIframeEnlarged) {
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
@@ -237,75 +296,36 @@ function toggleChatWindow() {
     }
 
     iframe.style.position = 'fixed';
-    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
-    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
-    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+    if (window.innerWidth < 1000) {
+      // Centered for mobile
+      iframe.style.left = '50%';
+      iframe.style.top = '50%';
+      iframe.style.transform = 'translate(-50%, -50%)';
+      iframe.style.bottom = '';
+      iframe.style.right = '';
+    } else {
+      // Bottom-right for desktop
+      iframe.style.left = 'auto';
+      iframe.style.top = 'auto';
+      iframe.style.transform = 'none';
+      iframe.style.bottom = '3vh';
+      iframe.style.right = '3vh';
+    }
 
-    sendMessageToIframe(); // Ensure message data is updated and sent
+    sendMessageToIframe(); // re-send integration data if needed
   }
 
-  var gifUrls = [
-    'https://image-hosting-pi.vercel.app/HK.gif',
-    'https://image-hosting-pi.vercel.app/HK.gif'
-    // Add new GIF URLs here
-  ];
-
-  // Speech balloon management
-  function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-      document.getElementById('speech-balloon').style.display = 'none';
-      return;
-    }
-  
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-  
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-      delay = parseInt(nextShowTime) - now;
-    }
-  
-    setTimeout(function showBalloon() {
-      // Add this code at the beginning of showBalloon()
-      var hasClosedBalloon = getCookie("hasClosedBalloon");
-      if (hasClosedBalloon) {
-        return; // User has closed the balloon; do not show it again
-      }
-  
-      // Randomly select a GIF URL
-      var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
-      // Set the background-image style
-      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
-  
-      document.getElementById("speech-balloon").style.display = "block";
-      setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 250000;
-        var domain = window.location.hostname;
-        var domainParts = domain.split(".");
-        if (domainParts.length > 2) {
-          domain = "." + domainParts.slice(-2).join(".");
-        } else {
-          domain = "." + domain;
-        }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 250000);
-      }, 12000);
-    }, delay || 11000);
-  }
-
-
-  // Initial load and resize adjustments
-  adjustIframeSize();
+  // ----------------------------
+  // On window resize
+  // ----------------------------
   window.addEventListener('resize', adjustIframeSize);
 
-  // Attach event listener to chat-button
+  // Attach event listener to the chat-button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
-  // Modify the initial chat window state logic
+  // ----------------------------
+  // Initialize the chat window state
+  // ----------------------------
   var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
@@ -319,22 +339,41 @@ function toggleChatWindow() {
     button.style.display = 'block';
   }
 
-  // Close button functionality for the speech balloon
-  var closeBalloonButton = document.getElementById('close-balloon');
-  if (closeBalloonButton) {
-    closeBalloonButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain);
+  // ----------------------------
+  // Handle the popup logic
+  // ----------------------------
+  // Show the popup after 10 seconds if it hasn't been shown (cookie not set)
+  // and hide it automatically after 200 seconds.  
+  // Also, if user closes it via the "✕", set the cookie so it won't reopen.
+  if (!getCookie("popupShown")) {
+    setTimeout(function() {
+      // Show popup
+      document.getElementById("chatbase-message-bubbles").style.display = "block";
+      // Mark as shown for 7 days
+      setCookie("popupShown", "true", 7);
+
+      // Hide it automatically after 200 seconds
+      setTimeout(function() {
+        document.getElementById("chatbase-message-bubbles").style.display = "none";
+      }, 200000);
+
+    }, 10000);
+  }
+
+  // ----------------------------
+  // Close button on the popup
+  // ----------------------------
+  var closePopupBtn = document.getElementById('close-popup');
+  if (closePopupBtn) {
+    closePopupBtn.addEventListener('click', function() {
+      document.getElementById("chatbase-message-bubbles").style.display = "none";
+      // Also set cookie so it won’t show again for 7 days
+      setCookie("popupShown", "true", 7);
     });
   }
 
-  // Start the speech balloon management when the page loads
-  manageSpeechBalloon();
+  // ----------------------------
+  // Final initial sizing
+  // ----------------------------
+  adjustIframeSize();
 });
