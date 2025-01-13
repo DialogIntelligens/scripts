@@ -304,8 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Automatically hide the popup after 20 seconds (20000 ms)
       setTimeout(function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 20000);
-    }, 10000); // Show popup after 10 seconds
+      }, 2000000);
+    }, 1000); // Show popup after 10 seconds
   }
 
   // Close button functionality for the popup
