@@ -355,9 +355,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Hide it automatically after 200 seconds
       setTimeout(function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 200000);
+      }, 2000000);
 
-    }, 10000);
+    }, 1000);
   }
 
   // ----------------------------
