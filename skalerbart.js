@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       display: none;
       transform: scale(0.6);
       transform-origin: bottom right;
-      background-color: white; /* Ensure background matches the message box */
+      background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
       position: relative; /* For positioning the close button */
     }
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
       cursor: pointer;
       background-color: rgba(224, 224, 224, 0.6);
       color: black;
-      transition: background-color 0.3s, color 0.3s;
+      transition: background-color 0.3s, color 0.3s, opacity 0.3s;
       opacity: 0.5; /* Less visible initially */
     }
 
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set cookie with the current timestamp
     var currentTimestamp = getCurrentTimestamp();
-    setCookie("popupShownTimestamp", currentTimestamp, 1, ".yourdomain.com"); // Replace .yourdomain.com with your actual domain
+    setCookie("popupShownTimestamp", currentTimestamp, 3, ".yourdomain.com"); // Replace .yourdomain.com with your actual domain
 
     // Automatically hide the popup after 200,000 ms (200 seconds)
     setTimeout(function() {
@@ -346,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (closePopupButton) {
     closePopupButton.addEventListener('click', function() {
       document.getElementById('chatbase-message-bubbles').style.display = 'none';
-      // Do not set the popupShown cookie here to allow it to reappear after popupDuration
+      // Do not set the popupShownTimestamp cookie here to allow it to stay until duration ends
     });
   }
 
