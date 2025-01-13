@@ -31,12 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup Message Styles */
     #chatbase-message-bubbles {
       position: fixed;
-      bottom: 83px;
+      bottom: 99px;
       right: 90px;
       border-radius: 10px;
       font-family: sans-serif;
       font-size: 20px;
-      z-index: 2147483644;
+      z-index: 2147483644; /* Ensures popup is above most elements */
       cursor: pointer;
       display: flex;
       flex-direction: column;
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
       transform-origin: bottom right;
       background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
-      position: relative; /* For positioning the close button */
+      position: relative;
     }
 
     /* Close button styles within the popup */
@@ -65,10 +65,11 @@ document.addEventListener('DOMContentLoaded', function() {
       text-align: center;
       font-size: 18px;
       cursor: pointer;
-      background-color: rgba(224, 224, 224, 0.6);
+      background-color: rgba(224, 224, 224, 0); /* Initially transparent */
       color: black;
       transition: background-color 0.3s, color 0.3s, opacity 0.3s;
       opacity: 0.5; /* Less visible initially */
+      z-index: 1000000; /* Ensures the close button is above the popup content */
     }
 
     #chatbase-message-bubbles .close-popup:hover {
@@ -316,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Set cookie with the current timestamp
     var currentTimestamp = getCurrentTimestamp();
-    setCookie("popupShownTimestamp", currentTimestamp, 3, ".yourdomain.com"); // Replace .yourdomain.com with your actual domain
+    setCookie("popupShownTimestamp", currentTimestamp, 1, ".yourdomain.com"); // Replace .yourdomain.com with your actual domain
 
     // Automatically hide the popup after 200,000 ms (200 seconds)
     setTimeout(function() {
@@ -346,7 +347,9 @@ document.addEventListener('DOMContentLoaded', function() {
   if (closePopupButton) {
     closePopupButton.addEventListener('click', function() {
       document.getElementById('chatbase-message-bubbles').style.display = 'none';
-      // Do not set the popupShownTimestamp cookie here to allow it to stay until duration ends
+      // Optionally, set the timestamp here to prevent re-showing the popup until duration has passed
+      var currentTimestamp = getCurrentTimestamp();
+      setCookie("popupShownTimestamp", currentTimestamp, 1, ".yourdomain.com"); // Replace with your actual domain
     });
   }
 
