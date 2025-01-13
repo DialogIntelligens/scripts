@@ -1,61 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // ----------------------------
-  // Inject CSS into the head
-  // ----------------------------
-  var css = `
-    /* Container for chat button */
-    #chat-container {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 401;
-    }
-
-    /* Chat button styles */
-    #chat-button {
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-
-    #chat-button img {
-      width: 60px;
-      height: 60px;
-      transition: opacity 0.3s, transform 0.3s;
-    }
-
-    #chat-button:hover img {
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
-
-    /* Chat iframe styles */
-    #chat-iframe {
-      display: none;
-      position: fixed;
-      bottom: 3vh;
-      right: 2vw;
-      width: 50vh;
-      height: 90vh;
-      border: none;
-      z-index: 40000;
-    }
-
     /* Popup bubble styles */
     #chatbase-message-bubbles {
       position: fixed;
-      bottom: 100px; /* Space above chat button */
-      right: 30px; /* Align with chat button */
-      max-width: 280px;
-      padding: 20px;
+      bottom: 30px;
+      right: 130px;
       border-radius: 10px;
-      font-family: Arial, sans-serif;
+      font-family: sans-serif;
       font-size: 15px;
-      background-color: white;
-      color: black;
-      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+      z-index: 2147483644;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 50px;
+      max-width: 40vw;
       display: none;
-      z-index: 2147483647;
+      transform: scale(0.5);
+      transform-origin: bottom right;
     }
 
     /* Popup close button (the small "✕") */
@@ -83,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #close-popup:hover {
       background-color: #ccc;
     }
-  `;
+  ;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
@@ -91,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ----------------------------
   // Inject HTML into the body
   // ----------------------------
-  var chatbotHTML = `
+  var chatbotHTML = 
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
@@ -101,13 +59,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <!-- Chat Iframe -->
     <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com"></iframe>
-  `;
+  ;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   // ----------------------------
-  // Inject the Popup HTML
+  // Inject the Popup HTML (from the first code snippet)
   // ----------------------------
-  var popupHTML = `
+  var popupHTML = 
     <div id="chatbase-message-bubbles">
       <!-- Close Button (the small "✕") -->
       <div id="close-popup">✕</div>
@@ -120,15 +78,148 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 10px; 
             padding: 15px; 
             margin: 8px; 
-            font-size: 15px; 
-            transform: scale(1); 
-            transition: opacity 1s, transform 1s;">
+            font-size: 17px; 
+            opacity: 1; 
+            transform: scale(0.6); 
+            transition: opacity 1s, transform 1s;
+          ">
+          Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
+        </div>
+  document.addEventListener('DOMContentLoaded', function() {
+  // ----------------------------
+  // Inject CSS into the head
+  // ----------------------------
+  var css = 
+    /* Container for chat button */
+    #chat-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 401;
+    }
+
+    /* Chat button styles */
+    #chat-button {
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    #chat-button img {
+      width: 60px;
+      height: 60px;
+      transition: opacity 0.3s;
+    }
+
+    #chat-button:hover img {
+      opacity: 0.7;
+      transform: scale(1.1);
+    }
+
+    /* Chat iframe styles */
+    #chat-iframe {
+      display: none;
+      position: fixed;
+      bottom: 3vh;
+      right: 2vw;
+      width: 50vh;
+      height: 90vh;
+      border: none;
+      z-index: 40000;
+    }
+
+    /* Popup bubble styles */
+    #chatbase-message-bubbles {
+      position: fixed;
+      bottom: 30px;
+      right: 130px;
+      border-radius: 10px;
+      font-family: sans-serif;
+      font-size: 15px;
+      z-index: 2147483644;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 50px;
+      max-width: 40vw;
+      display: none;
+      transform: scale(0.5);
+      transform-origin: bottom right;
+    }
+
+    /* Popup close button (the small "✕") */
+    #close-popup {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 2147483643;
+      width: 23px;
+      height: 23px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 12px;
+      cursor: pointer;
+      background-color: rgb(224, 224, 224);
+      color: black;
+      box-shadow: rgba(150, 150, 150, 0.15) 0px 6px 24px 0px,
+                  rgba(150, 150, 150, 0.15) 0px 0px 0px 1px;
+    }
+
+    #close-popup:hover {
+      background-color: #ccc;
+    }
+  ;
+  var style = document.createElement('style');
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+
+  // ----------------------------
+  // Inject HTML into the body
+  // ----------------------------
+  var chatbotHTML = 
+    <div id="chat-container">
+      <!-- Chat Button -->
+      <button id="chat-button">
+        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
+      </button>
+    </div>
+
+    <!-- Chat Iframe -->
+    <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com"></iframe>
+  ;
+  document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+  // ----------------------------
+  // Inject the Popup HTML (from the first code snippet)
+  // ----------------------------
+  var popupHTML = 
+    <div id="chatbase-message-bubbles">
+      <!-- Close Button (the small "✕") -->
+      <div id="close-popup">✕</div>
+      <div style="display: flex; justify-content: flex-end;">
+        <div style="
+            background-color: white; 
+            color: black; 
+            box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, 
+                        rgba(150, 150, 150, 0.2) 0px 0px 0px 1px; 
+            border-radius: 10px; 
+            padding: 15px; 
+            margin: 8px; 
+            font-size: 17px; 
+            opacity: 1; 
+            transform: scale(0.6); 
+            transition: opacity 1s, transform 1s;
+          ">
           Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
         </div>
       </div>
     </div>
-  `;
+  ;
   document.body.insertAdjacentHTML('beforeend', popupHTML);
+
   // ----------------------------
   // Cookie functions
   // ----------------------------
@@ -351,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Hide it automatically after 200 seconds
       setTimeout(function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 2000000);
+      }, 200000);
 
     }, 10000);
   }
@@ -373,3 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // ----------------------------
   adjustIframeSize();
 });
+    </div>
+    </div>
+  ;
+  document.body.insertAdjacentHTML('beforeend', popupHTML);
