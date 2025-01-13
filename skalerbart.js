@@ -1,5 +1,4 @@
-<!-- Your HTML / JavaScript code -->
-<script>
+
 document.addEventListener('DOMContentLoaded', function() {
   // Inject CSS into the head
   var css = `
@@ -369,4 +368,3 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustIframeSize();
   });
 });
-</script>
