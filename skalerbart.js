@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles {
       position: absolute;
       /* Adjust these offsets so the popup is above/near the button */
-      bottom: 80px;  /* Distance above the chat button */
-      right: 0;      /* Align to the right edge of #chat-container */
+      bottom: 60px;  /* Distance above the chat button */
+      right: 60px;      /* Align to the right edge of #chat-container */
       border-radius: 10px;
       font-family: sans-serif;
       font-size: 20px;
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
       display: none; /* hidden by default */
       flex-direction: column;
       gap: 50px;
-      max-width: 46vw;
+      min-width: 569px;
       transform: scale(0.6);
       transform-origin: bottom right;
       background-color: white;
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles .message-content {
       display: flex;
       justify-content: flex-end;
-      padding: 20px 15px 15px 15px;
+      padding: 0px 0px 0px 0px;
     }
 
     #chatbase-message-bubbles .message-box {
