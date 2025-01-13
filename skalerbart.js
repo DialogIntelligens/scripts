@@ -40,53 +40,53 @@ document.addEventListener('DOMContentLoaded', function() {
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 50px;
       max-width: 46vw;
       display: none;
       transform: scale(0.6);
       transform-origin: bottom right;
-      position: relative; /* For the speech balloon tail */
       background-color: white; /* Ensure background matches the message box */
+      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+      position: relative; /* For positioning the close button */
     }
 
     /* Close button styles within the popup */
     #chatbase-message-bubbles .close-popup {
       position: absolute;
-      top: 5px;
-      right: 10px;
+      top: 10px;
+      right: 15px;
       font-weight: bold;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 20px;
-      height: 20px;
+      width: 25px;
+      height: 25px;
       border-radius: 50%;
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
       cursor: pointer;
-      background-color: rgb(224, 224, 224);
+      background-color: rgba(224, 224, 224, 0.6);
       color: black;
-      box-shadow: rgba(150, 150, 150, 0.15) 0px 6px 24px 0px,
-                  rgba(150, 150, 150, 0.15) 0px 0px 0px 1px;
+      transition: background-color 0.3s, color 0.3s;
+      opacity: 0.5; /* Less visible initially */
     }
 
     #chatbase-message-bubbles .close-popup:hover {
-      background-color: red;
+      background-color: rgba(255, 0, 0, 0.8);
       color: white;
+      opacity: 1; /* More visible on hover */
     }
 
     /* Message content styles */
     #chatbase-message-bubbles .message-content {
       display: flex;
       justify-content: flex-end;
-      padding: 20px 10px 10px 10px; /* Adjust padding as needed */
+      padding: 20px 15px 15px 15px; /* Adjust padding as needed */
     }
 
     #chatbase-message-bubbles .message-box {
       background-color: white;
       color: black;
-      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
-                  rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
       border-radius: 10px;
       padding: 15px;
       margin: 8px;
@@ -98,21 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
       box-sizing: border-box;
       word-wrap: break-word;
       max-width: 100%; /* Ensure it doesn't exceed the container */
-    }
-
-    /* Speech balloon tail */
-    #chatbase-message-bubbles::after {
-      content: '';
-      position: absolute;
-      bottom: -10px; /* Adjust to position the tail */
-      right: 20px; /* Adjust to align the tail with the box */
-      width: 0;
-      height: 0;
-      border: 10px solid transparent;
-      border-top-color: white; /* Match the background color */
-      /* Optional: Add a slight shadow for depth */
-      box-shadow: -2px -2px 5px rgba(0,0,0,0.1);
-      transform: rotate(45deg);
     }
   `;
 
@@ -173,6 +158,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     return null;
   }
+
+  function getCurrentTimestamp() {
+    return new Date().getTime();
+  }
+
+  var popupDuration = 200000; // 200,000 ms = 200 seconds
+  var popupShownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
 
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
@@ -319,17 +311,33 @@ document.addEventListener('DOMContentLoaded', function() {
   // ---------------------------------------
   // Manage Popup Display
   // ---------------------------------------
-  if (!getCookie("popupShown")) {
+  function showPopup() {
+    document.getElementById("chatbase-message-bubbles").style.display = "flex";
+
+    // Set cookie with the current timestamp
+    var currentTimestamp = getCurrentTimestamp();
+    setCookie("popupShownTimestamp", currentTimestamp, 1, ".yourdomain.com"); // Replace .yourdomain.com with your actual domain
+
+    // Automatically hide the popup after 200,000 ms (200 seconds)
     setTimeout(function() {
-      document.getElementById("chatbase-message-bubbles").style.display = "flex";
+      document.getElementById("chatbase-message-bubbles").style.display = "none";
+    }, popupDuration);
+  }
 
-      // Set cookie so the popup doesn't show again for 7 days
-      setCookie("popupShown", "true", 7);
+  function shouldShowPopup() {
+    var shownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
+    var currentTime = getCurrentTimestamp();
 
-      // Automatically hide the popup after 20 seconds (20000 ms)
-      setTimeout(function() {
-        document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 20000);
+    // If never shown, or the popup duration has passed since it was shown
+    if (shownTimestamp === 0 || (currentTime - shownTimestamp) > popupDuration) {
+      return true;
+    }
+    return false;
+  }
+
+  if (shouldShowPopup()) {
+    setTimeout(function() {
+      showPopup();
     }, 10000); // Show popup after 10 seconds
   }
 
@@ -337,15 +345,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var closePopupButton = document.querySelector('#chatbase-message-bubbles .close-popup');
   if (closePopupButton) {
     closePopupButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
       document.getElementById('chatbase-message-bubbles').style.display = 'none';
-      setCookie("popupShown", "true", 7, domain); // Prevent popup from showing again for 7 days
+      // Do not set the popupShown cookie here to allow it to reappear after popupDuration
     });
   }
 
