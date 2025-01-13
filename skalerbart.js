@@ -31,34 +31,38 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup Message Styles */
     #chatbase-message-bubbles {
       position: fixed;
-      bottom: 150px;
-      right: 50px;
+      bottom: 83px;
+      right: 90px;
       border-radius: 10px;
       font-family: sans-serif;
-      font-size: 15px;
+      font-size: 20px;
       z-index: 2147483644;
       cursor: pointer;
+      display: flex;
       flex-direction: column;
-      gap: 50px;
-      max-width: 60vw;
+      gap: 20px;
+      max-width: 46vw;
       display: none;
-      transform: scale(1.2);
+      transform: scale(0.6);
       transform-origin: bottom right;
+      position: relative; /* For the speech balloon tail */
+      background-color: white; /* Ensure background matches the message box */
     }
 
+    /* Close button styles within the popup */
     #chatbase-message-bubbles .close-popup {
       position: absolute;
-      top: -7px;
-      right: -7px;
+      top: 5px;
+      right: 10px;
       font-weight: bold;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 23px;
-      height: 23px;
+      width: 20px;
+      height: 20px;
       border-radius: 50%;
       text-align: center;
-      font-size: 12px;
+      font-size: 16px;
       cursor: pointer;
       background-color: rgb(224, 224, 224);
       color: black;
@@ -71,9 +75,11 @@ document.addEventListener('DOMContentLoaded', function() {
       color: white;
     }
 
+    /* Message content styles */
     #chatbase-message-bubbles .message-content {
       display: flex;
       justify-content: flex-end;
+      padding: 20px 10px 10px 10px; /* Adjust padding as needed */
     }
 
     #chatbase-message-bubbles .message-box {
@@ -84,10 +90,29 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       padding: 15px;
       margin: 8px;
-      font-size: 15px;
+      font-size: 25px;
       opacity: 1;
-      transform: scale(1.2);
+      transform: scale(1);
       transition: opacity 1s, transform 1s;
+      width: 100%;
+      box-sizing: border-box;
+      word-wrap: break-word;
+      max-width: 100%; /* Ensure it doesn't exceed the container */
+    }
+
+    /* Speech balloon tail */
+    #chatbase-message-bubbles::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; /* Adjust to position the tail */
+      right: 20px; /* Adjust to align the tail with the box */
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: white; /* Match the background color */
+      /* Optional: Add a slight shadow for depth */
+      box-shadow: -2px -2px 5px rgba(0,0,0,0.1);
+      transform: rotate(45deg);
     }
   `;
 
@@ -304,8 +329,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // Automatically hide the popup after 20 seconds (20000 ms)
       setTimeout(function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-      }, 2000000);
-    }, 1000); // Show popup after 10 seconds
+      }, 20000);
+    }, 10000); // Show popup after 10 seconds
   }
 
   // Close button functionality for the popup
