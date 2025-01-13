@@ -28,48 +28,64 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: scale(1.1);
     }
 
-    /* Popup Message Styles */
+    /* Popup Message Styles (Updated) */
     #chatbase-message-bubbles {
-      position: fixed;
-      bottom: 99px;
-      right: 90px;
-      border-radius: 10px;
-      font-family: sans-serif;
-      font-size: 20px;
-      z-index: 2147483644; /* Ensures popup is above most elements */
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
-      max-width: 46vw;
-      display: none;
-      transform: scale(0.6);
-      transform-origin: bottom right;
-      background-color: white;
-      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
-      position: relative;
+        position: fixed;
+        bottom: 99px;
+        right: -670px;
+        border-radius: 10px;
+        font-family: sans-serif;
+        font-size: 20px;
+        z-index: 2;
+        cursor: pointer;
+        display: flex
+        ;
+        flex-direction: column;
+        gap: 50px;
+        max-width: 46vw;
+        display: none;
+        transform: scale(0.6);
+        transform-origin: bottom right;
+        background-color: white;
+        box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px, rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+        position: relative;
     }
 
-    /* Close button styles within the popup */
-    #chatbase-message-bubbles .close-popup {
+    /* Speech-bubble corner (tail) */
+    #chatbase-message-bubbles::after {
+      content: "";
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 18px;
-      cursor: pointer;
-      background-color: rgba(224, 224, 224, 0); /* Initially transparent */
-      color: black;
-      transition: background-color 0.3s, color 0.3s, opacity 0.3s;
-      opacity: 0.5; /* Less visible initially */
-      z-index: 1000000; /* Ensures the close button is above the popup content */
+      bottom: -10px; /* Adjust vertical position of the tail */
+      right: 20px;   /* Adjust horizontal position of the tail */
+      width: 0;
+      height: 0;
+      border: 10px solid transparent;
+      border-top-color: white;
+      transform: rotate(45deg);
+      box-shadow: -2px -2px 5px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    }
+
+    /* Close button styles within the popup (Updated) */
+    #chatbase-message-bubbles .close-popup {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-weight: bold;
+        display: flex
+        ;
+        justify-content: center;
+        align-items: center;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: rgb(224 224 224 / 0%);
+        color: black;
+        transition: background-color 0.3s, color 0.3s, opacity 0.3s;
+        opacity: 0.5;
+        z-index: 1000000;
     }
 
     #chatbase-message-bubbles .close-popup:hover {
@@ -78,11 +94,12 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1; /* More visible on hover */
     }
 
-    /* Message content styles */
+    /* Message content styles (Updated) */
     #chatbase-message-bubbles .message-content {
-      display: flex;
-      justify-content: flex-end;
-      padding: 20px 15px 15px 15px; /* Adjust padding as needed */
+        display: flex
+        ;
+        justify-content: flex-end;
+        padding: px px px px; /* Keep your custom placeholder if you plan to add specific padding values */
     }
 
     #chatbase-message-bubbles .message-box {
@@ -329,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var shownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
     var currentTime = getCurrentTimestamp();
 
-    // If never shown, or the popup duration has passed since it was shown
+    // If never shown, or if popupDuration has passed since it was shown
     if (shownTimestamp === 0 || (currentTime - shownTimestamp) > popupDuration) {
       return true;
     }
