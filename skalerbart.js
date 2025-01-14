@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #funny-smiley.move {
       animation: move 1s infinite;
     }
-  `;
+  
   
     /* Container for chat button (fixed to bottom-right) */
     #chat-container {
