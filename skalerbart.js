@@ -2,6 +2,41 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Inject CSS into the head
   var css = `
+    /* Add these to existing styles */
+
+    /* Blinking animation */
+    @keyframes blink {
+      0%, 100% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* Moving animation */
+    @keyframes move {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(10px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    /* Apply animations to the funny smiley */
+    #funny-smiley.blink {
+      animation: blink 1s infinite;
+    }
+
+    #funny-smiley.move {
+      animation: move 1s infinite;
+    }
+  `;
+  
     /* Container for chat button (fixed to bottom-right) */
     #chat-container {
       position: fixed;
@@ -134,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="close-popup">&times;</div>
         <div class="message-content">
           <div class="message-box">
-            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄
+            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪<span id="funny-smiley">😄</span>
           </div>
         </div>
       </div>
@@ -347,6 +382,19 @@ document.addEventListener('DOMContentLoaded', function() {
       showPopup();
     }, 10000); // appear after 10s
   }
+
+  setTimeout(function() {
+    var smiley = document.getElementById('funny-smiley');
+
+    // Add a blinking animation
+    smiley.classList.add('blink');
+
+    // Optionally, switch to moving after 5 more seconds
+    setTimeout(function() {
+      smiley.classList.remove('blink');
+      smiley.classList.add('move');
+    }, 5000);
+  }, 10000); // Start after 10 seconds
 
   // Close button for popup
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
