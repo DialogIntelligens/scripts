@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles {
       position: absolute;
       /* Adjust these offsets so the popup is above/near the button */
-      bottom: 60px;  /* Distance above the chat button */
-      right: 60px;      /* Align to the right edge of #chat-container */
+      bottom: 70px;  /* Distance above the chat button */
+      right: 30px;      /* Align to the right edge of #chat-container */
       border-radius: 10px;
       font-family: sans-serif;
       font-size: 20px;
@@ -51,8 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
                   rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
-      padding: 0px;
-      position: relative; /* Required for pseudo-element positioning */
     }
 
     #chatbase-message-bubbles::after {
@@ -63,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 10px 10px 0 10px; /* Creates the triangle */
+      border-width: 10px 10px 0 20px; /* Creates the triangle */
       border-color: white transparent transparent transparent; /* Match balloon background */
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px; /* Add shadow for consistency */
     }
