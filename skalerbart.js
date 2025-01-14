@@ -2,39 +2,37 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Inject CSS into the head
   var css = `
-    /* Add these to existing styles */
-
-    /* Blinking animation */
-    @keyframes blink {
+    /* Blinking animation (blinks one "eye") */
+    @keyframes blink-eye {
       0%, 100% {
-        opacity: 1;
+        transform: scaleY(1);
       }
       50% {
-        opacity: 0;
+        transform: scaleY(0.1); /* Squashes vertically for a "blink" */
       }
     }
-
-    /* Moving animation */
-    @keyframes move {
-      0% {
-        transform: translateX(0);
+  
+    /* Jumping animation (jumps up and down) */
+    @keyframes jump {
+      0%, 100% {
+        transform: translateY(0); /* Normal position */
       }
       50% {
-        transform: translateX(10px);
-      }
-      100% {
-        transform: translateX(0);
+        transform: translateY(-10px); /* Moves up slightly */
       }
     }
-
-    /* Apply animations to the funny smiley */
+  
+    /* Apply the blink animation */
     #funny-smiley.blink {
-      animation: blink 1s infinite;
+      display: inline-block; /* Ensure it respects animations */
+      animation: blink-eye 0.5s ease-in-out infinite;
+    }
+  
+    /* Apply the jump animation */
+    #funny-smiley.jump {
+      animation: jump 1s ease-in-out infinite;
     }
 
-    #funny-smiley.move {
-      animation: move 1s infinite;
-    }
   
   
     /* Container for chat button (fixed to bottom-right) */
@@ -385,16 +383,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   setTimeout(function() {
     var smiley = document.getElementById('funny-smiley');
-
-    // Add a blinking animation
-    smiley.classList.add('blink');
-
-    // Optionally, switch to moving after 5 more seconds
-    setTimeout(function() {
-      smiley.classList.remove('blink');
-      smiley.classList.add('move');
-    }, 5000);
+  
+    if (smiley) {
+      // Alternate between blinking and jumping every 5 seconds
+      let isBlinking = true;
+      setInterval(function() {
+        if (isBlinking) {
+          smiley.classList.remove('jump');
+          smiley.classList.add('blink');
+        } else {
+          smiley.classList.remove('blink');
+          smiley.classList.add('jump');
+        }
+        isBlinking = !isBlinking;
+      }, 5000); // Switch animation every 5 seconds
+    }
   }, 10000); // Start after 10 seconds
+
 
   // Close button for popup
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
