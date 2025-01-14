@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Cotonshoppens Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Cotonshoppen",
-      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Hvad kan jeg hjælpe dig med?",
+      firstMessage: "Hej😊 Jeg er en demo, der kan hjælpe dig med at finde det rette hundetøj🐶",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
