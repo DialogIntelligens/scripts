@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-</head>
-<body>
-
-<script>
 document.addEventListener('DOMContentLoaded', function() {
   // ------------------------------
   // 1. Inject CSS into the <head>
@@ -468,7 +460,4 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustIframeSize();
   });
 });
-</script>
 
-</body>
-</html>
