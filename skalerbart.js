@@ -486,4 +486,3 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustIframeSize();
   });
 });
-</script>
