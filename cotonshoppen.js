@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: '',
       
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_padelrack.pdf",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_cotonshoppen.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/cotonshoppenWhiteMessageLogo.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/cotonshoppenLogo.png",
       themeColor: "#f19a2e",
