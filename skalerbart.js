@@ -2,35 +2,35 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Inject CSS into the head
   var css = `
-    /* Blinking animation (blinks one "eye") */
+    /* Blinking animation (blinks twice) */
     @keyframes blink-eye {
       0%, 100% {
         transform: scaleY(1);
       }
       50% {
-        transform: scaleY(0.1); /* Squashes vertically for a "blink" */
+        transform: scaleY(0.1); /* Squash vertically for blink effect */
       }
     }
   
-    /* Jumping animation (jumps up and down) */
+    /* Jumping animation (up and down) */
     @keyframes jump {
       0%, 100% {
         transform: translateY(0); /* Normal position */
       }
       50% {
-        transform: translateY(-10px); /* Moves up slightly */
+        transform: translateY(-10px); /* Jump up */
       }
     }
   
-    /* Apply the blink animation */
+    /* Blink animation class */
     #funny-smiley.blink {
-      display: inline-block; /* Ensure it respects animations */
-      animation: blink-eye 0.5s ease-in-out infinite;
+      display: inline-block;
+      animation: blink-eye 0.5s ease-in-out 2; /* Runs 2 times */
     }
   
-    /* Apply the jump animation */
+    /* Jump animation class */
     #funny-smiley.jump {
-      animation: jump 1s ease-in-out infinite;
+      animation: jump 0.5s ease-in-out 2; /* Runs 2 times */
     }
 
   
@@ -385,20 +385,25 @@ document.addEventListener('DOMContentLoaded', function() {
     var smiley = document.getElementById('funny-smiley');
   
     if (smiley) {
-      // Alternate between blinking and jumping every 5 seconds
-      let isBlinking = true;
-      setInterval(function() {
-        if (isBlinking) {
+      // Trigger blink animation after 2 seconds
+      smiley.classList.add('blink');
+  
+      // Remove the blink class after the animation ends (1 second = 0.5s x 2)
+      setTimeout(function() {
+        smiley.classList.remove('blink');
+      }, 1000);
+  
+      // Trigger jump animation after 12 seconds
+      setTimeout(function() {
+        smiley.classList.add('jump');
+  
+        // Remove the jump class after the animation ends (1 second = 0.5s x 2)
+        setTimeout(function() {
           smiley.classList.remove('jump');
-          smiley.classList.add('blink');
-        } else {
-          smiley.classList.remove('blink');
-          smiley.classList.add('jump');
-        }
-        isBlinking = !isBlinking;
-      }, 5000); // Switch animation every 5 seconds
+        }, 1000);
+      }, 12000);
     }
-  }, 10000); // Start after 10 seconds
+  }, 2000); // Start after the popup has been open for 2 seconds
 
 
   // Close button for popup
