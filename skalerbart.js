@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 1. Inject CSS into <head>
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
         min-width: 90vw;       /* Make popup fill most of the screen width */
         transform: scale(1);   /* Don’t shrink the popup */
         right: 5px;            /* Keep some margin on small screens */
-        bottom: 60px;          /* Adjust bottom so it doesn't overlap the button */
+        bottom: 60px;          /* Adjust bottom so it doesn't overlap button */
       }
       #chatbase-message-bubbles::after {
         right: 20px;           /* Reposition the tail closer in */
@@ -185,6 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <button id="chat-button">
         <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
       </button>
+
       <!-- Popup placed here so it moves with the chat button -->
       <div id="chatbase-message-bubbles">
         <div class="close-popup">&times;</div>
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var isCurrentlyOpen = (iframe.style.display !== "none");
 
-    // If we are about to open the chat, hide the popup
+    // If we are about to open the chat, hide the popup if it's visible
     if (!isCurrentlyOpen && popup.style.display === "flex") {
       popup.style.display = "none";
     }
@@ -362,9 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var iframe = document.getElementById("chat-iframe");
     console.log("Adjusting iframe size. Window width:", window.innerWidth);
 
-    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
-
     if (window.innerWidth >= 1500) {
       iframe.style.width = "500px";
       iframe.style.height = "700px";
