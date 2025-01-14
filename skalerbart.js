@@ -1,7 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
 
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Inject CSS into the head
+  // ------------------------------
+  // 1. Inject CSS into the <head>
+  // ------------------------------
   var css = `
+    /* ----------------------------------------
+       A) ANIMATIONS
+       ---------------------------------------- */
     /* Blinking animation (blinks twice) */
     @keyframes blink-eye {
       0%, 100% {
@@ -11,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scaleY(0.1); /* Squash vertically for blink effect */
       }
     }
-  
+
     /* Jumping animation (up and down) */
     @keyframes jump {
       0%, 100% {
@@ -21,20 +33,22 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: translateY(-10px); /* Jump up */
       }
     }
-  
-    /* Blink animation class */
+
+    /* Blink animation class: runs 2 times at 0.5s each = 1 second total */
     #funny-smiley.blink {
-      display: inline-block;
-      animation: blink-eye 0.5s ease-in-out 2; /* Runs 2 times */
-    }
-  
-    /* Jump animation class */
-    #funny-smiley.jump {
-      animation: jump 0.5s ease-in-out 2; /* Runs 2 times */
+      display: inline-block; /* Ensure transform doesn't affect surrounding text */
+      animation: blink-eye 0.5s ease-in-out 2;
     }
 
-  
-  
+    /* Jump animation class: runs 2 times at 0.5s each = 1 second total */
+    #funny-smiley.jump {
+      display: inline-block;
+      animation: jump 0.5s ease-in-out 2;
+    }
+
+    /* ----------------------------------------
+       B) CHAT BUTTON + POPUP STYLES
+       ---------------------------------------- */
     /* Container for chat button (fixed to bottom-right) */
     #chat-container {
       position: fixed;
@@ -69,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
       position: absolute;
       /* Adjust these offsets so the popup is above/near the button */
       bottom: 70px;  /* Distance above the chat button */
-      right: 30px;      /* Align to the right edge of #chat-container */
+      right: 30px;   /* Align to the right edge of #chat-container */
       border-radius: 10px;
       font-family: sans-serif;
       font-size: 20px;
@@ -86,11 +100,12 @@ document.addEventListener('DOMContentLoaded', function() {
                   rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
     }
 
+    /* Speech balloon "tail" */
     #chatbase-message-bubbles::after {
       content: '';
       position: absolute;
       bottom: -10px; /* Position tail below the balloon */
-      right: 30px; /* Align with the chat button */
+      right: 30px;   /* Align with the chat button */
       width: 0;
       height: 0;
       border-style: solid;
@@ -114,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
       text-align: center;
       font-size: 18px;
       cursor: pointer;
-      background-color: rgba(224, 224, 224, 0); /* transparent */
+      background-color: rgba(224, 224, 224, 0);
       color: black;
       transition: background-color 0.3s, color 0.3s, opacity 0.3s;
       opacity: 0.5;
@@ -131,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles .message-content {
       display: flex;
       justify-content: flex-end;
-      padding: 0px 0px 0px 0px;
+      padding: 0;
     }
 
     #chatbase-message-bubbles .message-box {
@@ -155,7 +170,9 @@ document.addEventListener('DOMContentLoaded', function() {
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
-  // Inject HTML for chat container (including the chat button)
+  // ----------------------------------------
+  // 2. Inject HTML for chat container
+  // ----------------------------------------
   var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
@@ -167,20 +184,24 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="close-popup">&times;</div>
         <div class="message-content">
           <div class="message-box">
-            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪<span id="funny-smiley">😄</span>
+            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪
+            <span id="funny-smiley">😄</span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Chat Iframe -->
-    <iframe id="chat-iframe" src="https://skalerbartprodukt.onrender.com"
-      style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+    <iframe id="chat-iframe"
+            src="https://skalerbartprodukt.onrender.com"
+            style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
     </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-  // -- Cookie functions --
+  // ----------------------------------------
+  // 3. Cookie functions
+  // ----------------------------------------
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
@@ -207,11 +228,12 @@ document.addEventListener('DOMContentLoaded', function() {
     return new Date().getTime();
   }
 
-  // Popup timing
+  // ----------------------------------------
+  // 4. Popup & Chat Iframe Logic
+  // ----------------------------------------
   var popupDuration = 200000; // 200 seconds
   var popupShownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
 
-  // Chat iframe state
   var isIframeEnlarged = false;
   var maxRetryAttempts = 5;
   var retryDelay = 500;
@@ -350,7 +372,9 @@ document.addEventListener('DOMContentLoaded', function() {
     sendMessageToIframe();
   }
 
-  // Manage popup display
+  // ----------------------------------------
+  // 5. Popup Display Logic
+  // ----------------------------------------
   function showPopup() {
     var popup = document.getElementById("chatbase-message-bubbles");
     popup.style.display = "flex";
@@ -362,51 +386,54 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
       popup.style.display = "none";
     }, popupDuration);
+
+    // ---- ANIMATION TRIGGERS ----
+    // 1) Blink after 2 seconds (2 times)
+    setTimeout(function() {
+      var smiley = document.getElementById('funny-smiley');
+      if (smiley) {
+        smiley.classList.add('blink');
+        // Remove blink class after 1s (0.5s x 2)
+        setTimeout(function() {
+          smiley.classList.remove('blink');
+        }, 1000);
+      }
+    }, 2000);
+
+    // 2) Jump after 12 seconds (2 times)
+    setTimeout(function() {
+      var smiley = document.getElementById('funny-smiley');
+      if (smiley) {
+        smiley.classList.add('jump');
+        // Remove jump class after 1s (0.5s x 2)
+        setTimeout(function() {
+          smiley.classList.remove('jump');
+        }, 1000);
+      }
+    }, 12000);
   }
 
   function shouldShowPopup() {
     var shownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
     var currentTime = getCurrentTimestamp();
 
-    // if never shown or if duration elapsed
+    // If never shown or if duration has elapsed
     if (shownTimestamp === 0 || (currentTime - shownTimestamp) > popupDuration) {
       return true;
     }
     return false;
   }
 
+  // If we should show the popup, do so after 10s
   if (shouldShowPopup()) {
     setTimeout(function() {
       showPopup();
     }, 10000); // appear after 10s
   }
 
-  setTimeout(function() {
-    var smiley = document.getElementById('funny-smiley');
-  
-    if (smiley) {
-      // Trigger blink animation after 2 seconds
-      smiley.classList.add('blink');
-  
-      // Remove the blink class after the animation ends (1 second = 0.5s x 2)
-      setTimeout(function() {
-        smiley.classList.remove('blink');
-      }, 1000);
-  
-      // Trigger jump animation after 12 seconds
-      setTimeout(function() {
-        smiley.classList.add('jump');
-  
-        // Remove the jump class after the animation ends (1 second = 0.5s x 2)
-        setTimeout(function() {
-          smiley.classList.remove('jump');
-        }, 1000);
-      }, 12000);
-    }
-  }, 2000); // Start after the popup has been open for 2 seconds
-
-
-  // Close button for popup
+  // ----------------------------------------
+  // 6. Close Button Logic
+  // ----------------------------------------
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
@@ -417,7 +444,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Initialize chat window state
+  // ----------------------------------------
+  // 7. Initialize Chat Window State
+  // ----------------------------------------
   var savedState = localStorage.getItem("chatWindowState");
   var iframe = document.getElementById("chat-iframe");
   var button = document.getElementById("chat-button");
@@ -439,3 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustIframeSize();
   });
 });
+</script>
+
+</body>
+</html>
