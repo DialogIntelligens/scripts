@@ -45,12 +45,27 @@ document.addEventListener('DOMContentLoaded', function() {
       display: none; /* hidden by default */
       flex-direction: column;
       gap: 50px;
-      min-width: 569px;
+      min-width: 669px;
       transform: scale(0.6);
       transform-origin: bottom right;
       background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
                   rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+      padding: 0px;
+      position: relative; /* Required for pseudo-element positioning */
+    }
+
+    #chatbase-message-bubbles::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; /* Position tail below the balloon */
+      right: 30px; /* Align with the chat button */
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 10px 0 10px; /* Creates the triangle */
+      border-color: white transparent transparent transparent; /* Match balloon background */
+      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px; /* Add shadow for consistency */
     }
 
     /* Close button styles within the popup */
@@ -121,7 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="close-popup">&times;</div>
         <div class="message-content">
           <div class="message-box">
-            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄 Spørg mig om alt, hvad du vil vide! 🚀
+            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪😄
           </div>
         </div>
       </div>
