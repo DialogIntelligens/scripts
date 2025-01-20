@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/AmericanWine_messageLogo.png" alt="Chat with us">
+        <img src="https://image-hosting-pi.vercel.app/AmericanWine_messageLogoPink.png" alt="Chat with us">
       </button>
 
       <!-- Speech Balloon GIF with Close Button -->
