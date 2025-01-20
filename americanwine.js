@@ -247,9 +247,7 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://image-hosting-pi.vercel.app/padel.gif',
-    'https://image-hosting-pi.vercel.app/padel.gif'
-    // Add new GIF URLs here
+    'http://dialogintelligens.dk/wp-content/uploads/2025/01/hhs-hjaelp-16.gif'
   ];
 
   // Speech balloon management
