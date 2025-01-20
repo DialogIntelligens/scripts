@@ -337,29 +337,33 @@ document.addEventListener('DOMContentLoaded', function() {
   function toggleChatWindow() {
     var iframe = document.getElementById("chat-iframe");
     var popup = document.getElementById("chatbase-message-bubbles");
-  
     var isIframeOpen = iframe.style.display !== "none";
   
-    // Open the chatbot instantly
+    // 1. Open the chatbot iframe immediately
     if (!isIframeOpen) {
-      iframe.style.display = "block";
-      adjustIframeSize();
-      sendMessageToIframe();
-      iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
+      iframe.style.display = "block"; // Instantly make the iframe visible
       localStorage.setItem("chatWindowState", "open");
+  
+      // 2. Adjust iframe size and send integration data asynchronously
+      setTimeout(() => {
+        adjustIframeSize();
+        sendMessageToIframe();
+        iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
+      }, 0);
     } else {
       iframe.style.display = "none";
-      iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
       localStorage.setItem("chatWindowState", "closed");
+      iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
     }
   
-    // Hide the popup immediately after opening the chatbot
+    // 3. Hide the popup with minimal delay
     if (popup.style.display === "flex") {
       setTimeout(() => {
         popup.style.display = "none";
-      }, 1); // Delay by 1 millisecond
+      }, 0);
     }
   }
+
 
 
   function adjustIframeSize() {
