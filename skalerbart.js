@@ -340,24 +340,24 @@ document.addEventListener('DOMContentLoaded', function() {
   
     var isIframeOpen = iframe.style.display !== "none";
   
-    // If the iframe is not open and the popup is visible, hide the popup
-    if (!isIframeOpen && popup.style.display === "flex") {
-      popup.style.display = "none";
-    }
-  
-    // Toggle iframe visibility
-    iframe.style.display = isIframeOpen ? "none" : "block";
-  
-    // Save the state in localStorage
-    localStorage.setItem("chatWindowState", isIframeOpen ? "closed" : "open");
-  
-    // If opening the iframe, adjust its size and send integration options
+    // Open the chatbot instantly
     if (!isIframeOpen) {
+      iframe.style.display = "block";
       adjustIframeSize();
       sendMessageToIframe();
       iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
+      localStorage.setItem("chatWindowState", "open");
     } else {
+      iframe.style.display = "none";
       iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
+      localStorage.setItem("chatWindowState", "closed");
+    }
+  
+    // Hide the popup immediately after opening the chatbot
+    if (popup.style.display === "flex") {
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 1); // Delay by 1 millisecond
     }
   }
 
