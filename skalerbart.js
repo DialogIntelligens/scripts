@@ -336,27 +336,31 @@ document.addEventListener('DOMContentLoaded', function() {
   // Toggle chat window
   function toggleChatWindow() {
     var iframe = document.getElementById("chat-iframe");
-    var button = document.getElementById("chat-button");
     var popup = document.getElementById("chatbase-message-bubbles");
-
-    var isCurrentlyOpen = (iframe.style.display !== "none");
-
-    // If we are about to open the chat, hide the popup if it's visible
-    if (!isCurrentlyOpen && popup.style.display === "flex") {
+  
+    var isIframeOpen = iframe.style.display !== "none";
+  
+    // If the iframe is not open and the popup is visible, hide the popup
+    if (!isIframeOpen && popup.style.display === "flex") {
       popup.style.display = "none";
     }
-
-    iframe.style.display = isCurrentlyOpen ? "none" : "block";
-    button.style.display = isCurrentlyOpen ? "block" : "none";
-    localStorage.setItem("chatWindowState", isCurrentlyOpen ? "closed" : "open");
-
-    adjustIframeSize();
-    sendMessageToIframe();
-
-    if (!isCurrentlyOpen) {
+  
+    // Toggle iframe visibility
+    iframe.style.display = isIframeOpen ? "none" : "block";
+  
+    // Save the state in localStorage
+    localStorage.setItem("chatWindowState", isIframeOpen ? "closed" : "open");
+  
+    // If opening the iframe, adjust its size and send integration options
+    if (!isIframeOpen) {
+      adjustIframeSize();
+      sendMessageToIframe();
       iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
+    } else {
+      iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
     }
   }
+
 
   function adjustIframeSize() {
     var iframe = document.getElementById("chat-iframe");
@@ -451,12 +455,11 @@ document.addEventListener('DOMContentLoaded', function() {
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
-      var popup = document.getElementById("chatbase-message-bubbles");
-      popup.style.display = "none";
-      var currentTimestamp = getCurrentTimestamp();
-      setCookie("popupShownTimestamp", currentTimestamp, 1, ".yourdomain.com");
+      document.getElementById("chatbase-message-bubbles").style.display = "none";
+      setCookie("popupShownTimestamp", getCurrentTimestamp(), 1, ".yourdomain.com");
     });
   }
+
 
   /* -----------------------------------------------------------
    * 7. Initialize Chat Window State
