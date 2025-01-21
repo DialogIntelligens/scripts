@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
      // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
      fontLink.rel = 'stylesheet';
-     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;400;600;900&display=swap';
+     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;380;400;600;900&display=swap';
      document.head.appendChild(fontLink);
   /* -----------------------------------------------------------
    * 1. Inject CSS into <head>
@@ -154,10 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding: 15px;
+      padding-top: 12px;
+      padding-bottom: 12px;
+      padding-right: 24px;
+      padding-left: 20px;
       margin: 8px;
       font-size: 25px;
       font-family: 'Source Sans 3', sans-serif;
+      font-weight: 380
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
