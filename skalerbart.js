@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
       display: none; /* hidden by default */
       flex-direction: column;
       gap: 50px;
+      scale: 0.6
       min-width: 469px;
       transform-origin: bottom right;
       background-color: white;
@@ -151,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
       padding: 15px;
       margin: 8px;
       font-size: 25px;
+      font-family: 'Source Sans 3', sans-serif;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
