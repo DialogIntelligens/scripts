@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-     // Inject Google Fonts into the <head>
+  // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
-     fontLink.rel = 'stylesheet';
-     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;380;370;375;365;400;600;900&display=swap';
-     document.head.appendChild(fontLink);
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;380;370;375;365;400;600;900&display=swap';
+  document.head.appendChild(fontLink);
+
   /* -----------------------------------------------------------
    * 1. Inject CSS into <head>
    * ----------------------------------------------------------- */
@@ -74,6 +75,8 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 0.7;
       transform: scale(1.1);
     }
+
+    /* Popup rise animation */
     @keyframes rise-from-bottom {
       0% {
         transform: translateY(50px);
@@ -84,13 +87,14 @@ document.addEventListener('DOMContentLoaded', function() {
         opacity: 1;
       }
     }
-    
+
+    /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
       bottom: 70px;
       right: 6px;
       border-radius: 10px;
-      font-family: 'Source Sans 3', sans-serif;
+      font-family: 'Source+Sans+3', sans-serif;
       font-size: 20px;
       z-index: 2147483644;
       cursor: pointer;
@@ -103,9 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
                   rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
-    
-      /* Animation styles */
-      animation: rise-from-bottom 0.6s ease-out; /* 0.6 seconds rise animation */
+      animation: rise-from-bottom 0.6s ease-out;
     }
 
     #chatbase-message-bubbles::after {
@@ -120,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
       border-color: white transparent transparent transparent;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
     }
+
+    /* Close button is hidden by default; becomes visible/enlarged on hover */
     #chatbase-message-bubbles .close-popup {
       position: absolute;
       top: 10px;
@@ -136,28 +140,38 @@ document.addEventListener('DOMContentLoaded', function() {
       cursor: pointer;
       background-color: rgba(224, 224, 224, 0);
       color: black;
-      transition: background-color 0.3s, color 0.3s, opacity 0.3s;
-      opacity: 0.5;
+      opacity: 0;             /* Initially hidden */
+      transform: scale(0.7);  /* Smaller size */
+      transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
       z-index: 1000000;
+      pointer-events: none;   /* Not clickable until hover */
     }
+
+    /* When hovering over the entire popup, show/enlarge the close button */
+    #chatbase-message-bubbles:hover .close-popup {
+      opacity: 1;
+      transform: scale(1.2);
+      pointer-events: auto;
+    }
+
+    /* If user hovers directly over close button, revert background logic */
     #chatbase-message-bubbles .close-popup:hover {
       background-color: rgba(255, 0, 0, 0.8);
       color: white;
-      opacity: 1;
     }
+
+    /* The main message content area */
     #chatbase-message-bubbles .message-content {
       display: flex;
       justify-content: flex-end;
       padding: 0;
     }
+
     #chatbase-message-bubbles .message-box {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding-top: 12px;
-      padding-bottom: 12px;
-      padding-right: 24px;
-      padding-left: 20px;
+      padding: 12px 24px 12px 20px;
       margin: 8px;
       font-size: 25px;
       font-family: 'Source Sans 3', sans-serif;
@@ -189,9 +203,8 @@ document.addEventListener('DOMContentLoaded', function() {
       <div id="chatbase-message-bubbles">
         <div class="close-popup">&times;</div>
         <div class="message-content">
-          <div class="message-box">
-            Hej, det er Buddy! 😊 Jeg er her for at hjælpe med produktspørgsmål, træningstips og meget mere. 💪
-            <span id="funny-smiley">😄</span>
+          <div class="message-box" id="popup-message-box">
+            <!-- This text will be replaced dynamically based on new/returning user -->
           </div>
         </div>
       </div>
@@ -237,9 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 4. Popup & Chat Iframe Logic
    * ----------------------------------------------------------- */
-  var popupDuration = 2000000; // 200 seconds
-  var popupShownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
-
   var isIframeEnlarged = false;
 
   // Minimal overhead version of sendMessageToIframe (no long retry loop)
@@ -308,14 +318,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Toggle chat window instantly
+  // Toggle chat window
   function toggleChatWindow() {
     var iframe = document.getElementById("chat-iframe");
     var popup = document.getElementById("chatbase-message-bubbles");
     var isIframeOpen = (iframe.style.display !== "none");
 
     if (!isIframeOpen) {
-      // Instantly show the iframe
       iframe.style.display = "block";
       localStorage.setItem("chatWindowState", "open");
 
@@ -330,7 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
     }
 
-    // Hide the popup instantly if it's visible
+    // If the popup is open (flex), hide it once the chat opens
     if (popup.style.display === "flex") {
       setTimeout(function() {
         popup.style.display = "none";
@@ -366,18 +375,27 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
    * ----------------------------------------------------------- */
+
+  // We'll remove any auto-hide so it "never goes away" unless the user closes it
   function showPopup() {
     var popup = document.getElementById("chatbase-message-bubbles");
+    var messageBox = document.getElementById("popup-message-box");
+
+    // Check if user is new or returning
+    var userHasVisited = getCookie("userHasVisited");
+    if (!userHasVisited) {
+      // First-time user
+      setCookie("userHasVisited", "true", 365, ".yourdomain.com");
+      messageBox.innerHTML = `Hej, det er Buddy! 😊 Jeg er her for at hjælpe dig for første gang med produktspørgsmål, træningstips og meget mere. 💪 <span id="funny-smiley">😄</span>`;
+    } else {
+      // Returning user
+      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
+    }
+
     popup.style.display = "flex";
+    // We do NOT hide it automatically—no auto-hide timer
 
-    setCookie("popupShownTimestamp", getCurrentTimestamp(), 1, ".yourdomain.com");
-
-    // Auto-hide popup after popupDuration
-    setTimeout(function() {
-      popup.style.display = "none";
-    }, popupDuration);
-
-    // Blink after 2s
+    // Trigger blink after 2s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -388,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 2000);
 
-    // Jump after 12s
+    // Trigger jump after 12s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -400,16 +418,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 12000);
   }
 
-  function shouldShowPopup() {
-    var shownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
-    var currentTime = getCurrentTimestamp();
-    return (shownTimestamp === 0 || (currentTime - shownTimestamp) > popupDuration);
-  }
-
-  // Show popup after 10s if allowed
-  if (shouldShowPopup()) {
-    setTimeout(showPopup, 10000);
-  }
+  // Display popup after 7 seconds
+  setTimeout(showPopup, 7000);
 
   /* -----------------------------------------------------------
    * 6. Close Button Logic
@@ -418,7 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
       document.getElementById("chatbase-message-bubbles").style.display = "none";
-      setCookie("popupShownTimestamp", getCurrentTimestamp(), 1, ".yourdomain.com");
     });
   }
 
@@ -429,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var iframe = document.getElementById("chat-iframe");
   var button = document.getElementById("chat-button");
 
-  // If chat was "open" last time, open it immediately
+  // If the chat was previously open, open it again
   if (savedState === "open") {
     iframe.style.display = "block";
     button.style.display = "none";
@@ -439,7 +448,9 @@ document.addEventListener('DOMContentLoaded', function() {
     button.style.display = "block";
   }
 
-  // Event listeners
+  // Attach toggle
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+  // Adjust iframe on resize
   window.addEventListener("resize", adjustIframeSize);
 });
