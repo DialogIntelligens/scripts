@@ -69,29 +69,43 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 0.7;
       transform: scale(1.1);
     }
+    @keyframes rise-from-bottom {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
     #chatbase-message-bubbles {
       position: absolute;
       bottom: 70px;
-      right: 30px;
+      right: 6px;
       border-radius: 10px;
-      font-family: sans-serif;
+      font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
       z-index: 2147483644;
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
       gap: 50px;
-      min-width: 669px;
-      transform: scale(0.6);
+      min-width: 469px;
       transform-origin: bottom right;
       background-color: white;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
                   rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+    
+      /* Animation styles */
+      animation: rise-from-bottom 0.6s ease-out; /* 0.6 seconds rise animation */
     }
+
     #chatbase-message-bubbles::after {
       content: '';
       position: absolute;
-      bottom: -10px;
+      bottom: 0px;
       right: 30px;
       width: 0;
       height: 0;
@@ -212,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 4. Popup & Chat Iframe Logic
    * ----------------------------------------------------------- */
-  var popupDuration = 200000; // 200 seconds
+  var popupDuration = 2000000; // 200 seconds
   var popupShownTimestamp = parseInt(getCookie("popupShownTimestamp")) || 0;
 
   var isIframeEnlarged = false;
@@ -247,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Tropical Hængekøjers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tropical Hængekøjer",
-      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Hvad kan jeg hjælpe dig med?",
+      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Prøv mig ved at klikke her 👇",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
