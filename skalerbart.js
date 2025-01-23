@@ -212,9 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="660" height="651">
-          <path d="..." fill="var(--icon-color, #00FF00)" />
-        </svg>
+        <div id="svg-logo-container"></div>
       </button>
 
       <!-- Popup -->
@@ -251,19 +249,30 @@ document.addEventListener('DOMContentLoaded', function() {
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
-  function changeIconColor(newColor) {
-    fetch('https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg')
+  loadAndModifySVG(
+    'https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg', 
+    '#svg-logo-container', 
+    '#00FF00' // Dynamic color
+  );
+  
+  function loadAndModifySVG(url, targetSelector, newColor) {
+    fetch(url)
       .then((response) => response.text())
       .then((svg) => {
-        const updatedSvg = svg.replace(/fill="[^"]*"/g, `fill="${newColor}"`);
-        const blob = new Blob([updatedSvg], { type: 'image/svg+xml' });
-        const url = URL.createObjectURL(blob);
-        document.querySelector('#chat-button img').src = url;
-      });
-  }
-  changeIconColor('#FF0000'); // Change to red
+        // Insert SVG into target container
+        const target = document.querySelector(targetSelector);
+        target.innerHTML = svg;
   
-
+        // Modify the SVG dynamically (e.g., change color)
+        const svgElement = target.querySelector('svg');
+        if (svgElement) {
+          svgElement.querySelectorAll('path').forEach((path) => {
+            path.setAttribute('fill', newColor); // Change path color
+          });
+        }
+      })
+      .catch((error) => console.error('Error loading SVG:', error));
+  }
   
   function getCookie(name) {
     var nameEQ = name + "=";
