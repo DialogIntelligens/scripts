@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
+        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg" alt="Chat with us">
       </button>
 
       <!-- Popup -->
