@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 1. Inject CSS into <head>
    * ----------------------------------------------------------- */
-  var css = `
+  var css = 
   /* ----------------------------------------
      A) ANIMATIONS
      ---------------------------------------- */
@@ -61,14 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 30px;
     z-index: 200; /* Changed from 401 to fix overlap */
   }
-  :root {
-    --icon-color: #ff00ff; /* Default dynamic color */
-  }
-  
-  #chat-button img {
-    fill: var(--icon-color, #ff00ff); /* Use dynamic variable with fallback */
-  }
-
   #chat-button {
     cursor: pointer;
     background: none;
@@ -98,18 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: translateY(0);
       opacity: 1;
     }
-  }
-
-  #svg-logo-container {
-    display: inline-block;
-    width: 60px; /* Set desired size */
-    height: 60px;
-    overflow: hidden; /* Prevent clipping issues */
-  }
-  
-  #svg-logo-container svg {
-    width: 100%; /* Scale to container size */
-    height: 100%;
   }
   
   /* Popup container */
@@ -212,8 +192,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pointer-events: auto; /* Always clickable */
       background-color: rgba(224, 224, 224, 0); /* Keep the background transparent */
     }
-  }
-  `;
+  ;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
@@ -221,11 +200,11 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 2. Inject HTML
    * ----------------------------------------------------------- */
-  var chatbotHTML = `
+  var chatbotHTML = 
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <div id="svg-logo-container"></div>
+        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg" alt="Chat with us">
       </button>
 
       <!-- Popup -->
@@ -245,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
       src="https://skalerbartprodukt.onrender.com"
       style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
     </iframe>
-  `;
+  ;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   /* -----------------------------------------------------------
@@ -262,31 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
-  loadAndModifySVG(
-    'https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg', 
-    '#svg-logo-container', 
-    '#ff00ff' // Dynamic color
-  );
-  
-  function loadAndModifySVG(url, targetSelector, newColor) {
-    fetch(url)
-      .then((response) => response.text())
-      .then((svg) => {
-        // Insert SVG into target container
-        const target = document.querySelector(targetSelector);
-        target.innerHTML = svg;
-  
-        // Modify the SVG (color all paths)
-        const svgElement = target.querySelector('svg');
-        if (svgElement) {
-          svgElement.querySelectorAll('path').forEach((path) => {
-            path.setAttribute('fill', newColor);
-          });
-        }
-      })
-      .catch((error) => console.error('Error loading SVG:', error));
-  }
-  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
@@ -443,9 +397,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = 'Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>';
+      messageBox.innerHTML = Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>;
     } else {
-      messageBox.innerHTML = \`Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>\`;
+      messageBox.innerHTML = Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>;
     }
   
     popup.style.display = "flex";
