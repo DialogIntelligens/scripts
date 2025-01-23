@@ -212,7 +212,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg" alt="Chat with us">
+        <svg xmlns="http://www.w3.org/2000/svg" width="660" height="651">
+          <path d="..." fill="var(--icon-color, #00FF00)" />
+        </svg>
       </button>
 
       <!-- Popup -->
@@ -250,11 +252,18 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function changeIconColor(newColor) {
-    document.documentElement.style.setProperty('--icon-color', newColor);
+    fetch('https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg')
+      .then((response) => response.text())
+      .then((svg) => {
+        const updatedSvg = svg.replace(/fill="[^"]*"/g, `fill="${newColor}"`);
+        const blob = new Blob([updatedSvg], { type: 'image/svg+xml' });
+        const url = URL.createObjectURL(blob);
+        document.querySelector('#chat-button img').src = url;
+      });
   }
+  changeIconColor('#FF0000'); // Change to red
   
-  // Example usage:
-  changeIconColor('#0000FF'); // Changes color to red
+
   
   function getCookie(name) {
     var nameEQ = name + "=";
