@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Example usage:
-  changeIconColor('#FF0000'); // Changes color to red
+  changeIconColor('#0000FF'); // Changes color to red
   
   function getCookie(name) {
     var nameEQ = name + "=";
