@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 370;
       opacity: 1;
+      z-index: 10000000000000;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
       width: 100%;
@@ -386,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!userHasVisited) {
       // First-time user
       setCookie("userHasVisited", "true", 365, ".yourdomain.com");
-      messageBox.innerHTML = `Hej, det er Buddy! 😊 Jeg er her for at hjælpe dig for første gang med produktspørgsmål, træningstips og meget mere. 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
     } else {
       // Returning user
       messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
