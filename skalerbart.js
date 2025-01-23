@@ -9,191 +9,187 @@ document.addEventListener('DOMContentLoaded', function() {
    * 1. Inject CSS into <head>
    * ----------------------------------------------------------- */
   var css = `
-    /* ----------------------------------------
-       A) ANIMATIONS
-       ---------------------------------------- */
-    @keyframes blink-eye {
-      0%, 100% {
-        transform: scaleY(1);
-      }
-      50% {
-        transform: scaleY(0.1);
-      }
+  /* ----------------------------------------
+     A) ANIMATIONS
+     ---------------------------------------- */
+  @keyframes blink-eye {
+    0%, 100% {
+      transform: scaleY(1);
     }
-    @keyframes jump {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-10px);
-      }
+    50% {
+      transform: scaleY(0.1);
     }
-    #funny-smiley.blink {
-      display: inline-block;
-      animation: blink-eye 0.5s ease-in-out 2;
+  }
+  @keyframes jump {
+    0%, 100% {
+      transform: translateY(0);
     }
-    #funny-smiley.jump {
-      display: inline-block;
-      animation: jump 0.5s ease-in-out 2;
+    50% {
+      transform: translateY(-10px);
     }
-
-    /* ----------------------------------------
-       B) MEDIA QUERY FOR SMALL SCREENS
-       ---------------------------------------- */
-    @media (max-width: 500px) {
-      #chatbase-message-bubbles {
-        min-width: 90vw;
-        transform: scale(1);
-        right: 5px;
-        bottom: 60px;
-      }
-      #chatbase-message-bubbles::after {
-        right: 20px;
-      }
-    }
-
-    /* ----------------------------------------
-       C) CHAT BUTTON + POPUP STYLES
-       ---------------------------------------- */
-    #chat-container {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 500;
-    }
-    #chat-button {
-      cursor: pointer;
-      z-index: 501;
-      background: none;
-      border: none;
-    }
-    #chat-button img {
-      width: 60px;
-      height: 60px;
-      transition: opacity 0.3s;
-    }
-    #chat-button:hover img {
-      opacity: 0.7;
-      transform: scale(1.1);
-    }
-
-    /* Popup rise animation */
-    @keyframes rise-from-bottom {
-      0% {
-        transform: translateY(50px) scale(0.9);
-        opacity: 0;
-        z-index: 399; /* Start below the button */
-      }
-      50% {
-        transform: translateY(20px) scale(1);
-        opacity: 0.5;
-        z-index: 399; /* Ensure it stays below */
-      }
-      100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-        z-index: 400; /* Popup still under button */
-      }
-    }
-
-
-    /* Popup container */
+  }
+  #funny-smiley.blink {
+    display: inline-block;
+    animation: blink-eye 0.5s ease-in-out 2;
+  }
+  #funny-smiley.jump {
+    display: inline-block;
+    animation: jump 0.5s ease-in-out 2;
+  }
+  
+  /* ----------------------------------------
+     B) MEDIA QUERY FOR SMALL SCREENS
+     ---------------------------------------- */
+  @media (max-width: 500px) {
     #chatbase-message-bubbles {
-      position: absolute;
-      bottom: 70px;
-      right: 6px;
-      border-radius: 10px;
-      font-family: 'Source+Sans+3', sans-serif;
-      font-size: 20px;
-      z-index: 400;
-      cursor: pointer;
-      display: none; /* hidden by default */
-      flex-direction: column;
-      gap: 50px;
-      scale: 0.6;
-      min-width: 469px;
-      transform-origin: bottom right;
-      background-color: white;
-      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
-                  rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
-      animation: rise-from-bottom 0.6s ease-out;
-    }
-
-    #chatbase-message-bubbles::after {
-      content: '';
-      position: absolute;
-      bottom: 0px;
-      right: 30px;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 10px 0 20px;
-      border-color: white transparent transparent transparent;
-      box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
-    }
-
-    /* Close button is hidden by default; becomes visible/enlarged on hover */
-    #chatbase-message-bubbles .close-popup {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 25px;
-      height: 25px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 18px;
-      cursor: pointer;
-      background-color: rgba(224, 224, 224, 0);
-      color: black;
-      opacity: 0;             /* Initially hidden */
-      transform: scale(0.7);  /* Smaller size */
-      transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-      z-index: 400;
-      pointer-events: none;   /* Not clickable until hover */
-    }
-
-    /* When hovering over the entire popup, show/enlarge the close button */
-    #chatbase-message-bubbles:hover .close-popup {
-      opacity: 1;
-      transform: scale(1.2);
-      pointer-events: auto;
-    }
-
-    /* If user hovers directly over close button, revert background logic */
-    #chatbase-message-bubbles .close-popup:hover {
-      background-color: rgba(255, 0, 0, 0.8);
-      color: white;
-    }
-
-    /* The main message content area */
-    #chatbase-message-bubbles .message-content {
-      display: flex;
-      justify-content: flex-end;
-      padding: 0;
-    }
-
-    #chatbase-message-bubbles .message-box {
-      background-color: white;
-      color: black;
-      border-radius: 10px;
-      padding: 12px 24px 12px 20px;
-      margin: 8px;
-      font-size: 25px;
-      font-family: 'Source Sans 3', sans-serif;
-      font-weight: 370;
-      opacity: 1;
-      z-index: 400;
+      min-width: 90vw;
       transform: scale(1);
-      transition: opacity 1s, transform 1s;
-      width: 100%;
-      box-sizing: border-box;
-      word-wrap: break-word;
-      max-width: 100%;
+      right: 5px;
+      bottom: 60px;
     }
+    #chatbase-message-bubbles::after {
+      right: 20px;
+    }
+  }
+  
+  /* ----------------------------------------
+     C) CHAT BUTTON + POPUP STYLES
+     ---------------------------------------- */
+  #chat-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 500; /* Container above other elements except the button */
+  }
+  
+  #chat-button {
+    cursor: pointer;
+    z-index: 501; /* Button above everything else */
+    background: none;
+    border: none;
+  }
+  #chat-button img {
+    width: 60px;
+    height: 60px;
+    transition: opacity 0.3s;
+  }
+  #chat-button:hover img {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+  
+  /* Popup rise animation */
+  @keyframes rise-from-bottom {
+    0% {
+      transform: translateY(50px) scale(1);
+      opacity: 0;
+      z-index: 400;
+    }
+    50% {
+      transform: translateY(20px) scale(1);
+      opacity: 0.5;
+      z-index: 400;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      z-index: 400;
+    }
+  }
+  
+  /* Popup container */
+  #chatbase-message-bubbles {
+    position: absolute;
+    bottom: 70px;
+    right: 6px;
+    border-radius: 10px;
+    font-family: 'Source+Sans+3', sans-serif;
+    font-size: 20px;
+    z-index: 400; /* Popup below the chat button */
+    cursor: pointer;
+    display: none; /* hidden by default */
+    flex-direction: column;
+    gap: 50px;
+    /* Removed scale(0.6) to avoid new stacking context issues */
+    min-width: 469px;
+    transform-origin: bottom right;
+    background-color: white;
+    box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
+                rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+    animation: rise-from-bottom 0.6s ease-out;
+  }
+  #chatbase-message-bubbles::after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    right: 30px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 10px 0 20px;
+    border-color: white transparent transparent transparent;
+    box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
+  }
+  
+  /* Close button is hidden by default; becomes visible/enlarged on hover */
+  #chatbase-message-bubbles .close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    background-color: rgba(224, 224, 224, 0);
+    color: black;
+    opacity: 0; /* Initially hidden */
+    transform: scale(0.7);
+    transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
+    z-index: 400;
+    pointer-events: none; /* Not clickable until hover */
+  }
+  
+  /* When hovering over the entire popup, show/enlarge the close button */
+  #chatbase-message-bubbles:hover .close-popup {
+    opacity: 1;
+    transform: scale(1.2);
+    pointer-events: auto;
+  }
+  /* If user hovers directly over close button, revert background logic */
+  #chatbase-message-bubbles .close-popup:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+    color: white;
+  }
+  
+  /* The main message content area */
+  #chatbase-message-bubbles .message-content {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0;
+  }
+  #chatbase-message-bubbles .message-box {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 12px 24px 12px 20px;
+    margin: 8px;
+    font-size: 25px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 370;
+    opacity: 1;
+    z-index: 400;
+    transition: opacity 1s, transform 1s;
+    width: 100%;
+    box-sizing: border-box;
+    word-wrap: break-word;
+    max-width: 100%;
+  }
   `;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
