@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 10px;
     font-family: 'Source+Sans+3', sans-serif;
     font-size: 20px;
-    z-index: 2147483644;
+    z-index: 18;
     cursor: pointer;
     display: none; /* hidden by default */
     flex-direction: column;
