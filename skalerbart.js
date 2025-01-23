@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     #chat-button {
       cursor: pointer;
-      z-index: 500;
+      z-index: 501;
       background: none;
       border: none;
     }
@@ -80,14 +80,22 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup rise animation */
     @keyframes rise-from-bottom {
       0% {
-        transform: translateY(50px);
+        transform: translateY(50px) scale(0.9);
         opacity: 0;
+        z-index: 399; /* Start below the button */
+      }
+      50% {
+        transform: translateY(20px) scale(1);
+        opacity: 0.5;
+        z-index: 399; /* Ensure it stays below */
       }
       100% {
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
         opacity: 1;
+        z-index: 400; /* Popup still under button */
       }
     }
+
 
     /* Popup container */
     #chatbase-message-bubbles {
