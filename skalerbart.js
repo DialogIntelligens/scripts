@@ -59,14 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 500; /* Container above other elements except the button */
+    z-index: 500;
   }
-  
   #chat-button {
     cursor: pointer;
-    z-index: 501; /* Button above everything else */
+    z-index: 501;
     background: none;
     border: none;
+    /* --- FIX: Force new stacking context at higher level --- */
+    transform: translateZ(0);
+    /* ------------------------------------------------------ */
   }
   #chat-button img {
     width: 60px;
@@ -81,19 +83,19 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Popup rise animation */
   @keyframes rise-from-bottom {
     0% {
-      transform: translateY(50px) scale(1);
+      transform: translateY(50px) scale(0.9);
       opacity: 0;
-      z-index: 400;
+      z-index: 399; /* Start below the button */
     }
     50% {
       transform: translateY(20px) scale(1);
       opacity: 0.5;
-      z-index: 400;
+      z-index: 399; /* Ensure it stays below */
     }
     100% {
       transform: translateY(0) scale(1);
       opacity: 1;
-      z-index: 400;
+      z-index: 400; /* Popup still under button */
     }
   }
   
@@ -105,12 +107,12 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 10px;
     font-family: 'Source+Sans+3', sans-serif;
     font-size: 20px;
-    z-index: 400; /* Popup below the chat button */
+    z-index: 400;
     cursor: pointer;
     display: none; /* hidden by default */
     flex-direction: column;
     gap: 50px;
-    /* Removed scale(0.6) to avoid new stacking context issues */
+    scale: 0.6;
     min-width: 469px;
     transform-origin: bottom right;
     background-color: white;
@@ -148,20 +150,17 @@ document.addEventListener('DOMContentLoaded', function() {
     cursor: pointer;
     background-color: rgba(224, 224, 224, 0);
     color: black;
-    opacity: 0; /* Initially hidden */
-    transform: scale(0.7);
+    opacity: 0;             /* Initially hidden */
+    transform: scale(0.7);  /* Smaller size */
     transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
     z-index: 400;
-    pointer-events: none; /* Not clickable until hover */
+    pointer-events: none;   /* Not clickable until hover */
   }
-  
-  /* When hovering over the entire popup, show/enlarge the close button */
   #chatbase-message-bubbles:hover .close-popup {
     opacity: 1;
     transform: scale(1.2);
     pointer-events: auto;
   }
-  /* If user hovers directly over close button, revert background logic */
   #chatbase-message-bubbles .close-popup:hover {
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
@@ -184,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-weight: 370;
     opacity: 1;
     z-index: 400;
+    transform: scale(1);
     transition: opacity 1s, transform 1s;
     width: 100%;
     box-sizing: border-box;
