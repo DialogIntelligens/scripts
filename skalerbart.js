@@ -61,14 +61,6 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 30px;
     z-index: 200; /* Changed from 401 to fix overlap */
   }
-  :root {
-    --icon-color: #ff00ff; /* Default dynamic color */
-  }
-  
-  #chat-button img {
-    fill: var(--icon-color, #ff00ff); /* Use dynamic variable with fallback */
-  }
-
   #chat-button {
     cursor: pointer;
     background: none;
@@ -98,18 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: translateY(0);
       opacity: 1;
     }
-  }
-
-  #svg-logo-container {
-    display: inline-block;
-    width: 60px; /* Set desired size */
-    height: 60px;
-    overflow: hidden; /* Prevent clipping issues */
-  }
-  
-  #svg-logo-container svg {
-    width: 100%; /* Scale to container size */
-    height: 100%;
   }
   
   /* Popup container */
@@ -224,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <div id="svg-logo-container"></div>
+        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
       </button>
 
       <!-- Popup -->
@@ -261,33 +241,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
-  loadAndModifySVG(
-    'https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg', 
-    '#svg-logo-container', 
-    '#ff00ff' // Dynamic color
-  );
-  
-  function loadAndModifySVG(url, targetSelector, newColor) {
-    fetch(url)
-      .then((response) => response.text())
-      .then((svg) => {
-        // Insert SVG into target container
-        const target = document.querySelector(targetSelector);
-        target.innerHTML = svg;
-  
-        // Modify the SVG dynamically (e.g., change color)
-        const svgElement = target.querySelector('svg');
-        if (svgElement) {
-          svgElement.querySelectorAll('path').forEach((path) => {
-            if (path.getAttribute('class') === 'desired-class') {
-              path.setAttribute('fill', newColor);
-            }// Change path color
-          });
-        }
-      })
-      .catch((error) => console.error('Error loading SVG:', error));
-  }
-  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
