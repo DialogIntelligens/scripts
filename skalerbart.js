@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 30px;
     z-index: 200; /* Changed from 401 to fix overlap */
   }
+  :root {
+    --icon-color: #00FF00; /* Default dynamic color */
+  }
+  
+  #chat-button img {
+    fill: var(--icon-color, #00FF00); /* Use dynamic variable with fallback */
+  }
+
   #chat-button {
     cursor: pointer;
     background: none;
@@ -204,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.png" alt="Chat with us">
+        <img src="https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg" alt="Chat with us">
       </button>
 
       <!-- Popup -->
@@ -241,6 +249,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
+  function changeIconColor(newColor) {
+    document.documentElement.style.setProperty('--icon-color', newColor);
+  }
+  
+  // Example usage:
+  changeIconColor('#FF0000'); // Changes color to red
+  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
