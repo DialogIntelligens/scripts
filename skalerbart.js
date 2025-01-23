@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 2. Inject HTML
    * ----------------------------------------------------------- */
-  var chatbotHTML = 
+  var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
       src="https://skalerbartprodukt.onrender.com"
       style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
     </iframe>
-  ;
+  `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   /* -----------------------------------------------------------
@@ -443,9 +443,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = 'Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>';
+      messageBox.innerHTML = \`Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>\`;
     } else {
-      messageBox.innerHTML = \Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>\;
+      messageBox.innerHTML = \`Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>\`;
     }
   
     popup.style.display = "flex";
