@@ -212,6 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pointer-events: auto; /* Always clickable */
       background-color: rgba(224, 224, 224, 0); /* Keep the background transparent */
     }
+  }
   `;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
@@ -275,13 +276,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const target = document.querySelector(targetSelector);
         target.innerHTML = svg;
   
-        // Modify the SVG dynamically (e.g., change color)
+        // Modify the SVG (color all paths)
         const svgElement = target.querySelector('svg');
         if (svgElement) {
           svgElement.querySelectorAll('path').forEach((path) => {
-            if (path.getAttribute('class') === 'desired-class') {
-              path.setAttribute('fill', newColor);
-            }// Change path color
+            path.setAttribute('fill', newColor);
           });
         }
       })
@@ -444,9 +443,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = \`Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>\`;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = \`Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>\`;
     }
   
     popup.style.display = "flex";
