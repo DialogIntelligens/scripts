@@ -61,6 +61,14 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 30px;
     z-index: 200; /* Changed from 401 to fix overlap */
   }
+  :root {
+    --icon-color: #00FF00; /* Default dynamic color */
+  }
+  
+  #chat-button img {
+    fill: var(--icon-color, #00FF00); /* Use dynamic variable with fallback */
+  }
+
   #chat-button {
     cursor: pointer;
     background: none;
@@ -159,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function() {
   #chatbase-message-bubbles .close-popup:hover {
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
-    background-color: #555;
+    background-color: black;
   }
   
   /* The main message content area */
@@ -185,6 +193,13 @@ document.addEventListener('DOMContentLoaded', function() {
     word-wrap: break-word;
     max-width: 100%;
   }
+  @media (max-width: 500px) {
+    #chatbase-message-bubbles .close-popup {
+      opacity: 1; /* Always visible */
+      transform: scale(1); /* Normal size */
+      pointer-events: auto; /* Always clickable */
+      background-color: rgba(224, 224, 224, 0); /* Keep the background transparent */
+    }
   `;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
@@ -234,6 +249,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
 
+  function changeIconColor(newColor) {
+    document.documentElement.style.setProperty('--icon-color', newColor);
+  }
+  
+  // Example usage:
+  changeIconColor('#FF0000'); // Changes color to red
+  
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
