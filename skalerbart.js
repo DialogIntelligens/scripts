@@ -155,11 +155,11 @@ document.addEventListener('DOMContentLoaded', function() {
     opacity: 1;
     transform: scale(1.2);
     pointer-events: auto;
-    color: #555;
   }
   #chatbase-message-bubbles .close-popup:hover {
     background-color: rgba(255, 0, 0, 0.8);
     color: white;
+    background-color: #555;
   }
   
   /* The main message content area */
