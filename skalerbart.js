@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', function() {
     cursor: pointer;
     background: none;
     border: none;
+    position: fixed;
+    z-index: 20;
+    right: 30px;
+    bottom: 30px;
   }
   #chat-button img {
     width: 60px;
