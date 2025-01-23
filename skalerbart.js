@@ -177,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 370;
       opacity: 1;
-      z-index: 10000000000000;
+      z-index: 3000;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
       width: 100%;
