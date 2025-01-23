@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       font-family: 'Source+Sans+3', sans-serif;
       font-size: 20px;
-      z-index: 2147483644;
+      z-index: 4000;
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 0;             /* Initially hidden */
       transform: scale(0.7);  /* Smaller size */
       transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-      z-index: 1000000;
+      z-index: 3900;
       pointer-events: none;   /* Not clickable until hover */
     }
 
