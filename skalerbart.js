@@ -99,6 +99,18 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1;
     }
   }
+
+  #svg-logo-container {
+    display: inline-block;
+    width: 60px; /* Set desired size */
+    height: 60px;
+    overflow: hidden; /* Prevent clipping issues */
+  }
+  
+  #svg-logo-container svg {
+    width: 100%; /* Scale to container size */
+    height: 100%;
+  }
   
   /* Popup container */
   #chatbase-message-bubbles {
@@ -267,7 +279,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const svgElement = target.querySelector('svg');
         if (svgElement) {
           svgElement.querySelectorAll('path').forEach((path) => {
-            path.setAttribute('fill', newColor); // Change path color
+            if (path.getAttribute('class') === 'desired-class') {
+              path.setAttribute('fill', newColor);
+            }// Change path color
           });
         }
       })
