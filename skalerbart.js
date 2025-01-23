@@ -59,16 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 500;
+    z-index: 2147483645; /* Changed from 401 to fix overlap */
   }
   #chat-button {
     cursor: pointer;
-    z-index: 501;
     background: none;
     border: none;
-    /* --- FIX: Force new stacking context at higher level --- */
-    transform: translateZ(0);
-    /* ------------------------------------------------------ */
   }
   #chat-button img {
     width: 60px;
@@ -83,19 +79,12 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Popup rise animation */
   @keyframes rise-from-bottom {
     0% {
-      transform: translateY(50px) scale(0.9);
+      transform: translateY(50px);
       opacity: 0;
-      z-index: 399; /* Start below the button */
-    }
-    50% {
-      transform: translateY(20px) scale(1);
-      opacity: 0.5;
-      z-index: 399; /* Ensure it stays below */
     }
     100% {
-      transform: translateY(0) scale(1);
+      transform: translateY(0);
       opacity: 1;
-      z-index: 400; /* Popup still under button */
     }
   }
   
@@ -107,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 10px;
     font-family: 'Source+Sans+3', sans-serif;
     font-size: 20px;
-    z-index: 400;
+    z-index: 2147483644;
     cursor: pointer;
     display: none; /* hidden by default */
     flex-direction: column;
@@ -120,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
     animation: rise-from-bottom 0.6s ease-out;
   }
+  
   #chatbase-message-bubbles::after {
     content: '';
     position: absolute;
@@ -153,9 +143,10 @@ document.addEventListener('DOMContentLoaded', function() {
     opacity: 0;             /* Initially hidden */
     transform: scale(0.7);  /* Smaller size */
     transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-    z-index: 400;
+    z-index: 1000000;
     pointer-events: none;   /* Not clickable until hover */
   }
+  
   #chatbase-message-bubbles:hover .close-popup {
     opacity: 1;
     transform: scale(1.2);
@@ -182,7 +173,6 @@ document.addEventListener('DOMContentLoaded', function() {
     font-family: 'Source Sans 3', sans-serif;
     font-weight: 370;
     opacity: 1;
-    z-index: 400;
     transform: scale(1);
     transition: opacity 1s, transform 1s;
     width: 100%;
