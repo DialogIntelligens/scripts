@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "jagttegnkurser",
+      chatbotID: "washworld",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14ac2aa7-8ad3-474e-99d8-59ff691bb77b",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -218,14 +218,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
       imageAPI: '',
       
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_jagttegnkurser.pdf",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_WashWorld.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/WashWorld_logo.png",
       themeColor: "#3ac165",
-      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
+      headerTitleG: "Wash Worlds Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Jagttegn kurser",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
+      titleG: "Wash World",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
