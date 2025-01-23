@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 200; /* Changed from 401 to fix overlap */
   }
   :root {
-    --icon-color: #00FF00; /* Default dynamic color */
+    --icon-color: #ff00ff; /* Default dynamic color */
   }
   
   #chat-button img {
-    fill: var(--icon-color, #00FF00); /* Use dynamic variable with fallback */
+    fill: var(--icon-color, #ff00ff); /* Use dynamic variable with fallback */
   }
 
   #chat-button {
@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadAndModifySVG(
     'https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg', 
     '#svg-logo-container', 
-    '#00FF00' // Dynamic color
+    '#ffffff' // Dynamic color
   );
   
   function loadAndModifySVG(url, targetSelector, newColor) {
