@@ -59,10 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       bottom: 30px;
       right: 30px;
-      z-index: 401;
+      z-index: 500;
     }
     #chat-button {
       cursor: pointer;
+      z-index: 500;
       background: none;
       border: none;
     }
