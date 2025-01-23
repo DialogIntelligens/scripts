@@ -130,8 +130,8 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Close button is hidden by default; becomes visible/enlarged on hover */
   #chatbase-message-bubbles .close-popup {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 8px;
+    right: 9px;
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
     opacity: 1;
     transform: scale(1.2);
     pointer-events: auto;
+    color: #555;
   }
   #chatbase-message-bubbles .close-popup:hover {
     background-color: rgba(255, 0, 0, 0.8);
