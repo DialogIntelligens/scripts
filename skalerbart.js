@@ -378,21 +378,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // We'll remove any auto-hide so it "never goes away" unless the user closes it
   function showPopup() {
+    var iframe = document.getElementById("chat-iframe");
+    if (iframe.style.display !== "none" || getCookie("popupClosed") === "true") {
+      return; // Do not show the popup if the chatbot is open or popup has been closed
+    }
+  
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-
-    // Check if user is new or returning
+  
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
-      // First-time user
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
       messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
     } else {
-      // Returning user
       messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
     }
-
+  
     popup.style.display = "flex";
+  }
     // We do NOT hide it automatically—no auto-hide timer
 
     // Trigger blink after 2s
@@ -419,7 +422,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Display popup after 7 seconds
-  setTimeout(showPopup, 7000);
+  var popupClosed = getCookie("popupClosed");
+  if (!popupClosed || popupClosed === "false") {
+    setTimeout(showPopup, 7000); // Only show if not previously closed
+  }
 
   /* -----------------------------------------------------------
    * 6. Close Button Logic
@@ -428,6 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
       document.getElementById("chatbase-message-bubbles").style.display = "none";
+      setCookie("popupClosed", "true", 1, ".yourdomain.com"); // Remember the popup is closed
     });
   }
 
