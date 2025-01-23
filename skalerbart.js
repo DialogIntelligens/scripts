@@ -395,9 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     popup.style.display = "flex";
-  }
-    // We do NOT hide it automatically—no auto-hide timer
-
+  
     // Trigger blink after 2s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -408,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 1000);
       }
     }, 2000);
-
+  
     // Trigger jump after 12s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
