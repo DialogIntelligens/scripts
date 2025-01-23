@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
   loadAndModifySVG(
     'https://image-hosting-pi.vercel.app/haengekoejerMessageLogo2.svg', 
     '#svg-logo-container', 
-    '#ffffff' // Dynamic color
+    '#ff00ff' // Dynamic color
   );
   
   function loadAndModifySVG(url, targetSelector, newColor) {
