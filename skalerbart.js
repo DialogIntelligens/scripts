@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 2147483645; /* Changed from 401 to fix overlap */
+    z-index: 200; /* Changed from 401 to fix overlap */
   }
   #chat-button {
     cursor: pointer;
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-radius: 10px;
     padding: 12px 24px 12px 20px;
     margin: 8px;
-    font-size: 25px;
+    font-size: 24px;
     font-family: 'Source Sans 3', sans-serif;
     font-weight: 370;
     opacity: 1;
@@ -385,7 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       // First-time user
-      setCookie("userHasVisited", "true", 365, ".yourdomain.com");
+      setCookie("userHasVisited", "true", 1, ".yourdomain.com");
       messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
     } else {
       // Returning user
