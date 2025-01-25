@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     bottom: 70px;
     right: 6px;
     border-radius: 10px;
-    font-family: 'Source+Sans+3', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
     font-size: 20px;
     z-index: 18;
     cursor: pointer;
