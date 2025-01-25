@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;360;380;370;375;365;400;600;900&display=swap';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
   document.head.appendChild(fontLink);
 
   /* -----------------------------------------------------------
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 8px;
     font-size: 24px;
     font-family: 'Source Sans 3', sans-serif;
-    font-weight: 300;
+    font-weight: 400; /* or any valid weight */
     opacity: 1;
     transform: scale(1);
     transition: opacity 1s, transform 1s;
