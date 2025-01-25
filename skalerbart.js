@@ -97,8 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Popup container */
   #chatbase-message-bubbles {
     position: absolute;
-    bottom: 60px;
-    right: -13px;
+    bottom: 70px;
+    right: 7px;
     border-radius: 10px;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 20px;
