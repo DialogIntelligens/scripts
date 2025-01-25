@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     z-index: 20;
     right: 30px;
-    bottom: 22px;
+    bottom: 30px;
   }
   #chat-button svg {
     width: 60px;
@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #0459E1; /* Lime green */
+    --icon-color: ${themeColors.iconColor};
   }
   
   /* The main message content area */
@@ -279,6 +279,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var iframe = document.getElementById("chat-iframe");
     var iframeWindow = iframe.contentWindow;
 
+    var popupMessages = {
+      firstVisit: "Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id='funny-smiley'>😄</span>",
+      returnVisit: "Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id='funny-smiley'>😄</span>"
+    };
+    
+    var themeColors = {
+      iconColor: "#0459E1", // Blue
+    };
+ 
     var messageData = {
       action: 'integrationOptions',
       chatbotID: "haengekoejer",
@@ -411,9 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = popupMessages.firstVisit;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = popupMessages.returnVisit;
     }
   
     popup.style.display = "flex";
