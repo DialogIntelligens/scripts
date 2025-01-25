@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     z-index: 20;
     right: 30px;
-    bottom: 30px;
+    bottom: 22px;
   }
   #chat-button img {
     width: 60px;
