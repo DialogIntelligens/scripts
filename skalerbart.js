@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;380;370;375;365;400;600;900&display=swap';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;350;360;380;370;375;365;400;600;900&display=swap';
   document.head.appendChild(fontLink);
 
   /* -----------------------------------------------------------
@@ -111,8 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
     min-width: 399px;
     transform-origin: bottom right;
     background-color: white;
-    box-shadow: rgba(150, 150, 150, 0.2) 0px 5px 15px 2px,
-                rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
+    box-shadow: 
+        0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15),
+        0px 2.29px 2.06px -2.67px rgba(0, 0, 0, 0.13),
+        0px 10px 9px -4px rgba(0, 0, 0, 0.04),
+        rgba(0, 0, 0, 0.125) 0px 0.362176px 0.941657px -1px,
+        rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
     animation: rise-from-bottom 0.6s ease-out;
   }
   
@@ -182,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 8px;
     font-size: 24px;
     font-family: 'Source Sans 3', sans-serif;
-    font-weight: 370;
+    font-weight: 300;
     opacity: 1;
     transform: scale(1);
     transition: opacity 1s, transform 1s;
