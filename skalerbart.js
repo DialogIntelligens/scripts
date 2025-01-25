@@ -62,11 +62,11 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 200; /* Changed from 401 to fix overlap */
   }
   :root {
-    --icon-color: #00FF00; /* Default dynamic color */
+    --icon-color: #808080; /* Default dynamic color */
   }
   
   #chat-button img {
-    fill: var(--icon-color, #00FF00); /* Use dynamic variable with fallback */
+    fill: var(--icon-color, #808080); /* Use dynamic variable with fallback */
   }
 
   #chat-button {
@@ -114,10 +114,10 @@ document.addEventListener('DOMContentLoaded', function() {
     flex-direction: column;
     gap: 50px;
     scale: 0.6;
-    min-width: 469px;
+    min-width: 399px;
     transform-origin: bottom right;
     background-color: white;
-    box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px,
+    box-shadow: rgba(150, 150, 150, 0.2) 0px 5px 15px 2px,
                 rgba(150, 150, 150, 0.2) 0px 0px 0px 1px;
     animation: rise-from-bottom 0.6s ease-out;
   }
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Example usage:
-  changeIconColor('#FF0000'); // Changes color to red
+  changeIconColor('#808080'); // Changes color to red
   
   function getCookie(name) {
     var nameEQ = name + "=";
