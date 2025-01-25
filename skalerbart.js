@@ -72,12 +72,12 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 30px;
     bottom: 22px;
   }
-  #chat-button img {
+  #chat-button svg {
     width: 60px;
     height: 60px;
     transition: opacity 0.3s;
   }
-  #chat-button:hover img {
+  #chat-button:hover svg {
     opacity: 0.7;
     transform: scale(1.1);
   }
