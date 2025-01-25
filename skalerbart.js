@@ -57,8 +57,8 @@ document.addEventListener('DOMContentLoaded', function() {
      ---------------------------------------- */
   #chat-container {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 20px;
+    right: 10px;
     z-index: 200; /* Changed from 401 to fix overlap */
   }
 
@@ -69,8 +69,8 @@ document.addEventListener('DOMContentLoaded', function() {
     border: none;
     position: fixed;
     z-index: 20;
-    right: 30px;
-    bottom: 30px;
+    right: 10px;
+    bottom: 20px;
   }
   #chat-button svg {
     width: 60px;
@@ -97,8 +97,8 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Popup container */
   #chatbase-message-bubbles {
     position: absolute;
-    bottom: 75px;
-    right: 6px;
+    bottom: 60px;
+    right: -13px;
     border-radius: 10px;
     font-family: 'Source Sans 3', sans-serif;
     font-size: 20px;
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #0459E1; /* ICON FARVE */
+    --icon-color: #0101FF; /* ICON FARVE */
   }
   
   /* The main message content area */
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 24px;
     font-family: 'Source Sans 3', sans-serif;
     font-weight: 400; /* or any valid weight */
-    opacity: 0.9;
+    opacity: 1;
     transform: scale(1);
     transition: opacity 1s, transform 1s;
     width: 100%;
