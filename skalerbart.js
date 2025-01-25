@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* Popup container */
   #chatbase-message-bubbles {
     position: absolute;
-    bottom: 70px;
+    bottom: 75px;
     right: 6px;
     border-radius: 10px;
     font-family: 'Source Sans 3', sans-serif;
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
     flex-direction: column;
     gap: 50px;
     scale: 0.6;
-    min-width: 399px;
+    min-width: 460px;
     transform-origin: bottom right;
     background-color: white;
     box-shadow: 
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-size: 24px;
     font-family: 'Source Sans 3', sans-serif;
     font-weight: 400; /* or any valid weight */
-    opacity: 1;
+    opacity: 0.9;
     transform: scale(1);
     transition: opacity 1s, transform 1s;
     width: 100%;
