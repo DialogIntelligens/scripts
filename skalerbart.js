@@ -287,7 +287,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var themeColors = {
       iconColor: "#0459E1", // Blue
     };
- 
+   
+    document.documentElement.style.setProperty('--icon-color', themeColors.iconColor);
+    
     var messageData = {
       action: 'integrationOptions',
       chatbotID: "haengekoejer",
