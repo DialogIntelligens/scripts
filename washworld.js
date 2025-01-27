@@ -327,8 +327,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://image-hosting-pi.vercel.app/jagttegn.gif',
-    'https://image-hosting-pi.vercel.app/jagttegn.gif'
+    'https://image-hosting-pi.vercel.app/washworld.gif',
+    'https://image-hosting-pi.vercel.app/washworld.gif'
     // Add new GIF URLs here
   ];
 
@@ -373,8 +373,8 @@ function toggleChatWindow() {
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
         setTimeout(showBalloon, 250000);
-      }, 12000);
-    }, delay || 11000);
+      }, 15000);
+    }, delay || 15000);
   }
 
 
