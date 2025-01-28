@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: "",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/haengekoejerWhiteMessageLogo2.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/img.svg",
+      headerLogoG: "https://image-hosting-pi.vercel.app/img.svg",
       themeColor: "#BE087F",
       headerTitleG: "Arp-Gansen Group Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
