@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <iframe
       id="chat-iframe"
       src="https://skalerbartprodukt.onrender.com"
-      style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+      style="display: none; position: fixed; bottom: 1vh; right: 1vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
     </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
