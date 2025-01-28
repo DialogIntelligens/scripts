@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #0101FF; /* ICON FARVE */
+    --icon-color: #BE087F; /* ICON FARVE */
   }
   
   /* The main message content area */
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "haengekoejer",
+      chatbotID: "Arp-Gansen Group",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af218a0a-4bda-44e1-9b6e-ba6d433744ba",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -303,12 +303,12 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: "",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/haengekoejerWhiteMessageLogo2.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/haengekoejerLogo.png",
-      themeColor: "#4b9e33",
-      headerTitleG: "Tropical Hængekøjers Virtuelle Assistent",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/img.svg",
+      themeColor: "#BE087F",
+      headerTitleG: "Arp-Gansen Group Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tropical Hængekøjer",
-      firstMessage: "Hej😊 Jeg kan besvare spørgsmål og anbefale produkter. Prøv mig ved at klikke her 👇",
+      firstMessage: "Hej😊 Jeg kan besvare dine spørgsmål omkring os og vores hoteller",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
