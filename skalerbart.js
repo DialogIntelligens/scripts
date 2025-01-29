@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #BE087F; /* ICON FARVE */
+    --icon-color: #C6A458; /* ICON FARVE */
   }
   
   /* The main message content area */
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <iframe
       id="chat-iframe"
       src="https://skalerbartprodukt.onrender.com"
-      style="display: none; position: fixed; bottom: 1vh; right: 1vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+      style="display: none; position: fixed; bottom: 3vh; right: 3vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
     </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -285,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "Arp-Gansen Group",
+      chatbotID: "Tivoli Hotel",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af218a0a-4bda-44e1-9b6e-ba6d433744ba",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -304,10 +304,10 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/haengekoejerWhiteMessageLogo2.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/img.svg",
-      themeColor: "#BE087F",
-      headerTitleG: "Arp-Gansen Group Virtuelle Agent",
+      themeColor: "#C6A458",
+      headerTitleG: "Tivoli Hotel Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Tropical Hængekøjer",
+      titleG: "Tivoli Hotel",
       firstMessage: "Hej😊 Jeg kan besvare dine spørgsmål omkring os og vores hoteller",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
