@@ -392,8 +392,8 @@ document.addEventListener('DOMContentLoaded', function() {
     iframe.style.left = isPhoneView ? "50%" : "auto";
     iframe.style.top = isPhoneView ? "50%" : "auto";
     iframe.style.transform = isPhoneView ? "translate(-50%, -50%)" : "none";
-    iframe.style.bottom = isPhoneView ? "" : "3vh";
-    iframe.style.right = isPhoneView ? "" : "3vh";
+    iframe.style.bottom = isPhoneView ? "" : "1vh";
+    iframe.style.right = isPhoneView ? "" : "2vh";
 
     sendMessageToIframe();
   }
