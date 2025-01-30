@@ -347,8 +347,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://image-hosting-pi.vercel.app/hhs-hj%C3%A6lp%20(17).gif',
-    'https://image-hosting-pi.vercel.app/hhs-hj%C3%A6lp%20(17).gif'
+    'https://image-hosting-pi.vercel.app/hhs.gif',
+    'https://image-hosting-pi.vercel.app/hhs.gif'
     // Add new GIF URLs here
   ];
 
