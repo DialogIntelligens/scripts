@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_logo-1.png",
-      themeColor: "#d9d5cb",
+      themeColor: "#b1aa8e",
       headerTitleG: "Dillings Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Dilling",
