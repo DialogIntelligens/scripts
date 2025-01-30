@@ -347,8 +347,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'http://dialogintelligens.dk/wp-content/uploads/2024/10/Findprodukthhs.gif',
-    'http://dialogintelligens.dk/wp-content/uploads/2024/10/hhs-hjaelp.gif'
+    'https://image-hosting-pi.vercel.app/hhs-hj%C3%A6lp%20(17).gif',
+    'https://image-hosting-pi.vercel.app/hhs-hj%C3%A6lp%20(17).gif'
     // Add new GIF URLs here
   ];
 
@@ -392,8 +392,8 @@ function toggleChatWindow() {
           domain = "." + domain;
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 300000);
-      }, 10000);
+        setTimeout(showBalloon, 900000);
+      }, 20000);
     }, delay || 25000);
   }
 
