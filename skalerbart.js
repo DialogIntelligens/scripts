@@ -337,23 +337,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Toggle chat window
   function toggleChatWindow() {
-    var iframe = document.getElementById("chat-iframe");
-    var popup = document.getElementById("chatbase-message-bubbles");
-    var isIframeOpen = (iframe.style.display !== "none");
-
-    if (!isIframeOpen) {
-      iframe.style.display = "block";
-      localStorage.setItem("chatWindowState", "open");
-
-      setTimeout(function() {
-        sendMessageToIframe();
-        iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
-      }, 0);
-    } else {
-      iframe.style.display = "none";
-      localStorage.setItem("chatWindowState", "closed");
-      iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+    
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    
+    adjustIframeSize();
+    sendMessageToIframe();
+  
+    // Send a message to the iframe when the chat is opened
+    if (!isCurrentlyOpen) {
+      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
     }
+  }
 
     // Hide popup if open
     if (popup.style.display === "flex") {
@@ -448,17 +449,17 @@ document.addEventListener('DOMContentLoaded', function() {
   adjustIframeSize();
   window.addEventListener("resize", adjustIframeSize);
   
-  var savedState = localStorage.getItem("chatWindowState");
-  var iframe = document.getElementById("chat-iframe");
-  var button = document.getElementById("chat-button");
+  var savedState = localStorage.getItem('chatWindowState');
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
   
-  if (savedState === "open") {
-    iframe.style.display = "block";
-    button.style.display = "none";
+  if (savedState === 'open') {
+    iframe.style.display = 'block';
+    button.style.display = 'none';
     sendMessageToIframe();
   } else {
-    iframe.style.display = "none";
-    button.style.display = "block";
+    iframe.style.display = 'none';
+    button.style.display = 'block';
   }
 
 
