@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 2. Inject HTML
    * ----------------------------------------------------------- */
-  var chatbotHTML = 
+  var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
     style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 95vw; height: 90vh; max-width: 600px; border: none; z-index: 40000;">
   </iframe>
 
-  ;
+  `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   /* -----------------------------------------------------------
