@@ -367,7 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
         popup.style.display = "none";
       }, 0);
     }
-  }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
