@@ -339,37 +339,24 @@ document.addEventListener('DOMContentLoaded', function() {
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-    var popup = document.getElementById("chatbase-message-bubbles"); // 🔥 Add this
-  
+    
     var isCurrentlyOpen = iframe.style.display !== 'none';
-  
+    
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     button.style.display = isCurrentlyOpen ? 'block' : 'none';
-  
+    
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-  
+    
     adjustIframeSize();
     sendMessageToIframe();
   
+    // Send a message to the iframe when the chat is opened
     if (!isCurrentlyOpen) {
       iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
     }
-  
-    // ✅ Now popup is defined correctly
-    if (popup && popup.style.display === "flex") {
-      setTimeout(function() {
-        popup.style.display = "none";
-      }, 0);
-    }
-  } 
+  }
 
 
-    // Hide popup if open
-    if (popup.style.display === "flex") {
-      setTimeout(function() {
-        popup.style.display = "none";
-      }, 0);
-    }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
