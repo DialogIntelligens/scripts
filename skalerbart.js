@@ -302,13 +302,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simple immediate post
     if (iframeWindow) {
-      iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+      iframeWindow.postMessage(messageData, "*");
     }
 
     // Light fallback: repeat once after 200ms
     setTimeout(function() {
       if (iframeWindow) {
-        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+        iframeWindow.postMessage(messageData, "*");
       }
     }, 200);
   }
