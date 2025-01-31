@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 1. Inject CSS into <head>
    * ----------------------------------------------------------- */
-  var css = 
+  var css = `
   /* ----------------------------------------
      A) ANIMATIONS
      ---------------------------------------- */
@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
     word-wrap: break-word;
     max-width: 100%;
   }
-
+`
   ;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
