@@ -359,15 +359,16 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!isCurrentlyOpen) {
           iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
       }
-  }
+  
+      // Hide popup if open (moved inside the function)
+      var popup = document.getElementById("chatbase-message-bubbles");
+      if (popup && popup.style.display === "flex") {
+          setTimeout(function() {
+              popup.style.display = "none";
+          }, 0);
+      }
+  } // ✅ Corrected function scope
 
-    // Hide popup if open
-    if (popup.style.display === "flex") {
-      setTimeout(function() {
-        popup.style.display = "none";
-      }, 0);
-    }
-  }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
