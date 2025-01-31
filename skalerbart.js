@@ -342,23 +342,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Toggle chat window
   function toggleChatWindow() {
-    var iframe = document.getElementById('chat-iframe');
-    var button = document.getElementById('chat-button');
-    
-    var isCurrentlyOpen = iframe.style.display !== 'none';
-    
-    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-    button.style.display = isCurrentlyOpen ? 'block' : 'none';
-    
-    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-    
-    adjustIframeSize();
-    sendMessageToIframe();
+      var iframe = document.getElementById('chat-iframe');
+      var button = document.getElementById('chat-button');
+      
+      var isCurrentlyOpen = iframe.style.display !== 'none';
+      
+      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+      button.style.display = isCurrentlyOpen ? 'block' : 'none';
+      
+      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+      
+      adjustIframeSize();
+      sendMessageToIframe();
   
-    // Send a message to the iframe when the chat is opened
-    if (!isCurrentlyOpen) {
-      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-    }
+      // Send a message to the iframe when the chat is opened
+      if (!isCurrentlyOpen) {
+          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+      }
   }
 
     // Hide popup if open
