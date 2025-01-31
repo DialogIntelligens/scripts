@@ -38,24 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     animation: jump 0.5s ease-in-out 2;
   }
   
-  /* ----------------------------------------
-     B) MEDIA QUERY FOR SMALL SCREENS
-     ---------------------------------------- */
-  @media (max-width: 800px) {
-    #chat-iframe {
-      width: 95vw;
-      height: 90vh;
-      right: 2vw;
-      bottom: 3vh;
-    }
-  }
-  
-  @media (min-width: 800px) and (max-width: 1000px) {
-    #chat-iframe {
-      width: calc(45vh + 6vw);
-      height: 90vh;
-    }
-  }
   
   /* ----------------------------------------
      C) CHAT BUTTON + POPUP STYLES
@@ -320,24 +302,25 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200);
   }
 
-  window.addEventListener("message", function(event) {
-      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
-  
-      if (event.data.action === "toggleSize") {
-          console.log("Toggling iframe size...");
-          isIframeEnlarged = !isIframeEnlarged;
-          localStorage.setItem("isIframeEnlarged", isIframeEnlarged ? "true" : "false");
-          adjustIframeSize();
-      } else if (event.data.action === "closeChat") {
-          document.getElementById("chat-iframe").style.display = "none";
-          document.getElementById("chat-button").style.display = "block";
-          localStorage.setItem("chatWindowState", "closed");
-      } else if (event.data.action === "navigate") {
-          document.getElementById("chat-iframe").style.display = "none";
-          document.getElementById("chat-button").style.display = "block";
-          localStorage.setItem("chatWindowState", "closed");
-          window.location.href = event.data.url;
-      }
+  window.addEventListener('message', function(event) {
+    if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+
+    if (event.data.action === 'toggleSize') {
+      isIframeEnlarged = !isIframeEnlarged;
+      adjustIframeSize();
+    } else if (event.data.action === 'closeChat') {
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+    } else if (event.data.action === 'navigate') {
+      // Before navigating, close the chat window and set state to 'closed'
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+
+      // Navigate to the new URL
+      window.location.href = event.data.url;
+    }
   });
 
 
