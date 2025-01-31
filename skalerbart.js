@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 20px;
     z-index: 18;
+    scale: 0.5;
     cursor: pointer;
     display: none; /* hidden by default */
     flex-direction: column;
@@ -319,21 +320,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   window.addEventListener("message", function(event) {
-    if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
-
-    if (event.data.action === "toggleSize") {
-      // Removed dynamic resizing; ignoring toggleSize
-    } else if (event.data.action === "closeChat") {
-      document.getElementById("chat-iframe").style.display = "none";
-      document.getElementById("chat-button").style.display = "block";
-      localStorage.setItem("chatWindowState", "closed");
-    } else if (event.data.action === "navigate") {
-      document.getElementById("chat-iframe").style.display = "none";
-      document.getElementById("chat-button").style.display = "block";
-      localStorage.setItem("chatWindowState", "closed");
-      window.location.href = event.data.url;
-    }
+      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+  
+      if (event.data.action === "toggleSize") {
+          console.log("Toggling iframe size...");
+          isIframeEnlarged = !isIframeEnlarged;
+          localStorage.setItem("isIframeEnlarged", isIframeEnlarged ? "true" : "false");
+          adjustIframeSize();
+      } else if (event.data.action === "closeChat") {
+          document.getElementById("chat-iframe").style.display = "none";
+          document.getElementById("chat-button").style.display = "block";
+          localStorage.setItem("chatWindowState", "closed");
+      } else if (event.data.action === "navigate") {
+          document.getElementById("chat-iframe").style.display = "none";
+          document.getElementById("chat-button").style.display = "block";
+          localStorage.setItem("chatWindowState", "closed");
+          window.location.href = event.data.url;
+      }
   });
+
 
   // Toggle chat window
   function toggleChatWindow() {
@@ -427,22 +432,28 @@ document.addEventListener('DOMContentLoaded', function() {
    * 7. Initialize Chat Window State
    * ----------------------------------------------------------- */
   function adjustIframeSize() {
-    var iframe = document.getElementById("chat-iframe");
+    var iframe = document.getElementById('chat-iframe');
     console.log("Adjusting iframe size. Window width: ", window.innerWidth);
-  
+
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
-  
-    if (isPhoneView) {
-      iframe.style.width = "95vw";
+
+    if (isIframeEnlarged) {
+      iframe.style.width = 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = '90vh';
     } else {
-      iframe.style.width = "calc(45vh + 6vw)";
+      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+      iframe.style.height = '90vh';
     }
-  
-    iframe.style.height = "90vh";
-    iframe.style.position = "fixed";
-    iframe.style.right = isPhoneView ? "2vw" : "3vw";
-    iframe.style.bottom = "3vh";
+
+    iframe.style.position = 'fixed';
+    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
+    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
+    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+
+    sendMessageToIframe(); // Ensure message data is updated and sent
   }
   
   // Run the function on page load and window resize
