@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Inject Google Fonts into the <head>
+  /****************************************************
+   * 1. Inject Google Fonts
+   ****************************************************/
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
   fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
   document.head.appendChild(fontLink);
 
-  /* -----------------------------------------------------------
-   * 1. Inject CSS into <head>
-   * ----------------------------------------------------------- */
+  /****************************************************
+   * 2. Inject CSS into <head>
+   ****************************************************/
   var css = `
   /* ----------------------------------------
      A) ANIMATIONS
@@ -36,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
     display: inline-block;
     animation: jump 0.5s ease-in-out 2;
   }
-  
+
   /* ----------------------------------------
      B) MEDIA QUERY FOR SMALL SCREENS
      ---------------------------------------- */
@@ -51,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 20px;
     }
   }
-  
+
   /* ----------------------------------------
      C) CHAT BUTTON + POPUP STYLES
      ---------------------------------------- */
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 10px;
     bottom: 20px;
   }
-  /* Button icon 60x60 to match second snippet */
+  /* Button icon 60x60 */
   #chat-button svg {
     width: 60px;
     height: 60px;
@@ -81,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     opacity: 0.7;
     transform: scale(1.1);
   }
-  
+
   /* Popup rise animation */
   @keyframes rise-from-bottom {
     0% {
@@ -93,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1;
     }
   }
-  
+
   /* Popup container */
   #chatbase-message-bubbles {
     position: absolute;
@@ -118,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
       rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
     animation: rise-from-bottom 0.6s ease-out;
   }
-  
+
   #chatbase-message-bubbles::after {
     content: '';
     position: absolute;
@@ -131,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-color: white transparent transparent transparent;
     box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
   }
-  
+
   /* Close button is hidden by default; becomes visible/enlarged on hover */
   #chatbase-message-bubbles .close-popup {
     position: absolute;
@@ -155,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 1000000;
     pointer-events: none;
   }
-  
+
   #chatbase-message-bubbles:hover .close-popup {
     opacity: 1;
     transform: scale(1.2);
@@ -169,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
   :root {
     --icon-color: #C6A458;
   }
-  
+
   /* The main message content area */
   #chatbase-message-bubbles .message-content {
     display: flex;
@@ -193,15 +195,15 @@ document.addEventListener('DOMContentLoaded', function() {
     word-wrap: break-word;
     max-width: 100%;
   }
-
   `;
+
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
-  /* -----------------------------------------------------------
-   * 2. Inject HTML
-   * ----------------------------------------------------------- */
+  /****************************************************
+   * 3. Inject HTML
+   ****************************************************/
   var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
@@ -225,18 +227,18 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
 
-    <!-- Chat Iframe (50vh x 90vh to match second snippet) -->
+    <!-- Chat Iframe -->
     <iframe
       id="chat-iframe"
       src="https://skalerbartprodukt.onrender.com"
-      style="display: none; position: fixed; bottom: 3vh; right: 3vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+      style="display: none; position: fixed; border: none; z-index: 40000;">
     </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-  /* -----------------------------------------------------------
-   * 3. Cookie Functions
-   * ----------------------------------------------------------- */
+  /****************************************************
+   * 4. Cookie Functions
+   ****************************************************/
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
@@ -262,9 +264,9 @@ document.addEventListener('DOMContentLoaded', function() {
     return new Date().getTime();
   }
 
-  /* -----------------------------------------------------------
-   * 4. Popup & Chat Iframe Logic
-   * ----------------------------------------------------------- */
+  /****************************************************
+   * 5. Popup & Chat Iframe Logic
+   ****************************************************/
   // Minimal overhead version of sendMessageToIframe
   function sendMessageToIframe() {
     var iframe = document.getElementById("chat-iframe");
@@ -317,7 +319,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
 
     if (event.data.action === "toggleSize") {
-      // Removed dynamic resizing; ignoring toggleSize
+      // Updated: Use responsive resizing
+      adjustIframeSize();
     } else if (event.data.action === "closeChat") {
       document.getElementById("chat-iframe").style.display = "none";
       document.getElementById("chat-button").style.display = "block";
@@ -339,10 +342,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!isIframeOpen) {
       iframe.style.display = "block";
       localStorage.setItem("chatWindowState", "open");
-
       setTimeout(function() {
         sendMessageToIframe();
         iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
+        adjustIframeSize();
       }, 0);
     } else {
       iframe.style.display = "none";
@@ -358,9 +361,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  /* -----------------------------------------------------------
-   * 5. Show/Hide Popup with Timed Animations
-   * ----------------------------------------------------------- */
+  /****************************************************
+   * 6. Popup Timed Animations
+   ****************************************************/
   function showPopup() {
     var iframe = document.getElementById("chat-iframe");
     if (iframe.style.display !== "none" || getCookie("popupClosed") === "true") {
@@ -373,13 +376,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = "Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id='funny-smiley'>😄</span>";
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = "Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id='funny-smiley'>😄</span>";
     }
 
     popup.style.display = "flex";
 
+    // Eye blink animation
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -390,6 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 2000);
 
+    // Jump animation
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -406,9 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(showPopup, 7000);
   }
 
-  /* -----------------------------------------------------------
-   * 6. Close Button Logic
-   * ----------------------------------------------------------- */
+  // Close popup button
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
@@ -417,9 +420,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  /* -----------------------------------------------------------
+  /****************************************************
    * 7. Initialize Chat Window State
-   * ----------------------------------------------------------- */
+   ****************************************************/
   var savedState = localStorage.getItem("chatWindowState");
   var iframe = document.getElementById("chat-iframe");
   var button = document.getElementById("chat-button");
@@ -428,10 +431,51 @@ document.addEventListener('DOMContentLoaded', function() {
     iframe.style.display = "block";
     button.style.display = "none";
     sendMessageToIframe();
+    adjustIframeSize();
   } else {
     iframe.style.display = "none";
     button.style.display = "block";
   }
 
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+  /****************************************************
+   * 8. Responsive Sizing Function
+   ****************************************************/
+  function adjustIframeSize() {
+    var iframe = document.getElementById("chat-iframe");
+    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
+    var isPhoneView = window.innerWidth < 800;
+
+    if (isPhoneView) {
+      // Phone: center the iframe, fill most of the screen
+      iframe.style.width = "90vw";
+      iframe.style.height = "80vh";
+      iframe.style.left = "50%";
+      iframe.style.top = "50%";
+      iframe.style.transform = "translate(-50%, -50%)";
+      iframe.style.bottom = "";
+      iframe.style.right = "";
+    } else if (isTabletView) {
+      // Tablet: a bit smaller but near bottom-right
+      iframe.style.width = "70vw";
+      iframe.style.height = "80vh";
+      iframe.style.bottom = "3vh";
+      iframe.style.right = "3vw";
+      iframe.style.left = "";
+      iframe.style.top = "";
+      iframe.style.transform = "";
+    } else {
+      // Desktop: the original 50vh by 90vh
+      iframe.style.width = "50vh";
+      iframe.style.height = "90vh";
+      iframe.style.bottom = "3vh";
+      iframe.style.right = "3vw";
+      iframe.style.left = "";
+      iframe.style.top = "";
+      iframe.style.transform = "";
+    }
+  }
+
+  window.addEventListener("resize", adjustIframeSize);
 });
