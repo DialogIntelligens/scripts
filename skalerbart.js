@@ -1,4 +1,3 @@
-<script>
 document.addEventListener('DOMContentLoaded', function() {
   // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
@@ -436,4 +435,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 });
-</script>
