@@ -362,7 +362,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
     // Hide popup if open
-    if (popup.style.display === "flex") {
+    var popup = document.getElementById("chatbase-message-bubbles");
+    if (popup && popup.style.display === "flex") {
       setTimeout(function() {
         popup.style.display = "none";
       }, 0);
