@@ -356,7 +356,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-
+    // Hide popup if open
+    if (popup.style.display === "flex") {
+      setTimeout(function() {
+        popup.style.display = "none";
+      }, 0);
+    }
+  }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
