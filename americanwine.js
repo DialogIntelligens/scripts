@@ -183,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
 
     if (event.data.action === 'toggleSize') {
+      var isIframeEnlarged = false;
       isIframeEnlarged = !isIframeEnlarged;
       adjustIframeSize();
     } else if (event.data.action === 'closeChat') {
