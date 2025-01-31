@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+  var isIframeEnlarged = false; // Added line
   // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
