@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #C6A458;
+    --icon-color: #c6a459;
   }
   
   /* The main message content area */
@@ -277,10 +277,10 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
-      titleLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
-      headerLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
-      themeColor: "#C6A458",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
+      titleLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
+      headerLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
+      themeColor: "#c6a459",
       headerTitleG: "Tivoli Hotel Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tivoli Hotel",
