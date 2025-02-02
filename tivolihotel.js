@@ -1,5 +1,5 @@
-<script>
 document.addEventListener('DOMContentLoaded', function() {
+  var isIframeEnlarged = false; // Added line
   // Inject Google Fonts into the <head>
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
@@ -38,20 +38,6 @@ document.addEventListener('DOMContentLoaded', function() {
     animation: jump 0.5s ease-in-out 2;
   }
   
-  /* ----------------------------------------
-     B) MEDIA QUERY FOR SMALL SCREENS
-     ---------------------------------------- */
-  @media (max-width: 500px) {
-    #chatbase-message-bubbles {
-      min-width: 90vw;
-      transform: scale(1);
-      right: 5px;
-      bottom: 60px;
-    }
-    #chatbase-message-bubbles::after {
-      right: 20px;
-    }
-  }
   
   /* ----------------------------------------
      C) CHAT BUTTON + POPUP STYLES
@@ -104,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     font-family: 'Source Sans 3', sans-serif;
     font-size: 20px;
     z-index: 18;
+    scale: 0.5;
     cursor: pointer;
     display: none; /* hidden by default */
     flex-direction: column;
@@ -194,8 +181,8 @@ document.addEventListener('DOMContentLoaded', function() {
     word-wrap: break-word;
     max-width: 100%;
   }
-
-  `;
+`
+  ;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
@@ -227,11 +214,12 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <!-- Chat Iframe (50vh x 90vh to match second snippet) -->
-    <iframe
-      id="chat-iframe"
-      src="https://skalerbartprodukt.onrender.com"
-      style="display: none; position: fixed; bottom: 3vh; right: 3vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
-    </iframe>
+  <iframe
+    id="chat-iframe"
+    src="https://skalerbartprodukt.onrender.com"
+    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 95vw; height: 90vh; max-width: 600px; border: none; z-index: 40000;">
+  </iframe>
+
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
@@ -303,61 +291,67 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Simple immediate post
     if (iframeWindow) {
-      iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+      iframeWindow.postMessage(messageData, "*");
     }
 
     // Light fallback: repeat once after 200ms
     setTimeout(function() {
       if (iframeWindow) {
-        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+        iframeWindow.postMessage(messageData, "*");
       }
     }, 200);
   }
 
-  window.addEventListener("message", function(event) {
+  window.addEventListener('message', function(event) {
     if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
 
-    if (event.data.action === "toggleSize") {
-      // Removed dynamic resizing; ignoring toggleSize
-    } else if (event.data.action === "closeChat") {
-      document.getElementById("chat-iframe").style.display = "none";
-      document.getElementById("chat-button").style.display = "block";
-      localStorage.setItem("chatWindowState", "closed");
-    } else if (event.data.action === "navigate") {
-      document.getElementById("chat-iframe").style.display = "none";
-      document.getElementById("chat-button").style.display = "block";
-      localStorage.setItem("chatWindowState", "closed");
+    if (event.data.action === 'toggleSize') {
+      isIframeEnlarged = !isIframeEnlarged;
+      adjustIframeSize();
+    } else if (event.data.action === 'closeChat') {
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+    } else if (event.data.action === 'navigate') {
+      // Before navigating, close the chat window and set state to 'closed'
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+
+      // Navigate to the new URL
       window.location.href = event.data.url;
     }
   });
 
+
   // Toggle chat window
   function toggleChatWindow() {
-    var iframe = document.getElementById("chat-iframe");
-    var popup = document.getElementById("chatbase-message-bubbles");
-    var isIframeOpen = (iframe.style.display !== "none");
-
-    if (!isIframeOpen) {
-      iframe.style.display = "block";
-      localStorage.setItem("chatWindowState", "open");
-
-      setTimeout(function() {
-        sendMessageToIframe();
-        iframe.contentWindow.postMessage({ action: "chatOpened" }, "*");
-      }, 0);
-    } else {
-      iframe.style.display = "none";
-      localStorage.setItem("chatWindowState", "closed");
-      iframe.contentWindow.postMessage({ action: "chatClosed" }, "*");
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+    
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    
+    adjustIframeSize();
+    sendMessageToIframe();
+  
+    // Send a message to the iframe when the chat is opened
+    if (!isCurrentlyOpen) {
+      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
     }
+  }
 
     // Hide popup if open
-    if (popup.style.display === "flex") {
+    var popup = document.getElementById("chatbase-message-bubbles");
+    if (popup && popup.style.display === "flex") {
       setTimeout(function() {
         popup.style.display = "none";
       }, 0);
     }
-  }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
@@ -421,19 +415,48 @@ document.addEventListener('DOMContentLoaded', function() {
   /* -----------------------------------------------------------
    * 7. Initialize Chat Window State
    * ----------------------------------------------------------- */
-  var savedState = localStorage.getItem("chatWindowState");
-  var iframe = document.getElementById("chat-iframe");
-  var button = document.getElementById("chat-button");
+  function adjustIframeSize() {
+    var iframe = document.getElementById('chat-iframe');
+    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
 
-  if (savedState === "open") {
-    iframe.style.display = "block";
-    button.style.display = "none";
+    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
+    var isPhoneView = window.innerWidth < 800;
+
+    if (isIframeEnlarged) {
+      iframe.style.width = 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = '90vh';
+    } else {
+      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+      iframe.style.height = '90vh';
+    }
+
+    iframe.style.position = 'fixed';
+    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
+    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
+    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+
+    sendMessageToIframe(); // Ensure message data is updated and sent
+  }
+  
+  // Run the function on page load and window resize
+  adjustIframeSize();
+  window.addEventListener("resize", adjustIframeSize);
+  
+  var savedState = localStorage.getItem('chatWindowState');
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
+  
+  if (savedState === 'open') {
+    iframe.style.display = 'block';
+    button.style.display = 'none';
     sendMessageToIframe();
   } else {
-    iframe.style.display = "none";
-    button.style.display = "block";
+    iframe.style.display = 'none';
+    button.style.display = 'block';
   }
+
 
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 });
-</script>
