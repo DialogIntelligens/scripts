@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #af3d23;
+    --icon-color: #283d2b;
   }
   
   /* The main message content area */
@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_pizzafredag.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/pizzafredag_whiteMessageLogo.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/pizzafredag_logo.png",
-      themeColor: "#af3d23",
+      themeColor: "#283d2b",
       headerTitleG: "Naturmands Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Naturmand",
