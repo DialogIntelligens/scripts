@@ -367,9 +367,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Hej🍕 Jeg kan besvare spørgsmål og anbefale produkter <span id="funny-smiley">😄</span>`;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? Eller vil du have anbefalet et produkt? <span id="funny-smiley">😄</span>`;
     }
 
     popup.style.display = "flex";
