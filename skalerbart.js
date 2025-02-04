@@ -239,11 +239,9 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 5. CHAT IFRAME LOGIC
      */
-    // We'll send the integration data once, when the iframe has loaded
     function sendMessageToIframe() {
-      var iframe = document.getElementById('chat-iframe');
+      var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
-      if (!iframeWindow) return;
   
       var messageData = {
         action: 'integrationOptions',
@@ -275,7 +273,9 @@ document.addEventListener('DOMContentLoaded', function() {
       };
   
       // Post data once
-      iframeWindow.postMessage(messageData, "*");
+      iframe.onload = function() {
+        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+      };
     }
   
     // Listen for messages from the iframe
@@ -451,16 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
       button.style.display = 'block';
     }
 
-    setTimeout(function() {
-      var iframe = document.getElementById("chat-iframe");
-      var button = document.getElementById("chat-button");
-    
-      // Reading offsetHeight triggers a reflow
-      iframe.offsetHeight;
-      button.offsetHeight;
-    }, 50);
-
-    
+   
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
   
