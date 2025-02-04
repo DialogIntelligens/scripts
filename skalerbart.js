@@ -1,14 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var isIframeEnlarged = false; // Added line
-  // Inject Google Fonts into the <head>
+  /**
+   * 1. Basic Initialization
+   *    - Add Google Fonts
+   *    - Create global variable for iframe size toggling
+   */
+  var isIframeEnlarged = false; 
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
   fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
   document.head.appendChild(fontLink);
 
-  /* -----------------------------------------------------------
-   * 1. Inject CSS into <head>
-   * ----------------------------------------------------------- */
+  /**
+   * 2. Inject CSS into the <head>
+   */
   var css = `
   /* ----------------------------------------
      A) ANIMATIONS
@@ -37,8 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     display: inline-block;
     animation: jump 0.5s ease-in-out 2;
   }
-  
-  
+
   /* ----------------------------------------
      C) CHAT BUTTON + POPUP STYLES
      ---------------------------------------- */
@@ -48,7 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 10px;
     z-index: 200;
   }
-
   #chat-button {
     cursor: pointer;
     background: none;
@@ -58,7 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
     right: 10px;
     bottom: 20px;
   }
-  /* Button icon 60x60 to match second snippet */
   #chat-button svg {
     width: 60px;
     height: 60px;
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     opacity: 0.7;
     transform: scale(1.1);
   }
-  
+
   /* Popup rise animation */
   @keyframes rise-from-bottom {
     0% {
@@ -80,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
       opacity: 1;
     }
   }
-  
+
   /* Popup container */
   #chatbase-message-bubbles {
     position: absolute;
@@ -106,7 +107,6 @@ document.addEventListener('DOMContentLoaded', function() {
       rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
     animation: rise-from-bottom 0.6s ease-out;
   }
-  
   #chatbase-message-bubbles::after {
     content: '';
     position: absolute;
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
     border-color: white transparent transparent transparent;
     box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
   }
-  
+
   /* Close button is hidden by default; becomes visible/enlarged on hover */
   #chatbase-message-bubbles .close-popup {
     position: absolute;
@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
     z-index: 1000000;
     pointer-events: none;
   }
-  
   #chatbase-message-bubbles:hover .close-popup {
     opacity: 1;
     transform: scale(1.2);
@@ -155,9 +154,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #c6a459;
+    --icon-color: #C6A458;
   }
-  
+
   /* The main message content area */
   #chatbase-message-bubbles .message-content {
     display: flex;
@@ -181,15 +180,14 @@ document.addEventListener('DOMContentLoaded', function() {
     word-wrap: break-word;
     max-width: 100%;
   }
-`
-  ;
+  `;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
   document.head.appendChild(style);
 
-  /* -----------------------------------------------------------
-   * 2. Inject HTML
-   * ----------------------------------------------------------- */
+  /**
+   * 3. Inject HTML into <body>
+   */
   var chatbotHTML = `
     <div id="chat-container">
       <!-- Chat Button -->
@@ -213,19 +211,18 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
     </div>
 
-    <!-- Chat Iframe (50vh x 90vh to match second snippet) -->
-  <iframe
-    id="chat-iframe"
-    src="https://skalerbartprodukt.onrender.com"
-    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
-  </iframe>
-
+    <!-- Chat Iframe -->
+    <iframe
+      id="chat-iframe"
+      src="https://skalerbartprodukt.onrender.com"
+      style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 95vw; height: 90vh; max-width: 600px; border: none; z-index: 40000;">
+    </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-  /* -----------------------------------------------------------
-   * 3. Cookie Functions
-   * ----------------------------------------------------------- */
+  /**
+   * 4. Cookie Functions
+   */
   function setCookie(name, value, days, domain) {
     var expires = "";
     if (days) {
@@ -236,7 +233,6 @@ document.addEventListener('DOMContentLoaded', function() {
     var domainStr = domain ? "; domain=" + domain : "";
     document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
   }
-
   function getCookie(name) {
     var nameEQ = name + "=";
     var ca = document.cookie.split(";");
@@ -247,39 +243,35 @@ document.addEventListener('DOMContentLoaded', function() {
     return null;
   }
 
-  function getCurrentTimestamp() {
-    return new Date().getTime();
-  }
-
-  /* -----------------------------------------------------------
-   * 4. Popup & Chat Iframe Logic
-   * ----------------------------------------------------------- */
-  // Minimal overhead version of sendMessageToIframe
+  /**
+   * 5. sendMessageToIframe()
+   *    (same immediate approach, re-send once after a short delay)
+   */
   function sendMessageToIframe() {
     var iframe = document.getElementById("chat-iframe");
     var iframeWindow = iframe.contentWindow;
-
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "tivolihotel",
+      chatbotID: "Tivoli Hotel",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ad34b280-c683-469e-b2d9-5a7d86f81370",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba95b40d-e990-48fe-a29f-766a1d53db1e",
-      fordelingsflowAPI: "",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af218a0a-4bda-44e1-9b6e-ba6d433744ba",
+      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6204dd54-dcc5-42f5-8b36-4b1e6af52413",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/21630bb9-34e9-48c7-a0f6-b63fd43cd7e0",
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/53b4cf00-9347-4fcb-b77c-3770e9b72c7a",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
-      titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
-      headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
-      themeColor: "#c6a459",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
+      titleLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
+      headerLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
+      themeColor: "#C6A458",
       headerTitleG: "Tivoli Hotel Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tivoli Hotel",
@@ -288,12 +280,9 @@ document.addEventListener('DOMContentLoaded', function() {
       isPhoneView: (window.innerWidth < 800)
     };
 
-    // Simple immediate post
     if (iframeWindow) {
       iframeWindow.postMessage(messageData, "*");
     }
-
-    // Light fallback: repeat once after 200ms
     setTimeout(function() {
       if (iframeWindow) {
         iframeWindow.postMessage(messageData, "*");
@@ -301,9 +290,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 200);
   }
 
+  /**
+   * 6. Iframe & Popup Message Communication
+   */
   window.addEventListener('message', function(event) {
     if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
-
     if (event.data.action === 'toggleSize') {
       isIframeEnlarged = !isIframeEnlarged;
       adjustIframeSize();
@@ -312,66 +303,60 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
-      // Before navigating, close the chat window and set state to 'closed'
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
       localStorage.setItem('chatWindowState', 'closed');
-
-      // Navigate to the new URL
       window.location.href = event.data.url;
     }
   });
 
-
-  // Toggle chat window
+  /**
+   * 7. Toggle Chat Window (similar to old code)
+   */
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-    
-    var isCurrentlyOpen = iframe.style.display !== 'none';
-    
+    var isCurrentlyOpen = (iframe.style.display !== 'none');
+
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     button.style.display = isCurrentlyOpen ? 'block' : 'none';
-    
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-    
+
     adjustIframeSize();
     sendMessageToIframe();
-  
-    // Send a message to the iframe when the chat is opened
+
+    // Let the iframe know the chat is opened
     if (!isCurrentlyOpen) {
       iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
     }
   }
 
-    // Hide popup if open
-    var popup = document.getElementById("chatbase-message-bubbles");
-    if (popup && popup.style.display === "flex") {
-      setTimeout(function() {
-        popup.style.display = "none";
-      }, 0);
-    }
+  // Immediately hide any open popup at load, just in case
+  var popup = document.getElementById("chatbase-message-bubbles");
+  if (popup && popup.style.display === "flex") {
+    setTimeout(function() {
+      popup.style.display = "none";
+    }, 0);
+  }
 
-  /* -----------------------------------------------------------
-   * 5. Show/Hide Popup with Timed Animations
-   * ----------------------------------------------------------- */
+  /**
+   * 8. Show/Hide Popup with Timed Animations
+   */
   function showPopup() {
     var iframe = document.getElementById("chat-iframe");
     if (iframe.style.display !== "none" || getCookie("popupClosed") === "true") {
       return;
     }
-
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-
     var userHasVisited = getCookie("userHasVisited");
+
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
     }
-
     popup.style.display = "flex";
 
     setTimeout(function() {
@@ -397,12 +382,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var popupClosed = getCookie("popupClosed");
   if (!popupClosed || popupClosed === "false") {
+    // Wait a bit, then show the popup if chat isn't open
     setTimeout(showPopup, 7000);
   }
 
-  /* -----------------------------------------------------------
-   * 6. Close Button Logic
-   * ----------------------------------------------------------- */
+  /**
+   * 9. Close Button for Popup
+   */
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
@@ -411,13 +397,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  /* -----------------------------------------------------------
-   * 7. Initialize Chat Window State
-   * ----------------------------------------------------------- */
+  /**
+   * 10. adjustIframeSize() - For dynamic resizing
+   */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
-    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
-
     var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
     var isPhoneView = window.innerWidth < 800;
 
@@ -436,17 +420,18 @@ document.addEventListener('DOMContentLoaded', function() {
     iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
     iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
 
-    sendMessageToIframe(); // Ensure message data is updated and sent
+    // Re-send message data to ensure any dimension-based logic is updated
+    sendMessageToIframe();
   }
-  
-  // Run the function on page load and window resize
+
+  /**
+   * 11. On Initial Page Load: Set Up Chat Window State
+   */
   adjustIframeSize();
-  window.addEventListener("resize", adjustIframeSize);
-  
   var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
-  
+
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
@@ -456,6 +441,19 @@ document.addEventListener('DOMContentLoaded', function() {
     button.style.display = 'block';
   }
 
+  /**
+   * 12. Force a Reflow (mimicking old code approach) to fix initial rendering
+   */
+  setTimeout(function() {
+    iframe.style.display = 'block';
+    iframe.offsetHeight; // Force a reflow
+    iframe.style.display = savedState === 'open' ? 'block' : 'none';
+  }, 100);
 
+  /**
+   * 13. Attach event listeners for window resize and chat button
+   */
+  window.addEventListener('resize', adjustIframeSize);
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
 });
