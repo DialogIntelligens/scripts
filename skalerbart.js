@@ -369,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const messageContainer = elem.closest(".message-content"); 
         if (!messageContainer) return; // Safety check
         
-        const maxFontSize = 40;  // Reasonable max size
+        const maxFontSize = 36;  // Reasonable max size
         const targetWidth = messageContainer.clientWidth * 0.9; // 90% of `.message-content` width
         let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
         
