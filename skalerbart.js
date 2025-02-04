@@ -428,24 +428,29 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Re-send data to iframe in case layout changes
     sendMessageToIframe();
-  }  
+  }
+  
 
   // Adjust size on page load + on resize
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
 
+  // Attach event listener to chat-button
+  document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+
+  // Modify the initial chat window state logic
   var savedState = localStorage.getItem('chatWindowState');
+  var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
 
-  // If user last closed the chat, keep it closed
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
+    sendMessageToIframe();
   } else {
     iframe.style.display = 'none';
     button.style.display = 'block';
   }
-
   // Chat button click
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
