@@ -388,25 +388,28 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
-    console.log("Adjusting iframe size. Window width:", window.innerWidth);
-  
-    // Keep 'isIframeEnlarged' logic if toggled from the iframe
+    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
+
+    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
+    var isPhoneView = window.innerWidth < 800;
+
     if (isIframeEnlarged) {
-      // A bigger version if user toggles enlarge
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
       iframe.style.height = '90vh';
     } else {
-      // Default sizing:
-      // For phone/tablet (< 1000px), use 95vw
-      // For larger screens, use 50vh x 90vh
-      if (window.innerWidth < 1000) {
-        iframe.style.width = '95vw';
-        iframe.style.height = '90vh';
-      } else {
-        iframe.style.width = '50vh';
-        iframe.style.height = '90vh';
-      }
+      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+      iframe.style.height = '90vh';
     }
+
+    iframe.style.position = 'fixed';
+    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
+    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
+    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
+    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+
+    sendMessageToIframe(); // Ensure message data is updated and sent
+  }
   
     // Always position fixed
     iframe.style.position = 'fixed';
