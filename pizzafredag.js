@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/Tivoli_MessageLogo.png" alt="Chat with us">
+        <img src="https://image-hosting-pi.vercel.app/pizzafredag_MessageLogo.png" alt="Chat with us">
       </button>
     </div>
 
