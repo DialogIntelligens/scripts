@@ -323,7 +323,83 @@ document.addEventListener('DOMContentLoaded', function() {
     if (popup && popup.style.display === "flex") {
       popup.style.display = "none";
     }
-  
+
+    /**
+     * fitMessageText(messageBox, limit = 50)
+     * Scales text so the "first line" up to 'limit' chars fits the right margin.
+     * If text is shorter than 'limit' chars, the entire text scales up.
+     * If text is longer, the first 50 chars scale; the rest is normal size & wraps.
+     */
+    function fitMessageText(messageBox, limit = 50) {
+      // Grab the raw text
+      const fullText = messageBox.innerText || messageBox.textContent;
+      if (!fullText) return;
+    
+      // If it's short, scale the entire text
+      if (fullText.length <= limit) {
+        autoScaleText(messageBox);
+      } else {
+        // Split into first 50 chars + the rest
+        const firstLine = fullText.slice(0, limit);
+        const remainder = fullText.slice(limit);
+    
+        // Make them two separate spans
+        messageBox.innerHTML = `
+          <span id="scaled-first-line"></span><br/>
+          <span id="normal-lines"></span>
+        `;
+    
+        // Fill in text
+        const firstLineSpan = document.getElementById("scaled-first-line");
+        const normalLinesSpan = document.getElementById("normal-lines");
+        firstLineSpan.textContent = firstLine;
+        normalLinesSpan.textContent = remainder;
+    
+        // Now scale only the 'scaled-first-line'
+        autoScaleText(firstLineSpan);
+      }
+    }
+    
+    /**
+     * autoScaleText(elem)
+     * Increases font size until the text just fits (no horizontal scroll).
+     * If it overflows, step back.
+     */
+    function autoScaleText(elem) {
+      // Save the original fontSize so we can revert if needed
+      const originalFontSize = window.getComputedStyle(elem).fontSize || "24px";
+      const originalSizeValue = parseFloat(originalFontSize);
+    
+      // Start from the original size
+      let currentFontSize = originalSizeValue;
+      elem.style.whiteSpace = "nowrap"; // Force single line for measuring
+    
+      const parent = elem.parentElement;
+      if (!parent) return;
+    
+      // Repeatedly increase font size until overflow
+      while (true) {
+        elem.style.fontSize = currentFontSize + "px";
+    
+        // If the element's scrollWidth > parent clientWidth => we've overflowed
+        if (elem.scrollWidth > parent.clientWidth) {
+          // Step back one size
+          elem.style.fontSize = (currentFontSize - 1) + "px";
+          break;
+        }
+        // Increase by 1px
+        currentFontSize += 1;
+    
+        // Safety check: break if it’s too huge
+        if (currentFontSize > 200) break;
+      }
+    
+      // Restore normal wrapping
+      elem.style.whiteSpace = "normal";
+    }
+
+
+    
     /**
      * 7. SHOW/HIDE POPUP
      */
@@ -334,7 +410,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-  
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
@@ -342,6 +417,10 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
+      
+      // Call the function right after setting the text
+      fitMessageText(messageBox, 50);
+      
       popup.style.display = "flex";
   
       // Blink after 2s
