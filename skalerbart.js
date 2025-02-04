@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   :root {
-    --icon-color: #C6A458;
+    --icon-color: #c6a459;
   }
   
   /* The main message content area */
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
   <iframe
     id="chat-iframe"
     src="https://skalerbartprodukt.onrender.com"
-    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 95vw; height: 90vh; max-width: 600px; border: none; z-index: 40000;">
+    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
   </iframe>
 
   `;
@@ -261,26 +261,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "Tivoli Hotel",
+      chatbotID: "tivolihotel",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af218a0a-4bda-44e1-9b6e-ba6d433744ba",
-      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6204dd54-dcc5-42f5-8b36-4b1e6af52413",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/21630bb9-34e9-48c7-a0f6-b63fd43cd7e0",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ad34b280-c683-469e-b2d9-5a7d86f81370",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba95b40d-e990-48fe-a29f-766a1d53db1e",
+      fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/53b4cf00-9347-4fcb-b77c-3770e9b72c7a",
+      flow3API: "",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
-      titleLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
-      headerLogoG: "https://image-hosting-pi.vercel.app/Screenshot%202025-01-29%20135413.png",
-      themeColor: "#C6A458",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
+      titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
+      headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
+      themeColor: "#c6a459",
       headerTitleG: "Tivoli Hotel Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tivoli Hotel",
@@ -368,9 +367,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Hej, jeg er Buddy! 😊 Klar til at hjælpe med produktspørgsmål, træningstips og mere. 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Jeg er Buddy, klar til at hjælpe dig med nye spørgsmål. Godt at se dig igen! 💪 <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
 
     popup.style.display = "flex";
