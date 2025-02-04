@@ -1,3 +1,4 @@
+<script>
 document.addEventListener('DOMContentLoaded', function() {
   var isIframeEnlarged = false; // Added line
   // Inject Google Fonts into the <head>
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
     position: fixed;
     bottom: 20px;
     right: 10px;
-    z-index: 200;
+    z-index: 401; /* Increased from 200 */
   }
 
   #chat-button {
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     background: none;
     border: none;
     position: fixed;
-    z-index: 20;
+    z-index: 402; /* Increased from 20 */
     right: 10px;
     bottom: 20px;
   }
@@ -344,13 +345,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-    // Hide popup if open
-    var popup = document.getElementById("chatbase-message-bubbles");
-    if (popup && popup.style.display === "flex") {
-      setTimeout(function() {
-        popup.style.display = "none";
-      }, 0);
-    }
+  // Hide popup if open
+  var popup = document.getElementById("chatbase-message-bubbles");
+  if (popup && popup.style.display === "flex") {
+    setTimeout(function() {
+      popup.style.display = "none";
+    }, 0);
+  }
 
   /* -----------------------------------------------------------
    * 5. Show/Hide Popup with Timed Animations
@@ -367,9 +368,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = \`Har du brug for hjælp? <span id="funny-smiley">😄</span>\`;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = \`Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>\`;
     }
 
     popup.style.display = "flex";
@@ -456,6 +457,6 @@ document.addEventListener('DOMContentLoaded', function() {
     button.style.display = 'block';
   }
 
-
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 });
+</script>
