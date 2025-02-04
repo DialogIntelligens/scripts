@@ -450,6 +450,17 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.display = 'none';
       button.style.display = 'block';
     }
+
+    setTimeout(function() {
+      var iframe = document.getElementById("chat-iframe");
+      var button = document.getElementById("chat-button");
+    
+      // Reading offsetHeight triggers a reflow
+      iframe.offsetHeight;
+      button.offsetHeight;
+    }, 50);
+
+    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
   
