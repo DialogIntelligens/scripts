@@ -388,50 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
-
-    if (isIframeEnlarged) {
-      // Enlarge settings
-      iframe.style.width = 'calc(2 * 45vh + 6vw)';
-      iframe.style.height = '90vh';
-    } else {
-      // Default or smaller settings (like your old code: 50vh x 90vh, or dynamic)
-      var isMobileOrTablet = (window.innerWidth < 1000);
-      iframe.style.width = isMobileOrTablet ? '95vw' : '50vh'; 
-      iframe.style.height = '90vh';
-    }
-
-    iframe.style.position = 'fixed';
-    if (window.innerWidth < 1000) {
-      iframe.style.left = '50%';
-      iframe.style.top = '50%';
-      iframe.style.transform = 'translate(-50%, -50%)';
-      iframe.style.bottom = '';
-      iframe.style.right = '';
-    } else {
-      iframe.style.left = 'auto';
-      iframe.style.top = 'auto';
-      iframe.style.transform = 'none';
-      iframe.style.bottom = '3vh';
-      iframe.style.right = '3vh';
-    }
-  }
-
-  /**
-   * 10. ON LOAD: INITIALIZE STATE
-   * 
-   * Similar to old code: 
-   *  - attach iframe onload
-   *  - set open/closed state 
-   *  - adjust size
-   */
-  var iframe = document.getElementById('chat-iframe');
-  iframe.onload = function() {
-    // Once iframe is loaded, send data
-    sendMessageToIframe();
-  };
-
-  function adjustIframeSize() {
-    var iframe = document.getElementById('chat-iframe');
     console.log("Adjusting iframe size. Window width:", window.innerWidth);
   
     // Keep 'isIframeEnlarged' logic if toggled from the iframe
@@ -472,5 +428,25 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Re-send data to iframe in case layout changes
     sendMessageToIframe();
+  }  
+
+  // Adjust size on page load + on resize
+  adjustIframeSize();
+  window.addEventListener('resize', adjustIframeSize);
+
+  var savedState = localStorage.getItem('chatWindowState');
+  var button = document.getElementById('chat-button');
+
+  // If user last closed the chat, keep it closed
+  if (savedState === 'open') {
+    iframe.style.display = 'block';
+    button.style.display = 'none';
+  } else {
+    iframe.style.display = 'none';
+    button.style.display = 'block';
   }
-  
+
+  // Chat button click
+  document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+});
