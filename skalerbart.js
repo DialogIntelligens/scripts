@@ -388,29 +388,48 @@ document.addEventListener('DOMContentLoaded', function() {
    */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
-    console.log("Adjusting iframe size. Window width: ", window.innerWidth);
-
-    var isTabletView = window.innerWidth < 1000 && window.innerWidth > 800;
-    var isPhoneView = window.innerWidth < 800;
-
+    console.log("Adjusting iframe size. Window width:", window.innerWidth);
+  
+    // Keep 'isIframeEnlarged' logic if toggled from the iframe
     if (isIframeEnlarged) {
+      // A bigger version if user toggles enlarge
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
       iframe.style.height = '90vh';
     } else {
-      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
-      iframe.style.height = '90vh';
+      // Default sizing:
+      // For phone/tablet (< 1000px), use 95vw
+      // For larger screens, use 50vh x 90vh
+      if (window.innerWidth < 1000) {
+        iframe.style.width = '95vw';
+        iframe.style.height = '90vh';
+     } else {
+        iframe.style.width = '50vh';
+        iframe.style.height = '90vh';
+      }
+    
     }
-
+  
+    // Always position fixed
     iframe.style.position = 'fixed';
-    iframe.style.left = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
-    iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
-    iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
-    iframe.style.right = window.innerWidth < 1000 ? '' : '2vh';
-
-    sendMessageToIframe(); // Ensure message data is updated and sent
+  
+    // Center if mobile, else bottom-right
+    if (window.innerWidth < 1000) {
+      iframe.style.left = '50%';
+      iframe.style.top = '50%';
+      iframe.style.transform = 'translate(-50%, -50%)';
+      iframe.style.bottom = '';
+      iframe.style.right = '';
+    } else {
+      iframe.style.left = 'auto';
+      iframe.style.top = 'auto';
+      iframe.style.transform = 'none';
+      iframe.style.bottom = '3vh';
+      iframe.style.right = '2vw';
+    }
+  
+    // Re-send data to iframe in case layout changes
+    sendMessageToIframe();
   }
-
   // Adjust size on page load + on resize
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
