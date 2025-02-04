@@ -28,20 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
       transform: scale(1.1);
     }
 
-    /* Speech balloon styles */
-    #speech-balloon {
-      display: none;
-      position: absolute;
-      bottom: 52px; /* Position it above the chat button */
-      right: 52px;
-      width: 220px;
-      height: 95px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 1500;
-    }
-
     /* Close button styles */
     #close-balloon {
       position: absolute;
@@ -71,11 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
       <button id="chat-button">
         <img src="https://image-hosting-pi.vercel.app/Tivoli_MessageLogo.png" alt="Chat with us">
       </button>
-
-      <!-- Speech Balloon GIF with Close Button -->
-      <div id="speech-balloon">
-        <button id="close-balloon">&times;</button>
-      </div>
     </div>
 
     <!-- Chat Iframe -->
@@ -243,57 +224,6 @@ function toggleChatWindow() {
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
 
-  var gifUrls = [
-    'https://dialogintelligens.dk/wp-content/uploads/2024/11/Hjaelp-stong-1.gif',
-    'https://dialogintelligens.dk/wp-content/uploads/2024/11/Hjaelp-stong-2.gif'
-    // Add new GIF URLs here
-  ];
-
-  // Speech balloon management
-  function manageSpeechBalloon() {
-    var hasClosedBalloon = getCookie("hasClosedBalloon");
-    if (hasClosedBalloon) {
-      document.getElementById('speech-balloon').style.display = 'none';
-      return;
-    }
-  
-    var nextShowTime = getCookie("nextSpeechBalloonShowTime");
-    var now = new Date().getTime();
-    var delay = 0;
-  
-    if (nextShowTime && parseInt(nextShowTime) > now) {
-      delay = parseInt(nextShowTime) - now;
-    }
-  
-    setTimeout(function showBalloon() {
-      // Add this code at the beginning of showBalloon()
-      var hasClosedBalloon = getCookie("hasClosedBalloon");
-      if (hasClosedBalloon) {
-        return; // User has closed the balloon; do not show it again
-      }
-  
-      // Randomly select a GIF URL
-      var randomGifUrl = gifUrls[Math.floor(Math.random() * gifUrls.length)];
-      // Set the background-image style
-      document.getElementById('speech-balloon').style.backgroundImage = 'url(' + randomGifUrl + ')';
-  
-      document.getElementById("speech-balloon").style.display = "block";
-      setTimeout(function hideBalloon() {
-        document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 250000;
-        var domain = window.location.hostname;
-        var domainParts = domain.split(".");
-        if (domainParts.length > 2) {
-          domain = "." + domainParts.slice(-2).join(".");
-        } else {
-          domain = "." + domain;
-        }
-        setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 250000);
-      }, 12000);
-    }, delay || 11000);
-  }
-
 
   // Initial load and resize adjustments
   adjustIframeSize();
@@ -316,22 +246,4 @@ function toggleChatWindow() {
     button.style.display = 'block';
   }
 
-  // Close button functionality for the speech balloon
-  var closeBalloonButton = document.getElementById('close-balloon');
-  if (closeBalloonButton) {
-    closeBalloonButton.addEventListener('click', function() {
-      var domain = window.location.hostname;
-      var domainParts = domain.split(".");
-      if (domainParts.length > 2) {
-        domain = "." + domainParts.slice(-2).join(".");
-      } else {
-        domain = "." + domain;
-      }
-      document.getElementById('speech-balloon').style.display = 'none';
-      setCookie("hasClosedBalloon", "true", 365, domain);
-    });
-  }
-
-  // Start the speech balloon management when the page loads
-  manageSpeechBalloon();
 });
