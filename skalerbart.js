@@ -406,33 +406,10 @@ document.addEventListener('DOMContentLoaded', function() {
     iframe.style.top = window.innerWidth < 1000 ? '50%' : 'auto';
     iframe.style.transform = window.innerWidth < 1000 ? 'translate(-50%, -50%)' : 'none';
     iframe.style.bottom = window.innerWidth < 1000 ? '' : '3vh';
-    iframe.style.right = window.innerWidth < 1000 ? '' : '3vh';
+    iframe.style.right = window.innerWidth < 1000 ? '' : '2vh';
 
     sendMessageToIframe(); // Ensure message data is updated and sent
   }
-  
-    // Always position fixed
-    iframe.style.position = 'fixed';
-  
-    // Center if mobile, else bottom-right
-    if (window.innerWidth < 1000) {
-      iframe.style.left = '50%';
-      iframe.style.top = '50%';
-      iframe.style.transform = 'translate(-50%, -50%)';
-      iframe.style.bottom = '';
-      iframe.style.right = '';
-    } else {
-      iframe.style.left = 'auto';
-      iframe.style.top = 'auto';
-      iframe.style.transform = 'none';
-      iframe.style.bottom = '3vh';
-      iframe.style.right = '2vw';
-    }
-  
-    // Re-send data to iframe in case layout changes
-    sendMessageToIframe();
-  }
-  
 
   // Adjust size on page load + on resize
   adjustIframeSize();
