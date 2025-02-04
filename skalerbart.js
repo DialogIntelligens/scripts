@@ -366,37 +366,30 @@ document.addEventListener('DOMContentLoaded', function() {
      * If it overflows, step back.
      */
     function autoScaleText(elem) {
-      // Save the original fontSize so we can revert if needed
-      const originalFontSize = window.getComputedStyle(elem).fontSize || "24px";
-      const originalSizeValue = parseFloat(originalFontSize);
+        const messageContainer = elem.closest(".message-content"); 
+        if (!messageContainer) return; // Safety check
+        
+        const maxFontSize = 40;  // Reasonable max size
+        const targetWidth = messageContainer.clientWidth * 0.9; // 90% of `.message-content` width
+        let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
+        
+        elem.style.whiteSpace = "nowrap"; // Ensure it scales correctly
     
-      // Start from the original size
-      let currentFontSize = originalSizeValue;
-      elem.style.whiteSpace = "nowrap"; // Force single line for measuring
+        while (true) {
+            elem.style.fontSize = currentFontSize + "px";
     
-      const parent = elem.parentElement;
-      if (!parent) return;
+            // Stop if text exceeds target width or max size is reached
+            if (elem.scrollWidth > targetWidth || currentFontSize >= maxFontSize) {
+                elem.style.fontSize = Math.min(currentFontSize, maxFontSize) + "px";
+                break;
+            }
     
-      // Repeatedly increase font size until overflow
-      while (true) {
-        elem.style.fontSize = currentFontSize + "px";
-    
-        // If the element's scrollWidth > parent clientWidth => we've overflowed
-        if (elem.scrollWidth > parent.clientWidth) {
-          // Step back one size
-          elem.style.fontSize = (currentFontSize - 1) + "px";
-          break;
+            currentFontSize += 1;
         }
-        // Increase by 1px
-        currentFontSize += 1;
     
-        // Safety check: break if it’s too huge
-        if (currentFontSize > 200) break;
-      }
-    
-      // Restore normal wrapping
-      elem.style.whiteSpace = "normal";
+        elem.style.whiteSpace = "normal"; // Restore normal wrapping
     }
+
 
 
     
