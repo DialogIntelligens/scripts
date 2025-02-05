@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/WashWorld_logo.png",
       themeColor: "#3ac165",
-      headerTitleG: "Wash Worlds Virtuelle Assistent",
+      headerTitleG: "Wish Wash, vores virtuelle assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Wash World",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗",
