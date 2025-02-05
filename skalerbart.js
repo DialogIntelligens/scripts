@@ -366,14 +366,11 @@ document.addEventListener('DOMContentLoaded', function() {
      * If it overflows, step back.
      */
     function autoScaleText(elem) {
-        const messageContainer = elem.closest(".message-content"); 
-        if (!messageContainer) return; // Safety check
-        
-        const maxFontSize = 36;  // Reasonable max size
-        const targetWidth = messageContainer.clientWidth * 0.9; // 90% of `.message-content` width
+        const maxFontSize = 36;  // Prevents ridiculous scaling
+        const targetWidth = 460 * 0.9; // Force scaling to 90% of 460px (414px)
         let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
         
-        elem.style.whiteSpace = "nowrap"; // Ensure it scales correctly
+        elem.style.whiteSpace = "nowrap"; // Ensures single-line for scaling
     
         while (true) {
             elem.style.fontSize = currentFontSize + "px";
