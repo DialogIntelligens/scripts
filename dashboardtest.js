@@ -264,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
         titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
         headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
         themeColor: "#f40101",
-        headerTitleG: "Custom bot baby Virtuelle Agent",
+        headerTitleG: "Test time Virtuelle Agent",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles.",
         titleG: "Tivoli Hotel",
         firstMessage: "Hej😊 Jeg kan besvare dine spørgsmål omkring os og vores hoteller",
