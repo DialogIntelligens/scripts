@@ -403,9 +403,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjÃ¦lp? Eller skal oscar bare prutte? <span id="funny-smiley">ð</span>`;
+        messageBox.innerHTML = `Har du brug for hjÃÂ¦lp? Eller skal oscar bare prutte? <span id="funny-smiley">Ã°ÂÂÂ</span>`;
       } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjÃ¦lp? <span id="funny-smiley">ð</span>`;
+        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjÃÂ¦lp? <span id="funny-smiley">Ã°ÂÂÂ</span>`;
       }
       
       // Call the function right after setting the text
