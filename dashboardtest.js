@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
         privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
         titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
         headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
-        themeColor: "#190c7e",
+        themeColor: "#f40101",
         headerTitleG: "Custom bot baby Virtuelle Agent",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles.",
         titleG: "Tivoli Hotel",
@@ -403,9 +403,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjÃÂÃÂ¦lp? Eller skal oscar bare prutte? <span id="funny-smiley">ÃÂ°ÃÂÃÂÃÂ</span>`;
+        messageBox.innerHTML = `Har du brug for hjÃÂÃÂÃÂÃÂ¦lp? Eller skal oscar bare prutte? <span id="funny-smiley">ÃÂÃÂ°ÃÂÃÂÃÂÃÂÃÂÃÂ</span>`;
       } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjÃÂÃÂ¦lp? <span id="funny-smiley">ÃÂ°ÃÂÃÂÃÂ</span>`;
+        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjÃÂÃÂÃÂÃÂ¦lp? <span id="funny-smiley">ÃÂÃÂ°ÃÂÃÂÃÂÃÂÃÂÃÂ</span>`;
       }
       
       // Call the function right after setting the text
