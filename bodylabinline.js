@@ -1,36 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatbot Integration</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: Arial, sans-serif;
-        }
-        #chat-container {
-            width: 100%;
-            height: 100vh;
-            overflow: hidden;
-            box-sizing: border-box;
-        }
-    </style>
-</head>
-<body>
+<!-- Chatbot Iframe -->
+<iframe
+  id="chat-iframe"
+  src="https://skalerbartprodukt.onrender.com"
+  style="width: 400px; height: 600px; border: none;"
+  sandbox="allow-scripts allow-same-origin"
+></iframe>
 
-    <div id="chat-container">
-        <iframe id="chat-iframe" src="https://bodylab.onrender.com" style="width: 100%; height: 100%; border: none;" onload="sendMessageToIframe();"></iframe>
-    </div>
+<style>
+  /* Add margin on the left side for PC screens only */
+  @media (min-width: 1024px) {
+    #chat-iframe {
+      margin-left: 150px; /* Add a 20px left margin for larger screens */
+    }
+  }
+</style>
 
-    <script>
-        function sendMessageToIframe() {
-            var iframeWindow = document.getElementById('chat-iframe').contentWindow;
-            iframeWindow.postMessage({
-                action: 'integrationOptions',
-      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
+<script>
+  var isIframeEnlarged = false;
+
+  function sendMessageToIframe() {
+    var iframe = document.getElementById('chat-iframe');
+    var iframeWindow = iframe.contentWindow;
+
+    if (iframeWindow) {
+      iframeWindow.postMessage(
+        {
+titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
       themeColor: "#65bddb",
       pagePath: window.location.href,
@@ -63,11 +58,39 @@
 
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
-                gptInterface: true
-            }, "https://bodylab.onrender.com");
-        }
+      gptInterface: true
+        },
+        'https://skalerbartprodukt.onrender.com'
+      );
+    } else {
+      console.error('Iframe window not available');
+    }
+  }
 
-        window.addEventListener('resize', sendMessageToIframe);
-    </script>
-</body>
-</html>
+  function adjustIframeSize() {
+    var iframe = document.getElementById('chat-iframe');
+    iframe.style.transition = 'height 0.3s ease'; // Smooth transitions
+    iframe.style.height = isIframeEnlarged ? '800px' : '600px';
+  }
+
+  window.addEventListener('message', function (event) {
+    if (event.origin !== 'https://skalerbartprodukt.onrender.com') return;
+
+    if (event.data.action === 'toggleSize') {
+      isIframeEnlarged = !isIframeEnlarged;
+      adjustIframeSize();
+    }
+
+    // No need to prevent default on message events
+  });
+
+  function iframeLoaded() {
+    setTimeout(sendMessageToIframe, 200);
+    // No need to blur the iframe
+  }
+
+  var iframeElement = document.getElementById('chat-iframe');
+  iframeElement.addEventListener('load', iframeLoaded);
+
+  // Removed event listeners that prevent focus and keydown events
+</script>
