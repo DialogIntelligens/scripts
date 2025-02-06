@@ -1,8 +1,8 @@
 <!-- Chatbot Iframe -->
 <iframe
   id="chat-iframe"
-  src="https://skalerbartprodukt.onrender.com"
-  style="width: 400px; height: 600px; border: none;"
+  src="https://bodylab.onrender.com"
+  style="width: 100%; height: 600px; border: none;"
   sandbox="allow-scripts allow-same-origin"
 ></iframe>
 
@@ -10,7 +10,7 @@
   /* Add margin on the left side for PC screens only */
   @media (min-width: 1024px) {
     #chat-iframe {
-      margin-left: 150px; /* Add a 20px left margin for larger screens */
+      margin-left: 0px; /* Add a 20px left margin for larger screens */
     }
   }
 </style>
@@ -25,7 +25,8 @@
     if (iframeWindow) {
       iframeWindow.postMessage(
         {
-titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
+          action: 'integrationOptions',
+      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png",
       themeColor: "#65bddb",
       pagePath: window.location.href,
@@ -57,24 +58,18 @@ titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/06/messageIcon
       vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-3500-kcal.pdf",
 
       firstMessage1: "Hej",
-      firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
-      gptInterface: true
+      firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖", 
+          gptInterface: true,
         },
-        'https://skalerbartprodukt.onrender.com'
+        'https://bodylab.onrender.com/'
       );
     } else {
       console.error('Iframe window not available');
     }
   }
 
-  function adjustIframeSize() {
-    var iframe = document.getElementById('chat-iframe');
-    iframe.style.transition = 'height 0.3s ease'; // Smooth transitions
-    iframe.style.height = isIframeEnlarged ? '800px' : '600px';
-  }
-
   window.addEventListener('message', function (event) {
-    if (event.origin !== 'https://skalerbartprodukt.onrender.com') return;
+    if (event.origin !== 'https://bodylab.onrender.com') return;
 
     if (event.data.action === 'toggleSize') {
       isIframeEnlarged = !isIframeEnlarged;
