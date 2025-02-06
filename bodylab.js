@@ -244,4 +244,12 @@ onDOMReady(function() {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
+
+window.openChat = function() {
+  var isCurrentlyOpen = iframe.style.display !== 'none';
+  // Only toggle if currently closed:
+  if (!isCurrentlyOpen) {
+    toggleChatWindow();
+  }
+};
 });
