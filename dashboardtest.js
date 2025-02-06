@@ -263,7 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
         privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
         titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
         headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
-        themeColor: "#f40101",
+        themeColor: "#4201f4",
         headerTitleG: "Test time Virtuelle Agent",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles.",
         titleG: "Tivoli Hotel",
@@ -344,10 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const remainder = fullText.slice(limit);
     
         // Make them two separate spans
-        messageBox.innerHTML = `
-          <span id="scaled-first-line"></span><br/>
-          <span id="normal-lines"></span>
-        `;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
     
         // Fill in text
         const firstLineSpan = document.getElementById("scaled-first-line");
