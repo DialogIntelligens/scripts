@@ -1,4 +1,3 @@
-<script>
 // Define the onDOMReady function
 function onDOMReady(callback) {
   if (document.readyState !== "loading") {
@@ -10,7 +9,6 @@ function onDOMReady(callback) {
 
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
-
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -112,13 +110,13 @@ onDOMReady(function() {
       contactTitle: "kundeservice",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
       inputText: "Skriv dit spørgsmål her...",
-
+      
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
-
+      
       chatbotID: "bodylab",
 
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/diet-plan-1500-kcal.pdf",
@@ -134,7 +132,7 @@ onDOMReady(function() {
 
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
-
+      
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -246,32 +244,4 @@ onDOMReady(function() {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
-
-  // ---------------------------
-  // EXPOSE A GLOBAL OPEN FUNCTION
-  // ---------------------------
-  window.openChat = function() {
-    // If you only want to open (regardless of current state):
-    iframe.style.display = 'block';
-    document.getElementById('chat-button').style.display = 'none';
-    localStorage.setItem('chatWindowState', 'open');
-
-    // Adjust size and send a message to the iframe
-    adjustIframeSize();
-    sendMessageToIframe();
-  };
-
-  // Alternatively, if you prefer to toggle:
-  // window.toggleChat = toggleChatWindow;
-
 });
-
-// Optional cookie function if you need it
-function setCookie(cname, cvalue, exdays, domain) {
-  var d = new Date();
-  d.setTime(d.getTime() + (exdays*24*60*60*1000));
-  var expires = "expires="+ d.toUTCString();
-  var cookieDomain = domain ? ";domain=" + domain : "";
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/" + cookieDomain;
-}
-</script>
