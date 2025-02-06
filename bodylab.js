@@ -11,9 +11,7 @@ function onDOMReady(callback) {
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
 
-if (window.location.hash === "#chat") {
-  toggleChatWindow();
-}
+
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -249,4 +247,8 @@ if (window.location.hash === "#chat") {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
+
+  if (window.location.hash === "#chat") {
+  toggleChatWindow();
+}
 });
