@@ -11,12 +11,8 @@ function onDOMReady(callback) {
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
 
-var chatLink = document.getElementById('open-chat-link');
-if (chatLink) {
-  chatLink.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default anchor behavior
-    toggleChatWindow();     // Call your chat toggle function
-  });
+if (window.location.hash === "#chat") {
+  toggleChatWindow();
 }
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
