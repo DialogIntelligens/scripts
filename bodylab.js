@@ -1,3 +1,4 @@
+<script>
 // Define the onDOMReady function
 function onDOMReady(callback) {
   if (document.readyState !== "loading") {
@@ -69,9 +70,7 @@ onDOMReady(function() {
 
   // Set the onload event handler before setting the src
   iframe.onload = onIframeLoad;
-
-  // Now set the src
-  iframe.src = 'https://bodylab.onrender.com';
+  iframe.src = 'https://bodylab.onrender.com'; // <-- Adjust if you need a different URL
 
   // Append the iframe to the body
   document.body.appendChild(iframe);
@@ -94,7 +93,7 @@ onDOMReady(function() {
         // Ignore cross-origin errors
       }
     }
-  }, 500); // Delay slightly longer
+  }, 500); // Delay slightly
 
   function sendMessageToIframe() {
     var messageData = {
@@ -110,13 +109,13 @@ onDOMReady(function() {
       contactTitle: "kundeservice",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
       inputText: "Skriv dit spørgsmål her...",
-      
+
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
-      
+
       chatbotID: "bodylab",
 
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/diet-plan-1500-kcal.pdf",
@@ -132,7 +131,7 @@ onDOMReady(function() {
 
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
-      
+
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -222,6 +221,18 @@ onDOMReady(function() {
     });
   }
 
+  // Function to set a cookie
+  function setCookie(name, value, days, domain) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    var domainString = domain ? "; domain=" + domain : "";
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/" + domainString;
+  }
+
   // Initialize the chat window state
   var savedState = localStorage.getItem('chatWindowState');
   var button = document.getElementById('chat-button');
@@ -244,4 +255,17 @@ onDOMReady(function() {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
+
+  // ------------ NEW FUNCTION TO OPEN CHAT ------------
+  // This function will *only* open the chat if it's currently closed.
+  // Place a link or button with onclick="openChat()" to use it.
+  function openChat() {
+    if (iframe.style.display === 'none') {
+      toggleChatWindow();
+    }
+  }
+  // Expose the openChat function globally
+  window.openChat = openChat;
+  // ---------------------------------------------------
 });
+</script>
