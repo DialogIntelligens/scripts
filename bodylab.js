@@ -7,6 +7,10 @@ function onDOMReady(callback) {
   }
 }
 
+
+// Use onDOMReady to execute your code after the DOM is ready
+onDOMReady(function() {
+
 var chatLink = document.getElementById('open-chat-link');
 if (chatLink) {
   chatLink.addEventListener('click', function(event) {
@@ -14,10 +18,6 @@ if (chatLink) {
     toggleChatWindow();     // Call your chat toggle function
   });
 }
-
-
-// Use onDOMReady to execute your code after the DOM is ready
-onDOMReady(function() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
