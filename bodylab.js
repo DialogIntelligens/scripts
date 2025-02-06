@@ -1,3 +1,4 @@
+<script>
 // Define the onDOMReady function
 function onDOMReady(callback) {
   if (document.readyState !== "loading") {
@@ -110,13 +111,13 @@ onDOMReady(function() {
       contactTitle: "kundeservice",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
       inputText: "Skriv dit spørgsmål her...",
-      
+
       placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
-      
+
       chatbotID: "bodylab",
 
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/diet-plan-1500-kcal.pdf",
@@ -132,7 +133,7 @@ onDOMReady(function() {
 
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
-      
+
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -222,6 +223,17 @@ onDOMReady(function() {
     });
   }
 
+  function setCookie(name, value, days, domain) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days * 24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+    }
+    var domainString = domain ? "; domain=" + domain : "";
+    document.cookie = name + "=" + (value || "") + expires + "; path=/" + domainString;
+  }
+
   // Initialize the chat window state
   var savedState = localStorage.getItem('chatWindowState');
   var button = document.getElementById('chat-button');
@@ -244,4 +256,14 @@ onDOMReady(function() {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
+
+  // ========== NEW FUNCTION TO OPEN CHAT ON DEMAND ==========
+  // Call openChat() from a link or button to open the chat if it's closed
+  window.openChat = function() {
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+    if (!isCurrentlyOpen) {
+      toggleChatWindow();
+    }
+  };
 });
+</script>
