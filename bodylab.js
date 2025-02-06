@@ -6,7 +6,7 @@ function onDOMReady(callback) {
     document.addEventListener("DOMContentLoaded", callback);
   }
 }
-
+window.toggleChat = toggleChatWindow;
 
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
@@ -247,8 +247,4 @@ onDOMReady(function() {
   window.addEventListener('resize', function() {
     adjustIframeSize();
   });
-
-  if (window.location.hash === "#chat") {
-  toggleChatWindow();
-}
 });
