@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #c6a459;
+      --icon-color: #22b92c;
     }
   
     /* The main message content area */
