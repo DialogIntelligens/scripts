@@ -281,10 +281,23 @@ document.addEventListener('DOMContentLoaded', function() {
         isPhoneView: (window.innerWidth < 800)
       };
   
-      // Post data once
-      iframe.onload = function() {
-        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-      };
+      // If the iframe is already visible, post the message immediately.
+      if (iframe.style.display !== 'none') {
+        try {
+          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+        } catch (e) {
+          console.error("Error posting message to iframe:", e);
+        }
+      } else {
+        // If not visible, assign onload to post the message when it appears.
+        iframe.onload = function() {
+          try {
+            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          } catch (e) {
+            console.error("Error posting message on iframe load:", e);
+          }
+        };
+      }
     }
   
     // Listen for messages from the iframe
@@ -311,19 +324,23 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleChatWindow() {
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
-      var isCurrentlyOpen = (iframe.style.display !== 'none');
-  
-      // Toggle open/closed
+      
+      // Determine if the chat is currently open
+      var isCurrentlyOpen = iframe.style.display !== 'none';
+      
+      // Toggle the display of the iframe and button
       iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
       button.style.display = isCurrentlyOpen ? 'block' : 'none';
       localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-  
-      // Adjust size after toggling
+      
+      // Adjust the iframe size
       adjustIframeSize();
-  
-      // Let the iframe know we've opened
+      
+      // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
-        iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+        setTimeout(function() {
+          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+        }, 100);
       }
     }
   
