@@ -268,6 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles.",
         titleG: "Tivoli Hotel",
         firstMessage: "Hej😊 Jeg kan besvare dine spørgsmål omkring os og vores hoteller",
+        leadGen: "ged",
         isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
         isPhoneView: (window.innerWidth < 800)
       };
