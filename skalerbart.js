@@ -142,6 +142,15 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: black;
       color: white;
     }
+   
+    @media (max-width: 600px) {
+      #chatbase-message-bubbles {
+        width: 90vw;
+        max-width: 90vw;
+        bottom: 60px;
+        right: 5vw;
+      }
+    }
   
     :root {
       --icon-color: #c6a459;
@@ -366,25 +375,24 @@ document.addEventListener('DOMContentLoaded', function() {
      * If it overflows, step back.
      */
     function autoScaleText(elem) {
-        const maxFontSize = 36;  // Prevents ridiculous scaling
-        const targetWidth = 460 * 0.9; // Force scaling to 90% of 460px (414px)
-        let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
-        
-        elem.style.whiteSpace = "nowrap"; // Ensures single-line for scaling
+      const maxFontSize = 36;  // Prevents excessive scaling
+      // Use 90% of viewport width if the screen is narrow; otherwise use 90% of 460px
+      const targetWidth = window.innerWidth < 460 ? window.innerWidth * 0.9 : 460 * 0.9;
+      let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
+      
+      elem.style.whiteSpace = "nowrap"; // Ensure text stays on one line for measurement
     
-        while (true) {
-            elem.style.fontSize = currentFontSize + "px";
-    
-            // Stop if text exceeds target width or max size is reached
-            if (elem.scrollWidth > targetWidth || currentFontSize >= maxFontSize) {
-                elem.style.fontSize = Math.min(currentFontSize, maxFontSize) + "px";
-                break;
-            }
-    
-            currentFontSize += 1;
+      while (true) {
+        elem.style.fontSize = currentFontSize + "px";
+        // Break if the text's scrollWidth exceeds our target width or if we've hit max size
+        if (elem.scrollWidth > targetWidth || currentFontSize >= maxFontSize) {
+          elem.style.fontSize = Math.min(currentFontSize, maxFontSize) + "px";
+          break;
         }
-    
-        elem.style.whiteSpace = "normal"; // Restore normal wrapping
+        currentFontSize += 1;
+      }
+      
+      elem.style.whiteSpace = "normal"; // Restore normal wrapping behavior
     }
 
 
