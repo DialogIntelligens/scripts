@@ -125,6 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
       titleG: "Pecus",
       firstMessage: "Hei😊 Hvordan kan jeg hjelpe deg?",
       leadGen: "contact",
+      leadMail: "oscar@thau.dk",
+      leadField1: "Navn",
+      leadField2: "Email",
          
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
