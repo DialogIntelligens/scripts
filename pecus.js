@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chatbotID: "pecus",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/75e15c17-52e2-43bd-9408-01180ff25c7f",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ebba695f-0f33-4958-ab19-84cb027ce8c3",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/099e82cf-19f6-4cde-857c-6f8dff44d1d4",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
