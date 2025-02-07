@@ -268,6 +268,10 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
+      leadGen: "%%",
+      leadMail: "team@dialogintelligens.dk",
+      leadField1: "Navn",
+      leadField2: "Telefon nummer",
 
       imageAPI: '',
       
