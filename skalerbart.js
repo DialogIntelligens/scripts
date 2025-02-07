@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
       flex-direction: column;
       gap: 50px;
       background-color: white;
-      min-width: 460px;
       transform-origin: bottom right;
       box-shadow:
         0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15),
