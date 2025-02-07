@@ -391,25 +391,9 @@ document.addEventListener('DOMContentLoaded', function() {
      * Increases font size until the text just fits (no horizontal scroll).
      * If it overflows, step back.
      */
-    function autoScaleText(elem) {
-      const maxFontSize = 36;  // Prevents excessive scaling
-      // Use 90% of viewport width if the screen is narrow; otherwise use 90% of 460px
-      const targetWidth = window.innerWidth < 460 ? window.innerWidth * 0.9 : 460 * 0.9;
-      let currentFontSize = parseFloat(window.getComputedStyle(elem).fontSize) || 24;
-      
-      elem.style.whiteSpace = "nowrap"; // Ensure text stays on one line for measurement
-    
-      while (true) {
-        elem.style.fontSize = currentFontSize + "px";
-        // Break if the text's scrollWidth exceeds our target width or if we've hit max size
-        if (elem.scrollWidth > targetWidth || currentFontSize >= maxFontSize) {
-          elem.style.fontSize = Math.min(currentFontSize, maxFontSize) + "px";
-          break;
-        }
-        currentFontSize += 1;
-      }
-      
-      elem.style.whiteSpace = "normal"; // Restore normal wrapping behavior
+    function fitMessageText(messageBox) {
+      // Simply call the smart scaling function on the entire message box.
+      smartScaleText(messageBox);
     }
 
 
