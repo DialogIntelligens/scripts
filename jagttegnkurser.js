@@ -518,6 +518,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
+  } // end of initChatbot
+  
   // Initial attempt to load the chatbot.
   initChatbot();
   
@@ -529,4 +531,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 2000);
         
-  };
+});  
