@@ -373,9 +373,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
       var popupElem = document.getElementById("chatbase-message-bubbles");
-      if (charCount < 17) {
+      if (charCount < 25) {
         popupElem.style.width = "380px";
-      } else if (charCount < 45) {
+      } else if (charCount < 60) {
         popupElem.style.width = "405px";
       } else {
         popupElem.style.width = "460px";
