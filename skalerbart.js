@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
       z-index: 18;
-      scale: 0.5;
+      scale: 0.55;
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       padding: 12px 24px 12px 20px;
       margin: 8px;
-      font-size: 24px;
+      font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 400;
       opacity: 1;
@@ -350,53 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
       popup.style.display = "none";
     }
 
-    /**
-     * fitMessageText(messageBox, limit = 50)
-     * Scales text so the "first line" up to 'limit' chars fits the right margin.
-     * If text is shorter than 'limit' chars, the entire text scales up.
-     * If text is longer, the first 50 chars scale; the rest is normal size & wraps.
-     */
-    function fitMessageText(messageBox, limit = 50) {
-      // Grab the raw text
-      const fullText = messageBox.innerText || messageBox.textContent;
-      if (!fullText) return;
-    
-      // If it's short, scale the entire text
-      if (fullText.length <= limit) {
-        autoScaleText(messageBox);
-      } else {
-        // Split into first 50 chars + the rest
-        const firstLine = fullText.slice(0, limit);
-        const remainder = fullText.slice(limit);
-    
-        // Make them two separate spans
-        messageBox.innerHTML = `
-          <span id="scaled-first-line"></span><br/>
-          <span id="normal-lines"></span>
-        `;
-    
-        // Fill in text
-        const firstLineSpan = document.getElementById("scaled-first-line");
-        const normalLinesSpan = document.getElementById("normal-lines");
-        firstLineSpan.textContent = firstLine;
-        normalLinesSpan.textContent = remainder;
-    
-        // Now scale only the 'scaled-first-line'
-        autoScaleText(firstLineSpan);
-      }
-    }
-    
-    /**
-     * autoScaleText(elem)
-     * Increases font size until the text just fits (no horizontal scroll).
-     * If it overflows, step back.
-     */
-    function fitMessageText(messageBox) {
-      // Simply call the smart scaling function on the entire message box.
-      smartScaleText(messageBox);
-    }
-
-
 
     
     /**
@@ -407,6 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (iframe.style.display !== "none" || getCookie("popupClosed") === "true") {
         return;
       }
+        
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
@@ -416,10 +370,18 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
-      
-      // Call the function right after setting the text
-      fitMessageText(messageBox, 50);
-      
+      // Determine popup width based on character count (excluding any HTML tags)
+      var charCount = messageBox.textContent.trim().length;
+      var popupElem = document.getElementById("chatbase-message-bubbles");
+      if (charCount < 17) {
+        popupElem.style.width = "380px";
+      } else if (charCount < 45) {
+        popupElem.style.width = "405px";
+      } else {
+        popupElem.style.width = "460px";
+      }
+
+     
       popup.style.display = "flex";
   
       // Blink after 2s
@@ -461,63 +423,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
-    function smartScaleText(elem) {
-      // Get the container width from the parent element (assumes the parent is the popup’s inner container)
-      var containerWidth = elem.parentElement.clientWidth;
-      var fillRatio = 0.8; // We aim for the text to roughly occupy 80% of container width in a single line.
-      
-      // Set reasonable bounds for the font size (in pixels)
-      var minFontSize = 12;
-      var maxFontSize = 36;
-      var bestFontSize = minFontSize;
-      
-      // Binary search for the optimal font size.
-      while (minFontSize <= maxFontSize) {
-        var mid = Math.floor((minFontSize + maxFontSize) / 2);
-        elem.style.fontSize = mid + "px";
-        
-        // First, force one-line measurement to see how wide the text would be if it didn’t wrap.
-        elem.style.whiteSpace = "nowrap";
-        var oneLineWidth = elem.scrollWidth;
-        // Then let it wrap normally
-        elem.style.whiteSpace = "normal";
-        
-        // Get the current rendered height (which reflects wrapping)
-        var currentHeight = elem.scrollHeight;
-        // Assume a line-height of about 1.2 times the font size
-        var lineHeight = mid * 1.2;
-        
-        // Determine if the text is on one line (allowing a couple pixels for rounding)
-        var isOneLine = currentHeight <= lineHeight + 2;
-        
-        if (isOneLine) {
-          // If it’s one line, we want it to fill roughly fillRatio of the container.
-          // If the one-line width is less than desired, we can increase the font size.
-          if (oneLineWidth < containerWidth * fillRatio) {
-            bestFontSize = mid;
-            minFontSize = mid + 1;
-          } else {
-            // Otherwise, the text is too wide for one line; reduce the font size.
-            bestFontSize = mid;
-            maxFontSize = mid - 1;
-          }
-        } else {
-          // The text wraps to two lines.
-          // We want to ensure it fits in two lines only.
-          if (currentHeight <= lineHeight * 2 + 2) {
-            // It fits in two lines; try increasing the font size to see if we can enlarge it further.
-            bestFontSize = mid;
-            minFontSize = mid + 1;
-          } else {
-            // More than two lines – too big. Decrease the font size.
-            maxFontSize = mid - 1;
-          }
-        }
-      }
-      // Set the element’s font size to the best found value.
-      elem.style.fontSize = bestFontSize + "px";
-    }
-        
+
     /**
      * 9. ADJUST IFRAME SIZE
      */
