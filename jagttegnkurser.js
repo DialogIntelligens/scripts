@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
       font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 400;
+      line-height: 1em;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
