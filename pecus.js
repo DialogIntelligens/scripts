@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
       titleG: "Pecus",
       firstMessage: "Hei😊 Hvordan kan jeg hjelpe deg?",
       leadGen: "contact",
-      leadMail: "oscar@thau.dk",
+      leadMail: "team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Email",
          
