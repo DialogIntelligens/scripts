@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Naturmands Virtuelle Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Naturmand",
-      firstMessage: "Hej😊 Kan jeg hjælpe med at besvare et spørgsmål eller anbefale et produkt?🍕",
+      firstMessage: "Hej😊 Kan jeg hjælpe med at besvare et spørgsmål eller anbefale et produkt?⛰️",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
