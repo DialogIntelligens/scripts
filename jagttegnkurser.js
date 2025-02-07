@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
+      // 1. Create a unique container for your widget
+    var widgetContainer = document.createElement('div');
+    widgetContainer.id = 'my-chat-widget';
+    document.body.appendChild(widgetContainer);    
     /**
      * 1. GLOBAL & FONT SETUP
      */
