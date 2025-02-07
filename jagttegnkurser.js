@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       leadGen: "%%",
-      leadMail: "team@dialogintelligens.dk",
+      leadMail: "info@jagttegnkurser.dk",
       leadField1: "Navn",
       leadField2: "Telefon nummer",
 
