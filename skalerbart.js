@@ -460,7 +460,64 @@ document.addEventListener('DOMContentLoaded', function() {
         setCookie("popupClosed", "true", 1, ".yourdomain.com");
       });
     }
-  
+
+    function smartScaleText(elem) {
+      // Get the container width from the parent element (assumes the parent is the popup’s inner container)
+      var containerWidth = elem.parentElement.clientWidth;
+      var fillRatio = 0.8; // We aim for the text to roughly occupy 80% of container width in a single line.
+      
+      // Set reasonable bounds for the font size (in pixels)
+      var minFontSize = 12;
+      var maxFontSize = 36;
+      var bestFontSize = minFontSize;
+      
+      // Binary search for the optimal font size.
+      while (minFontSize <= maxFontSize) {
+        var mid = Math.floor((minFontSize + maxFontSize) / 2);
+        elem.style.fontSize = mid + "px";
+        
+        // First, force one-line measurement to see how wide the text would be if it didn’t wrap.
+        elem.style.whiteSpace = "nowrap";
+        var oneLineWidth = elem.scrollWidth;
+        // Then let it wrap normally
+        elem.style.whiteSpace = "normal";
+        
+        // Get the current rendered height (which reflects wrapping)
+        var currentHeight = elem.scrollHeight;
+        // Assume a line-height of about 1.2 times the font size
+        var lineHeight = mid * 1.2;
+        
+        // Determine if the text is on one line (allowing a couple pixels for rounding)
+        var isOneLine = currentHeight <= lineHeight + 2;
+        
+        if (isOneLine) {
+          // If it’s one line, we want it to fill roughly fillRatio of the container.
+          // If the one-line width is less than desired, we can increase the font size.
+          if (oneLineWidth < containerWidth * fillRatio) {
+            bestFontSize = mid;
+            minFontSize = mid + 1;
+          } else {
+            // Otherwise, the text is too wide for one line; reduce the font size.
+            bestFontSize = mid;
+            maxFontSize = mid - 1;
+          }
+        } else {
+          // The text wraps to two lines.
+          // We want to ensure it fits in two lines only.
+          if (currentHeight <= lineHeight * 2 + 2) {
+            // It fits in two lines; try increasing the font size to see if we can enlarge it further.
+            bestFontSize = mid;
+            minFontSize = mid + 1;
+          } else {
+            // More than two lines – too big. Decrease the font size.
+            maxFontSize = mid - 1;
+          }
+        }
+      }
+      // Set the element’s font size to the best found value.
+      elem.style.fontSize = bestFontSize + "px";
+    }
+        
     /**
      * 9. ADJUST IFRAME SIZE
      */
