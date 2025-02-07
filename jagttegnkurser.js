@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+
+
+  function initChatbot() {
+    // Check if already initialized
+    if (document.getElementById('chat-container')) {
+      console.log("Chatbot already loaded.");
+      return;
+    }    
+      
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -507,5 +517,16 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+  // Initial attempt to load the chatbot.
+  initChatbot();
   
+  // After 2 seconds, check if a key element is present; if not, reinitialize.
+  setTimeout(function() {
+    if (!document.getElementById('chat-container')) {
+      console.log("Chatbot not loaded after 2 seconds, retrying...");
+      initChatbot();
+    }
+  }, 2000);
+        
   });
