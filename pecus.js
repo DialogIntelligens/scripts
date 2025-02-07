@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div id="chat-container">
       <!-- Chat Button -->
       <button id="chat-button">
-        <img src="https://image-hosting-pi.vercel.app/kystfisken_MessageLogo.png" alt="Chat with us">
+        <img src="https://image-hosting-pi.vercel.app/Pecus_messageLogo.png" alt="Chat with us">
       </button>
     </div>
 
@@ -116,13 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_kystfisken.pdf",
-      titleLogoG: "https://image-hosting-pi.vercel.app/kystfisken_whiteMessageLogo.png",
-      headerLogoG: "https://image-hosting-pi.vercel.app/kystfisken_Logo.png",
-      themeColor: "#283e53",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitikk_Pecus.pdf",
+      titleLogoG: "https://image-hosting-pi.vercel.app/Pecus_whiteMessageLogo.png",
+      headerLogoG: "https://image-hosting-pi.vercel.app/Pecus_logo.png",
+      themeColor: "#f68f00",
       headerTitleG: "Pecus Virtuell Agent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
-      titleG: "Kystfisken",
+      titleG: "Pecus",
       firstMessage: "Hei😊 Hvordan kan jeg hjelpe deg?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
