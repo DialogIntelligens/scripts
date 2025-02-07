@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 90vw;
-        bottom: 60px;
-        right: 5vw;
+        bottom: 69px;
+        right: 0vw;
       }
     }
   
