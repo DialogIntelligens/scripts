@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
       titleG: "Pecus",
       firstMessage: "Hei😊 Hvordan kan jeg hjelpe deg?",
-      leadGen: "ccc",
+      leadGen: "%%",
       leadMail: "team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Email",
