@@ -365,7 +365,8 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
-      if (iframe.style.display !== "none" || getCookie("popupClosed") === "true") {
+      // If the iframe is visible or the popup has been closed, do not show the popup
+      if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
         return;
       }
         
@@ -415,22 +416,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }, 12000);
     }
   
-    var popupClosed = getCookie("popupClosed");
-    if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
-    }
-  
-    /**
-     * 8. CLOSE BUTTON FOR POPUP
-     */
+    // Close the popup and save the state in LocalStorage
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
       closePopupButton.addEventListener("click", function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-        setCookie("popupClosed", "true", 365, ".yourdomain.com");
+        localStorage.setItem("popupClosed", "true");  // Save popup closed state
       });
     }
-
+    
+    // Check if the popup has been closed previously
+    var popupClosed = localStorage.getItem("popupClosed");
+    if (!popupClosed || popupClosed === "false") {
+      setTimeout(showPopup, 7000);
+    }
 
     /**
      * 9. ADJUST IFRAME SIZE
@@ -515,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Chatbot not loaded after 2 seconds, retrying...");
       initChatbot();
     }
-  }, 2000);
+  }, 5000);
 
       
   });
