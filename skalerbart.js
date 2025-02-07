@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+
+  function initChatbot() {
+    // Check if already initialized
+    if (document.getElementById('chat-container')) {
+      console.log("Chatbot already loaded.");
+      return;
+    }    
     /**
      * 1. GLOBAL & FONT SETUP
      */
@@ -419,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closePopupButton) {
       closePopupButton.addEventListener("click", function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-        setCookie("popupClosed", "true", 1, ".yourdomain.com");
+        setCookie("popupClosed", "true", 365, ".yourdomain.com");
       });
     }
 
@@ -495,5 +503,19 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+  } // end of initChatbot
   
+  // Initial attempt to load the chatbot.
+  initChatbot();
+  
+  // After 2 seconds, check if a key element is present; if not, reinitialize.
+  setTimeout(function() {
+    if (!document.getElementById('chat-container')) {
+      console.log("Chatbot not loaded after 2 seconds, retrying...");
+      initChatbot();
+    }
+  }, 2000);
+
+      
   });
