@@ -346,18 +346,25 @@ document.addEventListener('DOMContentLoaded', function() {
     function toggleChatWindow() {
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
-      
+      var popup = document.getElementById("chatbase-message-bubbles");
+    
       // Determine if the chat is currently open
       var isCurrentlyOpen = iframe.style.display !== 'none';
-      
+    
       // Toggle the display of the iframe and button
       iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
       button.style.display = isCurrentlyOpen ? 'block' : 'none';
       localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-      
+    
+      // Close the popup when the chat is opened
+      if (!isCurrentlyOpen) {
+        popup.style.display = "none";
+        localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+      }
+    
       // Adjust the iframe size
       adjustIframeSize();
-      
+    
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
         setTimeout(function() {
