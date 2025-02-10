@@ -1,5 +1,5 @@
 // Wait until the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
+function initChatbot() {
   // Inject CSS into the head
   var css = `
     /* Container for chat button and speech balloon */
@@ -417,4 +417,12 @@ function toggleChatWindow() {
 
   // Start the speech balloon management when the page loads
   manageSpeechBalloon();
-});
+}
+
+// Run the initialization function immediately if the DOM is ready,
+// or wait for the DOMContentLoaded event if it's still loading.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initChatbot);
+} else {
+  initChatbot();
+}
