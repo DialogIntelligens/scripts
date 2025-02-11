@@ -95,7 +95,7 @@ function initChatbot() {
       right: -50px;
       background-color: transparent;
       border: none;
-      font-size: 16px;
+      font-size: 20px;
       padding: 55px;
       cursor: pointer;
       color: white;
