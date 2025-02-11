@@ -91,18 +91,19 @@ function initChatbot() {
     /* Close button styles */
     #close-balloon {
       position: absolute;
-      top: 6px;
-      right: 20px;
+      top: -58px;
+      right: -50px;
       background-color: transparent;
       border: none;
       font-size: 16px;
+      padding: 55px;
       cursor: pointer;
       color: white;
       font-weight: bold;
     }
 
     #close-balloon:hover {
-      color: red;
+      color: black;
     }
   `;
 
@@ -327,8 +328,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://image-hosting-pi.vercel.app/washworld.gif',
-    'https://image-hosting-pi.vercel.app/washworld.gif'
+    'http://dialogintelligens.dk/wp-content/uploads/2025/02/hhs-hjaelp-18.gif',
+    'http://dialogintelligens.dk/wp-content/uploads/2025/02/hhs-hjaelp-18.gif'
     // Add new GIF URLs here
   ];
 
@@ -363,7 +364,7 @@ function toggleChatWindow() {
       document.getElementById("speech-balloon").style.display = "block";
       setTimeout(function hideBalloon() {
         document.getElementById("speech-balloon").style.display = "none";
-        var nextTime = new Date().getTime() + 250000;
+        var nextTime = new Date().getTime() + 280000;
         var domain = window.location.hostname;
         var domainParts = domain.split(".");
         if (domainParts.length > 2) {
@@ -372,9 +373,9 @@ function toggleChatWindow() {
           domain = "." + domain;
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
-        setTimeout(showBalloon, 250000);
-      }, 15000);
-    }, delay || 15000);
+        setTimeout(showBalloon, 280000);
+      }, 5000);
+    }, delay || 5000);
   }
 
 
