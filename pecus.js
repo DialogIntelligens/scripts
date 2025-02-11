@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
       firstMessage: "Hei😊 Hvordan kan jeg hjelpe deg?",
       leadGen: "%%",
       leadMail: "team@dialogintelligens.dk",
-      leadField1: "Navn",
+      leadField1: "Firmanavn",
       leadField2: "Email",
          
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
