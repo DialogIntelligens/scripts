@@ -374,7 +374,7 @@ function toggleChatWindow() {
         }
         setCookie("nextSpeechBalloonShowTime", nextTime, 1, domain);
         setTimeout(showBalloon, 280000);
-      }, 5000);
+      }, 29000);
     }, delay || 5000);
   }
 
