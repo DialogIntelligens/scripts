@@ -1,14 +1,4 @@
-// Define the onDOMReady function
-function onDOMReady(callback) {
-  if (document.readyState !== "loading") {
-    callback();
-  } else {
-    document.addEventListener("DOMContentLoaded", callback);
-  }
-}
-
-// Use onDOMReady to execute your code after the DOM is ready
-onDOMReady(function() {
+function initChatWidget() {
   // Inject CSS into the head
   var css = "/* Container for chat button and speech balloon */" +
     "#chat-container {" +
@@ -239,8 +229,11 @@ onDOMReady(function() {
   // Attach event listener to the chat button
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
 
-  // Handle window resize
-  window.addEventListener('resize', function() {
-    adjustIframeSize();
-  });
-});
+}
+
+// Step 2: Use the DOM ready check (like in Script 1)
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initChatWidget);
+} else {
+  initChatWidget();
+}
