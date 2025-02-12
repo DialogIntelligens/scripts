@@ -291,9 +291,9 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
-      themeColor: "#526d17",
+      titleLogoG: "",
+      headerLogoG: "",
+      themeColor: "#abfa00",
       headerTitleG: "Jagttegn kursers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
