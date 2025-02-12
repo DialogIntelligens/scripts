@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #b1aa8e;
     }
   
     /* The main message content area */
