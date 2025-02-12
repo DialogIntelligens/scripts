@@ -1,12 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
+
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
     }    
+      
+      // 1. Create a unique container for your widget
+    var widgetContainer = document.createElement('div');
+    widgetContainer.id = 'my-chat-widget';
+    document.body.appendChild(widgetContainer);    
     /**
      * 1. GLOBAL & FONT SETUP
      */
@@ -160,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #c6a459;
+      --icon-color: #626b4e;
     }
   
     /* The main message content area */
@@ -175,10 +181,10 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       padding: 12px 24px 12px 20px;
       margin: 8px;
-      line-height: 1em;
       font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 400;
+      line-height: 1em;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
@@ -261,33 +267,41 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframeWindow = iframe.contentWindow;
   
       var messageData = {
-        action: 'integrationOptions',
-        chatbotID: "tivolihotel",
-        pagePath: window.location.href,
-        statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ad34b280-c683-469e-b2d9-5a7d86f81370",
-        apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba95b40d-e990-48fe-a29f-766a1d53db1e",
-        fordelingsflowAPI: "",
-        flow2Key: "",
-        flow2API: "",
-        flow3Key: "product",
-        flow3API: "",
-        SOCKET_SERVER_URL_Backup: "",
-        apiEndpointBackup: "",
-        fordelingsflowAPIBackup: "",
-        flow2APIBackup: "",
-        flow3APIBackup: "",
-        imageAPI: "",
-        privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_Tivoli_hotel.pdf",
-        titleLogoG: "https://image-hosting-pi.vercel.app/WhiteMessageLogo.png",
-        headerLogoG: "https://image-hosting-pi.vercel.app/Logo_tivolihotel.png",
-        themeColor: "#c6a459",
-        headerTitleG: "Tivoli Hotel Virtuelle Agent",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-        titleG: "Tivoli Hotel",
-        firstMessage: "Hej😊 Jeg kan besvare dine spørgsmål omkring os og vores hoteller",
-        isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
-        isPhoneView: (window.innerWidth < 800)
-      };
+      action: 'integrationOptions',
+      chatbotID: "jagttegnkurser",
+      pagePath: window.location.href,
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14ac2aa7-8ad3-474e-99d8-59ff691bb77b",
+      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3b8a2716-85de-45ae-b3c9-0522f13d4c0f",
+      fordelingsflowAPI: "",
+      flow2Key: "",
+      flow2API: "",
+      flow3Key: "",
+      flow3API: "",
+      SOCKET_SERVER_URL_Backup: "",
+      apiEndpointBackup: "",
+      fordelingsflowAPIBackup: "",
+      flow2APIBackup: "",
+      flow3APIBackup: "",
+      leadGen: "%%",
+      leadMail: "info@jagttegnkurser.dk",
+      leadField1: "Navn",
+      leadField2: "Telefon nummer",
+
+      imageAPI: '',
+      
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
+      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
+      themeColor: "#626b4e",
+      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      titleG: "Jagttegn kurser",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
+      isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
+      isPhoneView: window.innerWidth < 800
+    };
+
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
@@ -382,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Kan jeg hjælpe dig med et spøgsmål eller anbefale et produkt. Jeg er AI! <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring jagt og vores kurser🦌 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
@@ -437,6 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (!popupClosed || popupClosed === "false") {
       setTimeout(showPopup, 7000);
     }
+
 
     /**
      * 9. ADJUST IFRAME SIZE
@@ -522,6 +537,5 @@ document.addEventListener('DOMContentLoaded', function() {
       initChatbot();
     }
   }, 5000);
-
-      
-  });
+        
+});  
