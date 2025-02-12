@@ -328,8 +328,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'http://dialogintelligens.dk/wp-content/uploads/2025/02/hhs-hjaelp-18.gif',
-    'http://dialogintelligens.dk/wp-content/uploads/2025/02/hhs-hjaelp-18.gif'
+    'https://image-hosting-pi.vercel.app/washworld.gif',
+    'https://image-hosting-pi.vercel.app/washworld.gif'
     // Add new GIF URLs here
   ];
 
