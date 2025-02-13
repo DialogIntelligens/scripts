@@ -400,9 +400,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp med noget? <span id="funny-smiley">😊</span>`;
       } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp med noget? <span id="funny-smiley">😄</span>`;
       }
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
