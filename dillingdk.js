@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_haengekoejer.pdf",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_logo-1.png",
       themeColor: "#b1aa8e",
