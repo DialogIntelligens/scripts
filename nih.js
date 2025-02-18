@@ -282,10 +282,10 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
         
-      leadGen: "",
-      leadMail: "",
-      leadField1: "",
-      leadField2: "",
+      leadGen: "%%",
+      leadMail: "team@dialogintelligens.dk",
+      leadField1: "Navn",
+      leadField2: "Tlf nummer",
 
       metaDataAPI: "",
       metaDataKey: "",
