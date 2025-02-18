@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-
-
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -272,22 +270,26 @@ document.addEventListener('DOMContentLoaded', function() {
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14ac2aa7-8ad3-474e-99d8-59ff691bb77b",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3b8a2716-85de-45ae-b3c9-0522f13d4c0f",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
       flow3Key: "",
       flow3API: "",
-      SOCKET_SERVER_URL_Backup: "",
+        
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-      leadGen: "%%",
-      leadMail: "info@jagttegnkurser.dk",
-      leadField1: "Navn",
-      leadField2: "Telefon nummer",
+        
+      leadGen: "",
+      leadMail: "",
+      leadField1: "",
+      leadField2: "",
 
+      metaDataAPI: "",
+      metaDataKey: "",
+        
       imageAPI: '',
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
