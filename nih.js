@@ -294,12 +294,12 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
-      themeColor: "#626b4e",
-      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      themeColor: "#224e9a",
+      headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Jagttegn kurser",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
+      titleG: "NIH's Virtuelle Assistent",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring jagt og vores kurser🦌 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan anbefale fag og svare på spørgsmål Jeg kan anbefale fag og svare på spørgsmål <span id="funny-smiley">😊</span>`;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
