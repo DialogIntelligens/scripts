@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		chatbotID: "egenhjemmeside",
 		pagePath: "https://dialogintelligens.dk/",
 		SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-    apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/17540c39-bd50-4686-89fc-919b13581b8f",
+    		apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6119a88d-60dd-4b2e-98e3-6dabfa4fa06f",
 		fordelingsflowAPI: "",
 		flow2Key: "shhdsahfdshfds",
 		flow2API: "",
