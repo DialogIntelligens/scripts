@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan anbefale fag og svare på spørgsmål Jeg kan anbefale fag og svare på spørgsmål <span id="funny-smiley">😊</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan anbefale fag og svare på spørgsmål Jeg kan anbefale fag og svare på spørgsmål Jeg kan anbefale fag og svare på spørgsmål Jeg kan anbefale fag og svare på spørgsmål <span id="funny-smiley">😊</span>`;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
