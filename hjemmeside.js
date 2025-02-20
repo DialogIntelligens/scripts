@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
           leadField1: "Firmanavn",
           leadField2: "Email",
           firstMessage:
-            'Hej😊 Vil du have et tilbud til din virksomhed?',
+            'Hej🤖 har du et spørgsmål om Dialog Intelligens?',
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
