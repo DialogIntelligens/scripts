@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-
-
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -166,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #304f9b;
     }
   
     /* The main message content area */
@@ -268,11 +266,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "test",
+      chatbotID: "nih",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/14ac2aa7-8ad3-474e-99d8-59ff691bb77b",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3b8a2716-85de-45ae-b3c9-0522f13d4c0f",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
@@ -284,24 +282,24 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
         
-      leadGen: "",
-      leadMail: "",
-      leadField1: "",
-      leadField2: "",
+      leadGen: "%%",
+      leadMail: "martin@nih.dk",
+      leadField1: "Navn",
+      leadField2: "Tlf nummer",
 
       metaDataAPI: "",
       metaDataKey: "",
         
       imageAPI: '',
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_Nih.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
-      themeColor: "#626b4e",
-      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      themeColor: "#224e9a",
+      headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Jagttegn kurser",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
+      titleG: "NIH's Virtuelle Assistent",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -398,9 +396,10 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
+      var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring jagt og vores kurser🦌 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
