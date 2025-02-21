@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "nih",
+      chatbotID: "test",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -292,8 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_Nih.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Nih.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
