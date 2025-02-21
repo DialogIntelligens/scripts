@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #366b62;
+      --icon-color: #264c42;
     }
   
     /* The main message content area */
@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_skagerak.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740126899317.png",
-      themeColor: "#d1dfdc",
+      themeColor: "#204c42",
       headerTitleG: "Skagerak International School",
       headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be saved and processed. Read more in our privacy policy.",
       titleG: "SIS's Virtual Assistant",
