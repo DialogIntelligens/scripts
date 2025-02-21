@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_skagerak.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740126899317.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740127632552.png",
       themeColor: "#204c42",
       headerTitleG: "Skagerak International School",
       headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be saved and processed. Read more in our privacy policy.",
