@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "skagerak",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/352e799e-df41-40da-9aba-8af43f63176a",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/38bc645c-9a30-47cc-ad8d-c0fab2c2e40d",
       fordelingsflowAPI: "",
@@ -283,17 +283,16 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3APIBackup: "",
         
       leadGen: "%%",
-      leadMail: "martin@nih.dk",
-      leadField1: "Navn",
-      leadField2: "Tlf nummer",
+      leadMail: "team@dialogintelligens.dk",
+      leadField1: "Name",
+      leadField2: "Tlf number",
 
       metaDataAPI: "",
       metaDataKey: "",
         
       imageAPI: '',
       
-      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_Nih.pdf",
-      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_skagerak.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
