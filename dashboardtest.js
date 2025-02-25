@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #000000;
     }
   
     /* The main message content area */
@@ -296,9 +296,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739444017314.png",
-      themeColor: "#626b4e",
-      headerTitleG: "Jagttegn kursers Virtuelle Assistent",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740503843573.png",
+      themeColor: "#000000",
+      headerTitleG: "testtttt",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp med noget? <span id="funny-smiley">😊</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp med noget? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp med noget? <span id="funny-smiley">😄</span>`;
       }
