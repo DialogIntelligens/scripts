@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "validahealth",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7f75bfed-2369-4003-9bd0-5957248df8ca",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d260cbb8-e737-4504-886b-e5e82bbef7f5",
       fordelingsflowAPI: "",
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Validahealth.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740570079454.png",
       themeColor: "#535353",
       headerTitleG: "Valida Healths virtuelle assistent ",
