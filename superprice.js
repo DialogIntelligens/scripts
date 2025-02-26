@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bc79cb76-cea9-4f09-b9a3-48eef8754ba3",
         
       apiEndpointBackup: "",
       fordelingsflowAPIBackup: "",
