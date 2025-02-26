@@ -293,9 +293,9 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Nih.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740568934685.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740570079454.png",
       themeColor: "#535353",
-      headerTitleG: "Healthie",
+      headerTitleG: "Valida Healths virtuelle assistent ",
       headerSubtitleG: "Du skriver med Healthie, Valida Healths virtuelle assitent. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Healthie",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?👩‍⚕️
