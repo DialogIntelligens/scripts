@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1fffca23-5b1a-40b8-8890-ef2671c469f5",
-      apiFlowKey: "Order",
+      apiFlowKey: "order",
 
         
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
