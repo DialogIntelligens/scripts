@@ -284,6 +284,12 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       imageAPI: "",
+
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1fffca23-5b1a-40b8-8890-ef2671c469f5",
+      apiFlowKey: "Order",
+
+        
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_logo-1.png",
