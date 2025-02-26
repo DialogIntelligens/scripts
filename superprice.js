@@ -295,9 +295,9 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Superprice.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579653991.png",
       themeColor: "#269fdb",
-      headerTitleG: "SuperpriceAI",
+      headerTitleG: "Superprices virtuelle assistent ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Superprices virtuelle assistent ",
+      titleG: "SuperpriceAI",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
