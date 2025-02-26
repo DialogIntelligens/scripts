@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "superprice",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/de96f61e-fefa-487c-abde-7ae45dfbd05a",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0523238b-abd2-414c-89bd-0eb1151e8a9d",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f4f25aec-6114-4f53-8fb0-e1e86d307fea",
