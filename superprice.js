@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #304f9b;
+      --icon-color: #269fdb;
     }
   
     /* The main message content area */
@@ -293,12 +293,12 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Superprice.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579022940.png",
+      themeColor: "#269fdb",
+      headerTitleG: "SuperpriceAI",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
+      titleG: "Superprices virtuelle assistent ",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
