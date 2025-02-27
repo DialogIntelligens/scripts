@@ -30,6 +30,8 @@
     // If you have a specific container, do:
     //   document.getElementById("my-chat-container").appendChild(iframeElement);
     // instead of document.body.appendChild(iframeElement).
+    const thisScript = document.currentScript;
+thisScript.insertAdjacentElement('afterend', iframeElement);
 
     // Keep track of toggling large/small
     var isIframeEnlarged = false;
