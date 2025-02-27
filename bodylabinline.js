@@ -1,4 +1,7 @@
 (function() {
+  // Capture the <script> element reference NOW:
+  const thisScript = document.currentScript;
+
   // Log that our script is loading (for debugging)
   console.log("[bodylabinline.js] Loaded script from GitHub...");
 
@@ -24,14 +27,10 @@
     iframeElement.style.width = '100%';
     iframeElement.style.height = '600px';
     iframeElement.style.border = 'none';
-    iframeElement.setAttribute('sandbox','allow-scripts allow-same-origin');
+    iframeElement.setAttribute('sandbox', 'allow-scripts allow-same-origin');
 
-    // By default, we append the chatbot to <body>.
-    // If you have a specific container, do:
-    //   document.getElementById("my-chat-container").appendChild(iframeElement);
-    // instead of document.body.appendChild(iframeElement).
-    const thisScript = document.currentScript;
-thisScript.insertAdjacentElement('afterend', iframeElement);
+    // Insert the iframe *after* this <script> element
+    thisScript.insertAdjacentElement('afterend', iframeElement);
 
     // Keep track of toggling large/small
     var isIframeEnlarged = false;
@@ -106,7 +105,7 @@ thisScript.insertAdjacentElement('afterend', iframeElement);
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
       }
-      // You can handle other actions here if the iframe sends them
+      // Handle other actions if needed
     });
 
     // On iframe load, send the integration options
@@ -115,7 +114,7 @@ thisScript.insertAdjacentElement('afterend', iframeElement);
       setTimeout(sendMessageToIframe, 200);
     }
 
-    // Attach listener
+    // Attach load listener
     iframeElement.addEventListener('load', iframeLoaded);
   });
 })();
