@@ -295,9 +295,9 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Frydensberg.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740743218430.png",
       themeColor: "#72b485",
-      headerTitleG: "Frydensberg Efterskole",
+      headerTitleG: "Frydensbergs virtuelle assistent ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Frydensbergs virtuelle assistent ",
+      titleG: "Frydensberg Efterskole",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🙋🏼‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
