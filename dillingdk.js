@@ -286,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: "",
 
       apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
-      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1fffca23-5b1a-40b8-8890-ef2671c469f5",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
 
         
