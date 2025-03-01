@@ -413,7 +413,7 @@ onDOMReady(function() {
       popup.style.display = "none";
       // Schedule next popup after 2 minutes if popup count is still less than 2.
       if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
-        setTimeout(showPopup, 120000);
+        setTimeout(showPopup, 300000);
       }
     }, 45000);
   }
