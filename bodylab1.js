@@ -49,11 +49,11 @@ onDOMReady(function() {
     "   ---------------------------------------- */" +
     "#chatbase-message-bubbles {" +
       "position: absolute;" +
-      "bottom: 70px;" +
-      "right: 7px;" +
+      "bottom: 80px;" +
+      "right: 20px;" +
       "border-radius: 10px;" +
       "font-family: 'Source Sans 3', sans-serif;" +
-      "font-size: 20px;" +
+      "font-size: 18px;" +
       "z-index: 18;" +
       "scale: 0.55;" +
       "cursor: pointer;" +
@@ -108,14 +108,16 @@ onDOMReady(function() {
       "background-color: black;" +
       "color: white;" +
     "}" +
-    "@media (max-width: 600px) {" +
-      "#chatbase-message-bubbles {" +
-        "width: 90vw;" +
-        "max-width: 90vw;" +
-        "bottom: 69px;" +
-        "right: 0vw;" +
-      "}" +
-    "}" +
+    "@media (max-width: 800px) {" +
+       "#chatbase-message-bubbles {" +
+         "width: 120vw;" +
+       "}" +
+       "#chatbase-message-bubbles .close-popup {" +
+         "opacity: 1 !important;" +
+         "pointer-events: auto !important;" +
+         "transform: scale(1.2) !important;" +
+       "}" +
+     "}"
     ":root { --icon-color: #304f9b; }" +
     "#chatbase-message-bubbles .message-content {" +
       "display: flex;" +
