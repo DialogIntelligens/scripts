@@ -128,12 +128,12 @@ onDOMReady(function() {
       "background-color: white;" +
       "color: black;" +
       "border-radius: 10px;" +
-      "padding: 12px 24px 12px 20px;" +
+      "padding: 12px 24px 12px 12px;" +
       "margin: 8px;" +
-      "font-size: 28px;" +
+      "font-size: 26px;" +
       "font-family: 'Source Sans 3', sans-serif;" +
       "font-weight: 400;" +
-      "line-height: 1em;" +
+      "line-height: 1.1em;" +
       "opacity: 1;" +
       "transform: scale(1);" +
       "transition: opacity 1s, transform 1s;" +
@@ -340,12 +340,24 @@ onDOMReady(function() {
     return null;
   }
 
-  /***** 7. POPUP FUNCTIONALITY *****/
+    /***** 7. POPUP FUNCTIONALITY *****/
   function showPopup() {
     var iframeElem = document.getElementById("chat-iframe");
-    if (iframeElem.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
+    if (iframeElem.style.display !== "none") {
       return;
     }
+    var currentTime = new Date().getTime();
+    var popupCount = parseInt(getCookie("popupCount") || "0", 10);
+    var lastShown = parseInt(getCookie("popupLastShown") || "0", 10);
+  
+    // Do not show if already displayed twice
+    if (popupCount >= 2) return;
+  
+    // If already shown once and less than 5 minutes have passed, do not show
+    if (popupCount === 1 && (currentTime - lastShown) < (5 * 60 * 1000)) {
+      return;
+    }
+  
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     var userHasVisited = getCookie("userHasVisited");
@@ -355,17 +367,27 @@ onDOMReady(function() {
     } else {
       messageBox.innerHTML = "Velkommen tilbage! Har du brug for hjælp? <span id=\"funny-smiley\">😄</span>";
     }
+  
     var charCount = messageBox.textContent.trim().length;
-    var popupElem = document.getElementById("chatbase-message-bubbles");
     if (charCount < 25) {
-      popupElem.style.width = "380px";
+      popup.style.width = "380px";
     } else if (charCount < 60) {
-      popupElem.style.width = "405px";
+      popup.style.width = "405px";
     } else {
-      popupElem.style.width = "460px";
+      popup.style.width = "460px";
     }
     popup.style.display = "flex";
-
+  
+    // Update cookies: increment popupCount and record last shown time
+    popupCount++;
+    setCookie("popupCount", popupCount.toString(), 1, ".yourdomain.com");
+    setCookie("popupLastShown", currentTime.toString(), 1, ".yourdomain.com");
+  
+    // Auto-hide the popup after 30 seconds
+    setTimeout(function() {
+      popup.style.display = "none";
+    }, 30000);
+  
     // Blink after 2 seconds
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -376,7 +398,7 @@ onDOMReady(function() {
         }, 1000);
       }
     }, 2000);
-
+  
     // Jump after 12 seconds
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -399,7 +421,7 @@ onDOMReady(function() {
   
   var popupClosed = localStorage.getItem("popupClosed");
   if (!popupClosed || popupClosed === "false") {
-    setTimeout(showPopup, 7000);
+    setTimeout(showPopup, 15000);
   }
 
   /***** 8. INITIALIZE CHAT WINDOW STATE & EVENTS *****/
