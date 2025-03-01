@@ -117,7 +117,7 @@ onDOMReady(function() {
          "pointer-events: auto !important;" +
          "transform: scale(1.2) !important;" +
        "}" +
-     "}"
+     "}" +
     ":root { --icon-color: #304f9b; }" +
     "#chatbase-message-bubbles .message-content {" +
       "display: flex;" +
