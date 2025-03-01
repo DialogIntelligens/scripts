@@ -142,9 +142,12 @@ onDOMReady(function() {
       "word-wrap: break-word;" +
       "max-width: 100%;" +
     "}" +
-    "@keyframes rise-from-bottom {" +
-      "0% { transform: translateY(50px); opacity: 0; }" +
-      "100% { transform: translateY(0); opacity: 1; }" +
+    "@keyframes rise-from-bottom { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }" +
+    "\n@media (min-width: 1000px) {" +
+    "  #chatbase-message-bubbles {" +
+    "    bottom: 85px;" +
+    "    right: 30px;" +
+    "  }" +
     "}";
   var styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(css));
