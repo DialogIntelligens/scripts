@@ -344,22 +344,18 @@ onDOMReady(function() {
   function showPopup() {
     var iframeElem = document.getElementById("chat-iframe");
     if (iframeElem.style.display !== "none") {
+      // If the chat is open, don't show the popup.
       return;
     }
-    var currentTime = new Date().getTime();
+    
+    // Get current popup count; if already shown 2 times, exit.
     var popupCount = parseInt(getCookie("popupCount") || "0", 10);
-    var lastShown = parseInt(getCookie("popupLastShown") || "0", 10);
-  
-    // Do not show if already displayed twice
     if (popupCount >= 2) return;
-  
-    // If already shown once and less than 5 minutes have passed, do not show
-    if (popupCount === 1 && (currentTime - lastShown) < (2 * 60 * 1000)) {
-      return;
-    }
   
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
+  
+    // Set the popup message depending on whether the user has visited before.
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
@@ -368,6 +364,7 @@ onDOMReady(function() {
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😄</span>";
     }
   
+    // Adjust popup width based on message length.
     var charCount = messageBox.textContent.trim().length;
     if (charCount < 25) {
       popup.style.width = "380px";
@@ -376,19 +373,17 @@ onDOMReady(function() {
     } else {
       popup.style.width = "460px";
     }
+  
+    // Display the popup.
     popup.style.display = "flex";
   
-    // Update cookies: increment popupCount and record last shown time
+    // Increase and update the popup count.
     popupCount++;
     setCookie("popupCount", popupCount.toString(), 1, ".yourdomain.com");
+    var currentTime = new Date().getTime();
     setCookie("popupLastShown", currentTime.toString(), 1, ".yourdomain.com");
   
-    // Auto-hide the popup after 30 seconds
-    setTimeout(function() {
-      popup.style.display = "none";
-    }, 45000);
-  
-    // Blink after 2 seconds
+    // Trigger blink animation after 2 seconds.
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -399,7 +394,7 @@ onDOMReady(function() {
       }
     }, 2000);
   
-    // Jump after 12 seconds
+    // Trigger jump animation after 12 seconds.
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
       if (smiley && popup.style.display === "flex") {
@@ -409,20 +404,33 @@ onDOMReady(function() {
         }, 1000);
       }
     }, 12000);
+  
+    // Auto-hide the popup after 45 seconds.
+    setTimeout(function() {
+      popup.style.display = "none";
+      // Schedule next popup after 2 minutes if popup count is still less than 2.
+      if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
+        setTimeout(showPopup, 120000);
+      }
+    }, 45000);
   }
-
+  
+  // Modify the close button event to also schedule the next popup if needed.
   var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
   if (closePopupButton) {
     closePopupButton.addEventListener("click", function() {
-      document.getElementById("chatbase-message-bubbles").style.display = "none";
-      localStorage.setItem("popupClosed", "true");
+      var popup = document.getElementById("chatbase-message-bubbles");
+      popup.style.display = "none";
+      // Schedule the next popup after 2 minutes if fewer than 2 popups have been shown.
+      if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
+        setTimeout(showPopup, 120000);
+      }
     });
   }
   
-  var popupClosed = localStorage.getItem("popupClosed");
-  if (!popupClosed || popupClosed === "false") {
-    setTimeout(showPopup, 15000);
-  }
+  // Initially trigger the popup after 15 seconds.
+  setTimeout(showPopup, 15000);
+
 
   /***** 8. INITIALIZE CHAT WINDOW STATE & EVENTS *****/
   adjustIframeSize();
