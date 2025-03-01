@@ -354,7 +354,7 @@ onDOMReady(function() {
     if (popupCount >= 2) return;
   
     // If already shown once and less than 5 minutes have passed, do not show
-    if (popupCount === 1 && (currentTime - lastShown) < (5 * 60 * 1000)) {
+    if (popupCount === 1 && (currentTime - lastShown) < (2 * 60 * 1000)) {
       return;
     }
   
@@ -365,7 +365,7 @@ onDOMReady(function() {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😊</span>";
     } else {
-      messageBox.innerHTML = "Velkommen tilbage! Har du brug for hjælp? <span id=\"funny-smiley\">😄</span>";
+      messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😄</span>";
     }
   
     var charCount = messageBox.textContent.trim().length;
@@ -386,7 +386,7 @@ onDOMReady(function() {
     // Auto-hide the popup after 30 seconds
     setTimeout(function() {
       popup.style.display = "none";
-    }, 30000);
+    }, 45000);
   
     // Blink after 2 seconds
     setTimeout(function() {
