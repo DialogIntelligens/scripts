@@ -32,7 +32,7 @@ function getCookie(name) {
 function incrementPageCount() {
   var count = parseInt(getCookie("pageCount") || "0", 10);
   count++;
-  setCookie("pageCount", count.toString(), 30, ".yourdomain.com");
+  setCookie("pageCount", count.toString(), 30, ".bodylab.dk");
 }
 
 // Use onDOMReady to execute your code after the DOM is ready
@@ -373,7 +373,7 @@ onDOMReady(function() {
     // Set the popup message depending on whether the user has visited before.
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
-      setCookie("userHasVisited", "true", 1, ".yourdomain.com");
+      setCookie("userHasVisited", "true", 1, ".bodylab.dk");
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😊</span>";
     } else {
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😄</span>";
@@ -394,9 +394,9 @@ onDOMReady(function() {
   
     // Increase and update the popup count.
     popupCount++;
-    setCookie("popupCount", popupCount.toString(), 1, ".yourdomain.com");
+    setCookie("popupCount", popupCount.toString(), 1, ".bodylab.dk");
     var currentTime = new Date().getTime();
-    setCookie("popupLastShown", currentTime.toString(), 1, ".yourdomain.com");
+    setCookie("popupLastShown", currentTime.toString(), 1, ".bodylab.dk");
   
     // Trigger blink animation after 2 seconds.
     setTimeout(function() {
