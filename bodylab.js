@@ -124,7 +124,7 @@ onDOMReady(function() {
       "cursor: pointer;" +
       "background-color: rgba(224,224,224,0);" +
       "color: black;" +
-      "opacity: 0;" +
+      "opacity: 0.8;" +
       "transform: scale(0.7);" +
       "transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;" +
       "z-index: 1000000;" +
