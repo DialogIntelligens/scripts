@@ -7,8 +7,39 @@ function onDOMReady(callback) {
   }
 }
 
+// COOKIE FUNCTIONS (unchanged)
+function setCookie(name, value, days, domain) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  var domainStr = domain ? "; domain=" + domain : "";
+  document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i].trim();
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+// NEW: Function to increment the page visit count
+function incrementPageCount() {
+  var count = parseInt(getCookie("pageCount") || "0", 10);
+  count++;
+  setCookie("pageCount", count.toString(), 30, ".yourdomain.com");
+}
+
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
+  // Increment page visit count on every load.
+  incrementPageCount();
+
   /***** 1. INJECT CSS *****/
   var css =
     "/* Container for chat button */" +
@@ -160,7 +191,6 @@ onDOMReady(function() {
   document.head.appendChild(fontLink);
 
   /***** 2. INJECT HTML *****/
-  // Replace the old speech balloon markup with the new popup markup
   var chatContainerHTML = '<div id="chat-container">' +
     '<button id="chat-button">' +
       '<img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us">' +
@@ -322,29 +352,11 @@ onDOMReady(function() {
     sendMessageToIframe();
   }
 
-  /***** 6. COOKIE FUNCTIONS *****/
-  function setCookie(name, value, days, domain) {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    var domainStr = domain ? "; domain=" + domain : "";
-    document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
-  }
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i].trim();
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-    /***** 7. POPUP FUNCTIONALITY *****/
+  /***** 7. POPUP FUNCTIONALITY *****/
   function showPopup() {
+    // Only show if the user has visited at least 3 pages.
+    if (parseInt(getCookie("pageCount") || "0", 10) < 3) return;
+
     var iframeElem = document.getElementById("chat-iframe");
     if (iframeElem.style.display !== "none") {
       // If the chat is open, don't show the popup.
@@ -411,7 +423,7 @@ onDOMReady(function() {
     // Auto-hide the popup after 45 seconds.
     setTimeout(function() {
       popup.style.display = "none";
-      // Schedule next popup after 2 minutes if popup count is still less than 2.
+      // Schedule next popup after 5 minutes if popup count is still less than 2.
       if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
         setTimeout(showPopup, 300000);
       }
@@ -424,17 +436,18 @@ onDOMReady(function() {
     closePopupButton.addEventListener("click", function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       popup.style.display = "none";
-      // Schedule the next popup after 2 minutes if fewer than 2 popups have been shown.
+      // Schedule the next popup after 5 minutes if fewer than 2 popups have been shown.
       if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
-        setTimeout(showPopup, 120000);
+        setTimeout(showPopup, 300000);
       }
     });
   }
   
-  // Initially trigger the popup after 15 seconds.
-  setTimeout(showPopup, 15000);
-
-
+  // Initially trigger the popup after 5 seconds if user visited at least 3 pages.
+  if (parseInt(getCookie("pageCount") || "0", 10) >= 3) {
+    setTimeout(showPopup, 5000);
+  }
+  
   /***** 8. INITIALIZE CHAT WINDOW STATE & EVENTS *****/
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
