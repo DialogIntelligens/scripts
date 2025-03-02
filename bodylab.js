@@ -125,14 +125,14 @@ onDOMReady(function() {
       "background-color: rgba(224,224,224,0);" +
       "color: black;" +
       "opacity: 0.8;" +
-      "transform: scale(0.7);" +
+      "transform: scale(1.3);" +
       "transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;" +
       "z-index: 1000000;" +
       "pointer-events: none;" +
     "}" +
     "#chatbase-message-bubbles:hover .close-popup {" +
       "opacity: 1;" +
-      "transform: scale(1.2);" +
+      "transform: scale(1.5);" +
       "pointer-events: auto;" +
     "}" +
     "#chatbase-message-bubbles .close-popup:hover {" +
