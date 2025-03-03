@@ -250,7 +250,7 @@ onDOMReady(function() {
       themeColor: "#65bddb",
       pagePath: window.location.href,
       headerTitleG: "AI Buddy",
-      titleG: "Buddy",
+      titleG: "AI Buddy",
       headerSubtitleG: "Du chatter med AI Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores",
       contactLink: "https://www.bodylab.dk/shop/cms-contact.html",
       contactTitle: "kundeservice",
