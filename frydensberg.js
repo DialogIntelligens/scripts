@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Frydensberg.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Frydensberg.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740743218430.png",
       themeColor: "#72b485",
       headerTitleG: "Frydensbergs virtuelle assistent ",
