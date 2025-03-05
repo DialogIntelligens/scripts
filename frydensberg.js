@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Fryd-chatten",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Frydensberg Efterskole",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🙋🏼‍♂️",
+      firstMessage: "Hej😊 Sig endelig til hvis du har et spørgsmål!🙋🏼‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Hey! 😎 Er du på jagt efter info? Bare spørg løs, jeg er klar til at hjælpe dig! 🔥 <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
