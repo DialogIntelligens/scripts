@@ -395,7 +395,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
-      var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
         messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag <span id="funny-smiley">😊</span>` ;
