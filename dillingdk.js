@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
-      headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_logo-1.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       themeColor: "#b1aa8e",
       headerTitleG: "DILLINGS kundeservice robot ",
       headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
