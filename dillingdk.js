@@ -294,10 +294,10 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_logo-1.png",
       themeColor: "#b1aa8e",
-      headerTitleG: "Dillings Virtuelle Agent",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Dilling",
-      firstMessage: "Hej😊 Hvordan kan jeg hjælpe dig?",
+      headerTitleG: "DILLINGS kundeservice robot ",
+      headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
+      titleG: "DILLING",
+      firstMessage: "Hej 😊 Hvordan kan jeg hjælpe dig?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring vores shop og produkter👕 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
