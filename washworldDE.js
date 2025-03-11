@@ -201,7 +201,7 @@ function initChatbot() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "washworldDE",
+      chatbotID: "washworldde",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cde4a03-08c1-4ce7-952b-e4e1509140b0",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
