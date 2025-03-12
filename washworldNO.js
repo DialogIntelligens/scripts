@@ -327,8 +327,8 @@ function toggleChatWindow() {
   }
 
   var gifUrls = [
-    'https://image-hosting-pi.vercel.app/washworld09.gif',
-    'https://image-hosting-pi.vercel.app/washworld09.gif'
+    'https://image-hosting-pi.vercel.app/washworld-no.gif',
+    'https://image-hosting-pi.vercel.app/washworld-no.gif'
     // Add new GIF URLs here
   ];
 
