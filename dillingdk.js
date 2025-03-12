@@ -166,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #b1aa8e;
+      --icon-color: #0a0a0a;
     }
   
     /* The main message content area */
@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
-      themeColor: "#b1aa8e",
+      themeColor: "#0f0f0f",
       headerTitleG: "DILLINGS kundeservice robot ",
       headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
       titleG: "DILLING",
