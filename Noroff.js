@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_noroff.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741777918040.png",
       themeColor: "#f43000",
       headerTitleG: "Noroff",
