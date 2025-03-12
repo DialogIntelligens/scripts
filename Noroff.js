@@ -297,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Noroff",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
       titleG: "Noroffs Virtuelle Assistent",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?",
+      firstMessage: "Hei😊 Hva kan jeg hjelpe deg med?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
