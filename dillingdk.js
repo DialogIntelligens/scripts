@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#0f0f0f",
-      headerTitleG: "DILLINGS kundeservice robot ",
+      headerTitleG: "DILLING´s kundeservicerobot ",
       headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
       titleG: "DILLING",
       firstMessage: "Hej 😊 Hvordan kan jeg hjælpe dig?",
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Brug for hjælp? <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
