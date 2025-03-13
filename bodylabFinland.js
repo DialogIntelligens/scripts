@@ -262,7 +262,7 @@ onDOMReady(function() {
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e3d78f8-c3f9-4a9e-88e4-a009f36b37ea",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b2db8571-e8cc-47b6-b7f6-a0f2ff7c6bf0",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bd5fcd35-8707-400d-ac40-6d676b6240b6",
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0b21f2da-9eda-4eba-af81-141ce4b38590",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
 
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-1500-kcal.pdf",
       mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2000-kcal.pdf",
