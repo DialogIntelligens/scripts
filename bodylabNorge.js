@@ -261,7 +261,7 @@ onDOMReady(function() {
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4f53bc4f-108b-469a-bfb1-208114e24eda",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4bba0508-02e9-4b9e-8546-4bfaaf128e16",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/da015a4e-77c8-4dd1-944e-ef9b085504e4",
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dea8aba7-907c-4bbd-bd39-41468b977be7",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-1500-kcal.pdf",
       mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-2000-kcal.pdf",
       mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-2500-kcal.pdf",
