@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741777918040.png",
       themeColor: "#f43000",
       headerTitleG: "Noroff",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
+      headerSubtitleG: "Du kommuniserer med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, samt at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
       titleG: "Noroffs Virtuelle Assistent",
       firstMessage: "Hei😊 Hva kan jeg hjelpe deg med?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du behov for hjelp? Jeg kan svare på spørsmål om våre utdanninger, skoler osv. <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
