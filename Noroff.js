@@ -536,6 +536,6 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Chatbot not loaded after 2 seconds, retrying...");
       initChatbot();
     }
-  }, 5000);
+  }, 8000);
         
 });  
