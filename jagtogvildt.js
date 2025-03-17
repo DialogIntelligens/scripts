@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "jagtogvildt",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d5eca6bd-19ae-40a8-b97b-92a7be3aab05",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d123865c-bf92-47ec-8ff1-2380a2600062",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11ffbde0-af07-4689-a9a9-40eb2456b089",
