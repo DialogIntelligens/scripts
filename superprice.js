@@ -296,9 +296,11 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579653991.png",
       themeColor: "#269fdb",
       headerTitleG: "Superprices virtuelle assistent ",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, og samtalen kan gemmes. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en opladere og lign.",
-      titleG: "SuperpriceAI",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. 
+Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
+      titleG: "Superprice-AI",
+      firstMessage: "Hej😊 
+Hvad kan jeg hjælpe dig med?🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -398,7 +400,8 @@ document.addEventListener('DOMContentLoaded', function() {
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? 
+Jeg kan svare på spørgsmål og anbefale produkter <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
