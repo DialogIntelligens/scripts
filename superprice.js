@@ -51,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       bottom: 40px;
       right: 30px;
-      z-index: 200;
+      z-index: 2000000;
     }
     #chat-button {
       cursor: pointer;
       background: none;
       border: none;
       position: fixed;
-      z-index: 20;
+      z-index: 200000;
       right: 30px;
       bottom: 40px;
     }
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
-      z-index: 18;
+      z-index: 20000;
       scale: 0.55;
       cursor: pointer;
       display: none; /* hidden by default */
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <iframe
         id="chat-iframe"
         src="https://skalerbartprodukt.onrender.com"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 4000000;">
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
