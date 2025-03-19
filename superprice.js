@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579653991.png",
       themeColor: "#269fdb",
       headerTitleG: "Superprices virtuelle assistent ",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl :), så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
       titleG: "Superprice-AI",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
