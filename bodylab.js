@@ -273,9 +273,10 @@ onDOMReady(function() {
       vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-3000-kcal.pdf",
       vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-3500-kcal.pdf",
       
-      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d04e4181-6db3-4acf-aad7-8a41878e8df6",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a0f4e81d-bc70-41fe-8fa4-316707513839",
       apiFlowKey: "order",
+      
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
