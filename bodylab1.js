@@ -7,8 +7,39 @@ function onDOMReady(callback) {
   }
 }
 
+// COOKIE FUNCTIONS (unchanged)
+function setCookie(name, value, days, domain) {
+  var expires = "";
+  if (days) {
+    var date = new Date();
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+    expires = "; expires=" + date.toUTCString();
+  }
+  var domainStr = domain ? "; domain=" + domain : "";
+  document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(";");
+  for (var i = 0; i < ca.length; i++) {
+    var c = ca[i].trim();
+    if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+  }
+  return null;
+}
+
+// NEW: Function to increment the page visit count
+function incrementPageCount() {
+  var count = parseInt(getCookie("pageCount") || "0", 10);
+  count++;
+  setCookie("pageCount", count.toString(), 30, ".bodylab.dk");
+}
+
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
+  // Increment page visit count on every load.
+  incrementPageCount();
+
   /***** 1. INJECT CSS *****/
   var css =
     "/* Container for chat button */" +
@@ -93,15 +124,15 @@ onDOMReady(function() {
       "cursor: pointer;" +
       "background-color: rgba(224,224,224,0);" +
       "color: black;" +
-      "opacity: 0;" +
-      "transform: scale(0.7);" +
+      "opacity: 0.8;" +
+      "transform: scale(1.3);" +
       "transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;" +
       "z-index: 1000000;" +
       "pointer-events: none;" +
     "}" +
     "#chatbase-message-bubbles:hover .close-popup {" +
       "opacity: 1;" +
-      "transform: scale(1.2);" +
+      "transform: scale(1.5);" +
       "pointer-events: auto;" +
     "}" +
     "#chatbase-message-bubbles .close-popup:hover {" +
@@ -142,9 +173,18 @@ onDOMReady(function() {
       "word-wrap: break-word;" +
       "max-width: 100%;" +
     "}" +
-    "@keyframes rise-from-bottom {" +
-      "0% { transform: translateY(50px); opacity: 0; }" +
-      "100% { transform: translateY(0); opacity: 1; }" +
+    "@keyframes rise-from-bottom { 0% { transform: translateY(50px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }" +
+    "\n@media (min-width: 1000px) {" +
+    "  #chatbase-message-bubbles {" +
+    "    bottom: 85px;" +
+    "    right: 30px;" +
+    "  }" + 
+    "}" +
+    "\n@media (max-width: 800px) {" +
+    "  #chat-container {" +
+    "    right: 0px !important;" +
+    "    bottom: 0px !important;" +
+    "  }" + 
     "}";
   var styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(css));
@@ -157,7 +197,6 @@ onDOMReady(function() {
   document.head.appendChild(fontLink);
 
   /***** 2. INJECT HTML *****/
-  // Replace the old speech balloon markup with the new popup markup
   var chatContainerHTML = '<div id="chat-container">' +
     '<button id="chat-button">' +
       '<img src="https://dialogintelligens.dk/wp-content/uploads/2024/06/chatIcon.png" alt="Chat with us">' +
@@ -217,13 +256,13 @@ onDOMReady(function() {
       themeColor: "#65bddb",
       pagePath: window.location.href,
       headerTitleG: "AI Buddy",
-      titleG: "Buddy",
+      titleG: "AI Buddy",
       headerSubtitleG: "Du chatter med AI Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores",
       contactLink: "https://www.bodylab.dk/shop/cms-contact.html",
       contactTitle: "kundeservice",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf",
       inputText: "Skriv dit spørgsmål her...",
-      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/19576769-c4c7-4183-9c4a-6c9fbd0d4519",
+      placeholderAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/638ccf34-8c87-4271-a7a4-9bf720af2200",
       weightLossAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8bece82-8b6b-4acf-900e-83f1415b713d",
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/fe4ea863-86ca-40b6-a17b-d52a60da4a6b",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29",
@@ -239,6 +278,11 @@ onDOMReady(function() {
       vægttabmealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-2500-kcal.pdf",
       vægttabmealplan3000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-3000-kcal.pdf",
       vægttabmealplan3500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Tabdiet-plan-3500-kcal.pdf",
+      
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d04e4181-6db3-4acf-aad7-8a41878e8df6",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a0f4e81d-bc70-41fe-8fa4-316707513839",
+      apiFlowKey: "order",
+      
       firstMessage1: "Hej",
       firstMessage2: "Mit navn er Buddy. Jeg er din virtuelle træningsmakker, som kan hjælpe dig med alt fra produktanbefalinger til træningstips. Stil mig et spørgsmål – så finder vi en løsning sammen! Når du skriver, accepterer du samtidig, at vores samtale behandles og gemmes 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
@@ -319,29 +363,11 @@ onDOMReady(function() {
     sendMessageToIframe();
   }
 
-  /***** 6. COOKIE FUNCTIONS *****/
-  function setCookie(name, value, days, domain) {
-    var expires = "";
-    if (days) {
-      var date = new Date();
-      date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-      expires = "; expires=" + date.toUTCString();
-    }
-    var domainStr = domain ? "; domain=" + domain : "";
-    document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
-  }
-  function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(";");
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i].trim();
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-    /***** 7. POPUP FUNCTIONALITY *****/
+  /***** 7. POPUP FUNCTIONALITY *****/
   function showPopup() {
+    // Only show if the user has visited at least 3 pages.
+    if (parseInt(getCookie("pageCount") || "0", 10) < 3) return;
+
     var iframeElem = document.getElementById("chat-iframe");
     if (iframeElem.style.display !== "none") {
       // If the chat is open, don't show the popup.
@@ -358,7 +384,7 @@ onDOMReady(function() {
     // Set the popup message depending on whether the user has visited before.
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
-      setCookie("userHasVisited", "true", 1, ".yourdomain.com");
+      setCookie("userHasVisited", "true", 1, ".bodylab.dk");
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😊</span>";
     } else {
       messageBox.innerHTML = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 <span id=\"funny-smiley\">😄</span>";
@@ -379,9 +405,9 @@ onDOMReady(function() {
   
     // Increase and update the popup count.
     popupCount++;
-    setCookie("popupCount", popupCount.toString(), 1, ".yourdomain.com");
+    setCookie("popupCount", popupCount.toString(), 1, ".bodylab.dk");
     var currentTime = new Date().getTime();
-    setCookie("popupLastShown", currentTime.toString(), 1, ".yourdomain.com");
+    setCookie("popupLastShown", currentTime.toString(), 1, ".bodylab.dk");
   
     // Trigger blink animation after 2 seconds.
     setTimeout(function() {
@@ -408,9 +434,9 @@ onDOMReady(function() {
     // Auto-hide the popup after 45 seconds.
     setTimeout(function() {
       popup.style.display = "none";
-      // Schedule next popup after 2 minutes if popup count is still less than 2.
+      // Schedule next popup after 5 minutes if popup count is still less than 2.
       if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
-        setTimeout(showPopup, 120000);
+        setTimeout(showPopup, 300000);
       }
     }, 45000);
   }
@@ -421,17 +447,18 @@ onDOMReady(function() {
     closePopupButton.addEventListener("click", function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       popup.style.display = "none";
-      // Schedule the next popup after 2 minutes if fewer than 2 popups have been shown.
+      // Schedule the next popup after 5 minutes if fewer than 2 popups have been shown.
       if (parseInt(getCookie("popupCount") || "0", 10) < 2) {
-        setTimeout(showPopup, 120000);
+        setTimeout(showPopup, 300000);
       }
     });
   }
   
-  // Initially trigger the popup after 15 seconds.
-  setTimeout(showPopup, 15000);
-
-
+  // Initially trigger the popup after 5 seconds if user visited at least 3 pages.
+  if (parseInt(getCookie("pageCount") || "0", 10) >= 3) {
+    setTimeout(showPopup, 5000);
+  }
+  
   /***** 8. INITIALIZE CHAT WINDOW STATE & EVENTS *****/
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
