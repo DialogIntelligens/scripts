@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
     @keyframes jump {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
     }
     #funny-smiley.blink {
       display: inline-block;
@@ -423,9 +425,9 @@ document.addEventListener('DOMContentLoaded', function() {
           smiley.classList.add('blink');
           setTimeout(function() {
             smiley.classList.remove('blink');
-          }, 1000);
+          }, 5000);
         }
-      }, 2000);
+      }, 5000);
   
       // Jump after 12s
       setTimeout(function() {
@@ -434,7 +436,7 @@ document.addEventListener('DOMContentLoaded', function() {
           smiley.classList.add('jump');
           setTimeout(function() {
             smiley.classList.remove('jump');
-          }, 1000);
+          }, 5000);
         }
       }, 12000);
     }
