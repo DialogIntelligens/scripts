@@ -179,12 +179,13 @@ onDOMReady(function() {
     "    bottom: 85px;" +
     "    right: 30px;" +
     "  }" + 
-    "}";
+    "}" +
     "\n@media (max-width: 800px) {" +
     "  #chat-container {" +
     "    right: 0px !important;" +
     "    bottom: 0px !important;" +
-    "  }" +  
+    "  }" + 
+    "}";
   var styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(css));
   document.head.appendChild(styleElem);
