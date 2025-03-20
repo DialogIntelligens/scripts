@@ -492,11 +492,11 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.bottom = '';
         iframe.style.right = '';
       } else {
-        iframe.style.left = 'auto';
+        iframe.style.left = '2vh';
         iframe.style.top = 'auto';
         iframe.style.transform = 'none';
         iframe.style.bottom = '3vh';
-        iframe.style.right = '2vw';
+        iframe.style.right = 'auto';
       }
     
       // Re-send data to iframe in case layout changes
