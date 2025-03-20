@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #269fdb;
+      --icon-color: #9ad742;
     }
   
     /* The main message content area */
@@ -398,8 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? 
-Jeg kan svare på spørgsmål og anbefale produkter <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. Prøv mig <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
