@@ -179,6 +179,10 @@ onDOMReady(function() {
     "    bottom: 85px;" +
     "    right: 30px;" +
     "  }" +
+    "  #chat-container {" +
+    "    right: 0px !important;" +
+    "    bottom: 0px !important;" +
+    "  }" +    
     "}";
   var styleElem = document.createElement('style');
   styleElem.appendChild(document.createTextNode(css));
