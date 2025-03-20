@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles {
       position: fixed;
       bottom: 140px;
-      right: -142px;
+      left: -142px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
