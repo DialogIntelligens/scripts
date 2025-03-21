@@ -293,6 +293,15 @@ document.addEventListener('DOMContentLoaded', function() {
       apiFlowKey: "order",
 
       useThumbsRating: true,
+
+      knowledgebaseIndexApiEndpoint: "dilling-faq",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "dilling-pro",
+      apiFlowKnowledgebaseIndex: "dilling-faq",
+      websiteOverride: "dilling.dk",
+      languageOverride: "Danish",
+      valutaOverride: "KR",
+
         
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
