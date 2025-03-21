@@ -291,6 +291,16 @@ document.addEventListener('DOMContentLoaded', function() {
       metaDataKey: "",
         
       imageAPI: '',
+
+      useThumbsRating: false,
+
+      knowledgebaseIndexApiEndpoint: "",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
+      websiteOverride: "",
+      languageOverride: "",
+      valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
