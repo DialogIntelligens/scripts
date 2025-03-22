@@ -293,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
       apiFlowKey: "order",
 
       useThumbsRating: true,
+      ratingTimerDuration: 10000,
 
       knowledgebaseIndexApiEndpoint: "dilling-faq",
       flow2KnowledgebaseIndex: "",
