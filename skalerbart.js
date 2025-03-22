@@ -293,6 +293,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
 
       useThumbsRating: false,
+      ratingTimerDuration: 15000,
 
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
