@@ -43,8 +43,8 @@ document.addEventListener('DOMContentLoaded', function() {
       100% { transform: scale(1); opacity: 1; }
     }
     #chat-button svg.pulse {
-      animation: pulse 1.5s infinite;
-    }    
+      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
+    } 
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
