@@ -293,11 +293,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_noroff.pdf",
       <strong><strong>headerLogoG: "</strong>https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741777918040.png",
-      <strong><strong>themeColor: "</strong>#f43000",
-      <strong><strong>headerTitleG: "</strong>Noroff",
-      <strong><strong>headerSubtitleG: "</strong>Du kommuniserer med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, samt at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
-      <strong><strong>titleG: "</strong>Noroffs Virtuelle Assistent",
-      <strong><strong>firstMessage: "</strong>Hei😊Hva kan jeg hjelpe deg med?",
+      <strong><strong>themeColor: "#f43000",
+      <strong><strong>headerTitleG: "Noroff",
+      <strong><strong>headerSubtitleG: "Du kommuniserer med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, samt at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
+      <strong><strong>titleG: "Noroffs Virtuelle Assistent",
+      <strong><strong>firstMessage: "Hei😊Hva kan jeg hjelpe deg med?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
