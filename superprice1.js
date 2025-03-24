@@ -300,7 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Superprices virtuelle assistent ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
       titleG: "Superprice-AI",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -389,18 +389,17 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible or the popup has been closed, do not show the popup
       if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
         return;
       }
-        
+      
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. Prøv mig <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
@@ -414,11 +413,11 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         popupElem.style.width = "460px";
       }
-
-     
+    
       popup.style.display = "flex";
-  
-      // Blink after 2s
+      document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
+    
+      // Existing timeout code remains unchanged
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
@@ -428,8 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 5000);
         }
       }, 5000);
-  
-      // Jump after 12s
+    
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
