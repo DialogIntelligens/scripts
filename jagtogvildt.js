@@ -297,8 +297,8 @@ document.addEventListener('DOMContentLoaded', function() {
       themeColor: "#814c1c",
       headerTitleG: "Jagtogvildt.dk",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Virtuel assistent ",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🦌",
+      titleG: "Virtuel assistent",
+      firstMessage: "Hej😊 \nHvad kan jeg hjælpe dig med?🦌",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
