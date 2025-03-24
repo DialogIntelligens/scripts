@@ -37,6 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
       0%, 100% { transform: translateX(0); }
       50% { transform: translateX(-10px); }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    #chat-button svg.pulse {
+      animation: pulse 1.5s infinite;
+    }    
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
