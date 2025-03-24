@@ -284,11 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3Key: "product",
       flow3API: "",
         
-      apiEndpointBackup: "",
-      fordelingsflowAPIBackup: "",
-      flow2APIBackup: "",
-      flow3APIBackup: "",
-        
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
