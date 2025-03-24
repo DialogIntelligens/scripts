@@ -34,7 +34,17 @@ document.addEventListener('DOMContentLoaded', function() {
     @keyframes jump {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(-10px); }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    #chat-button svg.pulse {
+      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
+    } 
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
@@ -296,9 +306,9 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579653991.png",
       themeColor: "#269fdb",
       headerTitleG: "Superprices virtuelle assistent ",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl :), så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
       titleG: "Superprice-AI",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -387,18 +397,17 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible or the popup has been closed, do not show the popup
       if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
         return;
       }
-        
+      
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. Jeg er klogere end du tror <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
@@ -412,29 +421,28 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         popupElem.style.width = "460px";
       }
-
-     
+    
       popup.style.display = "flex";
-  
-      // Blink after 2s
+      document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
+    
+      // Existing timeout code remains unchanged
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
           smiley.classList.add('blink');
           setTimeout(function() {
             smiley.classList.remove('blink');
-          }, 1000);
+          }, 5000);
         }
-      }, 2000);
-  
-      // Jump after 12s
+      }, 5000);
+    
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
           smiley.classList.add('jump');
           setTimeout(function() {
             smiley.classList.remove('jump');
-          }, 1000);
+          }, 5000);
         }
       }, 12000);
     }
@@ -492,11 +500,11 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.bottom = '';
         iframe.style.right = '';
       } else {
-        iframe.style.left = 'auto';
+        iframe.style.left = '2vh';
         iframe.style.top = 'auto';
         iframe.style.transform = 'none';
         iframe.style.bottom = '3vh';
-        iframe.style.right = '2vw';
+        iframe.style.right = 'auto';
       }
     
       // Re-send data to iframe in case layout changes
