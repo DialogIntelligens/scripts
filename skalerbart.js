@@ -35,6 +35,14 @@ document.addEventListener('DOMContentLoaded', function() {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    #chat-button svg.pulse {
+      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
+    }     
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
@@ -309,7 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -425,6 +433,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
+      if (enablePulseAnimation) {
+        document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
+      }
+      var enablePulseAnimation = false; 
   
       // Blink after 2s
       setTimeout(function() {
@@ -543,11 +555,16 @@ document.addEventListener('DOMContentLoaded', function() {
   initChatbot();
   
   // After 2 seconds, check if a key element is present; if not, reinitialize.
+  [2000, 5000, 10000].forEach(function(delay) {
   setTimeout(function() {
     if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
+      console.log(`Chatbot not loaded after ${delay / 1000} seconds, retrying...`);
       initChatbot();
     }
-  }, 5000);
-        
+  }, delay);
+  
+});
+
+
+  
 });  
