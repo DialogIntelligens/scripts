@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #269fdb;
+      --icon-color: #c6a459;
     }
   
     /* The main message content area */
@@ -274,15 +274,15 @@ document.addEventListener('DOMContentLoaded', function() {
   
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "testy",
+      chatbotID: "test",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0523238b-abd2-414c-89bd-0eb1151e8a9d",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0523238b-abd2-414c-89bd-0eb1151e8a9d",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bc79cb76-cea9-4f09-b9a3-48eef8754ba3",
+      flow3API: "",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
 
       useThumbsRating: false,
-      ratingTimerDuration: 5000,
+      ratingTimerDuration: 15000,
 
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
@@ -305,11 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/Privatlivspolitik_Superprice.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740579653991.png",
-      themeColor: "#269fdb",
-      headerTitleG: "testy",
-      headerSubtitleG: "Superprice-AI",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      themeColor: "#c6a459",
+      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerSubtitleG: "NIH's Virtuelle Assistent",
       titleG: "NIH's Virtuelle Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag 😊 <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
