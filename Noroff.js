@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      <strong>--icon-color: </strong>#e93100;
+      --icon-color: #e93100;
     }
   
     /* The main message content area */
@@ -292,12 +292,12 @@ document.addEventListener('DOMContentLoaded', function() {
       imageAPI: '',
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_noroff.pdf",
-      <strong><strong>headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1742802980749.png",
-      <strong><strong>themeColor: "#f43000",
-      <strong><strong>headerTitleG: "Noroff",
-      <strong><strong>headerSubtitleG: "Du kommuniserer med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, samt at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
-      <strong><strong>titleG: "Noroffs Virtuelle Assistent",
-      <strong><strong>firstMessage: "Hei😊Hva kan jeg hjelpe deg med?",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741777918040.png",
+      themeColor: "#f43000",
+      headerTitleG: "Noroff",
+      headerSubtitleG: "Du kommuniserer med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, samt at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
+      titleG: "Noroffs Virtuelle Assistent",
+      firstMessage: "Hei😊Hva kan jeg hjelpe deg med?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
