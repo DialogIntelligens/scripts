@@ -297,6 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
       knowledgebaseIndexApiEndpoint: "dilling-faq",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "dilling-pro",
+      flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "dilling-faq",
       websiteOverride: "dilling.dk",
       languageOverride: "Danish",
