@@ -463,11 +463,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Check if the popup has been closed previously
-    var popupClosed = localStorage.getItem("popupClosed");
-    if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
-    }
-
+    setTimeout(showPopup, 500);
+    // Original code below (disabled):
+    // var popupClosed = localStorage.getItem("popupClosed");
+    // if (!popupClosed || popupClosed === "false") {
+    //   setTimeout(showPopup, 2000);
+    // }
 
     /**
      * 9. ADJUST IFRAME SIZE
