@@ -268,6 +268,11 @@ onDOMReady(function() {
       productAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4bba0508-02e9-4b9e-8546-4bfaaf128e16",
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/da015a4e-77c8-4dd1-944e-ef9b085504e4",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
+
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2d263cc3-7334-44db-b763-29592d22d140",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f7aa9091-0490-4567-8212-ad912bd003c1",
+      apiFlowKey: "order",
+      
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-1500-kcal.pdf",
       mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-2000-kcal.pdf",
       mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/NOdiet-plan-2500-kcal.pdf",
