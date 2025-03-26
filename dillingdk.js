@@ -535,10 +535,11 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('chatWindowState', 'open');
     
     // Disable toggle: prevent chat from closing when clicking the button
-    document.getElementById('chat-button').addEventListener('click', function() {
-      // You can focus the iframe if you want:
-      // iframe.contentWindow.focus();
+    document.getElementById("chat-button").addEventListener("click", function() {
+    // Intentionally do nothing
     });
+
+  } // end of initChatbot
   
   // Initial attempt to load the chatbot.
   initChatbot();
@@ -549,5 +550,6 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Chatbot not loaded after 2 seconds, retrying...");
       initChatbot();
     }
-  }, 5000); // end of setTimeout
-}); // closes addEventListener
+  }, 5000);
+        
+});   
