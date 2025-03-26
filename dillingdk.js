@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 2. INJECT CSS
      */
-    var css = `
+    var css = 
     /* ----------------------------------------
        A) ANIMATIONS
        ---------------------------------------- */
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
       word-wrap: break-word;
       max-width: 100%;
     }
-    `;
+    ;
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));
     document.head.appendChild(style);
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 3. INJECT HTML
      */
-    var chatbotHTML = `
+    var chatbotHTML = 
       <div id="chat-container">
         <!-- Chat Button -->
         <button id="chat-button">
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
         src="https://skalerbartprodukt.onrender.com"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
-    `;
+    ;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
   
     /**
@@ -412,9 +412,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Brug for hjælp? <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = Brug for hjælp? <span id="funny-smiley">😊</span> ;
       } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>;
       }
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Check if the popup has been closed previously
-    setTimeout(showPopup, 500);
+    setTimeout(showPopup, 2000);
     // Original code below (disabled):
     // var popupClosed = localStorage.getItem("popupClosed");
     // if (!popupClosed || popupClosed === "false") {
@@ -522,22 +522,25 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', adjustIframeSize);
   
     // Attach event listener to chat-button
+    document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+  
     // Modify the initial chat window state logic
+    var savedState = localStorage.getItem('chatWindowState');
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-    
-    // Always show iframe, always hide button
-    iframe.style.display = 'block';
-    button.style.display = 'none';
-    sendMessageToIframe();
-    
-    // Optional: persist that it's always open
-    localStorage.setItem('chatWindowState', 'open');
-    
-    // Disable toggle: prevent chat from closing when clicking the button
-    document.getElementById("chat-button").addEventListener("click", function() {
-    // Intentionally do nothing
-    });
+  
+    if (savedState === 'open') {
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      sendMessageToIframe();
+    } else {
+      iframe.style.display = 'none';
+      button.style.display = 'block';
+    }
+
+   
+    // Chat button click
+    document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
   } // end of initChatbot
   
@@ -552,4 +555,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 5000);
         
-});   
+});  
