@@ -283,6 +283,8 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2API: "",
       flow3Key: "product",
       flow3API: "",
+      flow4API: "",
+      flow4Key: "",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
@@ -300,6 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
       languageOverride: "",
