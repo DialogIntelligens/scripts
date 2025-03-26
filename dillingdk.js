@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Dillbot  👋",
       headerSubtitleG: "Ved at gøre brug af vores AI-chatbot, så accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
       titleG: "DILLING Chat ",
-      firstMessage: "Hej 😊 Hvordan kan jeg hjælpe dig?",
+      firstMessage: "Hej mit navn er Dillbot. Jeg er her for at hjælpe med spørgsmål relateret til DILLING og vores produkter. Hvordan kan jeg hjælpe dig?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
