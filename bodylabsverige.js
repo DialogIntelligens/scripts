@@ -268,6 +268,11 @@ onDOMReady(function() {
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b5b78a1a-1e48-4cda-bece-6903c4ddc476",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
       chatbotID: "bodylabsverige",
+
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/801ad9b5-e700-48a3-9ef7-25c407243fc5",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f7aa9091-0490-4567-8212-ad912bd003c1",
+      apiFlowKey: "order",
+      
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-1500-kcal.pdf",
       mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-2000-kcal.pdf",
       mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/SEdiet-plan-2500-kcal.pdf",
