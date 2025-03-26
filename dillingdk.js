@@ -77,11 +77,11 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup rise animation */
     @keyframes rise-from-bottom {
       0% {
-        transform: translateY(50px) scale(0.95);
+        transform: translateY(50px) scale(1);
         opacity: 0;
       }
       100% {
-        transform: translateY(0) scale(0.95);
+        transform: translateY(0) scale(1);
         opacity: 1;
       }
     }
