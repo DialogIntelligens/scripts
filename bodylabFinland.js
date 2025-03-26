@@ -270,6 +270,10 @@ onDOMReady(function() {
       recipeAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/bd5fcd35-8707-400d-ac40-6d676b6240b6",
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe",
 
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a75e1476-176d-49a9-be72-df040b8b053a",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f7aa9091-0490-4567-8212-ad912bd003c1",
+      apiFlowKey: "order",
+
       mealplan1500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-1500-kcal.pdf",
       mealplan2000: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2000-kcal.pdf",
       mealplan2500: "http://dialogintelligens.dk/wp-content/uploads/2024/12/FIdiet-plan-2500-kcal.pdf",
