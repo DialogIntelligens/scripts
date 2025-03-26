@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //  if (!popupClosed || popupClosed === "false") {
   //    setTimeout(showPopup, 7000);
   //  }
-    setTimeout(showPopup, 7000);
+    setTimeout(showPopup, 1000);
 
     /**
      * 9. ADJUST IFRAME SIZE
