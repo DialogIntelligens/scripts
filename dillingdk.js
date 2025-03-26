@@ -539,7 +539,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // You can focus the iframe if you want:
       // iframe.contentWindow.focus();
     });
-    // end of initChatbot
   
   // Initial attempt to load the chatbot.
   initChatbot();
@@ -550,6 +549,5 @@ document.addEventListener('DOMContentLoaded', function() {
       console.log("Chatbot not loaded after 2 seconds, retrying...");
       initChatbot();
     }
-  }, 5000);
-        
-});  
+  }, 5000); // end of setTimeout
+}); // closes addEventListener
