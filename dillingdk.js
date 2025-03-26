@@ -522,27 +522,24 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', adjustIframeSize);
   
     // Attach event listener to chat-button
-    document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-  
     // Modify the initial chat window state logic
-    var savedState = localStorage.getItem('chatWindowState');
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
-  
-    if (savedState === 'open') {
-      iframe.style.display = 'block';
-      button.style.display = 'none';
-      sendMessageToIframe();
-    } else {
-      iframe.style.display = 'none';
-      button.style.display = 'block';
-    }
-
-   
-    // Chat button click
-    document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
-
-  } // end of initChatbot
+    
+    // Always show iframe, always hide button
+    iframe.style.display = 'block';
+    button.style.display = 'none';
+    sendMessageToIframe();
+    
+    // Optional: persist that it's always open
+    localStorage.setItem('chatWindowState', 'open');
+    
+    // Disable toggle: prevent chat from closing when clicking the button
+    document.getElementById('chat-button').addEventListener('click', function() {
+      // You can focus the iframe if you want:
+      // iframe.contentWindow.focus();
+    });
+    // end of initChatbot
   
   // Initial attempt to load the chatbot.
   initChatbot();
