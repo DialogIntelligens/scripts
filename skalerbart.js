@@ -298,6 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
+      replaceExclamationWithPeriod: false,
 
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
