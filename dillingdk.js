@@ -375,7 +375,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // Close the popup when the chat is opened
       if (!isCurrentlyOpen) {
         popup.style.display = "none";
-        localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+      //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
       }
     
       // Adjust the iframe size
@@ -403,7 +403,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
       // If the iframe is visible or the popup has been closed, do not show the popup
-      if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
+      if (iframe.style.display !== "none") {
         return;
       }
         
@@ -463,11 +463,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Check if the popup has been closed previously
-    var popupClosed = localStorage.getItem("popupClosed");
-    if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
-    }
-
+   // var popupClosed = localStorage.getItem("popupClosed");
+  //  if (!popupClosed || popupClosed === "false") {
+  //    setTimeout(showPopup, 7000);
+  //  }
+    setTimeout(showPopup, 7000);
 
     /**
      * 9. ADJUST IFRAME SIZE
