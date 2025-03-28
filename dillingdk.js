@@ -469,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function() {
   //    setTimeout(showPopup, 7000);
   //  }
     setTimeout(showPopup, 1000);
+    
 
     /**
      * 9. ADJUST IFRAME SIZE
