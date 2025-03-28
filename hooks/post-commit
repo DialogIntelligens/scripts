@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Directory containing the JavaScript files
-JS_DIR=""
+# Set the directory containing the JavaScript files (relative to the Git repository root)
+JS_DIR="$(git rev-parse --show-toplevel)/scripts"
 
 # Path to the encrypter script
-ENCRYPTER_SCRIPT="encrypter.py"
+ENCRYPTER_SCRIPT="$JS_DIR/encrypter.py"
 
 # Directory to store encrypted files
 ENCRYPTED_DIR="$JS_DIR/encrypted"
