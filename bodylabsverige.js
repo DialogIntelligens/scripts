@@ -7,6 +7,7 @@ function onDOMReady(callback) {
   }
 }
 
+
 // COOKIE FUNCTIONS (unchanged)
 function setCookie(name, value, days, domain) {
   var expires = "";
