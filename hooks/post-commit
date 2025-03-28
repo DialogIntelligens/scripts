@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Directory containing the JavaScript files
+JS_DIR=""
+
+# Path to the encrypter script
+ENCRYPTER_SCRIPT="encrypter.py"
+
+# Directory to store encrypted files
+ENCRYPTED_DIR="$JS_DIR/encrypted"
+
+# Ensure the encrypted directory exists
+mkdir -p "$ENCRYPTED_DIR"
+
+# Find updated JavaScript files in the last commit
+UPDATED_JS_FILES=$(git diff-tree --no-commit-id --name-only -r HEAD | grep '\.js$')
+
+# Encrypt each updated JavaScript file
+for FILE in $UPDATED_JS_FILES; do
+    INPUT_FILE="$JS_DIR/$FILE"
+    OUTPUT_FILE="$ENCRYPTED_DIR/$(basename "$FILE").encrypted"
+    python "$ENCRYPTER_SCRIPT" "$INPUT_FILE" "$OUTPUT_FILE" "your_password"
+done
