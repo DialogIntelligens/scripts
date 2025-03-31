@@ -277,10 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
           flow3Key: 'sdfdsfds',
           flow3API: '',
           privacyLink: '',
-          titleLogoG:
-            'https://dialogintelligens.dk/wp-content/uploads/2024/04/DIlogo.png',
           headerLogoG:
-            'https://dialogintelligens.dk/wp-content/uploads/2024/04/DIlogo.png',
+            'https://dialogintelligens.dk/wp-content/uploads/2025/03/Untitled_Artwork-2.png',
           themeColor: '#1D5288',
           headerTitleG: 'Virtuel assistent',
           headerSubtitleG:
