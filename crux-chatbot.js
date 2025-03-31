@@ -313,7 +313,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1743428365322.png",
       themeColor: "#386155",
       headerTitleG: "STIFTELSEN CRUX",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
       titleG: "CRUX's Virtuell Assistent",
       firstMessage: "Hei 😊 Hvordan kan jeg hjelpe deg?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
