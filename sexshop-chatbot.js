@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Sexhop.dk",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Sexshop's AI Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🍆",
+      firstMessage: "Hej 😉 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🍆",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
