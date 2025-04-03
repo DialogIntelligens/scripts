@@ -37,7 +37,7 @@ function notifyChatUsed() {
       websiteuserid: userId,
       usedChatbot: 'true',
       madePurchase: 'false',
-      chatbot_id: 'test' // or your actual chatbot ID
+      chatbot_id: 'jagttegnkurser' // or your actual chatbot ID
     })
   })
   .then(r => r.json())
@@ -65,7 +65,7 @@ function trackCheckoutIfAny() {
         websiteuserid: userId,
         usedChatbot: 'true', // safe to mark usedChatbot as well
         madePurchase: 'true',
-        chatbot_id: 'test' // or your actual chatbot ID
+        chatbot_id: 'jagttegnkurser' // or your actual chatbot ID
       })
     })
     .then(r => r.json())
