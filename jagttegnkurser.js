@@ -1,13 +1,82 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-
+  
 
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
-    }    
+    }
+
+    // [ADDED FOR PURCHASE TRACKING]
+// 1) Define a pattern for the checkout URL. Change this for each client if needed!
+const checkoutUrlPattern = '/checkout/';
+
+// 2) Function to get or create a stable user ID
+function getOrCreateUserId() {
+  let userId = localStorage.getItem('websiteuserid');
+  if (!userId) {
+    userId = 'cbt-' + Math.random().toString(36).substr(2, 12);
+    localStorage.setItem('websiteuserid', userId);
+  }
+  return userId;
+}
+
+// 3) Mark that the user “used” the chatbot once it’s actually opened
+let hasAlreadyNotifiedChatUse = false;
+function notifyChatUsed() {
+  if (hasAlreadyNotifiedChatUse) return;
+  hasAlreadyNotifiedChatUse = true;
+
+  const userId = getOrCreateUserId();
+  fetch('/crm', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      websiteuserid: userId,
+      usedChatbot: 'true',
+      madePurchase: 'false',
+      chatbot_id: 'test' // or your actual chatbot ID
+    })
+  })
+  .then(r => r.json())
+  .then(resp => console.log('CRM usage recorded:', resp))
+  .catch(e => console.error('CRM usage error:', e));
+}
+
+// 4) Detect if the visitor is on the checkout page
+function isOnCheckoutPage() {
+  // e.g. match '/checkout/' in the URL:
+  return window.location.href.toLowerCase().includes(checkoutUrlPattern.toLowerCase());
+}
+
+// 5) If we detect checkout, call /crm with madePurchase=true (once per session)
+function trackCheckoutIfAny() {
+  if (localStorage.getItem('purchaseTracked') === 'true') return;  
+  if (isOnCheckoutPage()) {
+    localStorage.setItem('purchaseTracked', 'true');
+
+    const userId = getOrCreateUserId();
+    fetch('/crm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        websiteuserid: userId,
+        usedChatbot: 'true', // safe to mark usedChatbot as well
+        madePurchase: 'true',
+        chatbot_id: 'test' // or your actual chatbot ID
+      })
+    })
+    .then(r => r.json())
+    .then(resp => console.log('Purchase tracked in CRM:', resp))
+    .catch(e => console.error('Error tracking purchase:', e));
+  }
+}
+
+// 6) Start a timer that checks every 8 seconds if the user is on the checkout page
+setInterval(trackCheckoutIfAny, 8000);
+
       
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
@@ -37,6 +106,14 @@ document.addEventListener('DOMContentLoaded', function() {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.7; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    #chat-button svg.pulse {
+      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
+    }     
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
@@ -166,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #304f9b;
     }
   
     /* The main message content area */
@@ -266,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      var messageData = {
+var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagttegnkurser",
       pagePath: window.location.href,
@@ -367,6 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
+        notifyChatUsed();
         setTimeout(function() {
           iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
         }, 100);
@@ -413,6 +491,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
+      if (enablePulseAnimation) {
+        document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
+      }
+      var enablePulseAnimation = false; 
   
       // Blink after 2s
       setTimeout(function() {
@@ -531,11 +613,16 @@ document.addEventListener('DOMContentLoaded', function() {
   initChatbot();
   
   // After 2 seconds, check if a key element is present; if not, reinitialize.
+  [2000, 5000, 10000].forEach(function(delay) {
   setTimeout(function() {
     if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
+      console.log(`Chatbot not loaded after ${delay / 1000} seconds, retrying...`);
       initChatbot();
     }
-  }, 5000);
-        
+  }, delay);
+  
+});
+
+
+  
 });  
