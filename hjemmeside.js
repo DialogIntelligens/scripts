@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! jeg kan give dig et tilbud eller hjælpe med dine spørgsmål <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Hej! Har du brug for hjælp? Jeg kan svare på spørgsmål om Dialog Intelligens <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
