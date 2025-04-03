@@ -1,109 +1,83 @@
-<script>
 document.addEventListener('DOMContentLoaded', function() {
 
-  /*************************************
-   * 1) STABLE USER ID FOR EVERY VISITOR
-   *************************************/
-  function getOrCreateUserId() {
-    let userId = localStorage.getItem('websiteuserid');
-    if (!userId) {
-      userId = 'cbt-' + Math.random().toString(36).substr(2, 12);
-      localStorage.setItem('websiteuserid', userId);
-    }
-    return userId;
-  }
+  
 
-  /****************************************
-   * 2) TRACK SITE VISIT ONCE PER SESSION
-   ****************************************/
-  function trackSiteVisitIfNeeded() {
-    if (localStorage.getItem('visitTracked') === 'true') return;
-
-    localStorage.setItem('visitTracked', 'true');
-    const userId = getOrCreateUserId();
-
-    fetch('https://egendatabasebackend.onrender.com/crm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        websiteuserid: userId,
-        usedChatbot: 'false',   // not used yet
-        madePurchase: 'false',
-        chatbot_id: 'jagttegnkurser'
-      })
-    })
-    .then(r => r.json())
-    .then(resp => console.log('CRM visit recorded:', resp))
-    .catch(e => console.error('CRM visit error:', e));
-  }
-
-  /***********************************************
-   * 3) TRACK WHEN USER OPENS THE CHATBOT (usage)
-   ***********************************************/
-  let hasAlreadyNotifiedChatUse = false;
-  function notifyChatUsed() {
-    if (hasAlreadyNotifiedChatUse) return;
-    hasAlreadyNotifiedChatUse = true;
-
-    const userId = getOrCreateUserId();
-    fetch('https://egendatabasebackend.onrender.com/crm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        websiteuserid: userId,
-        usedChatbot: 'true',
-        madePurchase: 'false',
-        chatbot_id: 'jagttegnkurser'
-      })
-    })
-    .then(r => r.json())
-    .then(resp => console.log('CRM usage recorded:', resp))
-    .catch(e => console.error('CRM usage error:', e));
-  }
-
-  /***************************************************
-   * 4) CHECKOUT DETECTION: track purchase (optional)
-   ***************************************************/
-  const checkoutUrlPattern = '/checkout/';
-  function isOnCheckoutPage() {
-    return window.location.href.toLowerCase().includes(checkoutUrlPattern.toLowerCase());
-  }
-
-  function trackCheckoutIfAny() {
-    if (localStorage.getItem('purchaseTracked') === 'true') return;
-    if (isOnCheckoutPage()) {
-      localStorage.setItem('purchaseTracked', 'true');
-
-      const userId = getOrCreateUserId();
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          websiteuserid: userId,
-          usedChatbot: 'true', 
-          madePurchase: 'true',
-          chatbot_id: 'jagttegnkurser'
-        })
-      })
-      .then(r => r.json())
-      .then(resp => console.log('Purchase tracked in CRM:', resp))
-      .catch(e => console.error('Error tracking purchase:', e));
-    }
-  }
-  setInterval(trackCheckoutIfAny, 8000); // e.g. check every 8s
-
-  /********************************************************
-   * 5) MAIN INIT: track site visit, insert chatbot, etc.
-   ********************************************************/
   function initChatbot() {
+    // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
     }
 
-    // 5.1) Track the site visit once per session
-    trackSiteVisitIfNeeded();
-    
+    // [ADDED FOR PURCHASE TRACKING]
+// 1) Define a pattern for the checkout URL. Change this for each client if needed!
+const checkoutUrlPattern = '/checkout/';
+
+// 2) Function to get or create a stable user ID
+function getOrCreateUserId() {
+  let userId = localStorage.getItem('websiteuserid');
+  if (!userId) {
+    userId = 'cbt-' + Math.random().toString(36).substr(2, 12);
+    localStorage.setItem('websiteuserid', userId);
+  }
+  return userId;
+}
+
+// 3) Mark that the user “used” the chatbot once it’s actually opened
+let hasAlreadyNotifiedChatUse = false;
+function notifyChatUsed() {
+  if (hasAlreadyNotifiedChatUse) return;
+  hasAlreadyNotifiedChatUse = true;
+
+  const userId = getOrCreateUserId();
+  fetch('https://egendatabasebackend.onrender.com/crm', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      websiteuserid: userId,
+      usedChatbot: 'true',
+      madePurchase: 'false',
+      chatbot_id: 'jagttegnkurser' // or your actual chatbot ID
+    })
+  })
+  .then(r => r.json())
+  .then(resp => console.log('CRM usage recorded:', resp))
+  .catch(e => console.error('CRM usage error:', e));
+}
+
+// 4) Detect if the visitor is on the checkout page
+function isOnCheckoutPage() {
+  // e.g. match '/checkout/' in the URL:
+  return window.location.href.toLowerCase().includes(checkoutUrlPattern.toLowerCase());
+}
+
+// 5) If we detect checkout, call /crm with madePurchase=true (once per session)
+function trackCheckoutIfAny() {
+  if (localStorage.getItem('purchaseTracked') === 'true') return;  
+  if (isOnCheckoutPage()) {
+    localStorage.setItem('purchaseTracked', 'true');
+
+    const userId = getOrCreateUserId();
+    fetch('https://egendatabasebackend.onrender.com/crm', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        websiteuserid: userId,
+        usedChatbot: 'true', // safe to mark usedChatbot as well
+        madePurchase: 'true',
+        chatbot_id: 'jagttegnkurser' // or your actual chatbot ID
+      })
+    })
+    .then(r => r.json())
+    .then(resp => console.log('Purchase tracked in CRM:', resp))
+    .catch(e => console.error('Error tracking purchase:', e));
+  }
+}
+
+// 6) Start a timer that checks every 8 seconds if the user is on the checkout page
+setInterval(trackCheckoutIfAny, 8000);
+
+      
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -647,8 +621,5 @@ var messageData = {
     }
   }, delay);
   
-});
-
-
-  
+});  
 });  
