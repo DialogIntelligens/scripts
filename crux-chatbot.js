@@ -312,9 +312,9 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_Crux.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1743428365322.png",
       themeColor: "#386155",
-      headerTitleG: "STIFTELSEN CRUX",
+      headerTitleG: "stiftelsen CRUX",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved å bruke denne chatboten godtar du at det kan oppstå feil, og at samtalen kan lagres og behandles. Les mer i vår personvernerklæring.",
-      titleG: "CRUX's Virtuell Assistent",
+      titleG: "Cruxoline",
       firstMessage: "Hei 😊 Hvordan kan jeg hjelpe deg?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Trenger du hjelp? Jeg kan svare på spørsmål om våre tjenester <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Kan jeg hjelpe deg? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
