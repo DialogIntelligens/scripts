@@ -30,7 +30,7 @@ function notifyChatUsed() {
   hasAlreadyNotifiedChatUse = true;
 
   const userId = getOrCreateUserId();
-  fetch('/crm', {
+  fetch('https://egendatabasebackend.onrender.com/crm', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -58,7 +58,7 @@ function trackCheckoutIfAny() {
     localStorage.setItem('purchaseTracked', 'true');
 
     const userId = getOrCreateUserId();
-    fetch('/crm', {
+    fetch('https://egendatabasebackend.onrender.com/crm', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
