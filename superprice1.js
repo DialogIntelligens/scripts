@@ -277,11 +277,12 @@ document.addEventListener('DOMContentLoaded', function() {
       </div>
   
       <!-- Chat Iframe -->
-      <iframe
-        id="chat-iframe"
-        src="https://skalerbartprodukt.onrender.com"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
-      </iframe>
+<iframe
+  id="chat-iframe"
+  src="https://skalerbartprodukt.onrender.com"
+  style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 4000000;">
+</iframe>
+
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
   
