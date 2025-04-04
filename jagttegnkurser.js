@@ -99,19 +99,9 @@ document.addEventListener('DOMContentLoaded', function() {
    * 5) MAIN INIT: load chatbot container, styles, popup
    ********************************************************/
   function initChatbot() {
-    // (a) Check if already loaded
-    if (document.getElementById('chat-container')) {
-      console.log("Chatbot already loaded.");
-      return;
-    }
-
     // (b) Track the site visit once per session
     trackSiteVisitIfNeeded();
 
-    // (c) Insert the chatbot container
-    var widgetContainer = document.createElement('div');
-    widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);
 
     // Your existing code:
     var isIframeEnlarged = false; 
