@@ -1,6 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
-
-
+  /**
+   * JAGTTEGNKURSER CHATBOT INTEGRATION
+   * 
+   * TRACKING IMPLEMENTATION:
+   * 1. Purchase tracking: Automatically detects if user visits checkout page
+   * 2. Conversation tracking: Only counts a user as having used the chatbot when they
+   *    have an actual conversation (via the 'conversationStarted' message from iframe)
+   * 3. User identification: Generates a unique ID for each website visitor stored in localStorage
+   *
+   * For the chatbot to properly track conversations, the chatbot iframe needs to send a
+   * postMessage with action: 'conversationStarted' when the user first sends a message.
+   * This allows us to differentiate between users who just open the chatbot and those
+   * who actually engage in a conversation.
+   */
 
   function initChatbot() {
     // Check if already initialized
@@ -39,9 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
       const websiteUserId = getOrCreateWebsiteUserId();
       const madePurchase = isCheckoutPage();
       const chatbotId = "jagttegnkurser";
-      const usedChatbot = false; // Default to false as requested
-
-      // Send data to CRM endpoint
+      
+      // Only track purchase status, don't set usedChatbot flag here
+      // usedChatbot will be set only when an actual conversation occurs
       fetch('https://egendatabasebackend.onrender.com/crm', {
         method: 'POST',
         headers: {
@@ -49,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         body: JSON.stringify({
           websiteuserid: websiteUserId,
-          usedChatbot: usedChatbot,
+          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
           madePurchase: madePurchase,
           chatbot_id: chatbotId
         })
@@ -319,6 +331,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
+      // Retrieve or create websiteuserid in parent domain's localStorage
+      let websiteUserId = getOrCreateWebsiteUserId();
+
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagttegnkurser",
@@ -340,19 +355,18 @@ document.addEventListener('DOMContentLoaded', function() {
       leadMail: "info@jagttegnkurser.dk",
       leadField1: "Navn",
       leadField2: "Telefon nummer",
-
       imageAPI: '',
-      
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_jagttegnkurser.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
       themeColor: "#626b4e",
       headerTitleG: "Jagttegn kursers Virtuelle Assistent",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at brug denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800
+      isPhoneView: window.innerWidth < 800,
+      parentWebsiteUserId: websiteUserId // Send the user ID to the iframe
     };
 
   
@@ -378,6 +392,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -390,6 +405,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      } else if (event.data.action === 'conversationStarted') {
+        // User has started a conversation - track this as actual chatbot usage
+        const websiteUserId = getOrCreateWebsiteUserId();
+        const madePurchase = isCheckoutPage();
+        const chatbotId = "jagttegnkurser";
+        
+        fetch('https://egendatabasebackend.onrender.com/crm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            websiteuserid: websiteUserId,
+            usedChatbot: true,
+            madePurchase: madePurchase,
+            chatbot_id: chatbotId
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Conversation tracking updated:', data))
+        .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
   
@@ -413,27 +449,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!isCurrentlyOpen) {
         popup.style.display = "none";
         localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-        
-        // Track that user has used the chatbot
-        const websiteUserId = getOrCreateWebsiteUserId();
-        const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
-        
-        fetch('https://den-utrolige-snebold.onrender.com/crm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            websiteuserid: websiteUserId,
-            usedChatbot: true,
-            madePurchase: madePurchase,
-            chatbot_id: chatbotId
-          })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Chatbot usage tracked:', data))
-        .catch(error => console.error('Error tracking chatbot usage:', error));
       }
     
       // Adjust the iframe size
@@ -490,27 +505,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Add click event to message box for tracking
       messageBox.addEventListener("click", function() {
-        // Track chatbot usage when clicking on popup message
-        const websiteUserId = getOrCreateWebsiteUserId();
-        const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
-        
-        fetch('https://den-utrolige-snebold.onrender.com/crm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            websiteuserid: websiteUserId,
-            usedChatbot: true,
-            madePurchase: madePurchase,
-            chatbot_id: chatbotId
-          })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Popup click tracked:', data))
-        .catch(error => console.error('Error tracking popup click:', error));
-        
         // Open chat window
         toggleChatWindow();
       });
