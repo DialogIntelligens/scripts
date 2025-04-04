@@ -1,31 +1,28 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-
-
-  function initChatbot() {
-    // Check if already initialized
-    if (document.getElementById('chat-container')) {
-      console.log("Chatbot already loaded.");
-      return;
-    }    
+function initChatbot() {
+  // Check if already initialized
+  if (document.getElementById('chat-container')) {
+    console.log("Chatbot already loaded.");
+    return;
+  }    
       
-      // 1. Create a unique container for your widget
-    var widgetContainer = document.createElement('div');
-    widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);    
-    /**
-     * 1. GLOBAL & FONT SETUP
-     */
-    var isIframeEnlarged = false; 
-    var fontLink = document.createElement('link');
-    fontLink.rel = 'stylesheet';
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
-    document.head.appendChild(fontLink);
+  // 1. Create a unique container for your widget
+  var widgetContainer = document.createElement('div');
+  widgetContainer.id = 'my-chat-widget';
+  document.body.appendChild(widgetContainer);    
   
-    /**
-     * 2. INJECT CSS
-     */
-    var css = `
+  /**
+   * 1. GLOBAL & FONT SETUP
+   */
+  var isIframeEnlarged = false; 
+  var fontLink = document.createElement('link');
+  fontLink.rel = 'stylesheet';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
+  document.head.appendChild(fontLink);
+
+  /**
+   * 2. INJECT CSS
+   */
+  var css = `
     /* ----------------------------------------
        A) ANIMATIONS
        ---------------------------------------- */
@@ -193,15 +190,15 @@ document.addEventListener('DOMContentLoaded', function() {
       word-wrap: break-word;
       max-width: 100%;
     }
-    `;
-    var style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    document.head.appendChild(style);
-  
-    /**
-     * 3. INJECT HTML
-     */
-    var chatbotHTML = `
+  `;
+  var style = document.createElement('style');
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
+
+  /**
+   * 3. INJECT HTML
+   */
+  var chatbotHTML = `
       <div id="chat-container">
         <!-- Chat Button -->
         <button id="chat-button">
@@ -230,43 +227,43 @@ document.addEventListener('DOMContentLoaded', function() {
         src="https://skalerbartprodukt.onrender.com"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
-    `;
-    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
-  
-    /**
-     * 4. COOKIE FUNCTIONS
-     */
-    function setCookie(name, value, days, domain) {
-      var expires = "";
-      if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + days*24*60*60*1000);
-        expires = "; expires=" + date.toUTCString();
-      }
-      var domainStr = domain ? "; domain=" + domain : "";
-      document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
+  `;
+  document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+  /**
+   * 4. COOKIE FUNCTIONS
+   */
+  function setCookie(name, value, days, domain) {
+    var expires = "";
+    if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + days*24*60*60*1000);
+      expires = "; expires=" + date.toUTCString();
     }
-    function getCookie(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(";");
-      for (var i=0; i<ca.length; i++) {
-        var c = ca[i].trim();
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
+    var domainStr = domain ? "; domain=" + domain : "";
+    document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
+  }
+  function getCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(";");
+    for (var i=0; i<ca.length; i++) {
+      var c = ca[i].trim();
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
-    function getCurrentTimestamp() {
-      return new Date().getTime();
-    }
-  
-    /**
-     * 5. CHAT IFRAME LOGIC
-     */
-    function sendMessageToIframe() {
-      var iframe = document.getElementById("chat-iframe");
-      var iframeWindow = iframe.contentWindow;
-  
-      var messageData = {
+    return null;
+  }
+  function getCurrentTimestamp() {
+    return new Date().getTime();
+  }
+
+  /**
+   * 5. CHAT IFRAME LOGIC
+   */
+  function sendMessageToIframe() {
+    var iframe = document.getElementById("chat-iframe");
+    var iframeWindow = iframe.contentWindow;
+
+    var messageData = {
       action: 'integrationOptions',
       chatbotID: "dilling",
       pagePath: window.location.href,
@@ -281,19 +278,18 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
       flow4Key: "category",
       
-        
       imageAPI: "",
-
+  
       metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11751a16-1c96-4710-8d18-2987f8b4e21c",
       metaDataKey: "product",
-
+  
       apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
-
+  
       useThumbsRating: true,
       ratingTimerDuration: 10000,
-
+  
       knowledgebaseIndexApiEndpoint: "dilling-faq",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "dilling-pro",
@@ -302,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
       websiteOverride: "dilling.dk",
       languageOverride: "Danish",
       valutaOverride: "KR",
-
+  
       replaceExclamationWithPeriod: true,
         
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
@@ -318,241 +314,231 @@ document.addEventListener('DOMContentLoaded', function() {
       isPhoneView: (window.innerWidth < 800)
     };
 
-
-  
-      // If the iframe is already visible, post the message immediately.
-      if (iframe.style.display !== 'none') {
+    // If the iframe is already visible, post the message immediately.
+    if (iframe.style.display !== 'none') {
+      try {
+        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+      } catch (e) {
+        console.error("Error posting message to iframe:", e);
+      }
+    } else {
+      // If not visible, assign onload to post the message when it appears.
+      iframe.onload = function() {
         try {
           iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
-          console.error("Error posting message to iframe:", e);
+          console.error("Error posting message on iframe load:", e);
         }
-      } else {
-        // If not visible, assign onload to post the message when it appears.
-        iframe.onload = function() {
-          try {
-            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-          } catch (e) {
-            console.error("Error posting message on iframe load:", e);
-          }
-        };
-      }
+      };
     }
-  
-    // Listen for messages from the iframe
-    window.addEventListener('message', function(event) {
-      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
-      if (event.data.action === 'toggleSize') {
-        isIframeEnlarged = !isIframeEnlarged;
-        adjustIframeSize();
-      } else if (event.data.action === 'closeChat') {
-        document.getElementById('chat-iframe').style.display = 'none';
-        document.getElementById('chat-button').style.display = 'block';
-        localStorage.setItem('chatWindowState', 'closed');
-      } else if (event.data.action === 'navigate') {
-        document.getElementById('chat-iframe').style.display = 'none';
-        document.getElementById('chat-button').style.display = 'block';
-        localStorage.setItem('chatWindowState', 'closed');
-        window.location.href = event.data.url;
-      }
-    });
-  
-    /**
-     * 6. TOGGLE CHAT WINDOW
-     */
-    function toggleChatWindow() {
-      var iframe = document.getElementById('chat-iframe');
-      var button = document.getElementById('chat-button');
-      var popup = document.getElementById("chatbase-message-bubbles");
-    
-      // Determine if the chat is currently open
-      var isCurrentlyOpen = iframe.style.display !== 'none';
-    
-      // Toggle the display of the iframe and button
-      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-      button.style.display = isCurrentlyOpen ? 'block' : 'none';
-      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-    
-      // Close the popup when the chat is opened
-      if (!isCurrentlyOpen) {
-        popup.style.display = "none";
-      //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-      }
-    
-      // Adjust the iframe size
+  }
+
+  // Listen for messages from the iframe
+  window.addEventListener('message', function(event) {
+    if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+    if (event.data.action === 'toggleSize') {
+      isIframeEnlarged = !isIframeEnlarged;
       adjustIframeSize();
-    
-      // When opening, let the iframe know after a short delay
-      if (!isCurrentlyOpen) {
-        setTimeout(function() {
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-        }, 100);
-      }
+    } else if (event.data.action === 'closeChat') {
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+    } else if (event.data.action === 'navigate') {
+      document.getElementById('chat-iframe').style.display = 'none';
+      document.getElementById('chat-button').style.display = 'block';
+      localStorage.setItem('chatWindowState', 'closed');
+      window.location.href = event.data.url;
     }
-  
-    // If the popup is open at DOM load, hide it
-    var popup = document.getElementById("chatbase-message-bubbles");
-    if (popup && popup.style.display === "flex") {
-      popup.style.display = "none";
-    }
+  });
 
-
-    
-    /**
-     * 7. SHOW/HIDE POPUP
-     */
-    function showPopup() {
-      var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible or the popup has been closed, do not show the popup
-      if (iframe.style.display !== "none") {
-        return;
-      }
-        
-      var popup = document.getElementById("chatbase-message-bubbles");
-      var messageBox = document.getElementById("popup-message-box");
-      var userHasVisited = getCookie("userHasVisited");
-      if (!userHasVisited) {
-        setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
-      } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
-      }
-      // Determine popup width based on character count (excluding any HTML tags)
-      var charCount = messageBox.textContent.trim().length;
-      var popupElem = document.getElementById("chatbase-message-bubbles");
-      if (charCount < 25) {
-        popupElem.style.width = "380px";
-      } else if (charCount < 60) {
-        popupElem.style.width = "405px";
-      } else {
-        popupElem.style.width = "460px";
-      }
-
-     
-      popup.style.display = "flex";
-  
-      // Blink after 2s
-      setTimeout(function() {
-        var smiley = document.getElementById('funny-smiley');
-        if (smiley && popup.style.display === "flex") {
-          smiley.classList.add('blink');
-          setTimeout(function() {
-            smiley.classList.remove('blink');
-          }, 1000);
-        }
-      }, 2000);
-  
-      // Jump after 12s
-      setTimeout(function() {
-        var smiley = document.getElementById('funny-smiley');
-        if (smiley && popup.style.display === "flex") {
-          smiley.classList.add('jump');
-          setTimeout(function() {
-            smiley.classList.remove('jump');
-          }, 1000);
-        }
-      }, 12000);
-    }
-  
-    // Close the popup and save the state in LocalStorage
-    var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
-    if (closePopupButton) {
-      closePopupButton.addEventListener("click", function() {
-        document.getElementById("chatbase-message-bubbles").style.display = "none";
-        localStorage.setItem("popupClosed", "true");  // Save popup closed state
-      });
-    }
-    
-    // Check if the popup has been closed previously
-   // var popupClosed = localStorage.getItem("popupClosed");
-  //  if (!popupClosed || popupClosed === "false") {
-  //    setTimeout(showPopup, 7000);
-  //  }
-    setTimeout(showPopup, 1000);
-    
-    /**
-     * 9. ADJUST IFRAME SIZE
-     */
-    function adjustIframeSize() {
-      var iframe = document.getElementById('chat-iframe');
-      console.log("Adjusting iframe size. Window width:", window.innerWidth);
-    
-      // Keep 'isIframeEnlarged' logic if toggled from the iframe
-      if (isIframeEnlarged) {
-        // A bigger version if user toggles enlarge
-        iframe.style.width = 'calc(2 * 45vh + 6vw)';
-        iframe.style.height = '90vh';
-      } else {
-        // Default sizing:
-        // For phone/tablet (< 1000px), use 95vw
-        // For larger screens, use 50vh x 90vh
-        if (window.innerWidth < 1000) {
-            iframe.style.width = '95vw';
-            iframe.style.height = '90vh';
-        } else {
-            iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
-            iframe.style.height = '90vh';
-        }
-      
-      }
-    
-      // Always position fixed
-      iframe.style.position = 'fixed';
-    
-      // Center if mobile, else bottom-right
-      if (window.innerWidth < 1000) {
-        iframe.style.left = '50%';
-        iframe.style.top = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-        iframe.style.bottom = '';
-        iframe.style.right = '';
-      } else {
-        iframe.style.left = 'auto';
-        iframe.style.top = 'auto';
-        iframe.style.transform = 'none';
-        iframe.style.bottom = '3vh';
-        iframe.style.right = '2vw';
-      }
-    
-      // Re-send data to iframe in case layout changes
-      sendMessageToIframe();
-    }
-    // Adjust size on page load + on resize
-    adjustIframeSize();
-    window.addEventListener('resize', adjustIframeSize);
-  
-    // Attach event listener to chat-button
-    document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-  
-    // Modify the initial chat window state logic
-    var savedState = localStorage.getItem('chatWindowState');
+  /**
+   * 6. TOGGLE CHAT WINDOW
+   */
+  function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
+    var popup = document.getElementById("chatbase-message-bubbles");
   
-    if (savedState === 'open') {
-      iframe.style.display = 'block';
-      button.style.display = 'none';
-      sendMessageToIframe();
-    } else {
-      iframe.style.display = 'none';
-      button.style.display = 'block';
+    // Determine if the chat is currently open
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+  
+    // Toggle the display of the iframe and button
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+  
+    // Close the popup when the chat is opened
+    if (!isCurrentlyOpen) {
+      popup.style.display = "none";
+    //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
     }
-
-   
-    // Chat button click
-    document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
-
-  } // end of initChatbot
   
-  // Initial attempt to load the chatbot.
-  initChatbot();
+    // Adjust the iframe size
+    adjustIframeSize();
   
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
-  setTimeout(function() {
-    if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
-      initChatbot();
+    // When opening, let the iframe know after a short delay
+    if (!isCurrentlyOpen) {
+      setTimeout(function() {
+        iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+      }, 100);
     }
-  }, 5000);
+  }
+  
+  // If the popup is open at DOM load, hide it
+  var popup = document.getElementById("chatbase-message-bubbles");
+  if (popup && popup.style.display === "flex") {
+    popup.style.display = "none";
+  }
+  
+  /**
+   * 7. SHOW/HIDE POPUP
+   */
+  function showPopup() {
+    var iframe = document.getElementById("chat-iframe");
+    // If the iframe is visible or the popup has been closed, do not show the popup
+    if (iframe.style.display !== "none") {
+      return;
+    }
         
-});  
+    var popup = document.getElementById("chatbase-message-bubbles");
+    var messageBox = document.getElementById("popup-message-box");
+    var userHasVisited = getCookie("userHasVisited");
+    if (!userHasVisited) {
+      setCookie("userHasVisited", "true", 1, ".yourdomain.com");
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
+    } else {
+      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+    }
+    // Determine popup width based on character count (excluding any HTML tags)
+    var charCount = messageBox.textContent.trim().length;
+    var popupElem = document.getElementById("chatbase-message-bubbles");
+    if (charCount < 25) {
+      popupElem.style.width = "380px";
+    } else if (charCount < 60) {
+      popupElem.style.width = "405px";
+    } else {
+      popupElem.style.width = "460px";
+    }
+  
+    popup.style.display = "flex";
+  
+    // Blink after 2s
+    setTimeout(function() {
+      var smiley = document.getElementById('funny-smiley');
+      if (smiley && popup.style.display === "flex") {
+        smiley.classList.add('blink');
+        setTimeout(function() {
+          smiley.classList.remove('blink');
+        }, 1000);
+      }
+    }, 2000);
+  
+    // Jump after 12s
+    setTimeout(function() {
+      var smiley = document.getElementById('funny-smiley');
+      if (smiley && popup.style.display === "flex") {
+        smiley.classList.add('jump');
+        setTimeout(function() {
+          smiley.classList.remove('jump');
+        }, 1000);
+      }
+    }, 12000);
+  }
+  
+  // Close the popup and save the state in LocalStorage
+  var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
+  if (closePopupButton) {
+    closePopupButton.addEventListener("click", function() {
+      document.getElementById("chatbase-message-bubbles").style.display = "none";
+      localStorage.setItem("popupClosed", "true");  // Save popup closed state
+    });
+  }
+    
+  // Check if the popup has been closed previously
+  // var popupClosed = localStorage.getItem("popupClosed");
+  // if (!popupClosed || popupClosed === "false") {
+  //   setTimeout(showPopup, 7000);
+  // }
+  setTimeout(showPopup, 1000);
+    
+  /**
+   * 9. ADJUST IFRAME SIZE
+   */
+  function adjustIframeSize() {
+    var iframe = document.getElementById('chat-iframe');
+    console.log("Adjusting iframe size. Window width:", window.innerWidth);
+  
+    // Keep 'isIframeEnlarged' logic if toggled from the iframe
+    if (isIframeEnlarged) {
+      // A bigger version if user toggles enlarge
+      iframe.style.width = 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = '90vh';
+    } else {
+      // Default sizing:
+      // For phone/tablet (< 1000px), use 95vw
+      // For larger screens, use 50vh x 90vh
+      if (window.innerWidth < 1000) {
+        iframe.style.width = '95vw';
+        iframe.style.height = '90vh';
+      } else {
+        iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
+        iframe.style.height = '90vh';
+      }
+    }
+  
+    // Always position fixed
+    iframe.style.position = 'fixed';
+  
+    // Center if mobile, else bottom-right
+    if (window.innerWidth < 1000) {
+      iframe.style.left = '50%';
+      iframe.style.top = '50%';
+      iframe.style.transform = 'translate(-50%, -50%)';
+      iframe.style.bottom = '';
+      iframe.style.right = '';
+    } else {
+      iframe.style.left = 'auto';
+      iframe.style.top = 'auto';
+      iframe.style.transform = 'none';
+      iframe.style.bottom = '3vh';
+      iframe.style.right = '2vw';
+    }
+  
+    // Re-send data to iframe in case layout changes
+    sendMessageToIframe();
+  }
+  // Adjust size on page load + on resize
+  adjustIframeSize();
+  window.addEventListener('resize', adjustIframeSize);
+  
+  // Attach event listener to chat-button
+  document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+  
+  // Modify the initial chat window state logic
+  var savedState = localStorage.getItem('chatWindowState');
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
+  
+  if (savedState === 'open') {
+    iframe.style.display = 'block';
+    button.style.display = 'none';
+    sendMessageToIframe();
+  } else {
+    iframe.style.display = 'none';
+    button.style.display = 'block';
+  }
+  
+  // Chat button click
+  document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+} // end of initChatbot
+
+// Initial attempt to load the chatbot.
+initChatbot();
+
+// After 2 seconds, check if a key element is present; if not, reinitialize.
+setTimeout(function() {
+  if (!document.getElementById('chat-container')) {
+    console.log("Chatbot not loaded after 2 seconds, retrying...");
+    initChatbot();
+  }
+}, 5000);
