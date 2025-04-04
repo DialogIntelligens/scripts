@@ -1,18 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  /**
-   * JAGTTEGNKURSER CHATBOT INTEGRATION
-   * 
-   * TRACKING IMPLEMENTATION:
-   * 1. Purchase tracking: Automatically detects if user visits checkout page
-   * 2. Conversation tracking: Only counts a user as having used the chatbot when they
-   *    have an actual conversation (via the 'conversationStarted' message from iframe)
-   * 3. User identification: Generates a unique ID for each website visitor stored in localStorage
-   *
-   * For the chatbot to properly track conversations, the chatbot iframe needs to send a
-   * postMessage with action: 'conversationStarted' when the user first sends a message.
-   * This allows us to differentiate between users who just open the chatbot and those
-   * who actually engage in a conversation.
-   */
 
   function initChatbot() {
     // Check if already initialized
