@@ -7,6 +7,59 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }    
       
+    /**
+     * PURCHASE TRACKING
+     */
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Get or create website user ID
+    function getOrCreateWebsiteUserId() {
+      let websiteUserId = localStorage.getItem('websiteUserId');
+      if (!websiteUserId) {
+        websiteUserId = generateUUID();
+        localStorage.setItem('websiteUserId', websiteUserId);
+      }
+      return websiteUserId;
+    }
+
+    // Check if on checkout page
+    function isCheckoutPage() {
+      return window.location.href.includes('/checkout/');
+    }
+
+    // Track purchase status
+    function trackPurchaseStatus() {
+      const websiteUserId = getOrCreateWebsiteUserId();
+      const madePurchase = isCheckoutPage();
+      const chatbotId = "jagttegnkurser";
+      
+      // Only track purchase status, don't set usedChatbot flag here
+      // usedChatbot will be set only when an actual conversation occurs
+      fetch('https://egendatabasebackend.onrender.com/crm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          websiteuserid: websiteUserId,
+          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
+          madePurchase: madePurchase,
+          chatbot_id: chatbotId
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Purchase tracking updated:', data))
+      .catch(error => console.error('Error updating purchase tracking:', error));
+    }
+
+    // Run tracking on page load
+    trackPurchaseStatus();
+      
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -34,17 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     @keyframes jump {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(-10px); }
     }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    #chat-button svg.pulse {
-      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
-    } 
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
@@ -59,18 +102,18 @@ document.addEventListener('DOMContentLoaded', function() {
        ---------------------------------------- */
     #chat-container {
       position: fixed;
-      bottom: 40px;
-      right: 30px;
-      z-index: 2000000;
+      bottom: 20px;
+      right: 10px;
+      z-index: 200;
     }
     #chat-button {
       cursor: pointer;
       background: none;
       border: none;
       position: fixed;
-      z-index: 200000;
-      left: 60px;
-      bottom: 70px;
+      z-index: 20;
+      right: 10px;
+      bottom: 20px;
     }
     #chat-button svg {
       width: 60px;
@@ -96,13 +139,13 @@ document.addEventListener('DOMContentLoaded', function() {
   
     /* Popup container */
     #chatbase-message-bubbles {
-      position: fixed;
-      bottom: 140px;
-      left: -142px;
+      position: absolute;
+      bottom: 70px;
+      right: 7px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
-      z-index: 20000;
+      z-index: 18;
       scale: 0.55;
       cursor: pointer;
       display: none; /* hidden by default */
@@ -174,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #9ad742;
+      --icon-color: #626b4e;
     }
   
     /* The main message content area */
@@ -236,7 +279,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <iframe
         id="chat-iframe"
         src="https://skalerbartprodukt.onrender.com"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 4000000;">
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -274,7 +317,10 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      var messageData = {
+      // Retrieve or create websiteuserid in parent domain's localStorage
+      let websiteUserId = getOrCreateWebsiteUserId();
+
+var messageData = {
       action: 'integrationOptions',
       chatbotID: "superprice",
       pagePath: window.location.href,
@@ -309,9 +355,14 @@ document.addEventListener('DOMContentLoaded', function() {
       headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
       titleG: "Superprice-AI",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      parentWebsiteUserId: websiteUserId,
+  
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
+
+
+
 
   
       // If the iframe is already visible, post the message immediately.
@@ -336,6 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -348,6 +400,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      } else if (event.data.action === 'conversationStarted') {
+        // User has started a conversation - track this as actual chatbot usage
+        const websiteUserId = getOrCreateWebsiteUserId();
+        const madePurchase = isCheckoutPage();
+        const chatbotId = "jagttegnkurser";
+        
+        fetch('https://egendatabasebackend.onrender.com/crm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            websiteuserid: websiteUserId,
+            usedChatbot: true,
+            madePurchase: madePurchase,
+            chatbot_id: chatbotId
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Conversation tracking updated:', data))
+        .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
   
@@ -397,14 +470,14 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
+      // If the iframe is visible or the popup has been closed, do not show the popup
       if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
         return;
       }
-      
+        
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
-      var popupMessage = 'Har du brug for hjælp?';
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
         messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale produkter. <span id="funny-smiley">😊</span>` ;
@@ -421,28 +494,35 @@ document.addEventListener('DOMContentLoaded', function() {
       } else {
         popupElem.style.width = "460px";
       }
-    
+
+     
       popup.style.display = "flex";
-      document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
-    
-      // Existing timeout code remains unchanged
+      
+      // Add click event to message box for tracking
+      messageBox.addEventListener("click", function() {
+        // Open chat window
+        toggleChatWindow();
+      });
+  
+      // Blink after 2s
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
           smiley.classList.add('blink');
           setTimeout(function() {
             smiley.classList.remove('blink');
-          }, 5000);
+          }, 1000);
         }
-      }, 5000);
-    
+      }, 2000);
+  
+      // Jump after 12s
       setTimeout(function() {
         var smiley = document.getElementById('funny-smiley');
         if (smiley && popup.style.display === "flex") {
           smiley.classList.add('jump');
           setTimeout(function() {
             smiley.classList.remove('jump');
-          }, 5000);
+          }, 1000);
         }
       }, 12000);
     }
@@ -500,11 +580,11 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.bottom = '';
         iframe.style.right = '';
       } else {
-        iframe.style.left = '2vh';
+        iframe.style.left = 'auto';
         iframe.style.top = 'auto';
         iframe.style.transform = 'none';
         iframe.style.bottom = '3vh';
-        iframe.style.right = 'auto';
+        iframe.style.right = '2vw';
       }
     
       // Re-send data to iframe in case layout changes
