@@ -29,14 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if on checkout page
     function isCheckoutPage() {
-      return window.location.href.includes('/checkout/');
+      return window.location.href.includes('/kasse/');
     }
 
     // Track purchase status
     function trackPurchaseStatus() {
       const websiteUserId = getOrCreateWebsiteUserId();
       const madePurchase = isCheckoutPage();
-      const chatbotId = "jagttegnkurser";
+      const chatbotId = "superprice";
       
       // Only track purchase status, don't set usedChatbot flag here
       // usedChatbot will be set only when an actual conversation occurs
@@ -406,7 +406,7 @@ var messageData = {
         // User has started a conversation - track this as actual chatbot usage
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
+        const chatbotId = "superprice";
         
         fetch('https://egendatabasebackend.onrender.com/crm', {
           method: 'POST',
@@ -548,50 +548,31 @@ var messageData = {
     /**
      * 9. ADJUST IFRAME SIZE
      */
-    function adjustIframeSize() {
-      var iframe = document.getElementById('chat-iframe');
-      console.log("Adjusting iframe size. Window width:", window.innerWidth);
-    
-      // Keep 'isIframeEnlarged' logic if toggled from the iframe
-      if (isIframeEnlarged) {
-        // A bigger version if user toggles enlarge
-        iframe.style.width = 'calc(2 * 45vh + 6vw)';
-        iframe.style.height = '90vh';
-      } else {
-        // Default sizing:
-        // For phone/tablet (< 1000px), use 95vw
-        // For larger screens, use 50vh x 90vh
-        if (window.innerWidth < 1000) {
-            iframe.style.width = '95vw';
-            iframe.style.height = '90vh';
-        } else {
-            iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
-            iframe.style.height = '90vh';
-        }
-      
-      }
-    
-      // Always position fixed
-      iframe.style.position = 'fixed';
-    
-      // Center if mobile, else bottom-right
-      if (window.innerWidth < 1000) {
-        iframe.style.left = '50%';
-        iframe.style.top = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-        iframe.style.bottom = '';
-        iframe.style.right = '';
-      } else {
-        iframe.style.left = 'auto';
-        iframe.style.top = 'auto';
-        iframe.style.transform = 'none';
-        iframe.style.bottom = '3vh';
-        iframe.style.right = '2vw';
-      }
-    
-      // Re-send data to iframe in case layout changes
-      sendMessageToIframe();
-    }
+function adjustIframeSize() {
+  var iframe = document.getElementById('chat-iframe');
+  
+  if (window.innerWidth < 1000) {
+    iframe.style.width = '95vw';
+    iframe.style.height = '90vh';
+    iframe.style.left = '50%';
+    iframe.style.top = '50%';
+    iframe.style.transform = 'translate(-50%, -50%)';
+    iframe.style.bottom = '';
+    iframe.style.right = '';
+  } else {
+    iframe.style.width = 'calc(45vh + 6vw)';
+    iframe.style.height = '90vh';
+    // Positioning the iframe on the left as per your old version:
+    iframe.style.left = '2vh';
+    iframe.style.right = 'auto';
+    iframe.style.top = 'auto';
+    iframe.style.transform = 'none';
+    iframe.style.bottom = '3vh';
+  }
+  
+  sendMessageToIframe();
+}
+
     // Adjust size on page load + on resize
     adjustIframeSize();
     window.addEventListener('resize', adjustIframeSize);
