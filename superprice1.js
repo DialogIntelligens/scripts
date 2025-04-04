@@ -100,21 +100,22 @@ document.addEventListener('DOMContentLoaded', function() {
     /* ----------------------------------------
        C) CHAT BUTTON + POPUP STYLES
        ---------------------------------------- */
-    #chat-container {
-      position: fixed;
-      bottom: 20px;
-      right: 10px;
-      z-index: 200;
-    }
-    #chat-button {
-      cursor: pointer;
-      background: none;
-      border: none;
-      position: fixed;
-      z-index: 20;
-      right: 10px;
-      bottom: 20px;
-    }
+      #chat-container {
+        position: fixed;
+        bottom: 40px;
+        right: 30px;
+        z-index: 2000000;
+      }
+      #chat-button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        position: fixed;
+        z-index: 200000;
+        left: 60px;
+        bottom: 70px;
+      }
+
     #chat-button svg {
       width: 60px;
       height: 60px;
