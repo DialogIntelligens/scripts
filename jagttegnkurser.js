@@ -9,6 +9,59 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }    
       
+    /**
+     * PURCHASE TRACKING
+     */
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Get or create website user ID
+    function getOrCreateWebsiteUserId() {
+      let websiteUserId = localStorage.getItem('websiteUserId');
+      if (!websiteUserId) {
+        websiteUserId = generateUUID();
+        localStorage.setItem('websiteUserId', websiteUserId);
+      }
+      return websiteUserId;
+    }
+
+    // Check if on checkout page
+    function isCheckoutPage() {
+      return window.location.href.includes('/checkout/');
+    }
+
+    // Track purchase status
+    function trackPurchaseStatus() {
+      const websiteUserId = getOrCreateWebsiteUserId();
+      const madePurchase = isCheckoutPage();
+      const chatbotId = "jagttegnkurser";
+      const usedChatbot = false; // Default to false as requested
+
+      // Send data to CRM endpoint
+      fetch('https://den-utrolige-snebold.onrender.com/crm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          websiteuserid: websiteUserId,
+          usedChatbot: usedChatbot,
+          madePurchase: madePurchase,
+          chatbot_id: chatbotId
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Purchase tracking updated:', data))
+      .catch(error => console.error('Error updating purchase tracking:', error));
+    }
+
+    // Run tracking on page load
+    trackPurchaseStatus();
+      
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -360,6 +413,27 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!isCurrentlyOpen) {
         popup.style.display = "none";
         localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+        
+        // Track that user has used the chatbot
+        const websiteUserId = getOrCreateWebsiteUserId();
+        const madePurchase = isCheckoutPage();
+        const chatbotId = "jagttegnkurser";
+        
+        fetch('https://den-utrolige-snebold.onrender.com/crm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            websiteuserid: websiteUserId,
+            usedChatbot: true,
+            madePurchase: madePurchase,
+            chatbot_id: chatbotId
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Chatbot usage tracked:', data))
+        .catch(error => console.error('Error tracking chatbot usage:', error));
       }
     
       // Adjust the iframe size
@@ -413,6 +487,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
+      
+      // Add click event to message box for tracking
+      messageBox.addEventListener("click", function() {
+        // Track chatbot usage when clicking on popup message
+        const websiteUserId = getOrCreateWebsiteUserId();
+        const madePurchase = isCheckoutPage();
+        const chatbotId = "jagttegnkurser";
+        
+        fetch('https://den-utrolige-snebold.onrender.com/crm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            websiteuserid: websiteUserId,
+            usedChatbot: true,
+            madePurchase: madePurchase,
+            chatbot_id: chatbotId
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Popup click tracked:', data))
+        .catch(error => console.error('Error tracking popup click:', error));
+        
+        // Open chat window
+        toggleChatWindow();
+      });
   
       // Blink after 2s
       setTimeout(function() {
