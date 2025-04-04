@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
           leadGen: "%%",
           leadMail: "team@dialogintelligens.dk",
           leadField1: "Firmanavn",
-          leadField2: "Email",
+          leadField2: "Tlf Nummer",
           firstMessage:
             'Hej🤖 har du et spørgsmål om Dialog Intelligens?',
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
