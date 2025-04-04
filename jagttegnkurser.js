@@ -1,115 +1,30 @@
-<script>
 document.addEventListener('DOMContentLoaded', function() {
 
-  /********************************************************
-   * 1) CREATE OR GET THE STABLE USER ID
-   ********************************************************/
-  function getOrCreateUserId() {
-    let userId = localStorage.getItem('websiteuserid');
-    if (!userId) {
-      userId = 'cbt-' + Math.random().toString(36).substr(2, 12);
-      localStorage.setItem('websiteuserid', userId);
-    }
-    return userId;
-  }
 
-  /********************************************************
-   * 2) TRACK SITE VISIT ONCE PER SESSION
-   ********************************************************/
-  function trackSiteVisitIfNeeded() {
-    // If we've already tracked a visit this session, skip
-    if (localStorage.getItem('visitTracked') === 'true') return;
-    localStorage.setItem('visitTracked', 'true');
 
-    const userId = getOrCreateUserId();
-
-    // Call CRM with usedChatbot=false, madePurchase=false
-    fetch('https://egendatabasebackend.onrender.com/crm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        websiteuserid: userId,
-        usedChatbot: 'false',
-        madePurchase: 'false',
-        chatbot_id: 'jagttegnkurser'
-      })
-    })
-    .then(r => r.json())
-    .then(resp => console.log('CRM site visit recorded:', resp))
-    .catch(e => console.error('CRM site visit error:', e));
-  }
-
-  /********************************************************
-   * 3) CHECK FOR CHECKOUT => track madePurchase=true
-   ********************************************************/
-  const checkoutUrlPattern = '/checkout/';
-
-  function isOnCheckoutPage() {
-    return window.location.href.toLowerCase().includes(checkoutUrlPattern.toLowerCase());
-  }
-
-  function trackCheckoutIfAny() {
-    if (localStorage.getItem('purchaseTracked') === 'true') return;
-    if (isOnCheckoutPage()) {
-      localStorage.setItem('purchaseTracked', 'true');
-      const userId = getOrCreateUserId();
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          websiteuserid: userId,
-          usedChatbot: 'true',   // safe to mark usedChatbot as well
-          madePurchase: 'true',
-          chatbot_id: 'jagttegnkurser'
-        })
-      })
-      .then(r => r.json())
-      .then(resp => console.log('Purchase tracked in CRM:', resp))
-      .catch(e => console.error('Error tracking purchase:', e));
-    }
-  }
-  // Check every 8 seconds
-  setInterval(trackCheckoutIfAny, 8000);
-
-  /********************************************************
-   * 4) MARK WHEN USER OPENS THE CHATBOT => usedChatbot=true
-   ********************************************************/
-  let hasAlreadyNotifiedChatUse = false;
-  function notifyChatUsed() {
-    if (hasAlreadyNotifiedChatUse) return;
-    hasAlreadyNotifiedChatUse = true;
-
-    const userId = getOrCreateUserId();
-    fetch('https://egendatabasebackend.onrender.com/crm', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        websiteuserid: userId,
-        usedChatbot: 'true',
-        madePurchase: 'false',
-        chatbot_id: 'jagttegnkurser'
-      })
-    })
-    .then(r => r.json())
-    .then(resp => console.log('CRM usage recorded:', resp))
-    .catch(e => console.error('CRM usage error:', e));
-  }
-
-  /********************************************************
-   * 5) MAIN INIT: load chatbot container, styles, popup
-   ********************************************************/
   function initChatbot() {
-    // (b) Track the site visit once per session
-    trackSiteVisitIfNeeded();
-
-
-    // Your existing code:
+    // Check if already initialized
+    if (document.getElementById('chat-container')) {
+      console.log("Chatbot already loaded.");
+      return;
+    }    
+      
+      // 1. Create a unique container for your widget
+    var widgetContainer = document.createElement('div');
+    widgetContainer.id = 'my-chat-widget';
+    document.body.appendChild(widgetContainer);    
+    /**
+     * 1. GLOBAL & FONT SETUP
+     */
     var isIframeEnlarged = false; 
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
     document.head.appendChild(fontLink);
-
+  
+    /**
+     * 2. INJECT CSS
+     */
     var css = `
     /* ----------------------------------------
        A) ANIMATIONS
@@ -122,14 +37,6 @@ document.addEventListener('DOMContentLoaded', function() {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-10px); }
     }
-    @keyframes pulse {
-      0% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 0.7; }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    #chat-button svg.pulse {
-      animation: pulse 1.5s ease-in-out 3; /* ~5s total */
-    }     
     #funny-smiley.blink {
       display: inline-block;
       animation: blink-eye 0.5s ease-in-out 2;
@@ -259,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #304f9b;
+      --icon-color: #626b4e;
     }
   
     /* The main message content area */
@@ -355,14 +262,11 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 5. CHAT IFRAME LOGIC
      */
-function sendMessageToIframe() {
+    function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
-      // Reuse the same stable ID from localStorage
-      const userId = getOrCreateUserId();
-
   
-var messageData = {
+      var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagttegnkurser",
       pagePath: window.location.href,
@@ -394,8 +298,6 @@ var messageData = {
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
-      parentWebsiteUserId: userId,
-  
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -465,7 +367,6 @@ var messageData = {
     
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
-        notifyChatUsed();
         setTimeout(function() {
           iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
         }, 100);
@@ -512,10 +413,6 @@ var messageData = {
 
      
       popup.style.display = "flex";
-      if (enablePulseAnimation) {
-        document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
-      }
-      var enablePulseAnimation = false; 
   
       // Blink after 2s
       setTimeout(function() {
@@ -634,13 +531,11 @@ var messageData = {
   initChatbot();
   
   // After 2 seconds, check if a key element is present; if not, reinitialize.
-  [2000, 5000, 10000].forEach(function(delay) {
   setTimeout(function() {
     if (!document.getElementById('chat-container')) {
-      console.log(`Chatbot not loaded after ${delay / 1000} seconds, retrying...`);
+      console.log("Chatbot not loaded after 2 seconds, retrying...");
       initChatbot();
     }
-  }, delay);
-  
-});  
+  }, 5000);
+        
 });  
