@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const usedChatbot = false; // Default to false as requested
 
       // Send data to CRM endpoint
-      fetch('https://den-utrolige-snebold.onrender.com/crm', {
+      fetch('https://egendatabasebackend.onrender.com/crm', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
