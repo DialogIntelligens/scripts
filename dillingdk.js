@@ -309,7 +309,7 @@ function initChatbot() {
       headerTitleG: "Jeg er DILLING's AI-chatbot.",
       headerSubtitleG: "Ved at gøre brug af vores AI-chatbot, så accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
       titleG: "DILLING Chat ",
-      firstMessage: "Hej med dig  Jeg er ny hos DILLING og er stadig under oplæring. Men jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  \n ",
+      firstMessage: "Hej med dig.  Jeg er ny hos DILLING og er stadig under oplæring. Jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  ",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
