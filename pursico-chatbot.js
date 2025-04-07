@@ -386,7 +386,7 @@ setInterval(trackCheckoutIfAny, 8000);
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to finacial independence💸 How can i help?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
