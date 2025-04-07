@@ -190,6 +190,20 @@ function initChatbot() {
       word-wrap: break-word;
       max-width: 100%;
     }
+    .gDpkyS {
+      position: fixed;
+      width: 100vw;
+      height: 100%;
+      bottom: 0em;
+      right: 0em;
+      background-color: white;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 0.3em 0.5em;
+      border-radius: 0.8em;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      visibility: visible;
+    }    
   `;
   var style = document.createElement('style');
   style.appendChild(document.createTextNode(css));
