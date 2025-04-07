@@ -383,9 +383,9 @@ setInterval(trackCheckoutIfAny, 8000);
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Pursico.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744025109845.png",
       themeColor: "#15533f",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "NIH's Virtuelle Assistent",
+      headerTitleG: "Pursico",
+      headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be stored and processed. Read more in our privacy policy.",
+      titleG: "Pursico's AI assistant",
       firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to finacial independence💸 How can i help?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
