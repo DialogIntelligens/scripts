@@ -243,7 +243,7 @@ setInterval(trackCheckoutIfAny, 8000);
     }
   
     :root {
-      --icon-color: #224e9a;
+      --icon-color: #b09c3d;
     }
   
     /* The main message content area */
@@ -381,7 +381,7 @@ setInterval(trackCheckoutIfAny, 8000);
       valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Pursico.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744025109845.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
