@@ -484,23 +484,17 @@ function initChatbot() {
   
     // Keep 'isIframeEnlarged' logic if toggled from the iframe
     if (isIframeEnlarged) {
-      // A bigger version if user toggles enlarge
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
       iframe.style.height = (window.innerHeight < 720) ? '87vh' : '88vh';
     } else {
-      // Default sizing:
-      // For phone/tablet (< 1000px), use 95vw
-      // For larger screens, use 50vh x 90vh
       if (window.innerWidth < 1000) {
         iframe.style.width = '95vw';
         iframe.style.height = (window.innerHeight < 720) ? '87vh' : '90vh';
       } else {
-        iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
+        iframe.style.width = 'calc(45vh + 6vw)';
         iframe.style.height = (window.innerHeight < 720) ? '87vh' : '88vh';
       }
     }
-  }
-
   
     // Always position fixed
     iframe.style.position = 'fixed';
@@ -520,7 +514,6 @@ function initChatbot() {
       iframe.style.right = '2vw';
     }
   
-    // Re-send data to iframe in case layout changes
     sendMessageToIframe();
   }
   // Adjust size on page load + on resize
