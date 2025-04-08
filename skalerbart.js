@@ -27,10 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
       return websiteUserId;
     }
 
-    // Check if on checkout page
+    const checkoutPath = '/checkout/';
+    
     function isCheckoutPage() {
-      return window.location.href.includes('/checkout/');
+      return window.location.href.includes(checkoutPath);
     }
+
 
     // Track purchase status
     function trackPurchaseStatus() {
