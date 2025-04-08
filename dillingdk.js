@@ -493,7 +493,7 @@ function initChatbot() {
       // For larger screens, use 50vh x 90vh
       if (window.innerWidth < 1000) {
         iframe.style.width = '95vw';
-        iframe.style.height = '88vh';
+        iframe.style.height = '87vh';
       } else {
         iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
         iframe.style.height = '88vh';
@@ -514,7 +514,7 @@ function initChatbot() {
       iframe.style.left = 'auto';
       iframe.style.top = 'auto';
       iframe.style.transform = 'none';
-      iframe.style.bottom = '1vh';
+      iframe.style.bottom = '0vh';
       iframe.style.right = '2vw';
     }
   
