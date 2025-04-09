@@ -224,7 +224,7 @@ function initChatbot() {
       headerLogoG: "https://image-hosting-pi.vercel.app/WashWorld_logo.png",
       themeColor: "#3ac165",
       headerTitleG: "Wish Wash, vores virtuelle assistent",
-      headerSubtitleG: "Her skriver du med vores chatbot, der er baseret på kunstig intelligens. Samtaler med chatbotten kan gemmes og anvendes til forbedring af funktionen. Læs mere i vores privatlivspolitik. Får du ikke besvaret dine spørgsmål her, er du velkommen til at skrive til vores kundeservice på kundeservice@washworld.dk",
+      headerSubtitleG: "Her skriver du med vores chatbot, der er baseret på kunstig intelligens. Samtaler med chatbotten kan gemmes og anvendes til forbedring af funktionen. Læs mere i vores privatlivspolitik. Får du ikke besvaret dine spørgsmål her, er du velkommen til at skrive til vores kundeservice på [kundeservice@washworld.dk](mailto:kundeservice@washworld.dk)",
       titleG: "Wash World",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
