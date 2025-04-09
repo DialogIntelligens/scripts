@@ -1,7 +1,7 @@
 function initChatbot() {
   // Check if already initialized
   if (document.getElementById('chat-container')) {
-    console.log("Chatbot already loaded.");
+   // console.log("Chatbot already loaded.");
     return;
   }    
       
@@ -491,7 +491,7 @@ popupContainer.addEventListener("click", function(e) {
    */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
-    console.log("Adjusting iframe size. Window width:", window.innerWidth);
+    //console.log("Adjusting iframe size. Window width:", window.innerWidth);
   
     // Keep 'isIframeEnlarged' logic if toggled from the iframe
     if (isIframeEnlarged) {
@@ -558,7 +558,7 @@ initChatbot();
 // After 2 seconds, check if a key element is present; if not, reinitialize.
 setTimeout(function() {
   if (!document.getElementById('chat-container')) {
-    console.log("Chatbot not loaded after 2 seconds, retrying...");
+   // console.log("Chatbot not loaded after 2 seconds, retrying...");
     initChatbot();
   }
 }, 5000);
