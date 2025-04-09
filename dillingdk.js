@@ -314,6 +314,7 @@ function initChatbot() {
       valutaOverride: "KR",
   
       replaceExclamationWithPeriod: true,
+      fontFamily: "Montserrat, sans-serif",
         
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
