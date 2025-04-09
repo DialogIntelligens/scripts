@@ -224,6 +224,8 @@ function initChatbot() {
       themeColor: "#3ac165",
       headerTitleG: "Wish Wash, vår virtuelle assistent",
       headerSubtitleG: "Her skriver du med vår chatbot, som er basert på kunstig intelligens. Samtaler med chatboten kan lagres og brukes for å forbedre funksjonen. Les mer i vår personvernerklæring. Får du ikke svar på spørsmålene dine her, er du velkommen til å kontakte vår kundeservice på kundeservice@washworld.no.",
+      subtitleLinkText: "kundeservice@washworld.no",
+      subtitleLinkUrl: "mailto:kundeservice@washworld.no",
       titleG: "Wash World",
       firstMessage: "Hei 😊 Hva kan jeg hjelpe deg med?🚗",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
