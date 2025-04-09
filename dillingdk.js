@@ -279,7 +279,7 @@ function initChatbot() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "dilling",
+      chatbotID: "dillingdk",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
