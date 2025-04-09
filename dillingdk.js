@@ -468,6 +468,16 @@ function initChatbot() {
       localStorage.setItem("popupClosed", "true");  // Save popup closed state
     });
   }
+
+  // Add event listener to popup so clicking on it (except the close button) toggles the chat window
+var popupContainer = document.getElementById("chatbase-message-bubbles");
+popupContainer.addEventListener("click", function(e) {
+  // Ensure that clicking on the close button does not trigger toggling the chat
+  if (e.target.closest(".close-popup") === null) {
+    toggleChatWindow();
+  }
+});
+
     
   // Check if the popup has been closed previously
   // var popupClosed = localStorage.getItem("popupClosed");
