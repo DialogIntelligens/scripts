@@ -380,7 +380,7 @@ setInterval(trackCheckoutIfAny, 8000);
       languageOverride: "",
       valutaOverride: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_nytelse.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744618878962.png",
       themeColor: "#653577",
       headerTitleG: " ",
