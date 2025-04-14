@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #b79d67;
     }
   
     /* The main message content area */
@@ -360,15 +360,15 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/egendrom.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744635588416.png",
+      themeColor: "#b79d67",
+      headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Ejendrøm's AI Drømmer",
+      firstMessage: "Hej! Spørg mig om boliger, vurdering, eller få hjælp til at finde den rette bolig for dig 🏠😊",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring jagt og vores kurser🦌 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp med boliger, vurdering, eller til at finde den rette bolig for dig? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
