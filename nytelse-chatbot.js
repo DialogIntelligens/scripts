@@ -353,7 +353,7 @@ setInterval(trackCheckoutIfAny, 8000);
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e2ffea54-256f-41b2-9471-d4d5630b5484",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0f958715-2de4-4bd1-8e09-51e05099f803",
       flow4API: "",
       flow4Key: "",
         
@@ -486,7 +486,7 @@ setInterval(trackCheckoutIfAny, 8000);
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Trenger du hjelp? Jeg kan svare på spørsmål og anbefale et produkt til deg. <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
