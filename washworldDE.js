@@ -227,6 +227,9 @@ function initChatbot() {
       headerSubtitleG: "Hier schreiben Sie mit unserem Chatbot, der auf künstlicher Intelligenz basiert. Gespräche mit dem Chatbot können gespeichert und zur Verbesserung der Funktion verwendet werden. Lesen Sie mehr in unserer Datenschutzrichtlinie. Falls Ihre Fragen hier nicht beantwortet werden, können Sie sich gerne an unseren Kundenservice unter ",
       subtitleLinkText: "kundendienst@washworld.de",
       subtitleLinkUrl: "mailto:kundendienst@washworld.de",
+
+      inputPlaceholder: "Schreibe deine Frage hier...",
+      ratingMessage: "Hast du deine Frage beantwortet bekommen?,
       
       titleG: "Wash World",
       firstMessage: "Hallo 😊 Wie kann ich Ihnen helfen?🚗",
