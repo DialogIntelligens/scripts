@@ -229,7 +229,7 @@ function initChatbot() {
       subtitleLinkUrl: "mailto:kundendienst@washworld.de",
 
       inputPlaceholder: "Schreibe deine Frage hier...",
-      ratingMessage: "Hast du deine Frage beantwortet bekommen?,
+      ratingMessage: "Hast du deine Frage beantwortet bekommen?",
       
       titleG: "Wash World",
       firstMessage: "Hallo 😊 Wie kann ich Ihnen helfen?🚗",
