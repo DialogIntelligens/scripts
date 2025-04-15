@@ -163,7 +163,7 @@ function initChatbot() {
     }
   
     :root {
-      --icon-color: #0a0a0a;
+      --icon-color: #000000;
     }
   
     /* The main message content area */
@@ -337,9 +337,7 @@ function initChatbot() {
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?,
-      
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
+      ratingMessage: "Fik du besvaret dit spørgmål?"https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
