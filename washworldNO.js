@@ -226,6 +226,10 @@ function initChatbot() {
       headerSubtitleG: "Her skriver du med vår chatbot, som er basert på kunstig intelligens. Samtaler med chatboten kan lagres og brukes for å forbedre funksjonen. Les mer i vår personvernerklæring. Får du ikke svar på spørsmålene dine her, er du velkommen til å kontakte vår kundeservice på",
       subtitleLinkText: "kundeservice@washworld.no",
       subtitleLinkUrl: "mailto:kundeservice@washworld.no",
+
+      inputPlaceholder: "Skriv spørsmålet ditt her...",
+      ratingMessage: "Fikk du svar på spørsmålet ditt?",
+      
       titleG: "Wash World",
       firstMessage: "Hei 😊 Hva kan jeg hjelpe deg med?🚗",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
