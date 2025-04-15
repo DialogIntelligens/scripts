@@ -227,7 +227,7 @@ function initChatbot() {
       subtitleLinkText: "kundeservice@washworld.se",
       subtitleLinkUrl: "mailto:kundeservice@washworld.se",
 
-      inputPlaceholder: "Schreibe deine Frage hier...",
+      inputPlaceholder: "Skriv din fråga här...",
       ratingMessage: "Fick du svar på din fråga?",
       
       titleG: "Wash World",
