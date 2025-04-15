@@ -380,6 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // Set confirmation messages
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+
+      inputPlaceholder: "Skriv dit spørgsmål her...",
+      ratingMessage: "Fik du besvaret dit spørgmål?,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
