@@ -360,6 +360,27 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+
+      // Set FreshdeskForm text
+      freshdeskEmailLabel: "Din email:",
+      freshdeskMessageLabel: "Besked til kundeservice:",
+      freshdeskImageLabel: "Upload billede (valgfrit):",
+      freshdeskChooseFileText: "Vælg fil",
+      freshdeskNoFileText: "Ingen fil valgt",
+      freshdeskSendingText: "Sender...",
+      freshdeskSubmitText: "Send henvendelse",
+        
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: "Email er påkrævet",
+      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
+      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
+      freshdeskMessageRequiredError: "Besked er påkrævet",
+      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+        
+      // Set confirmation messages
+      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+        
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
