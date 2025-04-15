@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #224e9a;
     }
   
     /* The main message content area */
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slagteralibaba.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Hej! Jeg kan svare på spørgsmål omkring jagt og vores kurser🦌 Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
