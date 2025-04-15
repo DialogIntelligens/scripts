@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #f19139;
+      --icon-color: #fb9038;
     }
   
     /* The main message content area */
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/linaa-privatlivpolitik.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744626251999.png",
-      themeColor: "#f19139",
+      themeColor: "#fb9039",
       headerTitleG: "LINÅ'S CHATBOT",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
