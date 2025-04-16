@@ -303,7 +303,8 @@ function initChatbot() {
   
       useThumbsRating: true,
       ratingTimerDuration: 10000,
-  
+
+      pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "dilling-faq",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "dilling-pro",
