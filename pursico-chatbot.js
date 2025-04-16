@@ -243,7 +243,7 @@ setInterval(trackCheckoutIfAny, 8000);
     }
   
     :root {
-      --icon-color: #b09c3d;
+      --icon-color: #15533f;
     }
   
     /* The main message content area */
@@ -348,7 +348,7 @@ setInterval(trackCheckoutIfAny, 8000);
       chatbotID: "pursico",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6cf299db-3b64-440f-9113-09bf9e1427a1",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8331cbf3-a053-4d29-b233-093744c6279b",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6454e28c-6a2f-4cce-b0ef-e76e338031ee",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
@@ -486,7 +486,7 @@ setInterval(trackCheckoutIfAny, 8000);
       var userHasVisited = getCookie("userHasVisited");
       if (!userHasVisited) {
         setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `I'm an AI trained on all of our guides. How can i help? <span id="funny-smiley">😊</span>` ;
+        messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
       } else {
         messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
       }
