@@ -336,7 +336,7 @@ function initChatbot() {
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
+      inputPlaceholder: "Schrijf hier je vraag...",
       ratingMessage: "Fik du besvaret dit spørgmål?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
