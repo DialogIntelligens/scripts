@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
           flow2API: '',
           flow3Key: 'sdfdsfds',
           flow3API: '',
-          privacyLink: '',
+          privacyLink: 'https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/privacy_policy_dialogintelligens.pdf',
           headerLogoG:
             'https://dialogintelligens.dk/wp-content/uploads/2025/03/Untitled_Artwork-2.png',
           themeColor: '#1D5288',
