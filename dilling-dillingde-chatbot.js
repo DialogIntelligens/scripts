@@ -163,7 +163,7 @@ function initChatbot() {
     }
   
     :root {
-      --icon-color: #0a0a0a;
+      --icon-color: #000000;
     }
   
     /* The main message content area */
@@ -310,35 +310,35 @@ function initChatbot() {
       flow3KnowledgebaseIndex: "dilling-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
+      websiteOverride: "dilling.de",
+      languageOverride: "German",
+      valutaOverride: "EUR",
   
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Deine E-Mail-Adresse:",
+      freshdeskMessageLabel: "Nachricht an den Kundenservice:",
+      freshdeskImageLabel: "Bild hochladen (optional):",
+      freshdeskChooseFileText: "Datei auswählen",
+      freshdeskNoFileText: "Keine Datei ausgewählt",
+      freshdeskSendingText: "Senden...",
+      freshdeskSubmitText: "Anfrage absenden",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: " E-Mail ist erforderlich",
+      freshdeskEmailInvalidError: "Bitte eine gültige E-Mail-Adresse eingeben",
+      freshdeskFormErrorText: "Bitte korrigiere die Fehler im Formular",
+      freshdeskMessageRequiredError: "Nachricht ist erforderlich",
+      freshdeskSubmitErrorText: "Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es erneut.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
+      freshdeskConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      inputPlaceholder: "Schreibe hier deine Frage...",
+      ratingMessage: "Wurde deine Frage beantwortet?",
       
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
