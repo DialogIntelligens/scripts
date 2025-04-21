@@ -318,27 +318,27 @@ function initChatbot() {
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Jouw e-mailadres:",
+      freshdeskMessageLabel: "Bericht aan klantenservice:",
+      freshdeskImageLabel: "Upload afbeelding (optioneel):",
+      freshdeskChooseFileText: "Bestand kiezen",
+      freshdeskNoFileText: "Geen bestand gekozen",
+      freshdeskSendingText: "Versturen...",
+      freshdeskSubmitText: "Verstuur aanvraag",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: "E-mail is verplicht",
+      freshdeskEmailInvalidError: "Voer een geldig e-mailadres in",
+      freshdeskFormErrorText: "Corrigeer alstublieft de fouten in het formulier",
+      freshdeskMessageRequiredError: "Bericht is verplicht",
+      freshdeskSubmitErrorText: "Er is een fout opgetreden bij het verzenden van de aanvraag. Probeer het opnieuw.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Dank je voor je bericht, we nemen zo snel mogelijk contact met je op.",
+      freshdeskConfirmationText: "Dank je voor je bericht, we nemen zo snel mogelijk contact met je op.",
 
       inputPlaceholder: "Schrijf hier je vraag...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      ratingMessage: "Is je vraag beantwoord?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
