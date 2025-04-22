@@ -291,6 +291,7 @@ function initChatbot() {
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
       flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
       flow4Key: "category",
+      productButtonText: "PRODUKT ANSEHEN",
       
       imageAPI: "",
   
