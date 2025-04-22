@@ -306,9 +306,9 @@ function initChatbot() {
 
       pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
       knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "",
+      flow2KnowledgebaseIndex: "dillingde-pro",
       flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "dillingde-kat",
       apiFlowKnowledgebaseIndex: "dilling-faq",
       websiteOverride: "dilling.de",
       languageOverride: "German",
