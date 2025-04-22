@@ -340,7 +340,7 @@ function initChatbot() {
 
       inputPlaceholder: "Schrijf hier je vraag...",
       ratingMessage: "Is je vraag beantwoord?",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
@@ -444,7 +444,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Heb je hulp nodig? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
