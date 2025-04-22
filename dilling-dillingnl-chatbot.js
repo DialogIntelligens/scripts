@@ -313,6 +313,7 @@ function initChatbot() {
       websiteOverride: "dilling.nl",
       languageOverride: "Dutch",
       valutaOverride: "€",
+      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: "https://www.dilling.nl/categorie/example", but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to 'try' to find their product: https://www.dilling.nl/categorie/dames, https://www.dilling.nl/categorie/heren, https://www.dilling.nl/categorie/kinderen and https://www.dilling.nl/categorie/baby, https://www.dilling.nl/categorie/nieuw (if no gender or age is provided). The hyperlink name should match the URL end, e.g. category/lady hyperlink name should be 'category lady'. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
   
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
