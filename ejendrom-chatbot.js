@@ -337,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4Key: "",
         
       leadGen: "%%",
-      leadMail: "team@dialogintelligens.dk",
+      leadMail: "hej@ejendroem.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
       productButtonText: "SE BOLIG",
