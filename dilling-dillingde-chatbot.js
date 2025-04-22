@@ -345,10 +345,10 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
-      headerTitleG: "Ich bin DILLINGs KI-Chatbot",
-      headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
+      headerTitleG: "Ich bin DILLINGs AI-Chatbot",
+      headerSubtitleG: "Du schreibst mit einem AI-Chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet werden kann, um deine Erfahrung zu verbessern. Lies mehr in unserer Datenschutzrichtlinie. Hinweis: Der Chatbot kann in manchen Fällen falsche Informationen liefern.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er ny hos DILLING og er stadig under oplæring. Men jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  ",
+      firstMessage: "Hallo 🙂 Ich bin neu bei DILLING und noch in der Ausbildung. Aber ich werde mein Bestes tun, wenn du Fragen zu DILLING oder unseren Produkten hast. Wie kann ich dir helfen?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -444,7 +444,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Brauchst du Hilfe? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
