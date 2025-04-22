@@ -434,18 +434,23 @@ function initChatbot() {
    * 7. SHOW/HIDE POPUP
    */
   function showPopup() {
+    // Prevent popup on mobile devices (window width < 800px)
+    if (window.innerWidth < 800) {
+      return;
+    }
+  
     var iframe = document.getElementById("chat-iframe");
-    // If the iframe is visible or the popup has been closed, do not show the popup
+    // If the iframe is visible, do not show the popup
     if (iframe.style.display !== "none") {
       return;
     }
-        
+          
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
@@ -459,9 +464,9 @@ function initChatbot() {
     } else {
       popupElem.style.width = "460px";
     }
-  
+    
     popup.style.display = "flex";
-  
+    
     // Blink after 2s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -472,7 +477,7 @@ function initChatbot() {
         }, 1000);
       }
     }, 2000);
-  
+    
     // Jump after 12s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
