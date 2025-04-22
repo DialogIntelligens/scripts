@@ -362,6 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/egendrom.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744635588416.png",
+      messageIcon: "https://image-hosting-pi.vercel.app/logo-1744635588416.png",
       themeColor: "#b79d67",
       headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
