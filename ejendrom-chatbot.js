@@ -340,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
       leadMail: "team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
+      productButtonText: "SE BOLIG",
 
       metaDataAPI: "",
       metaDataKey: "",
