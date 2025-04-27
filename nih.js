@@ -396,13 +396,10 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
-      var popupMessage = 'Har du brug for hjælp?';
-      if (!userHasVisited) {
-        setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Har du brug for hjælp? Jeg kan svare på spørgsmål og anbefale fag <span id="funny-smiley">😊</span>` ;
-      } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
-      }
+
+      const popupText = "Har du brug for hjælp?";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
+      
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
       var popupElem = document.getElementById("chatbase-message-bubbles");
