@@ -346,10 +346,10 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
-      headerTitleG: "Jeg er DILLINGs AI-chatbot",
-      headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
-      titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er ny hos DILLING og er stadig under oplæring. Men jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  ",
+      headerTitleG: "Je suis le chatbot AI de DILLING",
+      headerSubtitleG: "Vous échangez avec un chatbot AI. En même temps, vous acceptez que la conversation puisse être enregistrée et traitée afin d'améliorer votre expérience. Lisez-en plus dans notre politique de confidentialité. Remarque : le chatbot peut parfois fournir des informations erronées.",
+      titleG: "Chat de DILLING",
+      firstMessage: "Bonjour 🙂 Je suis nouveau chez DILLING et je suis encore en formation. Mais je ferai de mon mieux si vous avez des questions sur DILLING ou nos produits. Comment puis-je vous aider?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -450,7 +450,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
+      messageBox.innerHTML = `Avez-vous besoin d'aide? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
