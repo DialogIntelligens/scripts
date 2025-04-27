@@ -444,13 +444,9 @@ function initChatbot() {
         
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-    var userHasVisited = getCookie("userHasVisited");
-    if (!userHasVisited) {
-      setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Brauchst du Hilfe? <span id="funny-smiley">😊</span>` ;
-    } else {
-      messageBox.innerHTML = `Brauchst du Hilfe? <span id="funny-smiley">😄</span>`;
-    }
+
+    messageBox.innerHTML = `Brauchst du Hilfe? <span id="funny-smiley">😊</span>` ;
+    
     // Determine popup width based on character count (excluding any HTML tags)
     var charCount = messageBox.textContent.trim().length;
     var popupElem = document.getElementById("chatbase-message-bubbles");
