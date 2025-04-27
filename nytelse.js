@@ -483,13 +483,10 @@ setInterval(trackCheckoutIfAny, 8000);
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      var userHasVisited = getCookie("userHasVisited");
-      if (!userHasVisited) {
-        setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-        messageBox.innerHTML = `Trenger du hjelp? Jeg kan svare på spørsmål og anbefale et produkt til deg. <span id="funny-smiley">😊</span>` ;
-      } else {
-        messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
-      }
+
+      const popupText = "Trenger du hjelp? Jeg kan svare på spørsmål og anbefale et produkt til deg. ";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
+      
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
       var popupElem = document.getElementById("chatbase-message-bubbles");
