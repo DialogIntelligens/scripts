@@ -304,43 +304,43 @@ function initChatbot() {
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
-      pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "dillingfr-faq",
-      flow2KnowledgebaseIndex: "dillingfr-pro",
-      flow3KnowledgebaseIndex: "dillingfr-pro",
-      flow4KnowledgebaseIndex: "dillingfr-kat",
-      apiFlowKnowledgebaseIndex: "dillingfr-faq",
-      websiteOverride: "dilling.fr",
-      languageOverride: "French",
-      valutaOverride: "EUR",
-      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://www.dilling.fr/categorie/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://www.dilling.fr/categorie/femme, https://www.dilling.fr/categorie/homme, https://www.dilling.fr/categorie/bebe and https://www.dilling.fr/categorie/enfant, https://www.dilling.fr/categorie/nouveautes (if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
+      knowledgebaseIndexApiEndpoint: "dillinguk-faq",
+      flow2KnowledgebaseIndex: "dillinguk-pro",
+      flow3KnowledgebaseIndex: "dillinguk-pro",
+      flow4KnowledgebaseIndex: "dillinguk-kat",
+      apiFlowKnowledgebaseIndex: "dillinguk-faq",
+      websiteOverride: "dilling.uk",
+      languageOverride: "English",
+      valutaOverride: "£",
+      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://uk.dilling.com/category/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://uk.dilling.com/category/women, https://uk.dilling.com/category/men, https://uk.dilling.com/category/children and https://uk.dilling.com/category/baby, https://uk.dilling.com/category/new (if no gender or age is provided). The hyperlink name should match the URL end, e.g. category/lady hyperlink name should be category lady. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Votre e-mail :",
-      freshdeskMessageLabel: "Message au service client :",
-      freshdeskImageLabel: "Télécharger une image (facultatif) :",
-      freshdeskChooseFileText: "Choisir un fichier",
-      freshdeskNoFileText: "Aucun fichier sélectionné",
-      freshdeskSendingText: "Envoi en cours...",
-      freshdeskSubmitText: "Envoyer la demande",
+      freshdeskEmailLabel: "Your email:",
+      freshdeskMessageLabel: "Message to customer service:",
+      freshdeskImageLabel: "Upload image (optional):",
+      freshdeskChooseFileText: "Choose file",
+      freshdeskNoFileText: "No file chosen",
+      freshdeskSendingText: "Sending...",
+      freshdeskSubmitText: "Send inquiry",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "L'e-mail est requis",
-      freshdeskEmailInvalidError: "Veuillez saisir une adresse e-mail valide",
-      freshdeskFormErrorText: "Veuillez corriger les erreurs dans le formulaire",
-      freshdeskMessageRequiredError: "Le message est requis",
-      freshdeskSubmitErrorText: "Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer.",
+      freshdeskEmailRequiredError: "Email is required",
+      freshdeskEmailInvalidError: "Please enter a valid email address",
+      freshdeskFormErrorText: "Please correct the errors in the form",
+      freshdeskMessageRequiredError: "Message is required",
+      freshdeskSubmitErrorText: "An error occurred while sending the inquiry. Please try again.",
         
       // Set confirmation messages
-      contactConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
-      freshdeskConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
+      contactConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
+      freshdeskConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
 
-      inputPlaceholder: "Écrivez votre question ici...",
-      ratingMessage: "Votre question a-t-elle été répondue ?",
+      inputPlaceholder: "Type your question here...",
+      ratingMessage: "Did you get your question answered?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
@@ -450,7 +450,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Do you need help? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
