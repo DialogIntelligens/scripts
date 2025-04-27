@@ -305,14 +305,14 @@ function initChatbot() {
       ratingTimerDuration: 10000,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
+      knowledgebaseIndexApiEndpoint: "dillingfr-faq",
+      flow2KnowledgebaseIndex: "dillingfr-pro",
+      flow3KnowledgebaseIndex: "dillingfr-pro",
+      flow4KnowledgebaseIndex: "dillingfr-kat",
+      apiFlowKnowledgebaseIndex: "dillingfr-faq",
+      websiteOverride: "dilling.fr",
+      languageOverride: "French",
+      valutaOverride: "EUR",
       dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://dk.dilling.com/kategori/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://dk.dilling.com/kategori/baby, https://dk.dilling.com/kategori/born, https://dk.dilling.com/kategori/herre and https://dk.dilling.com/kategori/dame, https://dk.dilling.com/kategori/nyheder(if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
       dillingColors: "",      
       
@@ -320,27 +320,27 @@ function initChatbot() {
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Votre e-mail :",
+      freshdeskMessageLabel: "Message au service client :",
+      freshdeskImageLabel: "Télécharger une image (facultatif) :",
+      freshdeskChooseFileText: "Choisir un fichier",
+      freshdeskNoFileText: "Aucun fichier sélectionné",
+      freshdeskSendingText: "Envoi en cours...",
+      freshdeskSubmitText: "Envoyer la demande",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: "L'e-mail est requis",
+      freshdeskEmailInvalidError: "Veuillez saisir une adresse e-mail valide",
+      freshdeskFormErrorText: "Veuillez corriger les erreurs dans le formulaire",
+      freshdeskMessageRequiredError: "Le message est requis",
+      freshdeskSubmitErrorText: "Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
+      freshdeskConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      inputPlaceholder: "Écrivez votre question ici...",
+      ratingMessage: "Votre question a-t-elle été répondue ?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
@@ -450,7 +450,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Avez-vous besoin d'aide? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
