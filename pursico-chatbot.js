@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-  
+document.addEventListener('DOMContentLoaded', function() {  
 
   function initChatbot() {
     // Check if already initialized
