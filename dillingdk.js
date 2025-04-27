@@ -306,9 +306,9 @@ function initChatbot() {
 
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "",
+      flow2KnowledgebaseIndex: "dilling-pro",
       flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "dilling-kat",
       apiFlowKnowledgebaseIndex: "dilling-faq",
       websiteOverride: "dilling.dk",
       languageOverride: "Danish",
@@ -450,7 +450,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
