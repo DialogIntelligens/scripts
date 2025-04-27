@@ -305,15 +305,15 @@ function initChatbot() {
       ratingTimerDuration: 10000,
 
       pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
-      knowledgebaseIndexApiEndpoint: "dillinguk-faq",
-      flow2KnowledgebaseIndex: "dillinguk-pro",
-      flow3KnowledgebaseIndex: "dillinguk-pro",
-      flow4KnowledgebaseIndex: "dillinguk-kat",
-      apiFlowKnowledgebaseIndex: "dillinguk-faq",
-      websiteOverride: "dilling.uk",
+      knowledgebaseIndexApiEndpoint: "dillingeu-faq",
+      flow2KnowledgebaseIndex: "dillingeu-pro",
+      flow3KnowledgebaseIndex: "dillingeu-pro",
+      flow4KnowledgebaseIndex: "dillingeu-kat",
+      apiFlowKnowledgebaseIndex: "dillingeu-faq",
+      websiteOverride: "dilling.eu",
       languageOverride: "English",
-      valutaOverride: "£",
-      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://uk.dilling.com/category/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://uk.dilling.com/category/women, https://uk.dilling.com/category/men, https://uk.dilling.com/category/children and https://uk.dilling.com/category/baby, https://uk.dilling.com/category/new (if no gender or age is provided). The hyperlink name should match the URL end, e.g. category/lady hyperlink name should be category lady. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      valutaOverride: "EUR",
+      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://eu.dilling.com/category/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://eu.dilling.com/category/women, https://eu.dilling.com/category/men, https://eu.dilling.com/category/children and https://eu.dilling.com/category/baby, https://eu.dilling.com/category/new (if no gender or age is provided). The hyperlink name should match the URL end, e.g. category/lady hyperlink name should be category lady. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
@@ -450,7 +450,7 @@ function initChatbot() {
     var userHasVisited = getCookie("userHasVisited");
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Do you need help? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
     } else {
       messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     }
