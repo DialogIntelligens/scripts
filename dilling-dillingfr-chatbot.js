@@ -448,11 +448,14 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     var userHasVisited = getCookie("userHasVisited");
+    
+    const firstVisitMessage = `Har du brug for hjælp? <span id="funny-smiley">😊</span>`;
+    const returningVisitMessage = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
     if (!userHasVisited) {
       setCookie("userHasVisited", "true", 1, ".yourdomain.com");
-      messageBox.innerHTML = `Har du brug for hjælp? <span id="funny-smiley">😊</span>` ;
+      messageBox.innerHTML = firstVisitMessage;
     } else {
-      messageBox.innerHTML = `Velkommen tilbage! Har du brug for hjælp? <span id="funny-smiley">😄</span>`;
+      messageBox.innerHTML = returningVisitMessage;
     }
     // Determine popup width based on character count (excluding any HTML tags)
     var charCount = messageBox.textContent.trim().length;
