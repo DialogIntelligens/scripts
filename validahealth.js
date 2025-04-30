@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/privacy_policy_dialogintelligens.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_ValidaHealth.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740570079454.png",
       themeColor: "#535353",
       headerTitleG: "Valida Healths virtuelle assistent ",
