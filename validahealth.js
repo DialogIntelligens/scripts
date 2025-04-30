@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1740570079454.png",
       themeColor: "#535353",
       headerTitleG: "Valida Healths virtuelle assistent ",
-      headerSubtitleG: "Du skriver med Healthie, Valida Healths virtuelle assitent. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med Healthie, Valida Healths virtuelle assistent. Ved brug af denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Bemærk venligst, at vi fraråder at dele personfølsomme oplysninger som f.eks. helbredsdata eller CPR-nummer. \n\nLæs mere i vores privatlivspolitik.",
       titleG: "Valida Health",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?👩‍⚕️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
