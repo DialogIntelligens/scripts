@@ -142,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 90px;
-      right: 90px;
+      bottom: 100px;
+      right: 35px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg er din kød-ekspert – klar til at anbefale det bedste kød og svare på alle dine kød- og shopspørgsmål 🥩";
+      const popupText = "Jeg er din kød-ekspert – klar til at anbefale det bedste kød og svare på alle dine spørgsmål 🥩";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
