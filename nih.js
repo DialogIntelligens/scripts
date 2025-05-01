@@ -294,11 +294,11 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_Nih.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746083566174.png",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "NIH's Virtuelle Assistent",
+      titleG: "NIH-Boten Anna",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -397,7 +397,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
 
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "Har du spørgsmål, kan jeg hjælpe dig med det meste";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
