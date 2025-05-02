@@ -482,7 +482,7 @@ setInterval(trackCheckoutIfAny, 8000);
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
 
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "I can help you find the best ways to make money online📈 Do you need help?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
 
       // Determine popup width based on character count (excluding any HTML tags)
