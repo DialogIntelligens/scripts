@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746177284044.png",
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
       freshdeskMessageLabel: "Besked til kundeservice:",
