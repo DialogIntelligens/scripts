@@ -659,13 +659,16 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Initial attempt to load the chatbot.
   initChatbot();
-  
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
-  setTimeout(function() {
-    if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
+
+  // If #chat-container still isn't in the DOM, watch for it and retry once
+  const observer = new MutationObserver((mutations, obs) => {
+    if (document.getElementById('chat-container')) {
+      console.log("Chatbot injected—running initChatbot again");
       initChatbot();
+      obs.disconnect();
     }
-  }, 5000);
-        
-});  
+  });
+
+  // start observing document.body for new children
+  observer.observe(document.body, { childList: true, subtree: true });
+
