@@ -406,60 +406,30 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('chatWindowState', 'closed');
           window.location.href = event.data.url;
         } else if (event.data.action === 'conversationStarted') {
-          // Add debug logs to help diagnose iOS issues
-          console.log("Conversation started event received at:", new Date().toISOString());
-          console.log("Event data:", JSON.stringify(event.data));
-          
           // User has started a conversation - track this as actual chatbot usage
           const websiteUserId = getOrCreateWebsiteUserId();
           const madePurchase = isCheckoutPage();
           const chatbotId = "jagttegnkurser";
           
-          // Function to make the tracking API call with retries
-          const trackConversation = (retryCount = 0) => {
-            fetch('https://egendatabasebackend.onrender.com/crm', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                websiteuserid: websiteUserId,
-                usedChatbot: true,
-                madePurchase: madePurchase,
-                chatbot_id: chatbotId
-              })
+          fetch('https://egendatabasebackend.onrender.com/crm', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              websiteuserid: websiteUserId,
+              usedChatbot: true,
+              madePurchase: madePurchase,
+              chatbot_id: chatbotId
             })
-            .then(response => {
-              if (!response.ok) throw new Error('Network response was not ok: ' + response.status);
-              return response.json();
-            })
-            .then(data => {
-              console.log('Conversation tracking updated:', data);
-              // Store success in localStorage/cookie as backup
-              try {
-                localStorage.setItem('chatbotUsed', 'true');
-              } catch (e) {
-                setCookie('chatbotUsed', 'true', 30);
-              }
-            })
-            .catch(error => {
-              console.error('Error updating conversation tracking:', error);
-              // Retry up to 3 times with exponential backoff
-              if (retryCount < 3) {
-                const delay = Math.pow(2, retryCount) * 1000; // 1s, 2s, 4s
-                console.log(`Retrying in ${delay}ms...`);
-                setTimeout(() => trackConversation(retryCount + 1), delay);
-              } else {
-                // Last resort: store usage in localStorage/cookie even if API fails
-                try {
-                  localStorage.setItem('chatbotUsed', 'true');
-                } catch (e) {
-                  setCookie('chatbotUsed', 'true', 30);
-                }
-              }
-            });
-          };
-          
-          // Start tracking with retry logic
-          trackConversation();
+          })
+          .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+          })
+          .then(data => console.log('Conversation tracking updated:', data))
+          .catch(error => {
+            console.error('Error updating conversation tracking:', error);
+            // Consider retry logic here
+          });
         }
       });
     
@@ -488,19 +458,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // Adjust the iframe size
         adjustIframeSize();
       
-        // When opening, track this as a potential conversation start
+        // When opening, let the iframe know after a short delay
         if (!isCurrentlyOpen) {
           setTimeout(function() {
             iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-            
-            // Add this backup tracking of chat window opening
-            const websiteUserId = getOrCreateWebsiteUserId();
-            // Record that chat was opened (not a full conversation yet, but opened)
-            try {
-              localStorage.setItem('chatOpened', 'true');
-            } catch (e) {
-              setCookie('chatOpened', 'true', 30);
-            }
           }, 100);
         }
       }
