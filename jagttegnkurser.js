@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
       const madePurchase = isCheckoutPage();
       const chatbotId = "jagttegnkurser";
       
-      // Only track purchase status, don't set usedChatbot flag here
-      // usedChatbot will be set only when an actual conversation occurs
+      // Only track purchase status, don't set usedchatbot flag here
+      // usedchatbot will be set only when an actual conversation occurs
       fetch('https://egendatabasebackend.onrender.com/crm', {
         method: 'POST',
         headers: {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({
           websiteuserid: websiteUserId,
           user_id: websiteUserId,
-          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
+          usedchatbot: false, // Default to false - will be updated to true only when a real conversation happens
           madePurchase: madePurchase,
           chatbot_id: chatbotId
         })
@@ -406,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({
             websiteuserid: websiteUserId,
             user_id: websiteUserId,
-            usedChatbot: true,
+            usedchatbot: true,
             madePurchase: madePurchase,
             chatbot_id: chatbotId
           })
