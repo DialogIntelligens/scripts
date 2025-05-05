@@ -19,25 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
   
       // Get or create website user ID
       function getOrCreateWebsiteUserId() {
-        // Try localStorage first
         let websiteUserId = localStorage.getItem('websiteUserId');
-        
-        // If not in localStorage, check cookies
-        if (!websiteUserId) {
-          websiteUserId = getCookie('websiteUserId');
-        }
-        
-        // If still not found, create new ID and store in both places
         if (!websiteUserId) {
           websiteUserId = generateUUID();
-          try {
-            localStorage.setItem('websiteUserId', websiteUserId);
-          } catch (e) {
-            console.log("localStorage failed, using cookies only");
-          }
-          setCookie('websiteUserId', websiteUserId, 30); // 30 day cookie
+          localStorage.setItem('websiteUserId', websiteUserId);
         }
-        
         return websiteUserId;
       }
   
@@ -413,7 +399,9 @@ document.addEventListener('DOMContentLoaded', function() {
           
           fetch('https://egendatabasebackend.onrender.com/crm', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
               websiteuserid: websiteUserId,
               usedChatbot: true,
@@ -421,15 +409,9 @@ document.addEventListener('DOMContentLoaded', function() {
               chatbot_id: chatbotId
             })
           })
-          .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-          })
+          .then(response => response.json())
           .then(data => console.log('Conversation tracking updated:', data))
-          .catch(error => {
-            console.error('Error updating conversation tracking:', error);
-            // Consider retry logic here
-          });
+          .catch(error => console.error('Error updating conversation tracking:', error));
         }
       });
     
