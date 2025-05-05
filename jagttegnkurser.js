@@ -29,35 +29,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if on checkout page
     function isCheckoutPage() {
-      return window.location.href.includes('/checkout/');
+      return window.location.href.includes('/checkout/'); // Ensure this path is correct
     }
 
-    // Track purchase status
-    function trackPurchaseStatus() {
-      const websiteUserId = getOrCreateWebsiteUserId();
-      const madePurchase = isCheckoutPage();
-      const chatbotId = "jagttegnkurser";
+// Run tracking on page load
+    trackPurchaseStatus();
+
+    // Listen for messages from the iframe
+    window.addEventListener('message', function(event) {
+      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
       
-      // Only track purchase status, don't set usedchatbot flag here
-      // usedchatbot will be set only when an actual conversation occurs
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          websiteuserid: websiteUserId,
-          user_id: websiteUserId,
-          usedchatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: madePurchase,
-          chatbot_id: chatbotId
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => console.error('Error updating purchase tracking:', error));
-    }
-
+      if (event.data.action === 'toggleSize') {
+        isIframeEnlarged = !isIframeEnlarged;
+        adjustIframeSize();
+      } else if (event.data.action === 'closeChat') {
+        document.getElementById('chat-iframe').style.display = 'none';
+        document.getElementById('chat-button').style.display = 'block';
+        localStorage.setItem('chatWindowState', 'closed');
+      } else if (event.data.action === 'navigate') {
+        document.getElementById('chat-iframe').style.display = 'none';
+        document.getElementById('chat-button').style.display = 'block';
+        localStorage.setItem('chatWindowState', 'closed');
+        window.location.href = event.data.url;
+      } else if (event.data.action === 'conversationStarted') {
+        // This event is now just informational for the parent page.
+        // The actual tracking update (setting usedchatbot=true) 
+        // is initiated by the chatbot application (App.js) itself 
+        // when it receives the parentWebsiteUserId.
+        console.log("Conversation started event received from iframe (tracking update initiated by App.js).");
+      }
+    });
+    
     // Run tracking on page load
     trackPurchaseStatus();
       
