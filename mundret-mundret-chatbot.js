@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Mundrets Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra retter og lokaler til generelle spørgsmål, eller endda personlige anbefalinger 🥘",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra retter og koncept til generelle spørgsmål, eller endda personlige anbefalinger 🥘",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
