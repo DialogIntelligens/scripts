@@ -40,8 +40,7 @@ function trackPurchaseStatus() {
   
   console.log("Tracking initial visit/purchase status for:", websiteUserId, "Purchase:", madePurchase);
 
-  // Only track initial visit and purchase status
-  // The usedchatbot flag will be set by the chatbot app when a real conversation occurs
+  // Convert boolean to string 'true'/'false' to match backend expectations
   fetch('https://egendatabasebackend.onrender.com/crm', {
     method: 'POST',
     headers: {
@@ -49,9 +48,7 @@ function trackPurchaseStatus() {
     },
     body: JSON.stringify({
       websiteuserid: websiteUserId,
-      // Don't include user_id - backend will use websiteuserid
-      // Don't include usedchatbot - backend defaults to false
-      madePurchase: madePurchase,
+      madePurchase: madePurchase ? 'true' : 'false', // Convert boolean to string
       chatbot_id: chatbotId
     })
   })
