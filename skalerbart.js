@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   function initChatbot() {
+
+        const urlFlag = new URLSearchParams(window.location.search).get('chat');
+  if (urlFlag === 'open') {
+    // remember the preference so refreshes or internal navigation keep it open
+    localStorage.setItem('chatWindowState', 'open');
+    // optional: scrub the parameter from the address bar
+    history.replaceState(null, '', window.location.pathname);
+  }
+    
     // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
