@@ -32,15 +32,14 @@ document.addEventListener('DOMContentLoaded', function() {
       return window.location.href.includes('/checkout/');
     }
 
-    // Track initial visit and purchase status
-function trackPurchaseStatus() {
+        function trackPurchaseStatus() {
   const websiteUserId = getOrCreateWebsiteUserId();
   const madePurchase = isCheckoutPage();
   const chatbotId = "jagttegnkurser";
   
   console.log("Tracking initial visit/purchase status for:", websiteUserId, "Purchase:", madePurchase);
 
-  // Convert boolean to string 'true'/'false' to match backend expectations
+  // Use exact column names from database with exact casing
   fetch('https://egendatabasebackend.onrender.com/crm', {
     method: 'POST',
     headers: {
@@ -48,7 +47,8 @@ function trackPurchaseStatus() {
     },
     body: JSON.stringify({
       websiteuserid: websiteUserId,
-      madePurchase: madePurchase ? 'true' : 'false', // Convert boolean to string
+      usedchatbot: false, // lowercase to match DB column name
+      madepurchase: madePurchase ? 'true' : 'false', // lowercase to match DB column name
       chatbot_id: chatbotId
     })
   })
