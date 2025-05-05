@@ -32,32 +32,41 @@ document.addEventListener('DOMContentLoaded', function() {
       return window.location.href.includes('/checkout/');
     }
 
-    // Track purchase status
-    function trackPurchaseStatus() {
-      const websiteUserId = getOrCreateWebsiteUserId();
-      const madePurchase = isCheckoutPage();
-      const chatbotId = "jagttegnkurser";
-      
-      // Only track purchase status, don't set usedChatbot flag here
-      // usedChatbot will be set only when an actual conversation occurs
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          websiteuserid: websiteUserId,
-          user_id: websiteUserId,
-          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: madePurchase,
-          chatbot_id: chatbotId
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => console.error('Error updating purchase tracking:', error));
-    }
+    // Track initial visit and purchase status
+function trackPurchaseStatus() {
+  const websiteUserId = getOrCreateWebsiteUserId();
+  const madePurchase = isCheckoutPage();
+  const chatbotId = "jagttegnkurser";
+  
+  console.log("Tracking initial visit/purchase status for:", websiteUserId, "Purchase:", madePurchase);
 
+  // Only track initial visit and purchase status
+  // The usedchatbot flag will be set by the chatbot app when a real conversation occurs
+  fetch('https://egendatabasebackend.onrender.com/crm', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      websiteuserid: websiteUserId,
+      // Don't include user_id - backend will use websiteuserid
+      // Don't include usedchatbot - backend defaults to false
+      madePurchase: madePurchase,
+      chatbot_id: chatbotId
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      response.text().then(text => {
+        console.error('Error updating tracking - Status:', response.status, 'Text:', text);
+      });
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+    return response.json();
+  })
+  .then(data => console.log('Initial tracking updated:', data))
+  .catch(error => console.error('Error updating tracking:', error));
+}
     // Run tracking on page load
     trackPurchaseStatus();
       
@@ -392,28 +401,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
-      } else if (event.data.action === 'conversationStarted') {
-        // User has started a conversation - track this as actual chatbot usage
-        const websiteUserId = getOrCreateWebsiteUserId();
-        const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
-        
-        fetch('https://egendatabasebackend.onrender.com/crm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            websiteuserid: websiteUserId,
-            user_id: websiteUserId,
-            usedChatbot: true,
-            madePurchase: madePurchase,
-            chatbot_id: chatbotId
-          })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Conversation tracking updated:', data))
-        .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
   
