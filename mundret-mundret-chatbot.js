@@ -671,4 +671,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // start observing document.body for new children
   observer.observe(document.body, { childList: true, subtree: true });
-
+});
