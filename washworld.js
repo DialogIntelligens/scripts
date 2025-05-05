@@ -1,5 +1,14 @@
 // Wait until the DOM is fully loaded
 function initChatbot() {
+
+    const urlFlag = new URLSearchParams(window.location.search).get('chat');
+  if (urlFlag === 'open') {
+    // remember the preference so refreshes or internal navigation keep it open
+    localStorage.setItem('chatWindowState', 'open');
+    // optional: scrub the parameter from the address bar
+    history.replaceState(null, '', window.location.pathname);
+  }
+  
   // Inject CSS into the head
   var css = `
     /* Container for chat button and speech balloon */
