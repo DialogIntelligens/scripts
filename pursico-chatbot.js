@@ -384,7 +384,7 @@ setInterval(trackCheckoutIfAny, 8000);
       headerTitleG: "Pursico",
       headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be stored and processed. Read more in our privacy policy.",
       titleG: "Pursico's AI assistant",
-      firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to finacial independence💸 How can i help?",
+      firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to financial independence💰 How can i help?",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
