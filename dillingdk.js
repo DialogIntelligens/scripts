@@ -313,7 +313,7 @@ function initChatbot() {
       websiteOverride: "dilling.dk",
       languageOverride: "Danish",
       valutaOverride: "KR",
-      customVar1: "+40 97 12 05 88",
+      customVar1: "+45 97 12 05 88",
       dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://dk.dilling.com/kategori/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://dk.dilling.com/kategori/baby, https://dk.dilling.com/kategori/born, https://dk.dilling.com/kategori/herre and https://dk.dilling.com/kategori/dame, https://dk.dilling.com/kategori/nyheder(if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
       dillingColors: "",      
       
