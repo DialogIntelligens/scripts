@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         body: JSON.stringify({
           websiteuserid: websiteUserId,
+          user_id: websiteUserId,
           usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
           madePurchase: madePurchase,
           chatbot_id: chatbotId
@@ -415,6 +416,7 @@ var messageData = {
           },
           body: JSON.stringify({
             websiteuserid: websiteUserId,
+            user_id: websiteUserId,
             usedChatbot: true,
             madePurchase: madePurchase,
             chatbot_id: chatbotId
