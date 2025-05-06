@@ -393,7 +393,7 @@ document.addEventListener('DOMContentLoaded', function() {
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?,
+      ratingMessage: "Fik du besvaret dit spørgsmål?",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#f9b655",
       headerTitleG: "Bevco",
