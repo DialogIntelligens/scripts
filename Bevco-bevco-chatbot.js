@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Bevco's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🍹🍾",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller tips & tricks til drikkevarer og grej 🍹🍾",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
