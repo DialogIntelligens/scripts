@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #baa578;
     }
   
     /* The main message content area */
@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746177284044.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746524208139.png",
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
       freshdeskMessageLabel: "Besked til kundeservice:",
@@ -394,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgsmål?",
-      themeColor: "#494b47",
+      themeColor: "#494b45",
       headerTitleG: "Mundret",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
