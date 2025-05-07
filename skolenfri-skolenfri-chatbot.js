@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chatbotID: "skolenfri",
       pagePath: window.location.href,
       statestikAPI: "skolenfri-statistik",
-      apiEndpoint: "skolenfri-alt",
+      apiEndpoint: "skolenfri-alts",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
