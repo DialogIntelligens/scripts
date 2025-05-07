@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fik du besvaret dit spørgsmål?",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
       themeColor: "#f9b655",
-      headerTitleG: "Bevcos",
+      headerTitleG: "Bevco",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
