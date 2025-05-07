@@ -335,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "skolenfri",
       pagePath: window.location.href,
-      statestikAPI: "skolenfri-statistik",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba998f8b-1158-43d7-8688-0ccd76394366",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e535725-9756-47a5-8b56-b24cfaad710c",
       fordelingsflowAPI: "",
       flow2Key: "",
