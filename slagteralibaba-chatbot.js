@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Din kød ekspert",
-      firstMessage: "Hej 😊 Spørg mig om alt – fra udskæringer og tilberedning til opskrifter og gode kødvalg til din ret 🥩🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – fra udskæringer og tilberedning til opskrifter og gode kødvalg til din ret🥩🤖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
