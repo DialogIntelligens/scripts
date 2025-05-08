@@ -355,32 +355,38 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
 
-      // Order tracking URL
-      orderTrackingUrl: 'https://api.bevco.dk/store-api/dialog-intelligens/order/search',
-      
-      // No auth token required (using direct API keys)
-      trackingNeedsAuth: false,
-      
-      // Request configuration - POST with custom headers
-      trackingRequestMethod: 'POST',
-      trackingCustomHeaders: {
-        'sw-api-key': '9533ee33bf82412f94dd8936ce59b908',
-        'sw-access-key': 'SWSCX1MTFXXC4BHA0UDNEHYBFQ'
-      },
-      
-      // Request body template with placeholders
-      trackingRequestBody: '{"order_number": "ORDER_NUMBER_PLACEHOLDER", "email": "ORDER_EMAIL_PLACEHOLDER"}',
-      
-      // We don't need state details for this API (assuming the response already contains all needed info)
-      trackingStateUrl: '',
-      
-      // Path to access order data from response (if needed)
-      trackingResponseOrderPath: '',
-      
-      // If the response structure is complex, you might need to set these:
-      trackingStateIdPath: '',
-      trackingLineItemStatePath: '',
-      trackingStateNameLocale: '',
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/cca56d9a-ced2-4fd6-8d93-2fc3751e9111",
+      apiFlowKey: "order",
+
+// Order tracking URL
+  orderTrackingUrl: 'https://api.bevco.dk/store-api/dialog-intelligens/order/search',
+  
+  // No auth token required (using direct API keys)
+  trackingNeedsAuth: false,
+  
+  // Request configuration - POST with custom headers
+  trackingRequestMethod: 'POST',
+  trackingCustomHeaders: {
+    'sw-api-key': '9533ee33bf82412f94dd8936ce59b908',
+    'sw-access-key': 'SWSCX1MTFXXC4BHA0UDNEHYBFQ'
+  },
+  
+  // Request body template - now supports all four possible fields
+  trackingRequestBody: '{"order_number": "", "email": "", "phone": "", "order_date": ""}',
+  
+  // Required fields - any two must be present
+  trackingRequiredFields: ['order_number', 'email', 'phone', 'order_date'],
+  
+  // We don't need state details for this API
+  trackingStateUrl: '',
+  
+  // Path to access order data from response (if needed)
+  trackingResponseOrderPath: '',
+  
+  trackingStateIdPath: '',
+  trackingLineItemStatePath: '',
+  trackingStateNameLocale: '',
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
