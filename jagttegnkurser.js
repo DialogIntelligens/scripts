@@ -49,10 +49,16 @@ document.addEventListener('DOMContentLoaded', function() {
             // Usually the last price element is the total
             const lastElement = elements[elements.length - 1];
             const priceText = lastElement.textContent.trim();
-            // Extract number using regex - keeps only digits, commas and periods
-            const priceMatch = priceText.match(/[\d.,]+/g);
+            
+            // Enhanced logging to debug the issue
+            console.log("Found element with selector:", selector);
+            console.log("Text content:", priceText);
+            
+            // Improved regex that requires at least one digit (won't match lone periods)
+            const priceMatch = priceText.match(/\d[\d.,]*/g);
             if (priceMatch && priceMatch.length > 0) {
               totalPrice = priceMatch[priceMatch.length - 1];
+              console.log("Extracted price:", totalPrice);
               break;
             }
           }
