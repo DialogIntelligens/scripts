@@ -535,7 +535,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             xhr.send(JSON.stringify({
               websiteuserid: websiteUserId,
-              usedChatbot: false,
+              usedChatbot: true,
               madePurchase: price | 0,
               chatbot_id: chatbotId
             }));
