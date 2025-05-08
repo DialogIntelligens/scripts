@@ -491,32 +491,40 @@ document.addEventListener('DOMContentLoaded', function() {
           const price = madePurchase ? extractTotalPrice() : 0;
           const chatbotId = "jagttegnkurser";
           
-          fetch('https://egendatabasebackend.onrender.com/crm', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              websiteuserid: websiteUserId,
-              usedChatbot: true,
-              madePurchase: price | 0,
-              chatbot_id: chatbotId
-            })
-          })
-          .then(response => {
-            if (!response.ok) {
-              console.error('Error response:', response.status, response.statusText);
-              return response.text().then(text => { throw new Error(text || response.statusText) });
-            }
-            return response.json();
-          })
-          .then(data => console.log('Purchase tracking updated:', data))
-          .catch(error => {
-            console.error('Request error details:', error.name, error.message);
-            // Fallback for iOS - try alternative approach
-            sendTrackingViaXHR(websiteUserId, price, chatbotId);
-          });
+          // Detect iOS devices first
+          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
           
+          if (isIOS) {
+            // Use the XMLHttpRequest approach directly for iOS
+            console.log("iOS device detected, using XHR directly");
+            sendTrackingViaXHR(websiteUserId, price, chatbotId);
+          } else {
+            // For non-iOS devices, use fetch with XHR fallback
+            fetch('https://egendatabasebackend.onrender.com/crm', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                websiteuserid: websiteUserId,
+                usedChatbot: true,
+                madePurchase: price | 0,
+                chatbot_id: chatbotId
+              })
+            })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => console.log('Purchase tracking updated:', data))
+            .catch(error => {
+              console.error('Request error details:', error.name, error.message);
+              sendTrackingViaXHR(websiteUserId, price, chatbotId);
+            });
+          }
+
           // Fallback method using XMLHttpRequest which has better iOS compatibility
           function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
             console.log("Attempting fallback tracking method for iOS");
