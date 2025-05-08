@@ -365,28 +365,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // No auth token required (using direct API keys)
   trackingNeedsAuth: false,
   
-  // Request configuration - POST with custom headers
+  // Request configuration
   trackingRequestMethod: 'POST',
   trackingCustomHeaders: {
     'sw-api-key': '9533ee33bf82412f94dd8936ce59b908',
     'sw-access-key': 'SWSCX1MTFXXC4BHA0UDNEHYBFQ'
   },
   
-  // Request body template - now supports all four possible fields
+  // Request body template - empty values will be filled from variables
   trackingRequestBody: '{"order_number": "", "email": "", "phone": "", "order_date": ""}',
   
-  // Required fields - any two must be present
+  // Required fields - at least 2 must be present
   trackingRequiredFields: ['order_number', 'email', 'phone', 'order_date'],
-  
-  // We don't need state details for this API
-  trackingStateUrl: '',
-  
-  // Path to access order data from response (if needed)
-  trackingResponseOrderPath: '',
-  
-  trackingStateIdPath: '',
-  trackingLineItemStatePath: '',
-  trackingStateNameLocale: '',
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
