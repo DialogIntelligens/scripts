@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
           }
         }
-        
+        console.log("Before cleanup: ", totalPrice);
         // Clean up the price format if found
         if (totalPrice) {
           // Remove any non-numeric chars except decimal separator
@@ -93,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           // Convert to number
           totalPrice = parseFloat(totalPrice);
+          console.log("As number: ", totalPrice);
         }
         
         return totalPrice;
