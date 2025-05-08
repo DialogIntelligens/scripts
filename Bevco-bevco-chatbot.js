@@ -359,24 +359,33 @@ document.addEventListener('DOMContentLoaded', function() {
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/cca56d9a-ced2-4fd6-8d93-2fc3751e9111",
       apiFlowKey: "order",
 
-// Order tracking URL
+// Original API URL (for reference only)
   orderTrackingUrl: 'https://api.bevco.dk/store-api/dialog-intelligens/order/search',
   
-  // No auth token required (using direct API keys)
+  // No token auth needed (proxy handles it)
   trackingNeedsAuth: false,
   
-  // Request configuration
+  // Enable proxy and set the proxy URL
+  trackingUseProxy: true,
+	trackingProxyUrl: 'https://egendatabasebackend.onrender.com/api/proxy/bevco-order', // For production
+  
+  // POST method since BevCo uses POST
   trackingRequestMethod: 'POST',
-  trackingCustomHeaders: {
-    'sw-api-key': '9533ee33bf82412f94dd8936ce59b908',
-    'sw-access-key': 'SWSCX1MTFXXC4BHA0UDNEHYBFQ'
-  },
   
-  // Request body template - empty values will be filled from variables
-  trackingRequestBody: '{"order_number": "", "email": "", "phone": "", "order_date": ""}',
+  // Empty headers (proxy adds them)
+  trackingCustomHeaders: {},
   
-  // Required fields - at least 2 must be present
+  // Request body template
+  trackingRequestBody: '{"order_number":"","email":"","phone":"","order_date":""}',
+  
+  // Required fields
   trackingRequiredFields: ['order_number', 'email', 'phone', 'order_date'],
+  
+  // No state details needed
+  trackingStateUrl: '',
+  trackingStateIdPath: '',
+  trackingLineItemStatePath: '',
+  trackingStateNameLocale: '',
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
