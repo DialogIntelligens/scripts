@@ -122,11 +122,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
           console.error('Request error details:', error.name, error.message);
           // Fallback for iOS - try alternative approach
-          sendTrackingViaXHR(websiteUserId, madePurchase, chatbotId);
+          sendTrackingViaXHR(websiteUserId, price, chatbotId);
         });
         
         // Fallback method using XMLHttpRequest which has better iOS compatibility
-        function sendTrackingViaXHR(websiteUserId, madePurchase, chatbotId) {
+        function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
           console.log("Attempting fallback tracking method for iOS");
           const xhr = new XMLHttpRequest();
           xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function() {
           xhr.send(JSON.stringify({
             websiteuserid: websiteUserId,
             usedChatbot: false,
-            madePurchase: madePurchase,
+            madePurchase: price | 0,
             chatbot_id: chatbotId
           }));
         }
@@ -488,6 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // User has started a conversation - track this as actual chatbot usage
           const websiteUserId = getOrCreateWebsiteUserId();
           const madePurchase = isCheckoutPage();
+          const price = madePurchase ? extractTotalPrice() : 0;
           const chatbotId = "jagttegnkurser";
           
           fetch('https://egendatabasebackend.onrender.com/crm', {
@@ -498,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify({
               websiteuserid: websiteUserId,
               usedChatbot: true,
-              madePurchase: madePurchase,
+              madePurchase: price | 0,
               chatbot_id: chatbotId
             })
           })
