@@ -300,8 +300,36 @@ function initChatbot() {
       apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
-      orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="ORDER_EMAIL_PLACEHOLDER")',
+      
+        // Order tracking URL (with placeholders for order number and email)
+  orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="ORDER_EMAIL_PLACEHOLDER")',
+  
+  // Authentication settings
+  trackingAuthUrl: 'https://auth.europe-west1.gcp.commercetools.com/oauth/token',
+  trackingClientId: 'PpRchVoadh-EOZVSM93udjN2',
+  trackingClientSecret: 'oF43LNYPaAgJkg-qqabTaDIQge1uIyfA',
+  trackingAuthGrantType: 'client_credentials',
+  trackingAuthScope: 'view_orders:dilling--production view_published_products:dilling--production view_states:dilling--production',
+  trackingAuthMethod: 'basic',
+  
+  // Request configuration
+  trackingRequestMethod: 'GET',
+  trackingCustomHeaders: {},
+  trackingRequestBody: '',
+  
+  // Response mapping
+  trackingResponseOrderPath: '',
+  
+  // State details URL and path configuration
+  trackingStateUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/states/STATE_ID_PLACEHOLDER',
+  trackingStateIdPath: '',
+  trackingLineItemStatePath: '',
+  trackingStateNameLocale: 'da-DK',
+  
+  // Auth is required
+  trackingNeedsAuth: true,
 
+      
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
