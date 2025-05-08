@@ -42,12 +42,70 @@ document.addEventListener('DOMContentLoaded', function() {
       return window.location.href.includes(checkoutPath);
     }
 
+    //Extract total price from the page
+    function extractTotalPrice() {
+      let totalPrice = null;
+      let highestValue = 0;
+      
+      // Method 1: Try common selectors for price elements
+      const priceSelectors = [
+        '.total-price', '.order-total', '.cart-total', '.grand-total',
+        '[data-testid="order-summary-total"]', '.order-summary-total',
+        '.checkout-total', '.woocommerce-Price-amount', '.amount',
+        '.product-subtotal', '.order-summary__price'
+      ];
+      
+      
+      // Loop through each selector
+      for (const selector of priceSelectors) {
+        const elements = document.querySelectorAll(selector);
+        
+        if (elements && elements.length > 0) {
+          
+          // Check each element that matches the selector
+          for (const element of elements) {
+            const priceText = element.textContent.trim();
+            
+            // Extract all number sequences (ignoring currency symbols)
+            const numberMatches = priceText.match(/\d[\d.,]*/g);
+            
+            if (numberMatches && numberMatches.length > 0) {
+              // Process each potential price number
+              for (const match of numberMatches) {
+                // Clean up the match to standard format
+                let cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // Convert commas to periods for consistent decimal format
+                cleanedMatch = cleanedMatch.replace(/,/g, '.');
+                
+                // Handle multiple decimal points by keeping only the last one
+                const parts = cleanedMatch.split('.');
+                if (parts.length > 2) {
+                  cleanedMatch = parts[0] + '.' + parts[parts.length - 1];
+                }
+                
+                // Convert to number
+                const numValue = parseFloat(cleanedMatch);
+                
+                // Keep the highest value found
+                if (!isNaN(numValue) && numValue > highestValue) {
+                  highestValue = numValue;
+                  totalPrice = numValue;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      return totalPrice;
+    }
 
     // Track purchase status
     function trackPurchaseStatus() {
       const websiteUserId = getOrCreateWebsiteUserId();
       const madePurchase = isCheckoutPage();
-      const chatbotId = "jagttegnkurser";
+      const chatbotId = "test";
+      const price = madePurchase ? extractTotalPrice() : 0;
       
       // Only track purchase status, don't set usedChatbot flag here
       // usedChatbot will be set only when an actual conversation occurs
@@ -59,13 +117,47 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({
           websiteuserid: websiteUserId,
           usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: madePurchase,
+          madePurchase: price | 0, //if price is null, set to 0
           chatbot_id: chatbotId
         })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          console.error('Error response:', response.status, response.statusText);
+          return response.text().then(text => { throw new Error(text || response.statusText) });
+        }
+        return response.json();
+      })
       .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => console.error('Error updating purchase tracking:', error));
+      .catch(error => {
+        console.error('Request error details:', error.name, error.message);
+        // Fallback for iOS - try alternative approach
+        sendTrackingViaXHR(websiteUserId, price, chatbotId);
+      });
+      
+      // Fallback method using XMLHttpRequest which has better iOS compatibility
+      function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
+        console.log("Attempting fallback tracking method for iOS");
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            console.log("XHR status:", xhr.status);
+            if (xhr.status === 200) {
+              console.log('Fallback tracking updated:', JSON.parse(xhr.responseText));
+            } else {
+              console.error('Fallback tracking failed. Status:', xhr.status);
+            }
+          }
+        };
+        xhr.send(JSON.stringify({
+          websiteuserid: websiteUserId,
+          usedChatbot: false,
+          madePurchase: price | 0,
+          chatbot_id: chatbotId
+        }));
+      }
     }
 
     // Run tracking on page load
@@ -393,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?,
+      ratingMessage: "Fik du besvaret dit spørgmål?",
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
@@ -449,7 +541,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // User has started a conversation - track this as actual chatbot usage
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
+        const price = madePurchase ? extractTotalPrice() : 0;
+        const chatbotId = "test";
         
         fetch('https://egendatabasebackend.onrender.com/crm', {
           method: 'POST',
@@ -459,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({
             websiteuserid: websiteUserId,
             usedChatbot: true,
-            madePurchase: madePurchase,
+            madePurchase: price | 0,
             chatbot_id: chatbotId
           })
         })
