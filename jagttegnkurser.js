@@ -31,12 +31,82 @@ document.addEventListener('DOMContentLoaded', function() {
       function isCheckoutPage() {
         return window.location.href.includes('/checkout/');
       }
+      //Extract total price from the page
+      function extractTotalPrice() {
+        let totalPrice = null;
+        
+        // Method 1: Try common selectors for price elements
+        const priceSelectors = [
+          '.total-price', '.order-total', '.cart-total', '.grand-total',
+          '[data-testid="order-summary-total"]', '.order-summary-total',
+          '.checkout-total', '.woocommerce-Price-amount', '.amount',
+          '.product-subtotal', '.order-summary__price'
+        ];
+        
+        for (const selector of priceSelectors) {
+          const elements = document.querySelectorAll(selector);
+          if (elements && elements.length > 0) {
+            // Usually the last price element is the total
+            const lastElement = elements[elements.length - 1];
+            const priceText = lastElement.textContent.trim();
+            // Extract number using regex - keeps only digits, commas and periods
+            const priceMatch = priceText.match(/[\d.,]+/g);
+            if (priceMatch && priceMatch.length > 0) {
+              totalPrice = priceMatch[priceMatch.length - 1];
+              break;
+            }
+          }
+        }
+        
+        // Method 2: Look for text patterns if no price found yet
+        if (!totalPrice) {
+          const pageText = document.body.textContent;
+          const pricePatterns = [
+            /Total:\s*([\d.,]+)/i,
+            /Sum:\s*([\d.,]+)/i,
+            /I alt:\s*([\d.,]+)/i,
+            /Pris[:\s]*([\d.,]+)/i,
+            /kr\s*([\d.,]+)/i,
+            /([\d.,]+)\s*kr/i,
+            /DKK\s*([\d.,]+)/i
+          ];
+          
+          for (const pattern of pricePatterns) {
+            const match = pageText.match(pattern);
+            if (match && match[1]) {
+              totalPrice = match[1];
+              break;
+            }
+          }
+        }
+        
+        // Clean up the price format if found
+        if (totalPrice) {
+          // Remove any non-numeric chars except decimal separator
+          totalPrice = totalPrice.replace(/[^\d.,]/g, '');
+          // Convert to standard format with period as decimal
+          totalPrice = totalPrice.replace(/,/g, '.');
+          // Make sure we have only one decimal point
+          const parts = totalPrice.split('.');
+          if (parts.length > 2) {
+            totalPrice = parts[0] + '.' + parts[parts.length - 1];
+          }
+          // Convert to number
+          totalPrice = parseFloat(totalPrice);
+        }
+        
+        return totalPrice;
+      }
   
       // Track purchase status
       function trackPurchaseStatus() {
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
         const chatbotId = "jagttegnkurser";
+
+        if (madePurchase) {
+          console.log("Payment of: " + extractTotalPrice());
+        }
         
         // Only track purchase status, don't set usedChatbot flag here
         // usedChatbot will be set only when an actual conversation occurs
