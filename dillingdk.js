@@ -297,7 +297,7 @@ function initChatbot() {
       metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11751a16-1c96-4710-8d18-2987f8b4e21c",
       metaDataKey: "product",
   
-      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e7bed92f-688d-4cb1-a963-087ea3a4d450",
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
       
