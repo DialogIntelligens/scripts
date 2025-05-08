@@ -301,10 +301,10 @@ function initChatbot() {
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
       
-  // Order tracking URL with placeholders for all variables
+   // Order tracking URL with placeholders
   orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="EMAIL_PLACEHOLDER")',
   
-  // Authentication settings
+  // Authentication settings remain the same
   trackingAuthUrl: 'https://auth.europe-west1.gcp.commercetools.com/oauth/token',
   trackingClientId: 'PpRchVoadh-EOZVSM93udjN2',
   trackingClientSecret: 'oF43LNYPaAgJkg-qqabTaDIQge1uIyfA',
@@ -315,18 +315,12 @@ function initChatbot() {
   // Request configuration
   trackingRequestMethod: 'GET',
   trackingCustomHeaders: {},
-  trackingRequestBody: '',
   
-  // Required fields (both must be present)
+  // Required fields
   trackingRequiredFields: ['order_number', 'email'],
   
-  // Response mapping
-  trackingResponseOrderPath: '',
-  
-  // State details URL and path configuration
+  // State configuration
   trackingStateUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/states/STATE_ID_PLACEHOLDER',
-  trackingStateIdPath: '',
-  trackingLineItemStatePath: '',
   trackingStateNameLocale: 'da-DK',
   
   // Auth is required
