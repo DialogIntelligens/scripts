@@ -503,9 +503,43 @@ document.addEventListener('DOMContentLoaded', function() {
               chatbot_id: chatbotId
             })
           })
-          .then(response => response.json())
-          .then(data => console.log('Conversation tracking updated:', data))
-          .catch(error => console.error('Error updating conversation tracking:', error));
+          .then(response => {
+            if (!response.ok) {
+              console.error('Error response:', response.status, response.statusText);
+              return response.text().then(text => { throw new Error(text || response.statusText) });
+            }
+            return response.json();
+          })
+          .then(data => console.log('Purchase tracking updated:', data))
+          .catch(error => {
+            console.error('Request error details:', error.name, error.message);
+            // Fallback for iOS - try alternative approach
+            sendTrackingViaXHR(websiteUserId, price, chatbotId);
+          });
+          
+          // Fallback method using XMLHttpRequest which has better iOS compatibility
+          function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
+            console.log("Attempting fallback tracking method for iOS");
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+              if (xhr.readyState === 4) {
+                console.log("XHR status:", xhr.status);
+                if (xhr.status === 200) {
+                  console.log('Fallback tracking updated:', JSON.parse(xhr.responseText));
+                } else {
+                  console.error('Fallback tracking failed. Status:', xhr.status);
+                }
+              }
+            };
+            xhr.send(JSON.stringify({
+              websiteuserid: websiteUserId,
+              usedChatbot: false,
+              madePurchase: price | 0,
+              chatbot_id: chatbotId
+            }));
+          }
         }
       });
     
