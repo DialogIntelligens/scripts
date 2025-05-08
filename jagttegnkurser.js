@@ -44,19 +44,16 @@ document.addEventListener('DOMContentLoaded', function() {
           '.product-subtotal', '.order-summary__price'
         ];
         
-        console.log("Searching for price elements...");
         
         // Loop through each selector
         for (const selector of priceSelectors) {
           const elements = document.querySelectorAll(selector);
           
           if (elements && elements.length > 0) {
-            console.log(`Found ${elements.length} elements with selector: ${selector}`);
             
             // Check each element that matches the selector
             for (const element of elements) {
               const priceText = element.textContent.trim();
-              console.log(`Element text: "${priceText}"`);
               
               // Extract all number sequences (ignoring currency symbols)
               const numberMatches = priceText.match(/\d[\d.,]*/g);
@@ -77,13 +74,11 @@ document.addEventListener('DOMContentLoaded', function() {
                   
                   // Convert to number
                   const numValue = parseFloat(cleanedMatch);
-                  console.log(`Found potential price: ${numValue}`);
                   
                   // Keep the highest value found
                   if (!isNaN(numValue) && numValue > highestValue) {
                     highestValue = numValue;
                     totalPrice = numValue;
-                    console.log(`New highest price: ${totalPrice}`);
                   }
                 }
               }
@@ -91,37 +86,6 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
         
-        // Method 2: Look for text patterns if no price found yet
-        if (!totalPrice) {
-          console.log("No price found using selectors, trying text patterns.");
-          const pageText = document.body.textContent;
-          const pricePatterns = [
-            /Total:\s*([\d.,]+)/i,
-            /Sum:\s*([\d.,]+)/i,
-            /I alt:\s*([\d.,]+)/i,
-            /Pris[:\s]*([\d.,]+)/i,
-            /kr\s*([\d.,]+)/i,
-            /([\d.,]+)\s*kr/i,
-            /DKK\s*([\d.,]+)/i
-          ];
-          
-          for (const pattern of pricePatterns) {
-            const match = pageText.match(pattern);
-            if (match && match[1]) {
-              // Clean up and convert to number
-              let cleanValue = match[1].replace(/[^\d.,]/g, '').replace(/,/g, '.');
-              const numValue = parseFloat(cleanValue);
-              
-              if (!isNaN(numValue) && numValue > highestValue) {
-                highestValue = numValue;
-                totalPrice = numValue;
-                console.log(`Found price from text pattern: ${totalPrice}`);
-              }
-            }
-          }
-        }
-        
-        console.log("Final extracted price:", totalPrice);
         return totalPrice;
       }
   
