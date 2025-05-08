@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       //Extract total price from the page
       function extractTotalPrice() {
         let totalPrice = null;
+        let highestValue = 0;
         
         // Method 1: Try common selectors for price elements
         const priceSelectors = [
@@ -43,23 +44,49 @@ document.addEventListener('DOMContentLoaded', function() {
           '.product-subtotal', '.order-summary__price'
         ];
         
+        console.log("Searching for price elements...");
+        
+        // Loop through each selector
         for (const selector of priceSelectors) {
           const elements = document.querySelectorAll(selector);
+          
           if (elements && elements.length > 0) {
-            // Usually the last price element is the total
-            const lastElement = elements[elements.length - 1];
-            const priceText = lastElement.textContent.trim();
+            console.log(`Found ${elements.length} elements with selector: ${selector}`);
             
-            // Enhanced logging to debug the issue
-            console.log("Found element with selector:", selector);
-            console.log("Text content:", priceText);
-            
-            // Improved regex that requires at least one digit (won't match lone periods)
-            const priceMatch = priceText.match(/\d[\d.,]*/g);
-            if (priceMatch && priceMatch.length > 0) {
-              totalPrice = priceMatch[priceMatch.length - 1];
-              console.log("Extracted price:", totalPrice);
-              break;
+            // Check each element that matches the selector
+            for (const element of elements) {
+              const priceText = element.textContent.trim();
+              console.log(`Element text: "${priceText}"`);
+              
+              // Extract all number sequences (ignoring currency symbols)
+              const numberMatches = priceText.match(/\d[\d.,]*/g);
+              
+              if (numberMatches && numberMatches.length > 0) {
+                // Process each potential price number
+                for (const match of numberMatches) {
+                  // Clean up the match to standard format
+                  let cleanedMatch = match.replace(/[^\d.,]/g, '');
+                  // Convert commas to periods for consistent decimal format
+                  cleanedMatch = cleanedMatch.replace(/,/g, '.');
+                  
+                  // Handle multiple decimal points by keeping only the last one
+                  const parts = cleanedMatch.split('.');
+                  if (parts.length > 2) {
+                    cleanedMatch = parts[0] + '.' + parts[parts.length - 1];
+                  }
+                  
+                  // Convert to number
+                  const numValue = parseFloat(cleanedMatch);
+                  console.log(`Found potential price: ${numValue}`);
+                  
+                  // Keep the highest value found
+                  if (!isNaN(numValue) && numValue > highestValue) {
+                    highestValue = numValue;
+                    totalPrice = numValue;
+                    console.log(`New highest price: ${totalPrice}`);
+                  }
+                }
+              }
             }
           }
         }
@@ -81,28 +108,20 @@ document.addEventListener('DOMContentLoaded', function() {
           for (const pattern of pricePatterns) {
             const match = pageText.match(pattern);
             if (match && match[1]) {
-              totalPrice = match[1];
-              break;
+              // Clean up and convert to number
+              let cleanValue = match[1].replace(/[^\d.,]/g, '').replace(/,/g, '.');
+              const numValue = parseFloat(cleanValue);
+              
+              if (!isNaN(numValue) && numValue > highestValue) {
+                highestValue = numValue;
+                totalPrice = numValue;
+                console.log(`Found price from text pattern: ${totalPrice}`);
+              }
             }
           }
         }
-        console.log("Before cleanup: ", totalPrice);
-        // Clean up the price format if found
-        if (totalPrice) {
-          // Remove any non-numeric chars except decimal separator
-          totalPrice = totalPrice.replace(/[^\d.,]/g, '');
-          // Convert to standard format with period as decimal
-          totalPrice = totalPrice.replace(/,/g, '.');
-          // Make sure we have only one decimal point
-          const parts = totalPrice.split('.');
-          if (parts.length > 2) {
-            totalPrice = parts[0] + '.' + parts[parts.length - 1];
-          }
-          // Convert to number
-          totalPrice = parseFloat(totalPrice);
-          console.log("As number: ", totalPrice);
-        }
         
+        console.log("Final extracted price:", totalPrice);
         return totalPrice;
       }
   
