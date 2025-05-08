@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Method 2: Look for text patterns if no price found yet
         if (!totalPrice) {
+          console.log("No price found using selectors, trying text patterns.");
           const pageText = document.body.textContent;
           const pricePatterns = [
             /Total:\s*([\d.,]+)/i,
