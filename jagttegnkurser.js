@@ -94,10 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
         const chatbotId = "jagttegnkurser";
-
-        if (madePurchase) {
-          console.log("Payment of: " + extractTotalPrice());
-        }
+        const price = madePurchase ? extractTotalPrice() : 0;
+        
         
         // Only track purchase status, don't set usedChatbot flag here
         // usedChatbot will be set only when an actual conversation occurs
@@ -109,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({
             websiteuserid: websiteUserId, 
             usedChatbot: false,
-            madePurchase: madePurchase,
+            madePurchase: price | 0, //if price is null, set to 0
             chatbot_id: chatbotId
           })
         })
