@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   function initChatbot() {
-  var iframeLoaded = false;  
     
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
     
@@ -296,13 +295,10 @@ document.addEventListener('DOMContentLoaded', function() {
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
-    var iframe = document.getElementById('chat-iframe'); // Get iframe reference
-    iframe.onload = function() {
-      console.log("Iframe loaded");
-      iframeLoaded = true;
-      sendMessageToIframe();
-    };
-    
+  
+    /**
+     * 4. COOKIE FUNCTIONS
+     */
     function setCookie(name, value, days, domain) {
       var expires = "";
       if (days) {
@@ -331,84 +327,87 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
-      if (!iframeLoaded) {
-        console.log("Iframe not loaded yet");
-        return;
-      }
-      if (iframe.style.display === 'none') {
-        console.log("Iframe is not visible");
-        return;
-      }
-      console.log("Sending message to iframe");
       var iframeWindow = iframe.contentWindow;
+  
+      // Retrieve or create websiteuserid in parent domain's localStorage
+      let websiteUserId = getOrCreateWebsiteUserId();
+
       var messageData = {
-        action: 'integrationOptions',
-        chatbotID: "skolenfri",
-        pagePath: window.location.href,
-        statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba998f8b-1158-43d7-8688-0ccd76394366",
-        apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e535725-9756-47a5-8b56-b24cfaad710c",
-        fordelingsflowAPI: "",
-        flow2Key: "",
-        flow2API: "",
-        flow3Key: "product",
-        flow3API: "",
-        flow4API: "",
-        flow4Key: "",
-        leadGen: "%%",
-        leadMail: "team@dialogintelligens.dk",
-        leadField1: "Navn",
-        leadField2: "Telefonnummer",
-        metaDataAPI: "",
-        metaDataKey: "",
-        imageAPI: '',
-        useThumbsRating: false,
-        ratingTimerDuration: 15000,
-        replaceExclamationWithPeriod: false,
-        pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
-        knowledgebaseIndexApiEndpoint: "",
-        flow2KnowledgebaseIndex: "",
-        flow3KnowledgebaseIndex: "",
-        flow4KnowledgebaseIndex: "",
-        apiFlowKnowledgebaseIndex: "",
-        websiteOverride: "",
-        languageOverride: "",
-        valutaOverride: "",
-        customVar1: "",
-        privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-        freshdeskEmailLabel: "Din email:",
-        freshdeskMessageLabel: "Besked til kundeservice:",
-        freshdeskImageLabel: "Upload billede (valgfrit):",
-        freshdeskChooseFileText: "Vælg fil",
-        freshdeskNoFileText: "Ingen fil valgt",
-        freshdeskSendingText: "Sender...",
-        freshdeskSubmitText: "Send henvendelse",
-        freshdeskEmailRequiredError: "Email er påkrævet",
-        freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-        freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-        freshdeskMessageRequiredError: "Besked er påkrævet",
-        freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
-        contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-        freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-        inputPlaceholder: "Skriv dit spørgsmål her...",
-        ratingMessage: "Fik du besvaret dit spørgsmål?",
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746620762879.png",
-        themeColor: "#69c8e4",
-        headerTitleG: "Skolen Fri",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-        subtitleLinkText: "",
-        subtitleLinkUrl: "",
-        titleG: "Skolen Fri's Virtuelle Assistent",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra undervisning til generelle spørgsmål, eller få personlig vejledning 📚",
-        parentWebsiteUserId: getOrCreateWebsiteUserId(),
-        isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-        isPhoneView: window.innerWidth < 800
-      };
-      try {
-        iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-      } catch (e) {
-        console.error("Error posting message to iframe:", e);
-      }
-    }
+      action: 'integrationOptions',
+      chatbotID: "skolenfri",
+      pagePath: window.location.href,
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/ba998f8b-1158-43d7-8688-0ccd76394366",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8e535725-9756-47a5-8b56-b24cfaad710c",
+      fordelingsflowAPI: "",
+      flow2Key: "",
+      flow2API: "",
+      flow3Key: "product",
+      flow3API: "",
+      flow4API: "",
+      flow4Key: "",
+        
+      leadGen: "%%",
+      leadMail: "team@dialogintelligens.dk",
+      leadField1: "Navn",
+      leadField2: "Telefonnummer",
+
+      metaDataAPI: "",
+      metaDataKey: "",
+        
+      imageAPI: '',
+
+      useThumbsRating: false,
+      ratingTimerDuration: 15000,
+      replaceExclamationWithPeriod: false,
+
+      pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
+      knowledgebaseIndexApiEndpoint: "",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
+      websiteOverride: "",
+      languageOverride: "",
+      valutaOverride: "",
+      customVar1: "",
+      
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+
+      // Set FreshdeskForm text
+      freshdeskEmailLabel: "Din email:",
+      freshdeskMessageLabel: "Besked til kundeservice:",
+      freshdeskImageLabel: "Upload billede (valgfrit):",
+      freshdeskChooseFileText: "Vælg fil",
+      freshdeskNoFileText: "Ingen fil valgt",
+      freshdeskSendingText: "Sender...",
+      freshdeskSubmitText: "Send henvendelse",
+        
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: "Email er påkrævet",
+      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
+      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
+      freshdeskMessageRequiredError: "Besked er påkrævet",
+      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+        
+      // Set confirmation messages
+      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+
+      inputPlaceholder: "Skriv dit spørgsmål her...",
+      ratingMessage: "Fik du besvaret dit spørgsmål?",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746620762879.png",
+      themeColor: "#69c8e4",
+      headerTitleG: "Skolen Fri",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      subtitleLinkText: "",
+      subtitleLinkUrl: "",
+        
+      titleG: "Skolen Fri's Virtuelle Assistent",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra undervisning til generelle spørgsmål, eller få personlig vejledning 📚",
+      parentWebsiteUserId: websiteUserId,
+      isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
+      isPhoneView: window.innerWidth < 800
+    };
 
   
       // If the iframe is already visible, post the message immediately.
@@ -473,31 +472,24 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 6. TOGGLE CHAT WINDOW
      */
-    function toggleChatWindow(forceState) {
+    function toggleChatWindow() {
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
       var popup = document.getElementById("chatbase-message-bubbles");
     
-      var currentState = iframe.style.display !== 'none' ? 'open' : 'closed';
-      var newState = forceState !== undefined ? forceState : (currentState === 'open' ? 'closed' : 'open');
+      // Determine if the chat is currently open
+      var isCurrentlyOpen = iframe.style.display !== 'none';
     
-      if (newState === 'open') {
-        iframe.style.display = 'block';
-        button.style.display = 'none';
-        localStorage.setItem('chatWindowState', 'open');
+      // Toggle the display of the iframe and button
+      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+      button.style.display = isCurrentlyOpen ? 'block' : 'none';
+      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    
+      // Close the popup when the chat is opened
+      if (!isCurrentlyOpen) {
         popup.style.display = "none";
-        localStorage.setItem("popupClosed", "true");
-        adjustIframeSize();
-        if (iframeLoaded) {
-          sendMessageToIframe();
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, 'https://skalerbartprodukt.onrender.com');
-        }
-      } else {
-        iframe.style.display = 'none';
-        button.style.display = 'block';
-        localStorage.setItem('chatWindowState', 'closed');
+        localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
       }
-    }
     
       // Adjust the iframe size
       adjustIframeSize();
@@ -680,4 +672,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // start observing document.body for new children
   observer.observe(document.body, { childList: true, subtree: true });
-}); 
+});
