@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   function initChatbot() {
-
-        const urlFlag = new URLSearchParams(window.location.search).get('chat');
+    
+  const urlFlag = new URLSearchParams(window.location.search).get('chat');
+    
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
     localStorage.setItem('chatWindowState', 'open');
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
-    }    
+    } 
       
     /**
      * PURCHASE TRACKING
@@ -661,12 +662,14 @@ document.addEventListener('DOMContentLoaded', function() {
   // Initial attempt to load the chatbot.
   initChatbot();
   
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
-  setTimeout(function() {
-    if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
+  const observer = new MutationObserver((mutations, obs) => {
+    if (document.getElementById('chat-container')) {
+      console.log("Chatbot injected—running initChatbot again");
       initChatbot();
+      obs.disconnect();
     }
-  }, 5000);
-        
-});  
+  });
+
+  // start observing document.body for new children
+  observer.observe(document.body, { childList: true, subtree: true });
+}); 
