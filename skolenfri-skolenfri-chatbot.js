@@ -326,7 +326,17 @@ document.addEventListener('DOMContentLoaded', function() {
       if (savedState === 'open') {
         iframe.style.display = 'block';
         button.style.display = 'none';
-        trySendMessageToIframeWithRetry();
+
+        // Start a loop to call adjustIframeSize every 200ms for up to 3 seconds
+        var tries = 0;
+        var maxTries = 15; // 3 seconds
+        var adjustInterval = setInterval(function() {
+          adjustIframeSize();
+          tries++;
+          if (tries >= maxTries) {
+            clearInterval(adjustInterval);
+          }
+        }, 200);
       } else {
         iframe.style.display = 'none';
         button.style.display = 'block';
