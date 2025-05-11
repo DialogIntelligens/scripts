@@ -518,8 +518,8 @@ document.addEventListener('DOMContentLoaded', function() {
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
         setTimeout(function() {
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-        }, 100);
+          sendMessageToIframe();
+        }, 200);
       }
     }
   
