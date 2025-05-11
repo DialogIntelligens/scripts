@@ -296,25 +296,19 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
-    // Robust fallback: ensure iframe is ready before sending message
-    function ensureIframeReadyAndSendMessage() {
+    // Robust retry: try to send the integration message until it succeeds or times out
+    function trySendMessageToIframeWithRetry() {
       var iframe = document.getElementById('chat-iframe');
       if (!iframe) return;
-      var chatbotUrl = "https://skalerbartprodukt.onrender.com";
       var maxTries = 30; // 3 seconds
       var tries = 0;
       function trySend() {
         try {
-          if (
-            iframe.contentWindow &&
-            iframe.contentWindow.location &&
-            iframe.contentWindow.location.href.startsWith(chatbotUrl)
-          ) {
-            sendMessageToIframe();
-            return;
-          }
+          sendMessageToIframe();
+          // If no error, success! Stop retrying.
+          return;
         } catch (e) {
-          // Cross-origin, ignore
+          // If error, try again
         }
         tries++;
         if (tries < maxTries) {
@@ -329,15 +323,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
     if (iframe && button) {
-      // Always set onload handler so message is sent when iframe is ready
-      iframe.onload = function() {
-        sendMessageToIframe();
-      };
       if (savedState === 'open') {
         iframe.style.display = 'block';
         button.style.display = 'none';
-        // Do NOT call sendMessageToIframe() directly
-        ensureIframeReadyAndSendMessage();
+        trySendMessageToIframeWithRetry();
       } else {
         iframe.style.display = 'none';
         button.style.display = 'block';
