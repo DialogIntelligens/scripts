@@ -304,11 +304,14 @@ document.addEventListener('DOMContentLoaded', function() {
       if (savedState === 'open') {
         iframe.style.display = 'block';
         button.style.display = 'none';
-        sendMessageToIframe();
       } else {
         iframe.style.display = 'none';
         button.style.display = 'block';
       }
+      // Always set onload handler so message is sent when iframe is ready
+      iframe.onload = function() {
+        sendMessageToIframe();
+      };
     }
   
     /**
@@ -366,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4Key: "",
         
       leadGen: "%%",
-      leadMail: "kontakt@skolenfri.dk",
+      leadMail: "team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Telefonnummer",
 
