@@ -295,6 +295,21 @@ document.addEventListener('DOMContentLoaded', function() {
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+    // Move display logic for iframe/button here, after HTML injection
+    var savedState = localStorage.getItem('chatWindowState');
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    if (iframe && button) {
+      if (savedState === 'open') {
+        iframe.style.display = 'block';
+        button.style.display = 'none';
+        sendMessageToIframe();
+      } else {
+        iframe.style.display = 'none';
+        button.style.display = 'block';
+      }
+    }
   
     /**
      * 4. COOKIE FUNCTIONS
@@ -327,11 +342,15 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
+      if (!iframe) return;
       var iframeWindow = iframe.contentWindow;
-  
+      // Only send if iframe src is correct
+      if (!iframe.src.startsWith("https://skalerbartprodukt.onrender.com")) {
+        console.warn("Iframe src is not correct, not sending postMessage");
+        return;
+      }
       // Retrieve or create websiteuserid in parent domain's localStorage
       let websiteUserId = getOrCreateWebsiteUserId();
-
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "skolenfri",
@@ -409,7 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
       isPhoneView: window.innerWidth < 800
     };
 
-  
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
@@ -590,6 +608,7 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     function adjustIframeSize() {
       var iframe = document.getElementById('chat-iframe');
+      if (!iframe) return;
       console.log("Adjusting iframe size. Window width:", window.innerWidth);
     
       // Keep 'isIframeEnlarged' logic if toggled from the iframe
@@ -638,24 +657,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Attach event listener to chat-button
     document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-  
-    // Modify the initial chat window state logic
-    var savedState = localStorage.getItem('chatWindowState');
-    var iframe = document.getElementById('chat-iframe');
-    var button = document.getElementById('chat-button');
-  
-    if (savedState === 'open') {
-      iframe.style.display = 'block';
-      button.style.display = 'none';
-      sendMessageToIframe();
-    } else {
-      iframe.style.display = 'none';
-      button.style.display = 'block';
-    }
-
-   
-    // Chat button click
-    document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
   } // end of initChatbot
   
