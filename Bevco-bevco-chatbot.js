@@ -231,8 +231,10 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1.4) !important;
         font-size: 27px !important;
       }
-    }
-  
+      #chatbase-message-bubbles .message-box {
+      font-size: 25px !important;
+	    } 
+      } 	
     :root {
       --icon-color: #f9b655;
     }
@@ -249,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
       border-radius: 10px;
       padding: 12px 15px 12px 20px;
       margin: 8px;
-      font-size: 25px;
+      font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 400;
       line-height: 1em;
