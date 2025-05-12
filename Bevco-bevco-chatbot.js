@@ -225,6 +225,12 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 69px;
         right: 0vw;
       }
+      #chatbase-message-bubbles .close-popup {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: scale(1.8) !important;
+        font-size: 27px !important;
+      }
     }
   
     :root {
