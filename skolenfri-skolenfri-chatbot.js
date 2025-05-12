@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Skolen Fri's Virtuelle Assistent",
+      titleG: "Skolen Fri",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra undervisning til generelle spørgsmål, eller få personlig vejledning 📚",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
