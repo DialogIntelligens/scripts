@@ -178,7 +178,7 @@ function initChatbot() {
       border-radius: 10px;
       padding: 12px 24px 12px 20px;
       margin: 8px;
-      font-size: 28px;
+      font-size: 26px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 400;
       line-height: 1em;
