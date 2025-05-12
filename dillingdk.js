@@ -16,7 +16,7 @@ function initChatbot() {
   var isIframeEnlarged = false; 
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
-  fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
+  fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;900&display=swap';
   document.head.appendChild(fontLink);
 
   /**
@@ -89,7 +89,7 @@ function initChatbot() {
       bottom: 70px;
       right: 7px;
       border-radius: 10px;
-      font-family: 'Source Sans 3', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-size: 20px;
       z-index: 18;
       scale: 0.55;
@@ -179,7 +179,7 @@ function initChatbot() {
       padding: 12px 24px 12px 20px;
       margin: 8px;
       font-size: 28px;
-      font-family: 'Source Sans 3', sans-serif;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 400;
       line-height: 1em;
       opacity: 1;
