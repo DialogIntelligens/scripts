@@ -317,6 +317,12 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 69px;
         right: 0vw;
       }
+      #chatbase-message-bubbles .close-popup {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: scale(1.4) !important;
+        font-size: 27px !important;
+      }
     }
   
     :root {
@@ -661,7 +667,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 12000);
     }
+
+      if (window.innerWidth < 800) {
+        setTimeout(function() {
+          if (popup.style.display === "flex") {
+            popup.style.display = "none";
+          }
+        }, 10000);
+      }
+    }
   
+    
     // Close the popup and save the state in LocalStorage
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
