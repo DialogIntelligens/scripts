@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles .close-popup {
         opacity: 1 !important;
         pointer-events: auto !important;
-        transform: scale(1.8) !important;
+        transform: scale(1.4) !important;
         font-size: 27px !important;
       }
     }
@@ -247,9 +247,9 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding: 12px 24px 12px 20px;
+      padding: 12px 15px 12px 20px;
       margin: 8px;
-      font-size: 28px;
+      font-size: 25px;
       font-family: 'Source Sans 3', sans-serif;
       font-weight: 400;
       line-height: 1em;
@@ -604,6 +604,15 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 1000);
         }
       }, 12000);
+      
+      // Auto-hide popup after 10 seconds on mobile devices
+      if (window.innerWidth < 800) {
+        setTimeout(function() {
+          if (popup.style.display === "flex") {
+            popup.style.display = "none";
+          }
+        }, 10000);
+      }
     }
   
     // Close the popup and save the state in LocalStorage
