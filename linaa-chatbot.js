@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', function() {
         src="https://skalerbartprodukt.onrender.com"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        allowfullscreen>
+        allowfullscreen="true">
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -433,6 +433,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => console.log('Conversation tracking updated:', data))
         .catch(error => console.error('Error updating conversation tracking:', error));
+      } else if (event.data.action === 'contentLoaded' || event.data.action === 'messageReceived') {
+        // Give time for content to render
+        setTimeout(fixYouTubeEmbeds, 500);
       }
     });
   
@@ -615,6 +618,20 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.display = 'block';
       button.style.display = 'none';
       sendMessageToIframe();
+
+      // Fix YouTube embeds when iframe is loaded
+      if (iframe) {
+        iframe.onload = function() {
+          try {
+            // Attempt to access iframe content to fix embeds
+            setTimeout(fixYouTubeEmbeds, 1000);
+            // Also notify iframe that we've loaded
+            iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+          } catch (e) {
+            console.error("Error accessing iframe content:", e);
+          }
+        };
+      }
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
@@ -623,6 +640,31 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+    // Add this function to properly handle YouTube embeds within your chat
+    function fixYouTubeEmbeds() {
+      // Find all YouTube iframes
+      const youtubeIframes = document.querySelectorAll('iframe[src*="youtube.com/embed"]');
+      
+      youtubeIframes.forEach(iframe => {
+        // Remove fs=0 parameter if present and ensure fs=1 is added
+        let src = iframe.src;
+        src = src.replace('fs=0', 'fs=1');
+        if (!src.includes('fs=')) {
+          src += (src.includes('?') ? '&' : '?') + 'fs=1';
+        }
+        
+        // Add allowfullscreen attribute
+        iframe.setAttribute('allowfullscreen', 'true');
+        iframe.src = src;
+      });
+      
+      // Remove data-no-fullscreen attribute from video elements
+      const videoElements = document.querySelectorAll('video[data-no-fullscreen]');
+      videoElements.forEach(video => {
+        video.removeAttribute('data-no-fullscreen');
+      });
+    }
 
   } // end of initChatbot
   
