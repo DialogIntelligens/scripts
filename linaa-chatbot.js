@@ -434,8 +434,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => console.log('Conversation tracking updated:', data))
         .catch(error => console.error('Error updating conversation tracking:', error));
       } else if (event.data.action === 'contentLoaded' || event.data.action === 'messageReceived') {
-        // Give time for content to render
+        // Give time for content to render then fix YouTube videos
         setTimeout(fixYouTubeEmbeds, 500);
+        
+        // Run again after a longer delay to catch videos that might load later
+        setTimeout(fixYouTubeEmbeds, 1500);
+        setTimeout(fixYouTubeEmbeds, 3000);
+      } else if (event.data.action === 'youtubeContent' || (event.data.content && event.data.content.includes('youtube.com/embed'))) {
+        // Directly handle YouTube content
+        console.log("YouTube content detected in message");
+        setTimeout(fixYouTubeEmbeds, 100);
+        setTimeout(fixYouTubeEmbeds, 500);
+        setTimeout(fixYouTubeEmbeds, 1000);
       }
     });
   
@@ -625,8 +635,13 @@ document.addEventListener('DOMContentLoaded', function() {
           try {
             // Attempt to access iframe content to fix embeds
             setTimeout(fixYouTubeEmbeds, 1000);
+            // Run multiple times to catch videos that load later
+            setTimeout(fixYouTubeEmbeds, 2000);
+            setTimeout(fixYouTubeEmbeds, 4000);
             // Also notify iframe that we've loaded
             iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+            // Setup observer for future changes
+            setupYouTubeObserver();
           } catch (e) {
             console.error("Error accessing iframe content:", e);
           }
@@ -647,24 +662,108 @@ document.addEventListener('DOMContentLoaded', function() {
       const youtubeIframes = document.querySelectorAll('iframe[src*="youtube.com/embed"]');
       
       youtubeIframes.forEach(iframe => {
-        // Remove fs=0 parameter if present and ensure fs=1 is added
-        let src = iframe.src;
-        src = src.replace('fs=0', 'fs=1');
-        if (!src.includes('fs=')) {
-          src += (src.includes('?') ? '&' : '?') + 'fs=1';
+        // Get the video ID from the iframe src
+        const src = iframe.getAttribute('src');
+        if (!src) return;
+        
+        // Extract video ID (typically after /embed/ and before any parameters)
+        let videoId = '';
+        const match = src.match(/\/embed\/([^/?]+)/);
+        if (match && match[1]) {
+          videoId = match[1];
+        } else {
+          return; // Can't find video ID
         }
         
-        // Add allowfullscreen attribute
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.src = src;
+        // Remove the old iframe
+        const parent = iframe.parentNode;
+        if (!parent) return;
+        
+        // Create a wrapper with proper styling
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;';
+        
+        // Create a new iframe with fullscreen enabled
+        const newIframe = document.createElement('iframe');
+        newIframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?fs=1&enablejsapi=1`);
+        newIframe.setAttribute('frameborder', '0');
+        newIframe.setAttribute('allowfullscreen', 'true');
+        newIframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
+        newIframe.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;';
+        
+        // Replace the old iframe with our new properly configured one
+        wrapper.appendChild(newIframe);
+        parent.replaceChild(wrapper, iframe);
       });
       
-      // Remove data-no-fullscreen attribute from video elements
+      // Also try to fix direct video elements that might have data-no-fullscreen
       const videoElements = document.querySelectorAll('video[data-no-fullscreen]');
       videoElements.forEach(video => {
-        video.removeAttribute('data-no-fullscreen');
+        // Clone the video element without the data-no-fullscreen attribute
+        const newVideo = video.cloneNode(true);
+        newVideo.removeAttribute('data-no-fullscreen');
+        if (video.parentNode) {
+          video.parentNode.replaceChild(newVideo, video);
+        }
       });
     }
+
+    // Add a mutation observer to detect any new YouTube embeds added to the page
+    function setupYouTubeObserver() {
+      // Target the chat iframe's body when possible
+      let iframe = document.getElementById('chat-iframe');
+      if (!iframe) return;
+      
+      try {
+        // Try to access iframe content if possible
+        setTimeout(function() {
+          try {
+            const observer = new MutationObserver(function(mutations) {
+              // When DOM changes, check for and fix YouTube embeds
+              fixYouTubeEmbeds();
+            });
+            
+            // Start observing the document with the configured parameters
+            observer.observe(document.body, { 
+              childList: true,
+              subtree: true
+            });
+          } catch (e) {
+            console.error("Error setting up YouTube observer:", e);
+          }
+        }, 1000);
+      } catch (e) {
+        console.error("Error accessing iframe for observer:", e);
+      }
+    }
+
+    // Add event delegation for YouTube embeds
+    document.addEventListener('click', function(event) {
+      // Check if the clicked element or its parent is a YouTube iframe or video
+      let target = event.target;
+      let isYouTubeElement = false;
+      
+      // Walk up the DOM tree to find if we clicked on or in a YouTube element
+      for (let i = 0; i < 5 && target; i++) {
+        if ((target.tagName === 'IFRAME' && target.src && target.src.includes('youtube.com/embed')) ||
+            (target.tagName === 'VIDEO' && target.src && target.src.includes('youtube.com'))) {
+          isYouTubeElement = true;
+          break;
+        }
+        target = target.parentElement;
+      }
+      
+      // If we found a YouTube element, try to fix it
+      if (isYouTubeElement) {
+        console.log("YouTube element clicked, attempting to enable fullscreen");
+        fixYouTubeEmbeds();
+      }
+    }, true);
+    
+    // Also add a global function that can be called from the iframe
+    window.enableFullscreen = function() {
+      fixYouTubeEmbeds();
+    };
 
   } // end of initChatbot
   
