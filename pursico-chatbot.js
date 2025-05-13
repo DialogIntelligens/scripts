@@ -21,7 +21,7 @@ function getOrCreateUserId() {
   return userId;
 }
 
-// 3) Mark that the user “used” the chatbot once it’s actually opened
+// 3) Mark that the user "used" the chatbot once it's actually opened
 let hasAlreadyNotifiedChatUse = false;
 function notifyChatUsed() {
   if (hasAlreadyNotifiedChatUse) return;
@@ -482,7 +482,14 @@ setInterval(trackCheckoutIfAny, 8000);
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
 
-      const popupText = "I can help you find the best ways to make money online 🚀 What would you like to know? ";
+      // Check if the current URL matches the specific shop URL
+      const isShopPage = window.location.href.includes("https://shop.pursico.com/");
+      
+      // Set different popup text based on URL
+      const popupText = isShopPage 
+        ? "Do you need help or have a question about the E-book? 😊" 
+        : "I can help you find the best ways to make money online 🚀 What would you like to know? ";
+      
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
 
       // Determine popup width based on character count (excluding any HTML tags)
@@ -535,10 +542,12 @@ setInterval(trackCheckoutIfAny, 8000);
       });
     }
     
-    // Check if the popup has been closed previously
+    // Check if the popup has been closed previously and set different timing based on URL
     var popupClosed = localStorage.getItem("popupClosed");
     if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
+      // Different timing based on URL - 5 seconds for shop page, 7 seconds for other pages
+      const isShopPage = window.location.href.includes("https://shop.pursico.com/");
+      setTimeout(showPopup, isShopPage ? 5000 : 7000);
     }
 
 
