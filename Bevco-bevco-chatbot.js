@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    } 
       } 	
     :root {
-      --icon-color: #10b266;
+      --icon-color: #02b67b;
     }
   
     /* The main message content area */
@@ -441,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Hey, hvad kan jeg hjælpe med?",
+      titleG: "AI Bæver",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
@@ -562,7 +562,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter, besvare spørgsmål og se ordrestatus🍾";
+      const popupText = "Jeg kan anbefale produkter, vin til mad, besvare spørgsmål og se ordrestatus🍾";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
