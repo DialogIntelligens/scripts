@@ -400,6 +400,31 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
       
+      // New handler specifically for YouTube content
+      try {
+        // Check if message contains a YouTube URL or embed code
+        if (event.data && typeof event.data === 'string') {
+          if (event.data.includes('youtube.com/embed') || 
+              event.data.includes('youtu.be') || 
+              event.data.includes('youtube.com/watch')) {
+            console.log("YouTube content detected in string message");
+            setTimeout(fixYouTubeEmbeds, 100);
+            setTimeout(fixYouTubeEmbeds, 1000);
+          }
+        } else if (event.data && event.data.content && typeof event.data.content === 'string') {
+          if (event.data.content.includes('youtube.com/embed') || 
+              event.data.content.includes('youtu.be') || 
+              event.data.content.includes('youtube.com/watch')) {
+            console.log("YouTube content detected in message content");
+            setTimeout(fixYouTubeEmbeds, 100);
+            setTimeout(fixYouTubeEmbeds, 1000);
+          }
+        }
+      } catch (e) {
+        console.error("Error processing message for YouTube content:", e);
+      }
+      
+      // Continue with existing message types
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -440,12 +465,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Run again after a longer delay to catch videos that might load later
         setTimeout(fixYouTubeEmbeds, 1500);
         setTimeout(fixYouTubeEmbeds, 3000);
-      } else if (event.data.action === 'youtubeContent' || (event.data.content && event.data.content.includes('youtube.com/embed'))) {
-        // Directly handle YouTube content
-        console.log("YouTube content detected in message");
-        setTimeout(fixYouTubeEmbeds, 100);
-        setTimeout(fixYouTubeEmbeds, 500);
-        setTimeout(fixYouTubeEmbeds, 1000);
       }
     });
   
@@ -682,6 +701,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create a wrapper with proper styling
         const wrapper = document.createElement('div');
         wrapper.style.cssText = 'position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%;';
+        wrapper.className = 'youtube-iframe-wrapper';
         
         // Create a new iframe with fullscreen enabled
         const newIframe = document.createElement('iframe');
@@ -691,8 +711,48 @@ document.addEventListener('DOMContentLoaded', function() {
         newIframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen');
         newIframe.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%;';
         
+        // Add fullscreen overlay button
+        const fullscreenButton = document.createElement('div');
+        fullscreenButton.innerHTML = '⛶'; // Fullscreen icon
+        fullscreenButton.style.cssText = 'position: absolute; right: 10px; top: 10px; z-index: 10; cursor: pointer; ' +
+                                       'background: rgba(0,0,0,0.5); color: white; border-radius: 3px; padding: 5px; ' +
+                                       'font-size: 18px; width: 30px; height: 30px; display: flex; align-items: center; ' +
+                                       'justify-content: center;';
+        
+        // Add click event to force fullscreen
+        fullscreenButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          
+          try {
+            // Try to request fullscreen on the iframe directly
+            if (newIframe.requestFullscreen) {
+              newIframe.requestFullscreen();
+            } else if (newIframe.webkitRequestFullscreen) {
+              newIframe.webkitRequestFullscreen();
+            } else if (newIframe.mozRequestFullScreen) {
+              newIframe.mozRequestFullScreen();
+            } else if (newIframe.msRequestFullscreen) {
+              newIframe.msRequestFullscreen();
+            } else {
+              // If direct iframe fullscreen fails, try using the wrapper
+              if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+              } else if (wrapper.webkitRequestFullscreen) {
+                wrapper.webkitRequestFullscreen();
+              } else if (wrapper.mozRequestFullScreen) {
+                wrapper.mozRequestFullScreen();
+              } else if (wrapper.msRequestFullscreen) {
+                wrapper.msRequestFullscreen();
+              }
+            }
+          } catch(err) {
+            console.error("Error entering fullscreen:", err);
+          }
+        });
+        
         // Replace the old iframe with our new properly configured one
         wrapper.appendChild(newIframe);
+        wrapper.appendChild(fullscreenButton);
         parent.replaceChild(wrapper, iframe);
       });
       
@@ -702,8 +762,41 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clone the video element without the data-no-fullscreen attribute
         const newVideo = video.cloneNode(true);
         newVideo.removeAttribute('data-no-fullscreen');
+        
+        // Add fullscreen button directly over the video
+        const videoContainer = document.createElement('div');
+        videoContainer.style.cssText = 'position: relative; display: inline-block;';
+        
+        const fullscreenButton = document.createElement('div');
+        fullscreenButton.innerHTML = '⛶'; // Fullscreen icon
+        fullscreenButton.style.cssText = 'position: absolute; right: 10px; top: 10px; z-index: 100; cursor: pointer; ' +
+                                       'background: rgba(0,0,0,0.5); color: white; border-radius: 3px; padding: 5px; ' +
+                                       'font-size: 18px; width: 30px; height: 30px; display: flex; align-items: center; ' +
+                                       'justify-content: center;';
+        
+        fullscreenButton.addEventListener('click', function(e) {
+          e.stopPropagation();
+          
+          try {
+            // Try using the browser's fullscreen API
+            if (newVideo.requestFullscreen) {
+              newVideo.requestFullscreen();
+            } else if (newVideo.webkitRequestFullscreen) {
+              newVideo.webkitRequestFullscreen();
+            } else if (newVideo.mozRequestFullScreen) {
+              newVideo.mozRequestFullScreen();
+            } else if (newVideo.msRequestFullscreen) {
+              newVideo.msRequestFullscreen();
+            }
+          } catch(err) {
+            console.error("Error entering fullscreen for video:", err);
+          }
+        });
+        
         if (video.parentNode) {
-          video.parentNode.replaceChild(newVideo, video);
+          videoContainer.appendChild(newVideo);
+          videoContainer.appendChild(fullscreenButton);
+          video.parentNode.replaceChild(videoContainer, video);
         }
       });
     }
@@ -764,6 +857,51 @@ document.addEventListener('DOMContentLoaded', function() {
     window.enableFullscreen = function() {
       fixYouTubeEmbeds();
     };
+
+    // Add keyboard shortcut to enter fullscreen on 'f' key press when focused on YouTube videos
+    document.addEventListener('keydown', function(event) {
+      // Check if the F key was pressed
+      if (event.key === 'f' || event.key === 'F') {
+        // Check if there's a focused element and it's inside a YouTube iframe/video
+        const activeElement = document.activeElement;
+        if (activeElement) {
+          let isYouTubeElement = false;
+          let target = activeElement;
+          
+          // Check if the element itself is a YouTube iframe or within one
+          while (target && target !== document.body) {
+            if ((target.tagName === 'IFRAME' && target.src && target.src.includes('youtube.com/embed')) ||
+                (target.tagName === 'VIDEO' && target.src && target.src.includes('youtube.com')) ||
+                (target.classList && target.classList.contains('youtube-iframe-wrapper'))) {
+              isYouTubeElement = true;
+              break;
+            }
+            target = target.parentElement;
+          }
+          
+          // If we're inside a YouTube element, try to enable fullscreen
+          if (isYouTubeElement) {
+            event.preventDefault();
+            fixYouTubeEmbeds();
+            
+            // Also try direct fullscreen on the wrapper or video
+            try {
+              if (target.requestFullscreen) {
+                target.requestFullscreen();
+              } else if (target.webkitRequestFullscreen) {
+                target.webkitRequestFullscreen();
+              } else if (target.mozRequestFullScreen) {
+                target.mozRequestFullScreen();
+              } else if (target.msRequestFullscreen) {
+                target.msRequestFullscreen();
+              }
+            } catch(err) {
+              console.error("Error entering fullscreen via keyboard:", err);
+            }
+          }
+        }
+      }
+    });
 
   } // end of initChatbot
   
