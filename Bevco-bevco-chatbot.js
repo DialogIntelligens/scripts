@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	    } 
       } 	
     :root {
-      --icon-color: #f9b655;
+      --icon-color: #10b266;
     }
   
     /* The main message content area */
@@ -436,13 +436,13 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fik du besvaret dit spørgsmål?",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
       themeColor: "#f9b655",
-      headerTitleG: "Bevco",
+      headerTitleG: "AI Bæver",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Bevco's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller tips & tricks til drikkevarer og grej 🍹🍾",
+      titleG: "Hey, hvad kan jeg hjælpe med?",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
