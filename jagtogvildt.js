@@ -294,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Jagtogvildt.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1742570423685.png",
-      themeColor: "#814c1c",
+      themeColor: "#ee9411",
       headerTitleG: "Jagtogvildt.dk",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Virtuel assistent",
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
             
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "Jeg kan besvare spørgsmål og anbefale produkter🎯";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
