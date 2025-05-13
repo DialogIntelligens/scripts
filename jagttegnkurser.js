@@ -90,15 +90,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   
       // Track purchase status
-      function trackPurchaseStatus() {
+      function trackPurchaseStatus(usedChatbot) {
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
         const chatbotId = "jagttegnkurser";
         const price = madePurchase ? extractTotalPrice() : 0;
         
-        
-        // Only track purchase status, don't set usedChatbot flag here
-        // usedChatbot will be set only when an actual conversation occurs
         fetch('https://egendatabasebackend.onrender.com/crm', {
           method: 'POST',
           headers: {
@@ -106,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
           },
           body: JSON.stringify({
             websiteuserid: websiteUserId, 
-            usedChatbot: false,
+            usedChatbot: usedChatbot || false, // Set to false if not used
             madePurchase: price | 0, //if price is null, set to 0
             chatbot_id: chatbotId
           })
@@ -122,11 +119,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
           console.error('Request error details:', error.name, error.message);
           // Fallback for iOS - try alternative approach
-          sendTrackingViaXHR(websiteUserId, price, chatbotId);
+          sendTrackingViaXHR(websiteUserId, price, usedChatbot, chatbotId);
         });
         
         // Fallback method using XMLHttpRequest which has better iOS compatibility
-        function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
+        function sendTrackingViaXHR(websiteUserId, price, usedChatbot, chatbotId) {
           console.log("Attempting fallback tracking method for iOS");
           const xhr = new XMLHttpRequest();
           xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
@@ -143,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
           };
           xhr.send(JSON.stringify({
             websiteuserid: websiteUserId,
-            usedChatbot: false,
+            usedChatbot: usedChatbot | false,
             madePurchase: price | 0,
             chatbot_id: chatbotId
           }));
@@ -151,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   
       // Run tracking on page load
-      trackPurchaseStatus();
+      trackPurchaseStatus(false);
         
         // 1. Create a unique container for your widget
       var widgetContainer = document.createElement('div');
@@ -446,7 +443,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
         isPhoneView: window.innerWidth < 800,
         parentWebsiteUserId: websiteUserId // Send the user ID to the iframe
-      };
+        };
   
     
         // If the iframe is already visible, post the message immediately.
@@ -486,68 +483,7 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.href = event.data.url;
         } else if (event.data.action === 'conversationStarted') {
           // User has started a conversation - track this as actual chatbot usage
-          const websiteUserId = getOrCreateWebsiteUserId();
-          const madePurchase = isCheckoutPage();
-          const price = madePurchase ? extractTotalPrice() : 0;
-          const chatbotId = "jagttegnkurser";
-          
-          // Detect iOS devices first
-          const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-          
-          if (isIOS) {
-            // Use the XMLHttpRequest approach directly for iOS
-            console.log("iOS device detected, using XHR directly");
-            sendTrackingViaXHR(websiteUserId, price, chatbotId);
-          } else {
-            // For non-iOS devices, use fetch with XHR fallback
-            fetch('https://egendatabasebackend.onrender.com/crm', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                websiteuserid: websiteUserId,
-                usedChatbot: true,
-                madePurchase: price | 0,
-                chatbot_id: chatbotId
-              })
-            })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-              }
-              return response.json();
-            })
-            .then(data => console.log('Purchase tracking updated:', data))
-            .catch(error => {
-              console.error('Request error details:', error.name, error.message);
-              sendTrackingViaXHR(websiteUserId, price, chatbotId);
-            });
-          }
-
-          // Fallback method using XMLHttpRequest which has better iOS compatibility
-          function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
-            console.log("Attempting fallback tracking method for iOS");
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.onreadystatechange = function() {
-              if (xhr.readyState === 4) {
-                console.log("XHR status:", xhr.status);
-                if (xhr.status === 200) {
-                  console.log('Fallback tracking updated:', JSON.parse(xhr.responseText));
-                } else {
-                  console.error('Fallback tracking failed. Status:', xhr.status);
-                }
-              }
-            };
-            xhr.send(JSON.stringify({
-              websiteuserid: websiteUserId,
-              usedChatbot: true,
-              madePurchase: price | 0,
-              chatbot_id: chatbotId
-            }));
-          }
+          trackPurchaseStatus(true);
         }
       });
     
