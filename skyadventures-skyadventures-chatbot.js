@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #ed8bc4;
+      --icon-color: #549ce3;
     }
   
     /* The main message content area */
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fick du svar på din fråga?",
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747220736063.png",
-      themeColor: "#ed8bc4",
+      themeColor: "#3e9ce2",
       headerTitleG: " ",
       headerSubtitleG: "Du kommunicerar med en artificiell intelligens. Genom att använda denna chatbot accepterar du att fel kan förekomma och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
       subtitleLinkText: "",
