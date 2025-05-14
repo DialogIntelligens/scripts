@@ -494,6 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fick du svar på din fråga?",
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747220736063.png",
+      messageIcon: "https://image-hosting-pi.vercel.app/skyMessageIcon.png",
       themeColor: "#3e9ce2",
       headerTitleG: " ",
       headerSubtitleG: "Du kommunicerar med en artificiell intelligens. Genom att använda denna chatbot accepterar du att fel kan förekomma och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
