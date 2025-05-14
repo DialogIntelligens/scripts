@@ -500,8 +500,8 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Vinge AI-assistent",
-      firstMessage: "Hej, jag är Vinge – din AI-assistent 😊 Fråga mig om allt – från kurser till produkter 🪂",
+      titleG: "Sky AI-assistent",
+      firstMessage: "Hej, jag är Sky– din AI-assistent 😊 Fråga mig om allt – från kurser till produkter 🪂",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
