@@ -317,12 +317,6 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 69px;
         right: 0vw;
       }
-      #chatbase-message-bubbles .close-popup {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: scale(1.4) !important;
-        font-size: 27px !important;
-      }
     }
   
     :root {
@@ -667,17 +661,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 12000);
     }
-
-      if (window.innerWidth < 800) {
-        setTimeout(function() {
-          if (popup.style.display === "flex") {
-            popup.style.display = "none";
-          }
-        }, 10000);
-      }
-    }
   
-    
     // Close the popup and save the state in LocalStorage
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
@@ -753,25 +737,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
   
-    if (iframe && button) {
-      if (savedState === 'open') {
-        iframe.style.display = 'block';
-        button.style.display = 'none';
-
-        // Start a loop to call adjustIframeSize every 200ms for up to 3 seconds
-        var tries = 0;
-        var maxTries = 15; // 3 seconds
-        var adjustInterval = setInterval(function() {
-          adjustIframeSize();
-          tries++;
-          if (tries >= maxTries) {
-            clearInterval(adjustInterval);
-          }
-        }, 200);
-      } else {
-        iframe.style.display = 'none';
-        button.style.display = 'block';
-      }
+    if (savedState === 'open') {
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      sendMessageToIframe();
+    } else {
+      iframe.style.display = 'none';
+      button.style.display = 'block';
     }
 
    
