@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #e78cc4;
+      --icon-color: #ed8bc4;
     }
   
     /* The main message content area */
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
+      ratingMessage: "Fick du svar på din fråga?",
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747220736063.png",
       themeColor: "#ed8bc4",
@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Hej, jag är Vinge – din AI-assistent 😊\nFråga mig om allt – från kurser till produkter 🪂";
+      const popupText = "Hej, jag är Vinge – din AI-assistent 😊\\nFråga mig om allt – från kurser till produkter 🪂";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
