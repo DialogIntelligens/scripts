@@ -507,8 +507,7 @@ document.addEventListener('DOMContentLoaded', function() {
       isPhoneView: window.innerWidth < 800
     };
 
-  
-      // If the iframe is already visible, post the message immediately.
+  // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
           iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
@@ -622,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Behöver du hjälp? Fråga mig om allt – från kurser till produkter";
+      const popupText = "Har du brug for hjælp?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -667,17 +666,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 12000);
     }
-
-      if (window.innerWidth < 800) {
-        setTimeout(function() {
-          if (popup.style.display === "flex") {
-            popup.style.display = "none";
-          }
-        }, 10000);
-      }
-    }
   
-    
     // Close the popup and save the state in LocalStorage
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
@@ -756,16 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedState === 'open') {
       iframe.style.display = 'block';
       button.style.display = 'none';
-      // Robust fix: repeatedly call adjustIframeSize to ensure chatbot loads after reload
-      var tries = 0;
-      var maxTries = 15; // 3 seconds
-      var adjustInterval = setInterval(function() {
-        adjustIframeSize();
-        tries++;
-        if (tries >= maxTries) {
-          clearInterval(adjustInterval);
-        }
-      }, 200);
+      sendMessageToIframe();
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
