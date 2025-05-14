@@ -621,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Hej, jag är Vinge – din AI-assistent 😊\\nFråga mig om allt – från kurser till produkter 🪂";
+      const popupText = "Hej, jag är Vinge – din AI-assistent 😊 Fråga mig om allt – från kurser till produkter 🪂";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
