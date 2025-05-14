@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #e78cc4;
     }
   
     /* The main message content area */
@@ -493,15 +493,15 @@ document.addEventListener('DOMContentLoaded', function() {
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgsmål?",
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747220736063.png",
+      themeColor: "#ed8bc4",
+      headerTitleG: " ",
+      headerSubtitleG: "Du kommunicerar med en artificiell intelligens. Genom att använda denna chatbot accepterar du att fel kan förekomma och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Vinge AI-assistent",
+      firstMessage: "Hej, jag är Vinge – din AI-assistent 😊\nFråga mig om allt – från kurser till produkter 🪂",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -622,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "Behöver du hjälp? Fråga mig om allt – från kurser till produkter🪂";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
