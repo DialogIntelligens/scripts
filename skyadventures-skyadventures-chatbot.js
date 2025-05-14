@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
+      inputPlaceholder: "Skriv din fråga här...",
       ratingMessage: "Fick du svar på din fråga?",
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747220736063.png",
