@@ -345,38 +345,38 @@ function initChatbot() {
       flow3KnowledgebaseIndex: "dilling-pro",
       flow4KnowledgebaseIndex: "dilling-kat",
       apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
-      customVar1: "+45 97 12 05 88",
-      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://dk.dilling.com/kategori/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://dk.dilling.com/kategori/baby, https://dk.dilling.com/kategori/born, https://dk.dilling.com/kategori/herre and https://dk.dilling.com/kategori/dame, https://dk.dilling.com/kategori/nyheder(if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      websiteOverride: "no.dilling.com",
+      languageOverride: "Norsk",
+      valutaOverride: "NOK",
+      customVar1: "+47 23 50 73 86",
+      dillingProductsKatOverride: "Når det finnes en kategorilenke i konteksten og den passer til brukerens forespørsel, legg den til som en hyperlenke på slutten. Gjør dette ofte. Lenker ser slik ut: https://no.dilling.com/kategori/eksempel – lag aldri egne lenker. Hvis ingen finnes, legg ved en bred lenke fra denne listen og forklar alltid at brukeren kan bruke produktfilteret på kategorisiden for å finne produktet sitt:  - https://no.dilling.com/kategori/baby - https://no.dilling.com/kategori/barn - https://no.dilling.com/kategori/herre - https://no.dilling.com/kategori/dame - https://no.dilling.com/kategori/nyheter (hvis kjønn eller alder ikke er spesifisert)  Hyperlenkens navn skal matche slutten av URL-en, for eksempel: `kategori/dame` → \"kategori dame\", eller `/kategori/barn/kjoler` → \"barne kjoler\". Det er greit å sende en bred lenke, men forklar alltid at produktfilteret kan brukes.",
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
+      freshdeskEmailLabel: "Din e-post:",
+      freshdeskMessageLabel: "Melding til kundeservice:",
+      freshdeskImageLabel: "Last opp bilde (valgfritt):",
+      freshdeskChooseFileText: "Velg fil",
       freshdeskNoFileText: "Ingen fil valgt",
       freshdeskSendingText: "Sender...",
       freshdeskSubmitText: "Send henvendelse",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: "E-post er påkrevd",
+      freshdeskEmailInvalidError: "Vennligst skriv inn en gyldig e-postadresse",
+      freshdeskFormErrorText: "Vennligst rett opp feilene i skjemaet",
+      freshdeskMessageRequiredError: "Melding er påkrevd",
+      freshdeskSubmitErrorText: "Det oppstod en feil ved sending av henvendelsen. Vennligst prøv igjen.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Takk for din henvendelse. Vi vil svare deg så snart som mulig.",
+      freshdeskConfirmationText: "Takk for din henvendelse. Vi vil svare deg så snart som mulig.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      inputPlaceholder: "Skriv inn spørsmålet ditt her...",
+      ratingMessage: "Fikk du svar på spørsmålet ditt?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
@@ -484,7 +484,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
 
-    const popupText = "Trenger du hjelp?\n";
+    const popupText = "Trenger du hjelp?\\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
