@@ -339,17 +339,17 @@ function initChatbot() {
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
-      pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "dilling-pro",
-      flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "dilling-kat",
-      apiFlowKnowledgebaseIndex: "dilling-faq",
+      pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
+      knowledgebaseIndexApiEndpoint: "dillingno-faq",
+      flow2KnowledgebaseIndex: "dillingno-pro",
+      flow3KnowledgebaseIndex: "dillingno-pro",
+      flow4KnowledgebaseIndex: "dillingno-kat",
+      apiFlowKnowledgebaseIndex: "dillingno-faq",
       websiteOverride: "no.dilling.com",
       languageOverride: "Norsk",
       valutaOverride: "NOK",
       customVar1: "+47 23 50 73 86",
-      dillingProductsKatOverride: "Når det finnes en kategorilenke i konteksten og den passer til brukerens forespørsel, legg den til som en hyperlenke på slutten. Gjør dette ofte. Lenker ser slik ut: https://no.dilling.com/kategori/eksempel – lag aldri egne lenker. Hvis ingen finnes, legg ved en bred lenke fra denne listen og forklar alltid at brukeren kan bruke produktfilteret på kategorisiden for å finne produktet sitt:  - https://no.dilling.com/kategori/baby - https://no.dilling.com/kategori/barn - https://no.dilling.com/kategori/herre - https://no.dilling.com/kategori/dame - https://no.dilling.com/kategori/nyheter (hvis kjønn eller alder ikke er spesifisert)  Hyperlenkens navn skal matche slutten av URL-en, for eksempel: `kategori/dame` → \"kategori dame\", eller `/kategori/barn/kjoler` → \"barne kjoler\". Det er greit å sende en bred lenke, men forklar alltid at produktfilteret kan brukes.",
+      dillingProductsKatOverride: "Når det finnes en kategorilenke i konteksten og den passer til brukerens forespørsel, legg den til som en hyperlenke på slutten. Gjør dette ofte. Lenker ser slik ut: https://no.dilling.com/kategori/eksempel – lag aldri egne lenker. Hvis ingen finnes, legg ved en bred lenke fra denne listen og forklar alltid at brukeren kan bruke produktfilteret på kategorisiden for å finne produktet sitt:  - https://no.dilling.com/kategori/baby - https://no.dilling.com/kategori/barn - https://no.dilling.com/kategori/herre - https://no.dilling.com/kategori/dame - https://no.dilling.com/kategori/nyheter (hvis kjønn eller alder ikke er spesifisert)  Hyperlenkens navn skal matche slutten av URL-en, for eksempel: `kategori/dame` → \\"kategori dame\", eller `/kategori/barn/kjoler` → \"barne kjoler\". Det er greit å sende en bred lenke, men forklar alltid at produktfilteret kan brukes.",
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
@@ -484,7 +484,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
 
-    const popupText = "Trenger du hjelp?\\n";
+    const popupText = "Trenger du hjelp?\\\\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
