@@ -382,10 +382,10 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
-      headerTitleG: "Jeg er DILLINGs AI-chatbot",
-      headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
-      titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er ny hos DILLING og er stadig under oplæring. Men jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  ",
+      headerTitleG: "Jag är DILLINGs AI-chattbot",
+      headerSubtitleG: "Du skriver med en AI-chattbot. Genom att använda den godkänner du att samtalet kan sparas och behandlas för att förbättra din upplevelse. Läs mer i vår integritetspolicy. Observera: chattboten kan i vissa fall ge felaktig information.\n",
+      titleG: "DILLINGs chatt",
+      firstMessage: "Hej 🙂 Jag är ny hos DILLING och är fortfarande under upplärning. Men jag ska göra mitt bästa om du har frågor om DILLING eller våra produkter. Hur kan jag hjälpa dig?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -484,7 +484,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
 
-    const popupText = "Har du brug for hjælp?";
+    const popupText = "Behöver du hjälp?\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
