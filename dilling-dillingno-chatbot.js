@@ -383,9 +383,9 @@ function initChatbot() {
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
       headerTitleG: "Jeg er DILLINGs AI-chatbot",
-      headerSubtitleG: "Du skriver med en AI-chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
+      headerSubtitleG: "Du skriver med en AI-chatbot. Ved å bruke denne godtar du at samtalen kan lagres og behandles for å forbedre opplevelsen din. Les mer i vår personvernerklæring. Merk: chatboten kan i noen tilfeller gi feilaktig informasjon.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er ny hos DILLING og er stadig under oplæring. Men jeg vil gøre mit bedste, hvis du har spørgsmål omkring DILLING eller vores produkter. Hvordan kan jeg hjælpe dig?  ",
+      firstMessage: "Hei 🙂 Jeg er ny hos DILLING og er fortsatt under opplæring. Men jeg skal gjøre mitt beste hvis du har spørsmål om DILLING eller produktene våre. Hvordan kan jeg hjelpe deg?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -484,7 +484,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
 
-    const popupText = "Har du brug for hjælp?";
+    const popupText = "Trenger du hjelp?\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
