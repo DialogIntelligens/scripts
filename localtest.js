@@ -1,6 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   function initChatbot() {
+
+        const urlFlag = new URLSearchParams(window.location.search).get('chat');
+  if (urlFlag === 'open') {
+    // remember the preference so refreshes or internal navigation keep it open
+    localStorage.setItem('chatWindowState', 'open');
+    // optional: scrub the parameter from the address bar
+    history.replaceState(null, '', window.location.pathname);
+  }
+    
     // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
@@ -216,10 +225,18 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 69px;
         right: 0vw;
       }
-    }
-  
+      #chatbase-message-bubbles .close-popup {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: scale(1.4) !important;
+        font-size: 27px !important;
+      }
+      #chatbase-message-bubbles .message-box {
+      font-size: 25px !important;
+	    } 
+      } 	
     :root {
-      --icon-color: #fb9038;
+      --icon-color: #2d473e;
     }
   
     /* The main message content area */
@@ -232,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding: 12px 24px 12px 20px;
+      padding: 12px 15px 12px 20px;
       margin: 8px;
       font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
@@ -281,9 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <iframe
         id="chat-iframe"
         src="http://localhost:3000/"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-        allowfullscreen>
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -326,15 +341,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "linaa",
+      chatbotID: "bevco",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b0e5bb2d-d87e-4366-b97e-6eefb47f11b9",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0d61ebd0-98a6-4f0e-832f-14227370cdc2",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/67639b65-4b22-4a32-977d-764c1cf0c274",
-      flow2Key: "",
-      flow2API: "",
-      flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9b5c61e2-5915-42ac-b348-37ff0a78aeb6",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6b24d40e-26e6-44b8-8ec3-f5c4c8a7de85",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e5db4106-a57a-46b1-baa2-e19f7bfaa917",
+      flow2Key: "product",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/33f10ef1-ab35-4cf1-b468-bc407de54cf0",
+      flow3Key: "order",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b3dd20c6-7111-43a7-961a-ce91e632cfc8",
       flow4API: "",
       flow4Key: "",
         
@@ -348,10 +363,43 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
 
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e7bed92f-688d-4cb1-a963-087ea3a4d450",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/cca56d9a-ced2-4fd6-8d93-2fc3751e9111",
+      apiFlowKey: "order",
+
+// Original API URL (for reference only)
+  orderTrackingUrl: 'https://api.bevco.dk/store-api/dialog-intelligens/order/search',
+  
+  // No token auth needed (proxy handles it)
+  trackingNeedsAuth: false,
+  
+  // Enable proxy and set the proxy URL
+  trackingUseProxy: true,
+	trackingProxyUrl: 'https://egendatabasebackend.onrender.com/api/proxy/bevco-order', // For production
+  
+  // POST method since BevCo uses POST
+  trackingRequestMethod: 'POST',
+  
+  // Empty headers (proxy adds them)
+  trackingCustomHeaders: {},
+  
+  // Request body template
+  trackingRequestBody: '{"order_number":"","email":"","phone":"","order_date":""}',
+  
+  // Required fields
+  trackingRequiredFields: ['order_number', 'email', 'phone', 'order_date'],
+  
+  // No state details needed
+  trackingStateUrl: '',
+  trackingStateIdPath: '',
+  trackingLineItemStatePath: '',
+  trackingStateNameLocale: '',
+
       useThumbsRating: false,
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
+      pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
@@ -360,17 +408,41 @@ document.addEventListener('DOMContentLoaded', function() {
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
+      customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/linaa-privatlivpolitik.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744626251999.png",
-      themeColor: "#fb9039",
-      headerTitleG: "LINÅ'S CHATBOT",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_bevco.pdf",
+
+      // Set FreshdeskForm text
+      freshdeskEmailLabel: "Din email:",
+      freshdeskMessageLabel: "Besked til kundeservice:",
+      freshdeskImageLabel: "Upload billede (valgfrit):",
+      freshdeskChooseFileText: "Vælg fil",
+      freshdeskNoFileText: "Ingen fil valgt",
+      freshdeskSendingText: "Sender...",
+      freshdeskSubmitText: "Send henvendelse",
+        
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: "Email er påkrævet",
+      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
+      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
+      freshdeskMessageRequiredError: "Besked er påkrævet",
+      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+        
+      // Set confirmation messages
+      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+
+      inputPlaceholder: "Skriv dit spørgsmål her...",
+      ratingMessage: "Fik du besvaret dit spørgsmål?",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
+      themeColor: "#f9b655",
+      headerTitleG: "AI Bæver",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Linå's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "AI Bæver",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -489,9 +561,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-
-      const popupText = "Har du brug for hjælp?";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
+      
+      const popupText = "Jeg kan anbefale produkter, vin til mad, besvare spørgsmål og se ordrestatus🍾";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -534,6 +606,15 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 1000);
         }
       }, 12000);
+      
+      // Auto-hide popup after 10 seconds on mobile devices
+      if (window.innerWidth < 800) {
+        setTimeout(function() {
+          if (popup.style.display === "flex") {
+            popup.style.display = "none";
+          }
+        }, 10000);
+      }
     }
   
     // Close the popup and save the state in LocalStorage
