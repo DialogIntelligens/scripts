@@ -345,47 +345,47 @@ function initChatbot() {
       flow3KnowledgebaseIndex: "dilling-pro",
       flow4KnowledgebaseIndex: "dilling-kat",
       apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
-      customVar1: "+45 97 12 05 88",
-      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://dk.dilling.com/kategori/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://dk.dilling.com/kategori/baby, https://dk.dilling.com/kategori/born, https://dk.dilling.com/kategori/herre and https://dk.dilling.com/kategori/dame, https://dk.dilling.com/kategori/nyheder(if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      websiteOverride: "dilling.ch",
+      languageOverride: "Deutsch",
+      valutaOverride: "CHF",
+      customVar1: "+49 800 18 33 572",
+      dillingProductsKatOverride: "Wann immer ein Kategorienlink im Kontext vorhanden ist und zur Anfrage des Nutzers passt, füge ihn am Ende als Hyperlink hinzu. Mache das regelmäßig. Die Links sehen so aus: https://www.dilling.ch/kategorie/beispiel – erstelle niemals eigene Links. Wenn kein passender Link im Kontext vorhanden ist, nutze einen allgemeinen aus dieser Liste und erkläre immer, dass der Nutzer den Produktfilter auf der Kategorieseite verwenden kann, um gezielter zu suchen:  - https://www.dilling.ch/kategorie/baby - https://www.dilling.ch/kategorie/kinder - https://www.dilling.ch/kategorie/herren - https://www.dilling.ch/kategorie/damen - https://www.dilling.ch/kategorie/neuheiten (wenn kein Geschlecht oder Alter angegeben ist)  Der Hyperlink-Name soll dem URL-Ende entsprechen, z. B. „Kategorie Damen“ für `/kategorie/damen` oder „Kinder Kleider“ für `/kategorie/kinder/kleider`.",
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Ihre E-Mail:",
+      freshdeskMessageLabel: "Nachricht an den Kundenservice:",
+      freshdeskImageLabel: "Bild hochladen (optional):",
+      freshdeskChooseFileText: "Datei auswählen",
+      freshdeskNoFileText: "Keine Datei ausgewählt",
+      freshdeskSendingText: "Wird gesendet...",
+      freshdeskSubmitText: "Anfrage absenden",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: "E-Mail ist erforderlich",
+      freshdeskEmailInvalidError: "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      freshdeskFormErrorText: "Bitte korrigieren Sie die Fehler im Formular",
+      freshdeskMessageRequiredError: "Nachricht ist erforderlich",
+      freshdeskSubmitErrorText: "Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
+      freshdeskConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      inputPlaceholder: "Stellen Sie Ihre Frage hier...",
+      ratingMessage: "Wurde Ihre Frage beantwortet?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
       headerTitleG: "Ich bin DILLINGs KI-Chatbot",
-      headerSubtitleG: "Du schreibst mit einem KI-Chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet wird, um dein Erlebnis zu verbessern. Mehr dazu findest du in unserer Datenschutzerklärung. Hinweis: Der Chatbot kann in einigen Fällen fehlerhafte Informationen liefern.\n",
+      headerSubtitleG: "Du schreibst mit einem KI-Chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet wird, um dein Erlebnis zu verbessern. Mehr dazu findest du in unserer Datenschutzerklärung. Hinweis: Der Chatbot kann in einigen Fällen fehlerhafte Informationen liefern.\\n",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hallo 🙂 Ich bin neu bei DILLING und noch in der Ausbildung. Aber ich werde mein Bestes tun, um dir bei Fragen zu DILLING oder unseren Produkten zu helfen. Wie kann ich dir helfen?\n",
+      firstMessage: "Hallo 🙂 Ich bin neu bei DILLING und noch in der Ausbildung. Aber ich werde mein Bestes tun, um dir bei Fragen zu DILLING oder unseren Produkten zu helfen. Wie kann ich dir helfen?\\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -484,7 +484,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
 
-    const popupText = "Brauchst du Hilfe?\n";
+    const popupText = "Brauchst du Hilfe?\\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
