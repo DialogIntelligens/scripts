@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 20px;
+      bottom: 60px;
     }
     #chat-button svg {
       width: 60px;
@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 70px;
+      bottom: 105px;
       right: 7px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
             iframe.style.height = '90vh';
         } else {
             iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
-            iframe.style.height = '90vh';
+            iframe.style.height = '86vh';
         }
       
       }
@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.left = 'auto';
         iframe.style.top = 'auto';
         iframe.style.transform = 'none';
-        iframe.style.bottom = '3vh';
+        iframe.style.bottom = '8vh';
         iframe.style.right = '2vw';
       }
     
