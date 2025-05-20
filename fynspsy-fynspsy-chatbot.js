@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #9da352;
     }
   
     /* The main message content area */
@@ -487,15 +487,15 @@ document.addEventListener('DOMContentLoaded', function() {
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgsmål?",
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747740017643.png",
+      themeColor: "#9fa653",
+      headerTitleG: "Fyns Psykologi Praksis",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Fyns Psykologi Praksis Virtuelle Assistent",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behov til generelle spørgsmål, eller få personlige råd og vejledning.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
