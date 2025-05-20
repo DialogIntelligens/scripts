@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #972e2f;
     }
   
     /* The main message content area */
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Trafikskolerne AI",
-      firstMessage: "Hej 😊 Spørg mig om alt – som må jeg køre over for rødt ;)🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra undervisning til generelle spørgsmål 🚖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
