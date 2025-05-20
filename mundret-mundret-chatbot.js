@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #a59269;
+      --icon-color: #646555;
     }
   
     /* The main message content area */
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4Key: "",
         
       leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
+      leadMail: "info@mundret.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
