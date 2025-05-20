@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Fyns Psykolog Matcher",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behov til generelle spørgsmål, eller få personlige råd og vejledning.",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behov til generelle spørgsmål, eller få personlige råd til psykologihjælp.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
