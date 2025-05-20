@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Fyns Psykologi Praksis Virtuelle Assistent",
+      titleG: "Fyns Psykolog Matcher",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra behov til generelle spørgsmål, eller få personlige råd og vejledning.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
