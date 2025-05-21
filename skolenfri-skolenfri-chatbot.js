@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      productImageHeightMultiplier: 1,
+      productImageHeightMultiplier: 1.5,
 
       pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
       knowledgebaseIndexApiEndpoint: "",
