@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #f7c800;
     }
   
     /* The main message content area */
@@ -427,8 +427,8 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "trafikteori",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/38b19778-02c3-4fa1-9605-6e26bc0bb7c4",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a6366f11-2af4-473d-aa3e-02ba9ac81c0f",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
