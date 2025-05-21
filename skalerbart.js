@@ -486,6 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgmål?",
+
+      productButtonText: "SE PRODUKT",
+      productImageHeightMultiplier: 1.5,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
       themeColor: "#224e9a",
