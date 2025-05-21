@@ -491,6 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      messageIcon: "",
       themeColor: "#224e9a",
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
