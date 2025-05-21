@@ -472,7 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
       freshdeskNoFileText: "Ingen fil valgt",
       freshdeskSendingText: "Sender...",
       freshdeskSubmitText: "Send henvendelse",
-        
+      productButtonText: "SE PDF",  
       // Set FreshdeskForm validation error messages
       freshdeskEmailRequiredError: "Email er påkrævet",
       freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
