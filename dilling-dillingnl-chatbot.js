@@ -336,7 +336,7 @@ function initChatbot() {
   trackingNeedsAuth: true,
 
       
-      productButtonText: "PRODUKT ANSEHEN",
+      productButtonText: "BEKIJK PRODUCT",
   
       useThumbsRating: true,
       ratingTimerDuration: 10000,
