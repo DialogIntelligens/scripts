@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #de7a7d;
     }
   
     /* The main message content area */
@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747851337549.png",
       messageIcon: "https://image-hosting-pi.vercel.app/iconlogo.png",
-      themeColor: "#224e9a",
+      themeColor: "#e67a7e",
       headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
