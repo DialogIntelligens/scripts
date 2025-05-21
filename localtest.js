@@ -337,6 +337,7 @@ function initChatbot() {
 
       
       productButtonText: "BEKIJK PRODUCT",
+      productImageHeightMultiplier: 1.5,
   
       useThumbsRating: true,
       ratingTimerDuration: 10000,
