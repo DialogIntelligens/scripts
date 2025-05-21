@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
       leadField2: "Tlf nummer",
 
       productButtonText: "SE PRODUKT",
-      productImageHeightMultiplier: 1.3,
+      productImageHeightMultiplier: 1,
 
       metaDataAPI: "",
       metaDataKey: "",
