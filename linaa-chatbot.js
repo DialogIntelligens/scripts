@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #fb9038;
+      --icon-color: #fb9039;
     }
   
     /* The main message content area */
@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
       leadField2: "Tlf nummer",
 
       productButtonText: "SE PRODUKT",
-      productImageHeightMultiplier: 1,
+      productImageHeightMultiplier: 1.3,
 
       metaDataAPI: "",
       metaDataKey: "",
