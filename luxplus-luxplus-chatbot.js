@@ -491,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747851337549.png",
-      messageIcon: "https://image-hosting-pi.vercel.app/iconlogo.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/iconlogo.png",
       themeColor: "#e67a7e",
       headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
