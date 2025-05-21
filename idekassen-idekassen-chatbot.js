@@ -473,6 +473,7 @@ document.addEventListener('DOMContentLoaded', function() {
       freshdeskSendingText: "Sender...",
       freshdeskSubmitText: "Send henvendelse",
       productButtonText: "SE PDF",  
+      productImageHeightMultiplier: 1.3,
       // Set FreshdeskForm validation error messages
       freshdeskEmailRequiredError: "Email er påkrævet",
       freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
