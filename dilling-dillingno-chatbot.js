@@ -335,7 +335,7 @@ function initChatbot() {
   // Auth is required
   trackingNeedsAuth: true,
 
-      
+      productButtonText: "SE PRODUKT",
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
