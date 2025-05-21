@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_trafikteori.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
@@ -490,15 +490,15 @@ document.addEventListener('DOMContentLoaded', function() {
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
+      themeColor: "#f7c800",
+      headerTitleG: "Trafikteori's Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Trafikteori",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med? Jeg er trænet på teoribogen og undervisningsplanen for kørekort kategori B.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
