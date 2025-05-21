@@ -335,7 +335,7 @@ function initChatbot() {
   // Auth is required
   trackingNeedsAuth: true,
 
-      
+      productButtonText: "KATSO TUOTE",
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
