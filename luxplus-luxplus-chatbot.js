@@ -498,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Luxplus' AI chatbot",
+      firstMessage: "Hej, jeg er Luxplus' kunstig intelligente medarbejder😊\nJeg kan svare på spørgsmål om dit medlemskab, produkter og meget mere🧴",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
