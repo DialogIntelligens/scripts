@@ -427,43 +427,71 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "luxplus",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
-      fordelingsflowAPI: "",
-      flow2Key: "",
-      flow2API: "",
-      flow3Key: "product",
-      flow3API: "",
-      flow4API: "",
-      flow4Key: "",
-        
-      leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
-      leadField1: "Navn",
-      leadField2: "Tlf nummer",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
+      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/75ae5c08-459e-4a2e-915c-a6df55b5dcd6",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/61d3da9c-fea8-41b8-ae9e-bed791666cf2",
+      flow2Key: "product",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
+      flow3Key: "productnofilter",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
+      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
+      flow4Key: "category",
+      
+      imageAPI: "",
+  
+      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11751a16-1c96-4710-8d18-2987f8b4e21c",
+      metaDataKey: "product",
+  
+      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
+      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
+      apiFlowKey: "order",
+      
+   // Order tracking URL with placeholders
+  orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="EMAIL_PLACEHOLDER")',
+  
+  // Authentication settings remain the same
+  trackingAuthUrl: 'https://auth.europe-west1.gcp.commercetools.com/oauth/token',
+  trackingClientId: 'PpRchVoadh-EOZVSM93udjN2',
+  trackingClientSecret: 'oF43LNYPaAgJkg-qqabTaDIQge1uIyfA',
+  trackingAuthGrantType: 'client_credentials',
+  trackingAuthScope: 'view_orders:dilling--production view_published_products:dilling--production view_states:dilling--production',
+  trackingAuthMethod: 'basic',
+  
+  // Request configuration
+  trackingRequestMethod: 'GET',
+  trackingCustomHeaders: {},
+  
+  // Required fields
+  trackingRequiredFields: ['order_number', 'email'],
+  
+  // State configuration
+  trackingStateUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/states/STATE_ID_PLACEHOLDER',
+  trackingStateNameLocale: 'da-DK',
+  
+  // Auth is required
+  trackingNeedsAuth: true,
 
-      metaDataAPI: "",
-      metaDataKey: "",
-        
-      imageAPI: '',
-
-      useThumbsRating: false,
-      ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
+      
+      useThumbsRating: true,
+      ratingTimerDuration: 10000,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
-      flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
-      flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "",
-      websiteOverride: "",
-      languageOverride: "",
-      valutaOverride: "",
-      customVar1: "",
+      knowledgebaseIndexApiEndpoint: "dilling-faq",
+      flow2KnowledgebaseIndex: "dilling-pro",
+      flow3KnowledgebaseIndex: "dilling-pro",
+      flow4KnowledgebaseIndex: "dilling-kat",
+      apiFlowKnowledgebaseIndex: "dilling-faq",
+      websiteOverride: "dilling.dk",
+      languageOverride: "Danish",
+      valutaOverride: "KR",
+      customVar1: "+45 97 12 05 88",
+      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://dk.dilling.com/kategori/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://dk.dilling.com/kategori/baby, https://dk.dilling.com/kategori/born, https://dk.dilling.com/kategori/herre and https://dk.dilling.com/kategori/dame, https://dk.dilling.com/kategori/nyheder(if no gender or age is provided). The hyperlink name should match the URL end, e.g. kategori/dame hyperlink name should be kategory dame or /kategori/børn/kjoler be børne kjoler. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      dillingColors: "",      
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-
+      replaceExclamationWithPeriod: true,
+      fontFamily: "Montserrat, sans-serif",
+      
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
       freshdeskMessageLabel: "Besked til kundeservice:",
