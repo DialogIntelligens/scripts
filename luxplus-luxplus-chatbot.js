@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
       dillingColors: "",      
       
       replaceExclamationWithPeriod: true,
-      fontFamily: "Montserrat, sans-serif",
+      fontFamily: "Red Hat Display, sans-serif",
       
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
