@@ -374,6 +374,8 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
       freshdeskConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
+            
+      freshdeskGroupId: 22000163683,
 
       inputPlaceholder: "Écrivez votre question ici...",
       ratingMessage: "Votre question a-t-elle été répondue ?",
