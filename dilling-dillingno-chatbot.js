@@ -374,6 +374,8 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Takk for din henvendelse. Vi vil svare deg så snart som mulig.",
       freshdeskConfirmationText: "Takk for din henvendelse. Vi vil svare deg så snart som mulig.",
+            
+      freshdeskGroupId: 22000166117,
 
       inputPlaceholder: "Skriv inn spørsmålet ditt her...",
       ratingMessage: "Fikk du svar på spørsmålet ditt?",
