@@ -142,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: fixed;
-      bottom: 140px;
-      right: -140px;
+      bottom: 137px;
+      left: 70px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flex-direction: column;
       gap: 50px;
       background-color: white;
-      transform-origin: bottom right;
+      transform-origin: bottom left;
       box-shadow:
         0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15),
         0px 2.29px 2.06px -2.67px rgba(0, 0, 0, 0.13),
