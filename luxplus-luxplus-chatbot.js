@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
 
-      liveChatAvailable: true,
+      enableLivechat: true,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747851337549.png",
       messageIcon: "https://image-hosting-pi.vercel.app/iconlogo.png",
