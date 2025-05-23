@@ -487,7 +487,7 @@ setInterval(trackCheckoutIfAny, 8000);
       
       // Set different popup text based on URL
       const popupText = isShopPage 
-        ? "Do you need help or have a question about the E-book? 😊" 
+        ? "Do you need help or have a question about the E-book?" 
         : "I can help you find the best ways to make money online 🚀 What would you like to know? ";
       
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
@@ -496,11 +496,11 @@ setInterval(trackCheckoutIfAny, 8000);
       var charCount = messageBox.textContent.trim().length;
       var popupElem = document.getElementById("chatbase-message-bubbles");
       if (charCount < 25) {
-        popupElem.style.width = "380px";
+        popupElem.style.width = "390px";
       } else if (charCount < 60) {
-        popupElem.style.width = "405px";
+        popupElem.style.width = "415px";
       } else {
-        popupElem.style.width = "460px";
+        popupElem.style.width = "470px";
       }
 
      
