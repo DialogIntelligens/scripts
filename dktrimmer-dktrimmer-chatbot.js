@@ -451,7 +451,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
       knowledgebaseIndexApiEndpoint: "dktrimmer-alt",
       flow2KnowledgebaseIndex: "dktrimmer-alt",
       flow3KnowledgebaseIndex: "dktrimmer-spe",
