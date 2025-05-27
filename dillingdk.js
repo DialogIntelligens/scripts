@@ -375,6 +375,9 @@ function initChatbot() {
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
+      freshdeskNameRequiredError: "Navn er påkrævet",
+      freshdeskNameLabel: "Navn",
+
       freshdeskGroupId: 22000157402,
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
