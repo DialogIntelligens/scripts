@@ -374,6 +374,10 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
       freshdeskConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
+
+      freshdeskNameRequiredError: "Name is required",
+      freshdeskNameLabel: "Name:",
+
       
       freshdeskGroupId: 22000162678,
 
