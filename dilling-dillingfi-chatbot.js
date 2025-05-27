@@ -378,6 +378,9 @@ function initChatbot() {
       freshdeskNameRequiredError: "Nimi on pakollinen",
       freshdeskNameLabel: "Nimi:",
 
+      freshdeskNameRequiredError: "Nimi on pakollinen",
+      freshdeskNameLabel: "Nimi:",
+
             
       freshdeskGroupId: 22000157432,
 
