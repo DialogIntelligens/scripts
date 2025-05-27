@@ -59,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
       border: none;
       position: fixed;
       z-index: 20;
-      right: 10px;
-      bottom: 20px;
+      right: 50px;
+      bottom: 50px;
     }
     #chat-button svg {
       width: 60px;
