@@ -374,6 +374,10 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Tack för din förfrågan, vi återkommer så snart som möjligt.",
       freshdeskConfirmationText: "Tack för din förfrågan, vi återkommer så snart som möjligt.",
+
+      freshdeskNameRequiredError: "Namn är obligatoriskt",
+      freshdeskNameLabel: "Namn:",
+
             
       freshdeskGroupId: 22000157429,
 
