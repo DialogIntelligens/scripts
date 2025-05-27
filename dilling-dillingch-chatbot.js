@@ -375,6 +375,10 @@ function initChatbot() {
       contactConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
       freshdeskConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
 
+      freshdeskNameRequiredError: "Name wird benötigt",
+      freshdeskNameLabel: "Name:",
+
+
       inputPlaceholder: "Stellen Sie Ihre Frage hier...",
       ratingMessage: "Wurde Ihre Frage beantwortet?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
