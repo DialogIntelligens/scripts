@@ -376,6 +376,10 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Dank je voor je bericht, we nemen zo snel mogelijk contact met je op.",
       freshdeskConfirmationText: "Dank je voor je bericht, we nemen zo snel mogelijk contact met je op.",
+
+      freshdeskNameRequiredError: "Naam is verplicht",
+      freshdeskNameLabel: "Naam:",
+
           
       freshdeskGroupId: 22000157430,
 
