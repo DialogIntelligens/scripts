@@ -374,6 +374,10 @@ function initChatbot() {
       // Set confirmation messages
       contactConfirmationText: "Kiitos yhteydenotostasi, palaamme asiaan mahdollisimman pian.",
       freshdeskConfirmationText: "Kiitos yhteydenotostasi, palaamme asiaan mahdollisimman pian.",
+
+      freshdeskNameRequiredError: "Nimi on pakollinen",
+      freshdeskNameLabel: "Nimi:",
+
             
       freshdeskGroupId: 22000157432,
 
