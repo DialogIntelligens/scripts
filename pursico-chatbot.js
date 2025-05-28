@@ -235,7 +235,7 @@ setInterval(trackCheckoutIfAny, 8000);
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 90vw;
-        bottom: 69px;
+        bottom: 79px;
         right: 0vw;
       }
     }
@@ -498,7 +498,7 @@ setInterval(trackCheckoutIfAny, 8000);
       if (charCount < 25) {
         popupElem.style.width = "390px";
       } else if (charCount < 60) {
-        popupElem.style.width = "415px";
+        popupElem.style.width = "435px";
       } else {
         popupElem.style.width = "470px";
       }
