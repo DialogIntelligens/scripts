@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Build a unique local-storage key for the current chatbot user
-  function purchaseKey(userId) {
-    return `purchaseReported_${userId}`;
-  }
+  // Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
 
   function initChatbot() {
     // Check if already initialized
@@ -15,27 +15,27 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * PURCHASE TRACKING
      */
-    let chatbotUserId = null; // Store the userId from the iframe
-    let hasReportedPurchase = false;  // <-- add this line
+  let chatbotUserId = null; // Store the userId from the iframe
+  let hasReportedPurchase = false;  // <-- add this line
 
-    
+
     // Check if on checkout page
     function isCheckoutPage() {
-      return window.location.href.includes('/checkout/') || 
-             window.location.href.includes('/order-complete/') ||
-             window.location.href.includes('/thank-you/') ||
-             window.location.href.includes('/order-received/') ||
-             document.querySelector('.order-complete') ||
-             document.querySelector('.thank-you') ||
-             document.querySelector('.order-confirmation');
-    }
-    
+    return window.location.href.includes('/checkout/') || 
+           window.location.href.includes('/order-complete/') ||
+           window.location.href.includes('/thank-you/') ||
+           window.location.href.includes('/order-received/') ||
+           document.querySelector('.order-complete') ||
+           document.querySelector('.thank-you') ||
+           document.querySelector('.order-confirmation');
+  }
+  
     //Extract total price from the page
     function extractTotalPrice() {
       let totalPrice = null;
       let highestValue = 0;
-      
-      console.log('Starting price extraction...');
+    
+    console.log('Starting price extraction...');
       
       // Method 1: Try common selectors for price elements
       const priceSelectors = [
@@ -49,67 +49,67 @@ document.addEventListener('DOMContentLoaded', function() {
       // Loop through each selector
       for (const selector of priceSelectors) {
         const elements = document.querySelectorAll(selector);
-        console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+      console.log(`Checking selector "${selector}": found ${elements.length} elements`);
         
         if (elements && elements.length > 0) {
           
           // Check each element that matches the selector
           for (const element of elements) {
             const priceText = element.textContent.trim();
-            console.log(`Element text: "${priceText}"`);
-            
-            // Extract Danish currency format (100,00 kr.) and other formats
-            const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
-            const regularMatches = priceText.match(/\d[\d.,]*/g);
-            
-            let allMatches = [];
-            if (danishMatches) {
-              allMatches = allMatches.concat(danishMatches);
-            }
-            if (regularMatches) {
-              allMatches = allMatches.concat(regularMatches);
-            }
-            
-            console.log(`Found matches:`, allMatches);
-            
-            if (allMatches && allMatches.length > 0) {
+          console.log(`Element text: "${priceText}"`);
+          
+          // Extract Danish currency format (100,00 kr.) and other formats
+          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+          const regularMatches = priceText.match(/\d[\d.,]*/g);
+          
+          let allMatches = [];
+          if (danishMatches) {
+            allMatches = allMatches.concat(danishMatches);
+          }
+          if (regularMatches) {
+            allMatches = allMatches.concat(regularMatches);
+          }
+          
+          console.log(`Found matches:`, allMatches);
+          
+          if (allMatches && allMatches.length > 0) {
               // Process each potential price number
-              for (const match of allMatches) {
-                let cleanedMatch = match;
-                
-                // Handle Danish format (100,00 kr)
-                if (match.includes('kr')) {
-                  cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
-                  // Convert Danish decimal comma to period
-                  cleanedMatch = cleanedMatch.replace(',', '.');
-                } else {
-                  // Handle other formats
-                  cleanedMatch = match.replace(/[^\d.,]/g, '');
-                  // If it has both comma and period, assume comma is thousands separator
-                  if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+            for (const match of allMatches) {
+              let cleanedMatch = match;
+              
+              // Handle Danish format (100,00 kr)
+              if (match.includes('kr')) {
+                cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+                // Convert Danish decimal comma to period
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              } else {
+                // Handle other formats
+                cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // If it has both comma and period, assume comma is thousands separator
+                if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                } else if (cleanedMatch.includes(',')) {
+                  // If only comma, could be decimal separator (European style)
+                  const parts = cleanedMatch.split(',');
+                  if (parts.length === 2 && parts[1].length <= 2) {
+                    cleanedMatch = cleanedMatch.replace(',', '.');
+                  } else {
                     cleanedMatch = cleanedMatch.replace(/,/g, '');
-                  } else if (cleanedMatch.includes(',')) {
-                    // If only comma, could be decimal separator (European style)
-                    const parts = cleanedMatch.split(',');
-                    if (parts.length === 2 && parts[1].length <= 2) {
-                      cleanedMatch = cleanedMatch.replace(',', '.');
-                    } else {
-                      cleanedMatch = cleanedMatch.replace(/,/g, '');
-                    }
                   }
                 }
-                
-                console.log(`Cleaned match: "${cleanedMatch}"`);
+              }
+              
+              console.log(`Cleaned match: "${cleanedMatch}"`);
                 
                 // Convert to number
                 const numValue = parseFloat(cleanedMatch);
-                console.log(`Parsed number: ${numValue}`);
+              console.log(`Parsed number: ${numValue}`);
                 
                 // Keep the highest value found
                 if (!isNaN(numValue) && numValue > highestValue) {
                   highestValue = numValue;
                   totalPrice = numValue;
-                  console.log(`New highest price: ${totalPrice}`);
+                console.log(`New highest price: ${totalPrice}`);
                 }
               }
             }
@@ -117,61 +117,61 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      console.log(`Final extracted price: ${totalPrice}`);
+    console.log(`Final extracted price: ${totalPrice}`);
       return totalPrice;
     }
 
-    function reportPurchase(totalPrice) {
+  function reportPurchase(totalPrice) {
 
-      /* Abort if we already stored a flag for this user
-         (covers page refreshes & navigation).           */
-      if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
-        console.log('Purchase already logged for user – skip');
-        hasReportedPurchase = true;                             // ★ NEW
-        return;
-      }
-
-      console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
-
-      fetch('https://egendatabasebackend.onrender.com/purchases', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id:   chatbotUserId,
-          chatbot_id:'jagttegnkurser',
-          amount:    totalPrice
-        })
-      })
-      .then(res => {
-        if (res.ok) {
-          console.log('Purchase reported successfully');
-          hasReportedPurchase = true;
-          localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-        } else {
-          console.error('Failed to report purchase:', res.status);
-        }
-      })
-      .catch(err => console.error('Error reporting purchase:', err));
+    /* Abort if we already stored a flag for this user
+       (covers page refreshes & navigation).           */
+    if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+      console.log('Purchase already logged for user – skip');
+      hasReportedPurchase = true;                             // ★ NEW
+      return;
     }
 
-    // -------------------------------------------------------
-    // 4. Main purchase detector (small tweak)
-    // -------------------------------------------------------
-    function checkForPurchase() {
-      if (!chatbotUserId) return;
+    console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
 
-      if (isCheckoutPage() && !hasReportedPurchase) {
-        const totalPrice = extractTotalPrice();
-        if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id:   chatbotUserId,
+        chatbot_id:'jagttegnkurser',
+        amount:    totalPrice
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        console.log('Purchase reported successfully');
+        hasReportedPurchase = true;
+        localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+      } else {
+        console.error('Failed to report purchase:', res.status);
       }
-    }
+    })
+    .catch(err => console.error('Error reporting purchase:', err));
+  }
 
-    // Check for purchase immediately and then periodically
-    console.log('Setting up purchase tracking timers...');
-    setTimeout(checkForPurchase, 1000); // Check after 1 second
-    setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
-    setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
-    setInterval(checkForPurchase, 15000); // Check every 15 seconds
+  // -------------------------------------------------------
+  // 4. Main purchase detector (small tweak)
+  // -------------------------------------------------------
+  function checkForPurchase() {
+    if (!chatbotUserId) return;
+
+    if (isCheckoutPage() && !hasReportedPurchase) {
+      const totalPrice = extractTotalPrice();
+      if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+    }
+  }
+
+  // Check for purchase immediately and then periodically
+  console.log('Setting up purchase tracking timers...');
+  setTimeout(checkForPurchase, 1000); // Check after 1 second
+  setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
+  setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
+  setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
     /**
      * 1. GLOBAL & FONT SETUP
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
-  
+
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagttegnkurser",
@@ -455,37 +455,37 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Jagttegn kursers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at brug denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
-      purchaseTrackingEnabled: true,
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
+      purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800
+    isPhoneView: window.innerWidth < 800
       };
 
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
+      try {
+        // Wait a bit for iframe to be fully loaded
+        setTimeout(() => {
         try {
-          // Wait a bit for iframe to be fully loaded
-          setTimeout(() => {
-            try {
-              iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-            } catch (e) {
-              console.warn("Error posting message to iframe (retry):", e);
-            }
-          }, 100);
+          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
-          console.warn("Error posting message to iframe:", e);
+            console.warn("Error posting message to iframe (retry):", e);
+          }
+        }, 100);
+      } catch (e) {
+        console.warn("Error posting message to iframe:", e);
         }
       } else {
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            // Add a small delay to ensure iframe is ready
-            setTimeout(() => {
-              iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-            }, 200);
+          // Add a small delay to ensure iframe is ready
+          setTimeout(() => {
+            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          }, 200);
           } catch (e) {
-            console.warn("Error posting message on iframe load:", e);
+          console.warn("Error posting message on iframe load:", e);
           }
         };
       }
@@ -508,17 +508,17 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
       } else if (event.data.action === 'conversationStarted') {
-        // User has started a conversation - we now track through the userId instead
-        console.log('User started conversation');
-      } else if (event.data.action === 'setChatbotUserId') {
-        // Handle the new message from the iframe
-        chatbotUserId = event.data.userId;
-        console.log("Received and stored chatbotUserId:", chatbotUserId);
-        
-        // If we're on a checkout page, immediately check for purchase
-        if (isCheckoutPage()) {
-          setTimeout(checkForPurchase, 1000);
-        }
+      // User has started a conversation - we now track through the userId instead
+      console.log('User started conversation');
+    } else if (event.data.action === 'setChatbotUserId') {
+      // Handle the new message from the iframe
+      chatbotUserId = event.data.userId;
+      console.log("Received and stored chatbotUserId:", chatbotUserId);
+      
+      // If we're on a checkout page, immediately check for purchase
+      if (isCheckoutPage()) {
+        setTimeout(checkForPurchase, 1000);
+      }
       }
     });
   
