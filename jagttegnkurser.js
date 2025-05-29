@@ -424,6 +424,16 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (event.data.action === 'conversationStarted') {
         // User has started a conversation - track this as actual chatbot usage
         trackPurchaseStatus(true);
+      } else if (event.data.action === 'setChatbotUserId') {
+        // Handle the new message from the iframe
+        let chatbotUserId = event.data.userId;
+        console.log("Received chatbotUserId:", chatbotUserId);
+        // Send userId to the parent window once
+        window.parent.postMessage({
+          action: 'setChatbotUserId',
+          chatbotID: 'jagttegnkurser',
+          userId: chatbotUserId
+        }, '*');
       }
     });
   
