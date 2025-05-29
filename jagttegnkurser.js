@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const isCheckout = isCheckoutPage();
       console.log('Is checkout page:', isCheckout);
       
-      if (isCheckout) {
+      if (isCheckout && !hasReportedPurchase) {
         const totalPrice = extractTotalPrice();
         console.log('Extracted price:', totalPrice);
         
