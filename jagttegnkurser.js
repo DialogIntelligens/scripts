@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
       return chatbotUserId !== null;
     }
 
-    // Track purchase event
+    // Track purchase event with debugging
     async function trackPurchaseEvent(eventType, amount, productCount = 1) {
       const chatbotUserId = getChatbotUserId();
       
-      console.log('trackPurchaseEvent called with:', { eventType, amount, productCount, chatbotUserId });
+      console.log('trackPurchaseEvent called:', { eventType, amount, chatbotUserId });
       
       // Only track if user has used the chatbot
       if (!chatbotUserId) {
@@ -51,60 +51,38 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      const requestData = {
-        user_id: chatbotUserId,
-        chatbot_id: "jagttegnkurser", // Replace with your actual chatbot ID
-        event_type: eventType,
-        amount: amount,
-        currency_code: 'DKK', // Change if needed
-        product_count: productCount,
-        metadata: {
-          page_url: window.location.href,
-          timestamp: new Date().toISOString()
-        }
-      };
-
-      console.log('Sending tracking request:', requestData);
-
       try {
+        console.log('Sending purchase tracking request...');
         const response = await fetch('https://egendatabasebackend.onrender.com/api/purchase/track-purchase', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(requestData)
+          body: JSON.stringify({
+            user_id: chatbotUserId,
+            chatbot_id: "jagttegnkurser", // Replace with your actual chatbot ID
+            event_type: eventType,
+            amount: amount,
+            currency_code: 'DKK', // Change if needed
+            product_count: productCount,
+            metadata: {
+              page_url: window.location.href,
+              timestamp: new Date().toISOString()
+            }
+          })
         });
 
-        console.log('Response status:', response.status);
-        
         if (response.ok) {
           const data = await response.json();
           console.log('Purchase event tracked successfully:', data);
         } else {
           const errorText = await response.text();
-          console.error('Failed to track purchase event:', errorText);
+          console.error('Failed to track purchase event:', response.status, errorText);
         }
       } catch (error) {
         console.error('Error tracking purchase:', error);
       }
     }
-
-    // Test function to manually trigger tracking (for debugging)
-    function testPurchaseTracking() {
-      console.log('Testing purchase tracking...');
-      console.log('Chatbot user ID:', getChatbotUserId());
-      console.log('Has used chatbot:', hasUsedChatbot());
-      
-      if (hasUsedChatbot()) {
-        console.log('Sending test checkout visit event...');
-        trackPurchaseEvent('test_event', 100);
-      } else {
-        console.log('Cannot test - user has not used chatbot');
-      }
-    }
-
-    // Make test function available globally for manual testing
-    window.testPurchaseTracking = testPurchaseTracking;
 
     // Monitor cart changes (example for common e-commerce platforms)
     function monitorCart() {
@@ -145,56 +123,52 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkForPurchaseCompletion() {
       console.log('Checking for purchase completion on:', window.location.href);
       
+      // Check for checkout page (cart/checkout initiation)
+      const checkoutIndicators = [
+        window.location.href.includes('/checkout'),
+        window.location.href.includes('/cart'),
+        window.location.href.includes('/kurv')
+      ];
+
+      // Check for purchase completion pages
       const purchaseIndicators = [
         window.location.href.includes('/order-confirmation'),
         window.location.href.includes('/checkout/success'),
         window.location.href.includes('/thank-you'),
         window.location.href.includes('/order-complete'),
+        window.location.href.includes('/tak'),
+        window.location.href.includes('/bekraeftelse'),
         document.querySelector('.order-success, .checkout-success, .order-confirmation') !== null
       ];
 
-      console.log('Purchase indicators:', purchaseIndicators);
-
       if (purchaseIndicators.some(indicator => indicator)) {
-        console.log('Purchase completion detected!');
+        console.log('Purchase completion detected');
         // Extract order total
         const totalPrice = extractTotalPrice();
         console.log('Extracted total price:', totalPrice);
         if (totalPrice && totalPrice > 0) {
           trackPurchaseEvent('purchase_complete', totalPrice);
-        }
-      }
-    }
-
-    // Check if on checkout page (for tracking checkout visits)
-    function checkForCheckoutVisit() {
-      console.log('Checking for checkout visit on:', window.location.href);
-      
-      const checkoutIndicators = [
-        window.location.href.includes('/checkout'),
-        window.location.href.includes('/cart'),
-        window.location.href.includes('/basket'),
-        document.querySelector('.checkout, .cart-page, .basket-page') !== null
-      ];
-
-      console.log('Checkout indicators:', checkoutIndicators);
-
-      if (checkoutIndicators.some(indicator => indicator)) {
-        console.log('Checkout page visit detected!');
-        // Track checkout visit (you might want to extract cart total here)
-        const cartTotal = extractTotalPrice();
-        console.log('Extracted cart total:', cartTotal);
-        if (cartTotal && cartTotal > 0) {
-          trackPurchaseEvent('checkout_visit', cartTotal);
         } else {
-          // Track checkout visit even without price
-          trackPurchaseEvent('checkout_visit', 0);
+          console.log('No valid price found, tracking purchase without amount');
+          trackPurchaseEvent('purchase_complete', 0);
+        }
+      } else if (checkoutIndicators.some(indicator => indicator)) {
+        console.log('Checkout page detected');
+        // Extract cart total for checkout initiation
+        const cartPrice = extractTotalPrice();
+        console.log('Extracted cart price:', cartPrice);
+        if (cartPrice && cartPrice > 0) {
+          trackPurchaseEvent('checkout_started', cartPrice);
+        } else {
+          console.log('No valid cart price found, tracking checkout start without amount');
+          trackPurchaseEvent('checkout_started', 0);
         }
       }
     }
 
-    // Extract total price from the page
+    // Extract total price from the page with debugging
     function extractTotalPrice() {
+      console.log('Extracting total price from page...');
       let totalPrice = null;
       let highestValue = 0;
       
@@ -203,24 +177,29 @@ document.addEventListener('DOMContentLoaded', function() {
         '.total-price', '.order-total', '.cart-total', '.grand-total',
         '[data-testid="order-summary-total"]', '.order-summary-total',
         '.checkout-total', '.woocommerce-Price-amount', '.amount',
-        '.product-subtotal', '.order-summary__price'
+        '.product-subtotal', '.order-summary__price', '.total', '.sum',
+        '.price-total', '.final-price', '.checkout-price'
       ];
       
+      console.log('Trying price selectors:', priceSelectors);
       
       // Loop through each selector
       for (const selector of priceSelectors) {
         const elements = document.querySelectorAll(selector);
+        console.log(`Selector "${selector}" found ${elements.length} elements`);
         
         if (elements && elements.length > 0) {
           
           // Check each element that matches the selector
           for (const element of elements) {
             const priceText = element.textContent.trim();
+            console.log(`Checking element text: "${priceText}"`);
             
             // Extract all number sequences (ignoring currency symbols)
             const numberMatches = priceText.match(/\d[\d.,]*/g);
             
             if (numberMatches && numberMatches.length > 0) {
+              console.log('Number matches found:', numberMatches);
               // Process each potential price number
               for (const match of numberMatches) {
                 // Clean up the match to standard format
@@ -236,11 +215,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // Convert to number
                 const numValue = parseFloat(cleanedMatch);
+                console.log(`Parsed number: ${numValue} from "${match}"`);
                 
                 // Keep the highest value found
                 if (!isNaN(numValue) && numValue > highestValue) {
                   highestValue = numValue;
                   totalPrice = numValue;
+                  console.log(`New highest price: ${totalPrice}`);
                 }
               }
             }
@@ -248,12 +229,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
+      console.log('Final extracted price:', totalPrice);
       return totalPrice;
     }
 
-    // Initialize purchase tracking
+    // Initialize purchase tracking with debugging
     function initPurchaseTracking() {
-      console.log('Initializing purchase tracking...');
+      console.log('initPurchaseTracking called');
+      console.log('hasUsedChatbot():', hasUsedChatbot());
+      console.log('getChatbotUserId():', getChatbotUserId());
       
       // Only initialize if user has used the chatbot
       if (!hasUsedChatbot()) {
@@ -261,31 +245,25 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      console.log("User has used chatbot, initializing purchase tracking");
+      console.log('Initializing purchase tracking...');
 
       // Monitor cart changes
       monitorCart();
 
       // Check for purchase completion on page load
       checkForPurchaseCompletion();
-      
-      // Check for checkout visit on page load
-      checkForCheckoutVisit();
 
       // Also check when URL changes (for SPAs)
       let lastUrl = location.href;
       new MutationObserver(() => {
         const url = location.href;
         if (url !== lastUrl) {
-          console.log('URL changed from', lastUrl, 'to', url);
           lastUrl = url;
-          setTimeout(() => {
-            checkForPurchaseCompletion();
-            checkForCheckoutVisit();
-          }, 1000); // Wait for page to load
+          console.log('URL changed to:', url);
+          setTimeout(checkForPurchaseCompletion, 1000); // Wait for page to load
         }
       }).observe(document, { subtree: true, childList: true });
-
+      
       console.log('Purchase tracking initialized successfully');
     }
 
@@ -628,7 +606,6 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (event.data.action === 'conversationStarted') {
         // User has started a conversation - initialize purchase tracking
         console.log('User started conversation, initializing purchase tracking');
-        console.log('Current chatbot user ID:', getChatbotUserId());
         initPurchaseTracking();
       }
     });
