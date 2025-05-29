@@ -466,17 +466,27 @@ document.addEventListener('DOMContentLoaded', function() {
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          // Wait a bit for iframe to be fully loaded
+          setTimeout(() => {
+            try {
+              iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            } catch (e) {
+              console.warn("Error posting message to iframe (retry):", e);
+            }
+          }, 100);
         } catch (e) {
-          console.error("Error posting message to iframe:", e);
+          console.warn("Error posting message to iframe:", e);
         }
       } else {
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            // Add a small delay to ensure iframe is ready
+            setTimeout(() => {
+              iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            }, 200);
           } catch (e) {
-            console.error("Error posting message on iframe load:", e);
+            console.warn("Error posting message on iframe load:", e);
           }
         };
       }
