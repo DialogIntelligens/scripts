@@ -10,27 +10,19 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * PURCHASE TRACKING
      */
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    // Get or create website user ID
-    function getOrCreateWebsiteUserId() {
-      let websiteUserId = localStorage.getItem('websiteUserId');
-      if (!websiteUserId) {
-        websiteUserId = generateUUID();
-        localStorage.setItem('websiteUserId', websiteUserId);
-      }
-      return websiteUserId;
-    }
-
+    let chatbotUserId = null; // Store the userId from the iframe
+    
     // Check if on checkout page
     function isCheckoutPage() {
-      return window.location.href.includes('/checkout/');
+      return window.location.href.includes('/checkout/') || 
+             window.location.href.includes('/order-complete/') ||
+             window.location.href.includes('/thank-you/') ||
+             window.location.href.includes('/order-received/') ||
+             document.querySelector('.order-complete') ||
+             document.querySelector('.thank-you') ||
+             document.querySelector('.order-confirmation');
     }
+    
     //Extract total price from the page
     function extractTotalPrice() {
       let totalPrice = null;
@@ -89,11 +81,52 @@ document.addEventListener('DOMContentLoaded', function() {
       return totalPrice;
     }
 
+    // Report purchase to backend
+    function reportPurchase(totalPrice) {
+      if (!chatbotUserId) {
+        console.log('No chatbotUserId available for purchase tracking');
+        return;
+      }
       
-      // 1. Create a unique container for your widget
-    var widgetContainer = document.createElement('div');
-    widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);    
+      console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
+      
+      fetch('https://egendatabasebackend.onrender.com/purchases', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: chatbotUserId,
+          chatbot_id: 'jagttegnkurser',
+          amount: totalPrice
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Purchase reported successfully');
+        } else {
+          console.error('Failed to report purchase:', response.status);
+        }
+      })
+      .catch(error => {
+        console.error('Error reporting purchase:', error);
+      });
+    }
+
+    // Check for purchase on page load and periodically
+    function checkForPurchase() {
+      if (isCheckoutPage()) {
+        const totalPrice = extractTotalPrice();
+        if (totalPrice && totalPrice > 0) {
+          console.log('Purchase detected on checkout page:', totalPrice);
+          reportPurchase(totalPrice);
+        }
+      }
+    }
+
+    // Check for purchase immediately and then periodically
+    setTimeout(checkForPurchase, 2000); // Check after 2 seconds
+    setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
+    setInterval(checkForPurchase, 10000); // Check every 10 seconds
+
     /**
      * 1. GLOBAL & FONT SETUP
      */
@@ -347,9 +380,6 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      // Retrieve or create websiteuserid in parent domain's localStorage
-      let websiteUserId = getOrCreateWebsiteUserId();
-
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagttegnkurser",
@@ -381,8 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
       titleG: "Jagttegn kurser",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🫎",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800,
-      parentWebsiteUserId: websiteUserId // Send the user ID to the iframe
+      isPhoneView: window.innerWidth < 800
       };
 
   
@@ -426,14 +455,13 @@ document.addEventListener('DOMContentLoaded', function() {
         trackPurchaseStatus(true);
       } else if (event.data.action === 'setChatbotUserId') {
         // Handle the new message from the iframe
-        let chatbotUserId = event.data.userId;
-        console.log("Received chatbotUserId:", chatbotUserId);
-        // Send userId to the parent window once
-        window.parent.postMessage({
-          action: 'setChatbotUserId',
-          chatbotID: 'jagttegnkurser',
-          userId: chatbotUserId
-        }, '*');
+        chatbotUserId = event.data.userId;
+        console.log("Received and stored chatbotUserId:", chatbotUserId);
+        
+        // If we're on a checkout page, immediately check for purchase
+        if (isCheckoutPage()) {
+          setTimeout(checkForPurchase, 1000);
+        }
       }
     });
   
