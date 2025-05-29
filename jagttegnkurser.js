@@ -43,11 +43,28 @@ document.addEventListener('DOMContentLoaded', function() {
     async function trackPurchaseEvent(eventType, amount, productCount = 1) {
       const chatbotUserId = getChatbotUserId();
       
+      console.log('trackPurchaseEvent called with:', { eventType, amount, productCount, chatbotUserId });
+      
       // Only track if user has used the chatbot
       if (!chatbotUserId) {
         console.log("User has not used chatbot, skipping purchase tracking");
         return;
       }
+
+      const requestData = {
+        user_id: chatbotUserId,
+        chatbot_id: "jagttegnkurser", // Replace with your actual chatbot ID
+        event_type: eventType,
+        amount: amount,
+        currency_code: 'DKK', // Change if needed
+        product_count: productCount,
+        metadata: {
+          page_url: window.location.href,
+          timestamp: new Date().toISOString()
+        }
+      };
+
+      console.log('Sending tracking request:', requestData);
 
       try {
         const response = await fetch('https://egendatabasebackend.onrender.com/api/purchase/track-purchase', {
@@ -55,30 +72,39 @@ document.addEventListener('DOMContentLoaded', function() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            user_id: chatbotUserId,
-            chatbot_id: "jagttegnkurser", // Replace with your actual chatbot ID
-            event_type: eventType,
-            amount: amount,
-            currency_code: 'DKK', // Change if needed
-            product_count: productCount,
-            metadata: {
-              page_url: window.location.href,
-              timestamp: new Date().toISOString()
-            }
-          })
+          body: JSON.stringify(requestData)
         });
 
+        console.log('Response status:', response.status);
+        
         if (response.ok) {
           const data = await response.json();
-          console.log('Purchase event tracked:', data);
+          console.log('Purchase event tracked successfully:', data);
         } else {
-          console.error('Failed to track purchase event:', await response.text());
+          const errorText = await response.text();
+          console.error('Failed to track purchase event:', errorText);
         }
       } catch (error) {
         console.error('Error tracking purchase:', error);
       }
     }
+
+    // Test function to manually trigger tracking (for debugging)
+    function testPurchaseTracking() {
+      console.log('Testing purchase tracking...');
+      console.log('Chatbot user ID:', getChatbotUserId());
+      console.log('Has used chatbot:', hasUsedChatbot());
+      
+      if (hasUsedChatbot()) {
+        console.log('Sending test checkout visit event...');
+        trackPurchaseEvent('test_event', 100);
+      } else {
+        console.log('Cannot test - user has not used chatbot');
+      }
+    }
+
+    // Make test function available globally for manual testing
+    window.testPurchaseTracking = testPurchaseTracking;
 
     // Monitor cart changes (example for common e-commerce platforms)
     function monitorCart() {
@@ -117,6 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check if on checkout/order confirmation page
     function checkForPurchaseCompletion() {
+      console.log('Checking for purchase completion on:', window.location.href);
+      
       const purchaseIndicators = [
         window.location.href.includes('/order-confirmation'),
         window.location.href.includes('/checkout/success'),
@@ -125,11 +153,42 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.order-success, .checkout-success, .order-confirmation') !== null
       ];
 
+      console.log('Purchase indicators:', purchaseIndicators);
+
       if (purchaseIndicators.some(indicator => indicator)) {
+        console.log('Purchase completion detected!');
         // Extract order total
         const totalPrice = extractTotalPrice();
+        console.log('Extracted total price:', totalPrice);
         if (totalPrice && totalPrice > 0) {
           trackPurchaseEvent('purchase_complete', totalPrice);
+        }
+      }
+    }
+
+    // Check if on checkout page (for tracking checkout visits)
+    function checkForCheckoutVisit() {
+      console.log('Checking for checkout visit on:', window.location.href);
+      
+      const checkoutIndicators = [
+        window.location.href.includes('/checkout'),
+        window.location.href.includes('/cart'),
+        window.location.href.includes('/basket'),
+        document.querySelector('.checkout, .cart-page, .basket-page') !== null
+      ];
+
+      console.log('Checkout indicators:', checkoutIndicators);
+
+      if (checkoutIndicators.some(indicator => indicator)) {
+        console.log('Checkout page visit detected!');
+        // Track checkout visit (you might want to extract cart total here)
+        const cartTotal = extractTotalPrice();
+        console.log('Extracted cart total:', cartTotal);
+        if (cartTotal && cartTotal > 0) {
+          trackPurchaseEvent('checkout_visit', cartTotal);
+        } else {
+          // Track checkout visit even without price
+          trackPurchaseEvent('checkout_visit', 0);
         }
       }
     }
@@ -194,27 +253,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize purchase tracking
     function initPurchaseTracking() {
+      console.log('Initializing purchase tracking...');
+      
       // Only initialize if user has used the chatbot
       if (!hasUsedChatbot()) {
         console.log("User has not used chatbot, purchase tracking not initialized");
         return;
       }
 
+      console.log("User has used chatbot, initializing purchase tracking");
+
       // Monitor cart changes
       monitorCart();
 
       // Check for purchase completion on page load
       checkForPurchaseCompletion();
+      
+      // Check for checkout visit on page load
+      checkForCheckoutVisit();
 
       // Also check when URL changes (for SPAs)
       let lastUrl = location.href;
       new MutationObserver(() => {
         const url = location.href;
         if (url !== lastUrl) {
+          console.log('URL changed from', lastUrl, 'to', url);
           lastUrl = url;
-          setTimeout(checkForPurchaseCompletion, 1000); // Wait for page to load
+          setTimeout(() => {
+            checkForPurchaseCompletion();
+            checkForCheckoutVisit();
+          }, 1000); // Wait for page to load
         }
       }).observe(document, { subtree: true, childList: true });
+
+      console.log('Purchase tracking initialized successfully');
     }
 
     // Check if on checkout page
@@ -556,6 +628,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (event.data.action === 'conversationStarted') {
         // User has started a conversation - initialize purchase tracking
         console.log('User started conversation, initializing purchase tracking');
+        console.log('Current chatbot user ID:', getChatbotUserId());
         initPurchaseTracking();
       }
     });
