@@ -30,7 +30,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get chatbot user ID from localStorage
     function getChatbotUserId() {
       const chatbotId = "jagttegnkurser"; // This should match your chatbot ID
-      return localStorage.getItem("userId_" + chatbotId);
+      const userId = localStorage.getItem("userId_" + chatbotId);
+      console.log('Looking for localStorage key:', "userId_" + chatbotId);
+      console.log('Found userId:', userId);
+      
+      // Debug: List all localStorage keys
+      console.log('All localStorage keys:');
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key.includes('userId')) {
+          console.log(`  ${key}: ${localStorage.getItem(key)}`);
+        }
+      }
+      
+      return userId;
     }
 
     // Check if user has used the chatbot
@@ -604,9 +617,12 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
       } else if (event.data.action === 'conversationStarted') {
-        // User has started a conversation - initialize purchase tracking
-        console.log('User started conversation, initializing purchase tracking');
-        initPurchaseTracking();
+        // User has started a conversation - initialize purchase tracking with delay
+        console.log('User started conversation, initializing purchase tracking with delay');
+        setTimeout(() => {
+          console.log('Delayed initialization of purchase tracking');
+          initPurchaseTracking();
+        }, 1000); // Wait 1 second for user ID to be stored
       }
     });
   
