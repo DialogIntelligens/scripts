@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // Build a unique local-storage key for the current chatbot user
+  function purchaseKey(userId) {
+    return `purchaseReported_${userId}`;
+  }
+
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -116,56 +121,48 @@ document.addEventListener('DOMContentLoaded', function() {
       return totalPrice;
     }
 
-    // Report purchase to backend
     function reportPurchase(totalPrice) {
-      if (!chatbotUserId) {
-        console.log('No chatbotUserId available for purchase tracking');
+
+      /* Abort if we already stored a flag for this user
+         (covers page refreshes & navigation).           */
+      if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+        console.log('Purchase already logged for user – skip');
+        hasReportedPurchase = true;                             // ★ NEW
         return;
       }
-      
+
       console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
-      
+
       fetch('https://egendatabasebackend.onrender.com/purchases', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          user_id: chatbotUserId,
-          chatbot_id: 'jagttegnkurser',
-          amount: totalPrice
+          user_id:   chatbotUserId,
+          chatbot_id:'jagttegnkurser',
+          amount:    totalPrice
         })
       })
-      .then(response => {
-        if (response.ok) {
+      .then(res => {
+        if (res.ok) {
           console.log('Purchase reported successfully');
           hasReportedPurchase = true;
+          localStorage.setItem(purchaseKey(chatbotUserId), 'true');
         } else {
-          console.error('Failed to report purchase:', response.status);
+          console.error('Failed to report purchase:', res.status);
         }
       })
-      .catch(error => {
-        console.error('Error reporting purchase:', error);
-      });
+      .catch(err => console.error('Error reporting purchase:', err));
     }
 
-    // Check for purchase on page load and periodically
+    // -------------------------------------------------------
+    // 4. Main purchase detector (small tweak)
+    // -------------------------------------------------------
     function checkForPurchase() {
-      console.log('Checking for purchase...');
-      console.log('Current URL:', window.location.href);
-      console.log('chatbotUserId:', chatbotUserId);
-      
-      const isCheckout = isCheckoutPage();
-      console.log('Is checkout page:', isCheckout);
-      
-      if (isCheckout && !hasReportedPurchase) {
+      if (!chatbotUserId) return;
+
+      if (isCheckoutPage() && !hasReportedPurchase) {
         const totalPrice = extractTotalPrice();
-        console.log('Extracted price:', totalPrice);
-        
-        if (totalPrice && totalPrice > 0) {
-          console.log('Purchase detected on checkout page:', totalPrice);
-          reportPurchase(totalPrice);
-        } else {
-          console.log('No valid price found on checkout page');
-        }
+        if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
       }
     }
 
