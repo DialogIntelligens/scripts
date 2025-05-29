@@ -135,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
       .then(response => {
         if (response.ok) {
           console.log('Purchase reported successfully');
+          hasReportedPurchase = true;
         } else {
           console.error('Failed to report purchase:', response.status);
         }
