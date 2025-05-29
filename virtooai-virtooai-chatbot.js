@@ -490,7 +490,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748526465787.png",
       messageIcon: "",
       themeColor: "#253249",
       headerTitleG: "Virtoo AI",
