@@ -463,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
       customVar1: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-
+      productButtonText: "Læs mere",
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
       freshdeskMessageLabel: "Besked til kundeservice:",
@@ -495,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Fyns Psykolog Matcher",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behov til generelle spørgsmål, eller få personlige råd til psykologihjælp.",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra dine behov og generelle spørgsmål til personlige råd om psykologhjælp. Jeg kan også hjælpe dig med at blive matchet med den rette psykolog.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -616,7 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "Jeg kan matche dig med en af vores psykologer eller besvare dine generelle spørgsmål ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
