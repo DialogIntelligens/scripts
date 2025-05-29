@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
      * PURCHASE TRACKING
      */
     let chatbotUserId = null; // Store the userId from the iframe
+    let hasReportedPurchase = false;  // <-- add this line
+
     
     // Check if on checkout page
     function isCheckoutPage() {
