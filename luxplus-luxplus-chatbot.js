@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #45b185;
+      --icon-color: #de7a7d;
     }
   
     /* The main message content area */
@@ -519,16 +519,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
       enableLivechat: true,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748525268091.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747851337549.png",
       messageIcon: "https://image-hosting-pi.vercel.app/iconlogo.png",
-      themeColor: "#1b324b",
+      themeColor: "#e67a7e",
       headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Virto",
-      firstMessage: "Hej, jeg kan besvare alle dine sprøgsmål om virtoo's produkter og services",
+      titleG: "Luxplus' AI chatbot",
+      firstMessage: "Hej, jeg er Luxplus' kunstig intelligente medarbejder😊\nJeg kan svare på spørgsmål om dit medlemskab, produkter og meget mere🧴",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -649,7 +649,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du et sprøgsmål?";
+      const popupText = "Har du brug for hjælp?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
