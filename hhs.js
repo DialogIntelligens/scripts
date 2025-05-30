@@ -15,7 +15,7 @@ function purchaseKey(userId) {
     /**
      * PURCHASE TRACKING
      */
-  let chatbotUserId = null; // Store the userId from the iframe
+  let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
   let hasReportedPurchase = false;  // <-- add this line
 
 
@@ -504,6 +504,7 @@ function purchaseKey(userId) {
     } else if (event.data.action === 'setChatbotUserId') {
       // Handle the new message from the iframe
       chatbotUserId = event.data.userId;
+      localStorage.setItem('chatbotUserId', chatbotUserId);   
       console.log("Received and stored chatbotUserId:", chatbotUserId);
       
       // If we're on a checkout page, immediately check for purchase
