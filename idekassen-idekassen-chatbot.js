@@ -758,6 +758,11 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.display = 'block';
       button.style.display = 'none';
       sendMessageToIframe();
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      // *** make sure we resize it immediately before messaging it ***
+      adjustIframeSize();
+      sendMessageToIframe();
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
