@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // ——— 0) only for logged-in users ———
+  const isLoggedIn = document.body.classList.contains('logged-in');
+  if (!isLoggedIn) {
+    // clear the “first-login” flag on logout so we auto-open next time
+    localStorage.removeItem('hasSeenChatAfterLogin');
+    return;  // bail out; don’t even load the chatbot
+  }
 
+  // — auto-open on the very first login ——
+  if (!localStorage.getItem('hasSeenChatAfterLogin')) {
+    // mark that we’ve now shown it once this session
+    localStorage.setItem('hasSeenChatAfterLogin', 'true');
+    // force the chat window open on load
+    localStorage.setItem('chatWindowState', 'open');
+  }
+
+  // — then proceed with your existing initChatbot logic ——
   function initChatbot() {
 
         const urlFlag = new URLSearchParams(window.location.search).get('chat');
