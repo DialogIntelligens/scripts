@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
+
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -10,56 +15,163 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * PURCHASE TRACKING
      */
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
+  let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
+  let hasReportedPurchase = false;  // <-- add this line
 
-    // Get or create website user ID
-    function getOrCreateWebsiteUserId() {
-      let websiteUserId = localStorage.getItem('websiteUserId');
-      if (!websiteUserId) {
-        websiteUserId = generateUUID();
-        localStorage.setItem('websiteUserId', websiteUserId);
-      }
-      return websiteUserId;
-    }
 
     // Check if on checkout page
     function isCheckoutPage() {
-      return window.location.href.includes('/kasse/');
-    }
-
-    // Track purchase status
-    function trackPurchaseStatus() {
-      const websiteUserId = getOrCreateWebsiteUserId();
-      const madePurchase = isCheckoutPage();
-      const chatbotId = "superprice";
+    return window.location.href.includes('/kasse/') || 
+           window.location.href.includes('/order-complete/') ||
+           window.location.href.includes('/thank-you/') ||
+           window.location.href.includes('/order-received/') ||
+           document.querySelector('.order-complete') ||
+           document.querySelector('.thank-you') ||
+           document.querySelector('.order-confirmation');
+  }
+  
+    //Extract total price from the page
+    function extractTotalPrice() {
+      let totalPrice = null;
+      let highestValue = 0;
+    
+    console.log('Starting price extraction...');
       
-      // Only track purchase status, don't set usedChatbot flag here
-      // usedChatbot will be set only when an actual conversation occurs
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          websiteuserid: websiteUserId,
-          user_id: websiteUserId,
-          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: madePurchase,
-          chatbot_id: chatbotId
-        })
-      })
-      .then(response => response.json())
-      .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => console.error('Error updating purchase tracking:', error));
+      // Method 1: Try common selectors for price elements
+      const priceSelectors = [
+        '.total-price', '.order-total', '.cart-total', '.grand-total',
+        '[data-testid="order-summary-total"]', '.order-summary-total',
+        '.checkout-total', '.woocommerce-Price-amount', '.amount',
+        '.product-subtotal', '.order-summary__price'
+      ];
+      
+      
+      // Loop through each selector
+      for (const selector of priceSelectors) {
+        const elements = document.querySelectorAll(selector);
+      console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+        
+        if (elements && elements.length > 0) {
+          
+          // Check each element that matches the selector
+          for (const element of elements) {
+            const priceText = element.textContent.trim();
+          console.log(`Element text: "${priceText}"`);
+          
+          // Extract Danish currency format (100,00 kr.) and other formats
+          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+          const regularMatches = priceText.match(/\d[\d.,]*/g);
+          
+          let allMatches = [];
+          if (danishMatches) {
+            allMatches = allMatches.concat(danishMatches);
+          }
+          if (regularMatches) {
+            allMatches = allMatches.concat(regularMatches);
+          }
+          
+          console.log(`Found matches:`, allMatches);
+          
+          if (allMatches && allMatches.length > 0) {
+              // Process each potential price number
+            for (const match of allMatches) {
+              let cleanedMatch = match;
+              
+              // Handle Danish format (100,00 kr)
+              if (match.includes('kr')) {
+                cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+                // Convert Danish decimal comma to period
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              } else {
+                // Handle other formats
+                cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // If it has both comma and period, assume comma is thousands separator
+                if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                } else if (cleanedMatch.includes(',')) {
+                  // If only comma, could be decimal separator (European style)
+                  const parts = cleanedMatch.split(',');
+                  if (parts.length === 2 && parts[1].length <= 2) {
+                    cleanedMatch = cleanedMatch.replace(',', '.');
+                  } else {
+                    cleanedMatch = cleanedMatch.replace(/,/g, '');
+                  }
+                }
+              }
+              
+              console.log(`Cleaned match: "${cleanedMatch}"`);
+                
+                // Convert to number
+                const numValue = parseFloat(cleanedMatch);
+              console.log(`Parsed number: ${numValue}`);
+                
+                // Keep the highest value found
+                if (!isNaN(numValue) && numValue > highestValue) {
+                  highestValue = numValue;
+                  totalPrice = numValue;
+                console.log(`New highest price: ${totalPrice}`);
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    console.log(`Final extracted price: ${totalPrice}`);
+      return totalPrice;
     }
 
-    // Run tracking on page load
-    trackPurchaseStatus();
+  function reportPurchase(totalPrice) {
+
+    /* Abort if we already stored a flag for this user
+       (covers page refreshes & navigation).           */
+    if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+      console.log('Purchase already logged for user – skip');
+      hasReportedPurchase = true;                             // ★ NEW
+      return;
+    }
+
+    console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
+
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id:   chatbotUserId,
+        chatbot_id:'superprice',
+        amount:    totalPrice
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        console.log('Purchase reported successfully');
+        hasReportedPurchase = true;
+        localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+      } else {
+        console.error('Failed to report purchase:', res.status);
+      }
+    })
+    .catch(err => console.error('Error reporting purchase:', err));
+  }
+
+  // -------------------------------------------------------
+  // 4. Main purchase detector (small tweak)
+  // -------------------------------------------------------
+  function checkForPurchase() {
+    if (!chatbotUserId) return;
+
+    if (isCheckoutPage() && !hasReportedPurchase) {
+      const totalPrice = extractTotalPrice();
+      if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+    }
+  }
+
+  // Check for purchase immediately and then periodically
+  console.log('Setting up purchase tracking timers...');
+  setTimeout(checkForPurchase, 1000); // Check after 1 second
+  setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
+  setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
+  setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
@@ -358,7 +470,7 @@ var messageData = {
       headerSubtitleG: "Du skriver med en kunstig intelligens. Der kan opstå fejl, så vi gemmer altid samtalen så vi kan optimere svarene. Læs mere i vores privatlivspolitik. OBS: Tjek altid, at dit modelnummer står på produktets liste, før du køber en oplader eller lignende.",
       titleG: "Superprice-AI",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
-      parentWebsiteUserId: websiteUserId,
+      purchaseTrackingEnabled: true,
   
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
