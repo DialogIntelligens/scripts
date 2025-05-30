@@ -326,7 +326,7 @@ function purchaseKey(userId) {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #2a803c;
     }
   
     /* The main message content area */
@@ -567,7 +567,7 @@ function purchaseKey(userId) {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
 
-      const popupText = "Hej😊 Jeg kan besvare spørgsmål og anbefale det rette produkt mod dine skadedyr. Prøv mig!🐜🚀";
+      const popupText = "Hej. Jeg kan besvare spørgsmål og anbefale det rette produkt mod dine skadedyr🐜";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
