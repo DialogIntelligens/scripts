@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Idekassens Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra materialer til generelle spørgsmål, eller få personlige råd og anbefalinger til alle vores materialer ",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra materialer til generelle spørgsmål, eller få personlige råd og anbefalinger til alle vores materialer.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp?";
+      const popupText = "Har du brug for hjælp? Jeg kan finde rundt i alle materialerne og guide dig igennem dem ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
