@@ -8,7 +8,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // — auto-open on the very first login ——
-  if (!localStorage.getItem('hasSeenChatAfterLogin')) {
+  const isDesktop = window.innerWidth >= 1100;
+  if (isDesktop && !localStorage.getItem('hasSeenChatAfterLogin')) {
     // mark that we’ve now shown it once this session
     localStorage.setItem('hasSeenChatAfterLogin', 'true');
     // force the chat window open on load
