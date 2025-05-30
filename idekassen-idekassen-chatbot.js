@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Idekassens Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra materialer til generelle spørgsmål, eller få personlige råd og anbefalinger ",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra materialer til generelle spørgsmål, eller få personlige råd og anbefalinger til alle vores materialer ",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -624,9 +624,7 @@ document.addEventListener('DOMContentLoaded', function() {
      * 7. SHOW/HIDE POPUP
      */
     function showPopup() {
-      var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible or the popup has been closed, do not show the popup
-      if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
+      if (localStorage.getItem("popupClosed") === "true") {
         return;
       }
         
