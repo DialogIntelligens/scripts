@@ -15,7 +15,7 @@ function purchaseKey(userId) {
     /**
      * PURCHASE TRACKING
      */
-  let chatbotUserId = null; // Store the userId from the iframe
+  let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
   let hasReportedPurchase = false;  // <-- add this line
 
 
