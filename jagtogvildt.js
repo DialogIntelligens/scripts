@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  // Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
+
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -7,10 +12,167 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }    
       
-      // 1. Create a unique container for your widget
-    var widgetContainer = document.createElement('div');
-    widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);    
+    /**
+     * PURCHASE TRACKING
+     */
+  let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
+  let hasReportedPurchase = false;  // <-- add this line
+
+
+    // Check if on checkout page
+    function isCheckoutPage() {
+    return window.location.href.includes('/checkout/') || 
+           window.location.href.includes('/order-complete/') ||
+           window.location.href.includes('/thank-you/') ||
+           window.location.href.includes('/order-received/') ||
+           document.querySelector('.order-complete') ||
+           document.querySelector('.thank-you') ||
+           document.querySelector('.order-confirmation');
+  }
+  
+    //Extract total price from the page
+    function extractTotalPrice() {
+      let totalPrice = null;
+      let highestValue = 0;
+    
+    console.log('Starting price extraction...');
+      
+      // Method 1: Try common selectors for price elements
+      const priceSelectors = [
+        '.total-price', '.order-total', '.cart-total', '.grand-total',
+        '[data-testid="order-summary-total"]', '.order-summary-total',
+        '.checkout-total', '.woocommerce-Price-amount', '.amount',
+        '.product-subtotal', '.order-summary__price'
+      ];
+      
+      
+      // Loop through each selector
+      for (const selector of priceSelectors) {
+        const elements = document.querySelectorAll(selector);
+      console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+        
+        if (elements && elements.length > 0) {
+          
+          // Check each element that matches the selector
+          for (const element of elements) {
+            const priceText = element.textContent.trim();
+          console.log(`Element text: "${priceText}"`);
+          
+          // Extract Danish currency format (100,00 kr.) and other formats
+          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+          const regularMatches = priceText.match(/\d[\d.,]*/g);
+          
+          let allMatches = [];
+          if (danishMatches) {
+            allMatches = allMatches.concat(danishMatches);
+          }
+          if (regularMatches) {
+            allMatches = allMatches.concat(regularMatches);
+          }
+          
+          console.log(`Found matches:`, allMatches);
+          
+          if (allMatches && allMatches.length > 0) {
+              // Process each potential price number
+            for (const match of allMatches) {
+              let cleanedMatch = match;
+              
+              // Handle Danish format (100,00 kr)
+              if (match.includes('kr')) {
+                cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+                // Convert Danish decimal comma to period
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              } else {
+                // Handle other formats
+                cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // If it has both comma and period, assume comma is thousands separator
+                if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                } else if (cleanedMatch.includes(',')) {
+                  // If only comma, could be decimal separator (European style)
+                  const parts = cleanedMatch.split(',');
+                  if (parts.length === 2 && parts[1].length <= 2) {
+                    cleanedMatch = cleanedMatch.replace(',', '.');
+                  } else {
+                    cleanedMatch = cleanedMatch.replace(/,/g, '');
+                  }
+                }
+              }
+              
+              console.log(`Cleaned match: "${cleanedMatch}"`);
+                
+                // Convert to number
+                const numValue = parseFloat(cleanedMatch);
+              console.log(`Parsed number: ${numValue}`);
+                
+                // Keep the highest value found
+                if (!isNaN(numValue) && numValue > highestValue) {
+                  highestValue = numValue;
+                  totalPrice = numValue;
+                console.log(`New highest price: ${totalPrice}`);
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    console.log(`Final extracted price: ${totalPrice}`);
+      return totalPrice;
+    }
+
+  function reportPurchase(totalPrice) {
+
+    /* Abort if we already stored a flag for this user
+       (covers page refreshes & navigation).           */
+    if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+      console.log('Purchase already logged for user – skip');
+      hasReportedPurchase = true;                             // ★ NEW
+      return;
+    }
+
+    console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
+
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id:   chatbotUserId,
+        chatbot_id:'jagtogvildt',
+        amount:    totalPrice
+      })
+    })
+    .then(res => {
+      if (res.ok) {
+        console.log('Purchase reported successfully');
+        hasReportedPurchase = true;
+        localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+      } else {
+        console.error('Failed to report purchase:', res.status);
+      }
+    })
+    .catch(err => console.error('Error reporting purchase:', err));
+  }
+
+  // -------------------------------------------------------
+  // 4. Main purchase detector (small tweak)
+  // -------------------------------------------------------
+  function checkForPurchase() {
+    if (!chatbotUserId) return;
+
+    if (isCheckoutPage() && !hasReportedPurchase) {
+      const totalPrice = extractTotalPrice();
+      if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+    }
+  }
+
+  // Check for purchase immediately and then periodically
+  console.log('Setting up purchase tracking timers...');
+  setTimeout(checkForPurchase, 1000); // Check after 1 second
+  setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
+  setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
+  setInterval(checkForPurchase, 15000); // Check every 15 seconds
+
     /**
      * 1. GLOBAL & FONT SETUP
      */
@@ -60,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 60px;
+      bottom: 20px;
     }
     #chat-button svg {
       width: 60px;
@@ -87,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 105px;
+      bottom: 70px;
       right: 7px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
@@ -157,13 +319,14 @@ document.addEventListener('DOMContentLoaded', function() {
     @media (max-width: 600px) {
       #chatbase-message-bubbles {
         width: 90vw;
-        bottom: 99px;
+        max-width: 90vw;
+        bottom: 69px;
         right: 0vw;
       }
     }
   
     :root {
-      --icon-color: #f7941d;
+      --icon-color: #626b4e;
     }
   
     /* The main message content area */
@@ -262,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
-  
+
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "jagtogvildt",
@@ -298,25 +461,36 @@ document.addEventListener('DOMContentLoaded', function() {
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Virtuel assistent",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med? Alt fra produkt spørgsmål til anbefalinger🦌",
+      purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
-      isPhoneView: window.innerWidth < 800
-    };
+    isPhoneView: window.innerWidth < 800
+      };
 
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
+      try {
+        // Wait a bit for iframe to be fully loaded
+        setTimeout(() => {
         try {
           iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
-          console.error("Error posting message to iframe:", e);
+            console.warn("Error posting message to iframe (retry):", e);
+          }
+        }, 100);
+      } catch (e) {
+        console.warn("Error posting message to iframe:", e);
         }
       } else {
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
+          // Add a small delay to ensure iframe is ready
+          setTimeout(() => {
             iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          }, 200);
           } catch (e) {
-            console.error("Error posting message on iframe load:", e);
+          console.warn("Error posting message on iframe load:", e);
           }
         };
       }
@@ -325,6 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -337,6 +512,18 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      } else if (event.data.action === 'conversationStarted') {
+      // User has started a conversation - we now track through the userId instead
+      console.log('User started conversation');
+    } else if (event.data.action === 'setChatbotUserId') {
+      // Handle the new message from the iframe
+      chatbotUserId = event.data.userId;
+      console.log("Received and stored chatbotUserId:", chatbotUserId);
+      
+      // If we're on a checkout page, immediately check for purchase
+      if (isCheckoutPage()) {
+        setTimeout(checkForPurchase, 1000);
+      }
       }
     });
   
@@ -393,8 +580,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-            
-      const popupText = "Jeg kan besvare spørgsmål og anbefale produkter🎯";
+
+      const popupText = "Hej! Jeg kan besvare spørgsmål og anbefale produkter🦌 Har du brug for hjælp? ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -410,6 +597,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
+      
+      // Add click event to message box for tracking
+      messageBox.addEventListener("click", function() {
+        // Open chat window
+        toggleChatWindow();
+      });
   
       // Blink after 2s
       setTimeout(function() {
@@ -471,7 +664,7 @@ document.addEventListener('DOMContentLoaded', function() {
             iframe.style.height = '90vh';
         } else {
             iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
-            iframe.style.height = '86vh';
+            iframe.style.height = '90vh';
         }
       
       }
@@ -490,7 +683,7 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.left = 'auto';
         iframe.style.top = 'auto';
         iframe.style.transform = 'none';
-        iframe.style.bottom = '8vh';
+        iframe.style.bottom = '3vh';
         iframe.style.right = '2vw';
       }
     
