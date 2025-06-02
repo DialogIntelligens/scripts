@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if the popup has been closed previously
     var popupClosed = localStorage.getItem("popupClosed");
     if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
+      setTimeout(showPopup, 5000);
     }
 
 
