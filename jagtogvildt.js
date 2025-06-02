@@ -326,7 +326,7 @@ function purchaseKey(userId) {
     }
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #e38d10;
     }
   
     /* The main message content area */
@@ -455,9 +455,9 @@ function purchaseKey(userId) {
       imageAPI: '',
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Jagtogvildt.pdf",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1742570423685.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748861517247.png",
       themeColor: "#000000",
-      headerTitleG: "Jagtogvildt.dk",
+      headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Virtuel assistent",
       firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med? Alt fra produkt spørgsmål til anbefalinger🦌",
