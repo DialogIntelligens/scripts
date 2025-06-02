@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #6fae88;
+      --icon-color: #2d447c;
     }
   
     /* The main message content area */
@@ -493,13 +493,13 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748526465787.png",
       messageIcon: "",
       themeColor: "#253249",
-      headerTitleG: "Virtoo AI",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerTitleG: "Spørg mig om alt med AI",
+      headerSubtitleG: "Hurtige svar til gode spørgsmål. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. ",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "Virtoo",
-      firstMessage: "Hej, jeg kan besvare alle dine sprøgsmål om virtoo's produkter og services",
+      firstMessage: "Er du nysgerrig på vores services så spørg bare her!",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
