@@ -21,7 +21,7 @@ function purchaseKey(userId) {
 
     // Check if on checkout page
     function isCheckoutPage() {
-    return window.location.href.includes('/ordre/') || 
+    return window.location.href.includes('/ordre') || 
            window.location.href.includes('/order-complete/') ||
            window.location.href.includes('/thank-you/') ||
            window.location.href.includes('/order-received/') ||
