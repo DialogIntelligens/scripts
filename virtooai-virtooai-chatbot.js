@@ -493,7 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748526465787.png",
       messageIcon: "",
       themeColor: "#253249",
-      headerTitleG: "Spørg mig om alt med AI",
+      headerTitleG: "Spørg mig om alt om AI",
       headerSubtitleG: "Hurtige svar til gode spørgsmål. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. ",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
