@@ -7,15 +7,6 @@ document.addEventListener('DOMContentLoaded', function() {
     return;  // bail out; don’t even load the chatbot
   }
 
-  // — auto-open on the very first login ——
-  const isDesktop = window.innerWidth >= 1100;
-  if (isDesktop && !localStorage.getItem('hasSeenChatAfterLogin')) {
-    // mark that we’ve now shown it once this session
-    localStorage.setItem('hasSeenChatAfterLogin', 'true');
-    // force the chat window open on load
-    localStorage.setItem('chatWindowState', 'open');
-  }
-
   // — then proceed with your existing initChatbot logic ——
   function initChatbot() {
 
