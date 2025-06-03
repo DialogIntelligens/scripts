@@ -516,27 +516,19 @@ var messageData = {
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
       } else if (event.data.action === 'conversationStarted') {
-        // User has started a conversation - track this as actual chatbot usage
-        const websiteUserId = getOrCreateWebsiteUserId();
-        const madePurchase = isCheckoutPage();
-        const chatbotId = "superprice";
-        
-        fetch('https://egendatabasebackend.onrender.com/crm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            websiteuserid: websiteUserId,
-            user_id: websiteUserId,
-            usedChatbot: true,
-            madePurchase: madePurchase,
-            chatbot_id: chatbotId
-          })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Conversation tracking updated:', data))
-        .catch(error => console.error('Error updating conversation tracking:', error));
+      // User has started a conversation - we now track through the userId instead
+      console.log('User started conversation');
+      }
+      else if (event.data.action === 'setChatbotUserId') {
+      // Handle the new message from the iframe
+      chatbotUserId = event.data.userId;
+      localStorage.setItem('chatbotUserId', chatbotUserId);   
+      console.log("Received and stored chatbotUserId:", chatbotUserId);
+      
+      // If we're on a checkout page, immediately check for purchase
+      if (isCheckoutPage()) {
+        setTimeout(checkForPurchase, 1000);
+      }
       }
     });
   
