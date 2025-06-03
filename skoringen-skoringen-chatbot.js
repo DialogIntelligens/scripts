@@ -499,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "SKORINGEN's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👠👟",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
