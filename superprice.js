@@ -432,8 +432,6 @@ function purchaseKey(userId) {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      // Retrieve or create websiteuserid in parent domain's localStorage
-      let websiteUserId = getOrCreateWebsiteUserId();
 
 var messageData = {
       action: 'integrationOptions',
