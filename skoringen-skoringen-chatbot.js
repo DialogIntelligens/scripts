@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #dd5351;
+      --icon-color: #de5352;
     }
   
     /* The main message content area */
@@ -430,9 +430,9 @@ document.addEventListener('DOMContentLoaded', function() {
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dc1dcd8c-8ac3-4f39-8277-360189239b9f",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/228a05d1-06af-49ed-89ff-1b9f57fe7d4f",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
-      flow2Key: "Produkt",
+      flow2Key: "Product",
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
-      flow3Key: "Ordre",
+      flow3Key: "Order",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
       flow4API: "",
       flow4Key: "",
