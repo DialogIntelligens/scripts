@@ -331,7 +331,7 @@ function purchaseKey(userId) {
     }
   
     :root {
-      --icon-color: #9ad742;
+      --icon-color: #44963b;
     }
   
     /* The main message content area */
