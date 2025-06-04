@@ -267,10 +267,9 @@ document.addEventListener('DOMContentLoaded', function() {
       var messageData = {
           action: 'integrationOptions',
           chatbotID: 'egenhjemmeside',
-          pagePath: 'https://dialogintelligens.dk/',
-          SOCKET_SERVER_URL: 'https://den-utrolige-snebold.onrender.com/',
           apiEndpoint:
             'https://den-utrolige-snebold.onrender.com/api/v1/prediction/6119a88d-60dd-4b2e-98e3-6dabfa4fa06f',
+          statestikAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/53e9c446-b2a3-41ca-8a01-8d48c05fcc7a',
           fordelingsflowAPI: '',
           flow2Key: 'shhdsahfdshfds',
           flow2API: '',
