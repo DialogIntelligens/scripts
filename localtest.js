@@ -326,7 +326,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "linaa",
+      chatbotID: "test",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/53e9c446-b2a3-41ca-8a01-8d48c05fcc7a",
       statestik_prompt_enabled: true,
