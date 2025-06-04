@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 20px;
+      bottom: 55px;
     }
     #chat-button svg {
       width: 60px;
@@ -243,7 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 70px;
+      bottom: 105px;
       right: 7px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
@@ -314,7 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 90vw;
-        bottom: 69px;
+        bottom: 105px;
         right: 0vw;
       }
     }
