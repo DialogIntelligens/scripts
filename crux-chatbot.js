@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
 
-      const popupText = "Do you need help?";
+      const popupText = "Hei og velkommen til Stiftelsen Crux. Jeg håper du har en god dag – hva kan jeg hjelpe deg med?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
