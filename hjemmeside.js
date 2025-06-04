@@ -284,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
           headerSubtitleG:
             'Vores virtuelle assistent er trænet med information omkring vores virksomhed, og kan hjælpe dig med at besvare dine spørgsmål.',
           titleG: 'Dialog Intelligens',
-          leadGen: "%%",
           leadMail: "team@dialogintelligens.dk",
           leadField1: "Firmanavn",
           leadField2: "Tlf Nummer",
