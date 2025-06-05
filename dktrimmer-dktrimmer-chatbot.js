@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 120vw;
-        bottom: 60px;
+        bottom: 105px;
         right: 0;
       }
     
@@ -326,10 +326,11 @@ document.addEventListener('DOMContentLoaded', function() {
         pointer-events: auto !important;
       }
     
-      /* Move the chat button up a bit on mobile */
+      /* Move the chat button up a bit on mobile 
       #chat-button {
         bottom: 15px !important;
       }
+      */
     }
 
   
