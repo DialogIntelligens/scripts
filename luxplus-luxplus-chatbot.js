@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Luxplus' AI chatbot",
-      firstMessage: "Hej, jeg er Luxplus' kunstig intelligente medarbejder😊\nJeg kan svare på spørgsmål om dit medlemskab, produkter og meget mere🧴",
+      firstMessage: "Hej, jeg er Luxplus' kunstig intelligente medarbejder😊 Jeg kan svare på spørgsmål om dit medlemskab, produkter og meget mere🧴",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
