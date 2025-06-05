@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Køreskolens Virtuelle Assistent",
+      titleG: "Køreskolens AI Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra pakker og køretøjer til generelle spørgsmål, eller få personlig vejledning 🚖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
