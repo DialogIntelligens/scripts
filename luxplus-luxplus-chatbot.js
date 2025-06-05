@@ -427,7 +427,7 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "luxplus",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/53e9c446-b2a3-41ca-8a01-8d48c05fcc7a",
       statestik_prompt_enabled: true,
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/be17e396-3f5f-4769-b466-eed3ea93bd18",
       fordelingsflowAPI: "",
