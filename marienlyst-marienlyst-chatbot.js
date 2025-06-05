@@ -498,7 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Marienlyst's Virtuelle Assistent",
+      titleG: "Marienlysts AI Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra ophold og gastronomi til generelle spørgsmål, eller få personlige anbefalinger 🧖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
