@@ -310,14 +310,29 @@ document.addEventListener('DOMContentLoaded', function() {
       color: white;
     }
    
-    @media (max-width: 600px) {
+    @media (max-width: 800px) {
+      /* Adjust the popup’s position/width on small screens */
       #chatbase-message-bubbles {
         width: 90vw;
-        max-width: 90vw;
-        bottom: 69px;
-        right: 0vw;
+        max-width: 120vw;
+        bottom: 60px;
+        right: 0;
       }
+    
+      /* Always show the “×” on phones/tablets */
+      #chatbase-message-bubbles .close-popup {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+        pointer-events: auto !important;
+      }
+    
+      /* 
+      #chat-button {
+        bottom: 15px !important;
+      }
+      */
     }
+
   
     :root {
       --icon-color: #626b4e;
