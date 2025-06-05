@@ -447,6 +447,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
       imageAPI: '',
 
+      productBoxHeightMultiplier: "0.7",
+      productImageHeightMultiplier: "0.3",
+
       useThumbsRating: false,
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
