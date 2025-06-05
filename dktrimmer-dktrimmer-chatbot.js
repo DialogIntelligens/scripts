@@ -315,9 +315,9 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 120vw;
-        bottom: 105px;
+        bottom: 60px;
         right: 0;
-      } /* ← Close this block */
+      }
     
       /* Always show the “×” on phones/tablets */
       #chatbase-message-bubbles .close-popup {
@@ -325,7 +325,13 @@ document.addEventListener('DOMContentLoaded', function() {
         transform: scale(1) !important;
         pointer-events: auto !important;
       }
+    
+      /* Move the chat button up a bit on mobile */
+      #chat-button {
+        bottom: 15px !important;
+      }
     }
+
   
     :root {
       --icon-color: #8ebe56;
