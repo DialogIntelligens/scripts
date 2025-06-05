@@ -491,7 +491,6 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fik du besvaret dit spørgsmål?",
 
       productButtonText: "SE PRODUKT",
-      productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
