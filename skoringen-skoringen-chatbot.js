@@ -461,6 +461,9 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       customVar1: "",
+
+      productBoxHeightMultiplier: "0.7",
+      productImageHeightMultiplier: "0.7",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
 
