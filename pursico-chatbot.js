@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {  
 
+    // Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
+  
   function initChatbot() {
     // Check if already initialized
     if (document.getElementById('chat-container')) {
@@ -7,73 +12,166 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }
 
-    // [ADDED FOR PURCHASE TRACKING]
-// 1) Define a pattern for the checkout URL. Change this for each client if needed!
-const checkoutUrlPattern = '/kasse/';
+    /**
+     * PURCHASE TRACKING
+     */
+  let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
+  let hasReportedPurchase = false;  // <-- add this line
 
-// 2) Function to get or create a stable user ID
-function getOrCreateUserId() {
-  let userId = localStorage.getItem('websiteuserid');
-  if (!userId) {
-    userId = 'cbt-' + Math.random().toString(36).substr(2, 12);
-    localStorage.setItem('websiteuserid', userId);
+
+    // Check if on checkout page
+    function isCheckoutPage() {
+    return window.location.href.includes('/checkout/') || 
+           window.location.href.includes('/order-complete/') ||
+           window.location.href.includes('/thank-you/') ||
+           window.location.href.includes('/order-received/') ||
+           document.querySelector('.order-complete') ||
+           document.querySelector('.thank-you') ||
+           document.querySelector('.order-confirmation');
   }
-  return userId;
-}
+  
+    //Extract total price from the page
+    function extractTotalPrice() {
+      let totalPrice = null;
+      let highestValue = 0;
+    
+    console.log('Starting price extraction...');
+      
+      // Method 1: Try common selectors for price elements
+      const priceSelectors = [
+        '.total-price', '.order-total', '.cart-total', '.grand-total',
+        '[data-testid="order-summary-total"]', '.order-summary-total',
+        '.checkout-total', '.woocommerce-Price-amount', '.amount',
+        '.product-subtotal', '.order-summary__price'
+      ];
+      
+      
+      // Loop through each selector
+      for (const selector of priceSelectors) {
+        const elements = document.querySelectorAll(selector);
+      console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+        
+        if (elements && elements.length > 0) {
+          
+          // Check each element that matches the selector
+          for (const element of elements) {
+            const priceText = element.textContent.trim();
+          console.log(`Element text: "${priceText}"`);
+          
+          // Extract Danish currency format (100,00 kr.) and other formats
+          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+          const regularMatches = priceText.match(/\d[\d.,]*/g);
+          
+          let allMatches = [];
+          if (danishMatches) {
+            allMatches = allMatches.concat(danishMatches);
+          }
+          if (regularMatches) {
+            allMatches = allMatches.concat(regularMatches);
+          }
+          
+          console.log(`Found matches:`, allMatches);
+          
+          if (allMatches && allMatches.length > 0) {
+              // Process each potential price number
+            for (const match of allMatches) {
+              let cleanedMatch = match;
+              
+              // Handle Danish format (100,00 kr)
+              if (match.includes('kr')) {
+                cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+                // Convert Danish decimal comma to period
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              } else {
+                // Handle other formats
+                cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // If it has both comma and period, assume comma is thousands separator
+                if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                } else if (cleanedMatch.includes(',')) {
+                  // If only comma, could be decimal separator (European style)
+                  const parts = cleanedMatch.split(',');
+                  if (parts.length === 2 && parts[1].length <= 2) {
+                    cleanedMatch = cleanedMatch.replace(',', '.');
+                  } else {
+                    cleanedMatch = cleanedMatch.replace(/,/g, '');
+                  }
+                }
+              }
+              
+              console.log(`Cleaned match: "${cleanedMatch}"`);
+                
+                // Convert to number
+                const numValue = parseFloat(cleanedMatch);
+              console.log(`Parsed number: ${numValue}`);
+                
+                // Keep the highest value found
+                if (!isNaN(numValue) && numValue > highestValue) {
+                  highestValue = numValue;
+                  totalPrice = numValue;
+                console.log(`New highest price: ${totalPrice}`);
+                }
+              }
+            }
+          }
+        }
+      }
+      
+    console.log(`Final extracted price: ${totalPrice}`);
+      return totalPrice;
+    }
 
-// 3) Mark that the user "used" the chatbot once it's actually opened
-let hasAlreadyNotifiedChatUse = false;
-function notifyChatUsed() {
-  if (hasAlreadyNotifiedChatUse) return;
-  hasAlreadyNotifiedChatUse = true;
+  function reportPurchase(totalPrice) {
 
-  const userId = getOrCreateUserId();
-  fetch('/crm', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      websiteuserid: userId,
-      usedChatbot: 'true',
-      madePurchase: 'false',
-      chatbot_id: 'test' // or your actual chatbot ID
-    })
-  })
-  .then(r => r.json())
-  .then(resp => console.log('CRM usage recorded:', resp))
-  .catch(e => console.error('CRM usage error:', e));
-}
+    /* Abort if we already stored a flag for this user
+       (covers page refreshes & navigation).           */
+    if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+      console.log('Purchase already logged for user – skip');
+      hasReportedPurchase = true;                             // ★ NEW
+      return;
+    }
 
-// 4) Detect if the visitor is on the checkout page
-function isOnCheckoutPage() {
-  // e.g. match '/kasse/' in the URL:
-  return window.location.href.toLowerCase().includes(checkoutUrlPattern.toLowerCase());
-}
+    console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
 
-// 5) If we detect checkout, call /crm with madePurchase=true (once per session)
-function trackCheckoutIfAny() {
-  if (localStorage.getItem('purchaseTracked') === 'true') return;  
-  if (isOnCheckoutPage()) {
-    localStorage.setItem('purchaseTracked', 'true');
-
-    const userId = getOrCreateUserId();
-    fetch('/crm', {
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        websiteuserid: userId,
-        usedChatbot: 'true', // safe to mark usedChatbot as well
-        madePurchase: 'true',
-        chatbot_id: 'test' // or your actual chatbot ID
+        user_id:   chatbotUserId,
+        chatbot_id:'skadedyrshop',
+        amount:    totalPrice
       })
     })
-    .then(r => r.json())
-    .then(resp => console.log('Purchase tracked in CRM:', resp))
-    .catch(e => console.error('Error tracking purchase:', e));
+    .then(res => {
+      if (res.ok) {
+        console.log('Purchase reported successfully');
+        hasReportedPurchase = true;
+        localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+      } else {
+        console.error('Failed to report purchase:', res.status);
+      }
+    })
+    .catch(err => console.error('Error reporting purchase:', err));
   }
-}
 
-// 6) Start a timer that checks every 8 seconds if the user is on the checkout page
-setInterval(trackCheckoutIfAny, 8000);
+  // -------------------------------------------------------
+  // 4. Main purchase detector (small tweak)
+  // -------------------------------------------------------
+  function checkForPurchase() {
+    if (!chatbotUserId) return;
+
+    if (isCheckoutPage() && !hasReportedPurchase) {
+      const totalPrice = extractTotalPrice();
+      if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+    }
+  }
+
+  // Check for purchase immediately and then periodically
+  console.log('Setting up purchase tracking timers...');
+  setTimeout(checkForPurchase, 1000); // Check after 1 second
+  setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
+  setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
+  setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       
       // 1. Create a unique container for your widget
@@ -385,6 +483,7 @@ setInterval(trackCheckoutIfAny, 8000);
       headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be stored and processed. Read more in our privacy policy.",
       titleG: "Pursico's AI assistant",
       firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to financial independence💰 How can i help?",
+      purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -424,6 +523,17 @@ setInterval(trackCheckoutIfAny, 8000);
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      }
+      } else if (event.data.action === 'setChatbotUserId') {
+      // Handle the new message from the iframe
+      chatbotUserId = event.data.userId;
+      localStorage.setItem('chatbotUserId', chatbotUserId);   
+      console.log("Received and stored chatbotUserId:", chatbotUserId);
+      
+      // If we're on a checkout page, immediately check for purchase
+      if (isCheckoutPage()) {
+        setTimeout(checkForPurchase, 1000);
+      }
       }
     });
   
