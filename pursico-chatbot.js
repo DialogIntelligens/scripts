@@ -58,8 +58,8 @@ function purchaseKey(userId) {
             const priceText = element.textContent.trim();
           console.log(`Element text: "${priceText}"`);
           
-          // Extract Danish currency format (100,00 kr.) and other formats
-          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+          // Extract Danish currency format (100,00 $.) and other formats
+          const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*$/gi);
           const regularMatches = priceText.match(/\d[\d.,]*/g);
           
           let allMatches = [];
@@ -77,9 +77,9 @@ function purchaseKey(userId) {
             for (const match of allMatches) {
               let cleanedMatch = match;
               
-              // Handle Danish format (100,00 kr)
-              if (match.includes('kr')) {
-                cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+              // Handle Danish format (100,00 $)
+              if (match.includes('$')) {
+                cleanedMatch = match.replace(/\s*$\.?/gi, '').trim();
                 // Convert Danish decimal comma to period
                 cleanedMatch = cleanedMatch.replace(',', '.');
               } else {
