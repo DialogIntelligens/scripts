@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow3Key: "order",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
-      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
+      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow4Key: "productfilter",
         
       leadGen: "%%",
@@ -442,8 +442,8 @@ document.addEventListener('DOMContentLoaded', function() {
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataAPI: "",
-      metaDataKey: "",
+      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
+      metaDataKey: "productfilter",
         
       imageAPI: '',
 
