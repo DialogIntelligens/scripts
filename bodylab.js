@@ -7,8 +7,10 @@ function onDOMReady(callback) {
   }
 }
 
-// COOKIE FUNCTIONS (unchanged)
+// COOKIE FUNCTIONS (now gated by CookiePolicy.allowTrackingCookies)
 function setCookie(name, value, days, domain) {
+  if (!CookiePolicy.allowTrackingCookies) return; 
+  // ──> do nothing unless user accepted
   var expires = "";
   if (days) {
     var date = new Date();
@@ -19,6 +21,8 @@ function setCookie(name, value, days, domain) {
   document.cookie = name + "=" + (value || "") + expires + domainStr + "; path=/";
 }
 function getCookie(name) {
+  if (!CookiePolicy.allowTrackingCookies) return null; 
+  // ──> do nothing unless user accepted
   var nameEQ = name + "=";
   var ca = document.cookie.split(";");
   for (var i = 0; i < ca.length; i++) {
@@ -28,8 +32,9 @@ function getCookie(name) {
   return null;
 }
 
-// NEW: Function to increment the page visit count
+// NEW: Function to increment the page visit count (only after consent)
 function incrementPageCount() {
+  if (!CookiePolicy.allowTrackingCookies) return;
   var count = parseInt(getCookie("pageCount") || "0", 10);
   count++;
   setCookie("pageCount", count.toString(), 30, ".bodylab.dk");
@@ -37,7 +42,7 @@ function incrementPageCount() {
 
 // Use onDOMReady to execute your code after the DOM is ready
 onDOMReady(function() {
-  // Increment page visit count on every load.
+  // Increment page visit count on every load (only if consent given).
   incrementPageCount();
 
   /***** 1. INJECT CSS *****/
@@ -309,7 +314,9 @@ onDOMReady(function() {
     } else if (event.data.action === 'closeChat') {
       iframe.style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
-      localStorage.setItem('chatWindowState', 'closed');
+      if (CookiePolicy.allowTrackingCookies) {
+        localStorage.setItem('chatWindowState', 'closed');
+      }
     }
   });
 
@@ -318,13 +325,17 @@ onDOMReady(function() {
     var isCurrentlyOpen = iframe.style.display !== 'none';
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     document.getElementById('chat-button').style.display = isCurrentlyOpen ? 'block' : 'none';
-    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    if (CookiePolicy.allowTrackingCookies) {
+      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+    }
 
     // When opening the chat, hide the popup and mark it closed.
     if (!isCurrentlyOpen) {
       var popup = document.getElementById("chatbase-message-bubbles");
       popup.style.display = "none";
-      localStorage.setItem("popupClosed", "true");
+      if (CookiePolicy.allowTrackingCookies) {
+        localStorage.setItem("popupClosed", "true");
+      }
     }
 
     adjustIframeSize();
@@ -365,6 +376,8 @@ onDOMReady(function() {
 
   /***** 7. POPUP FUNCTIONALITY *****/
   function showPopup() {
+    if (!CookiePolicy.allowTrackingCookies) return;
+
     // Only show if the user has visited at least 3 pages.
     if (parseInt(getCookie("pageCount") || "0", 10) < 3) return;
 
@@ -454,28 +467,38 @@ onDOMReady(function() {
     });
   }
   
-  // Initially trigger the popup after 5 seconds if user visited at least 3 pages.
-  if (parseInt(getCookie("pageCount") || "0", 10) >= 3) {
-    setTimeout(showPopup, 5000);
-  }
-  
   /***** 8. INITIALIZE CHAT WINDOW STATE & EVENTS *****/
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
 
-  var savedState = localStorage.getItem('chatWindowState');
-  var button = document.getElementById('chat-button');
-  if (savedState === 'open') {
-    iframe.style.display = 'block';
-    button.style.display = 'none';
-    adjustIframeSize();
-    sendMessageToIframe();
+  // ─── A) Restore "chat open/closed" only if consent ─────────────────────────
+  if (CookiePolicy.allowTrackingCookies) {
+    var savedState = localStorage.getItem('chatWindowState');
+    var button = document.getElementById('chat-button');
+    if (savedState === 'open') {
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      adjustIframeSize();
+      sendMessageToIframe();
+    } else {
+      iframe.style.display = 'none';
+      button.style.display = 'block';
+    }
   } else {
+    // If no consent yet, always start closed:
     iframe.style.display = 'none';
-    button.style.display = 'block';
+    document.getElementById('chat-button').style.display = 'block';
   }
 
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+
+  // ─── B) Schedule showPopup only if consent + ≥3 pageviews ───────────────
+  if (
+    CookiePolicy.allowTrackingCookies &&
+    parseInt(getCookie("pageCount") || "0", 10) >= 3
+  ) {
+    setTimeout(showPopup, 5000);
+  }
 
   window.openChat = function() {
     var isCurrentlyOpen = iframe.style.display !== 'none';
