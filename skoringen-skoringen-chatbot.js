@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #de5352;
+      --icon-color: #000000;
     }
   
     /* The main message content area */
@@ -434,8 +434,8 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow3Key: "order",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
-      flow4API: "",
-      flow4Key: "",
+      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
+      flow4Key: "productfilter",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Snørre - Din Ai Assistent",
-      firstMessage: "Hej, mit navn er Snørre 😊 \nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
+      firstMessage: "Hej, mit navn er Snørre 😊 \\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
