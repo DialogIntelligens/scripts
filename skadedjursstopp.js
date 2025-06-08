@@ -423,6 +423,10 @@ function purchaseKey(userId) {
      * 5. CHAT IFRAME LOGIC
      */
     function sendMessageToIframe() {
+      var iframe = document.getElementById("chat-iframe");
+      var iframeWindow = iframe.contentWindow;
+
+      var messageData = {
       action: 'integrationOptions',
       chatbotID: "skadedyrshop",
       pagePath: window.location.href,
