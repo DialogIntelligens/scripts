@@ -530,11 +530,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
-    let chatbotID = 'nih';
     /**
      * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
      */
     function trackChatbotOpen() {
+      var chatbotID = 'nih';
       // Only track once per session to avoid duplicate entries
       var sessionKey = 'chatbotOpened_' + chatbotID;
       if (sessionStorage.getItem(sessionKey)) {
