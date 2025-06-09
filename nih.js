@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 1. GLOBAL & FONT SETUP
      */
-    var isIframeEnlarged = false; 
+    var isIframeEnlarged = false;
+    var chatbotID = "nih"; // Default chatbot ID, will be updated from iframe message
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -256,47 +257,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function getCurrentTimestamp() {
       return new Date().getTime();
     }
-
-   let chatbotID = 'nih';
-    /**
- * TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
- */
-function trackChatbotOpen() {
-  // Only track once per session to avoid duplicate entries
-  var sessionKey = 'chatbotOpened_' + chatbotID;
-  if (sessionStorage.getItem(sessionKey)) {
-    return; // Already tracked in this session
-  }
-
-  var userId = localStorage.getItem('userId_' + chatbotID);
-  if (!userId || !chatbotID) {
-    return; // No user ID or chatbot ID available
-  }
-
-  // Send tracking data to backend
-  fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      chatbot_id: chatbotID,
-      user_id: userId
-    })
-  })
-  .then(function(response) {
-    if (response.ok) {
-      // Mark as tracked in this session
-      sessionStorage.setItem(sessionKey, 'true');
-      console.log('Chatbot open tracked successfully');
-    } else {
-      console.warn('Failed to track chatbot open:', response.status);
-    }
-  })
-  .catch(function(error) {
-    console.warn('Error tracking chatbot open:', error);
-  });
-}
   
     /**
      * 5. CHAT IFRAME LOGIC
@@ -305,9 +265,12 @@ function trackChatbotOpen() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
+      // Update the global chatbotID variable
+      chatbotID = "nih";
+      
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "nih",
+      chatbotID: chatbotID,
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -383,41 +346,42 @@ function trackChatbotOpen() {
       }
     });
   
-    /**
-     * 6. TOGGLE CHAT WINDOW
-     */
-    function toggleChatWindow() {
-      var iframe = document.getElementById('chat-iframe');
-      var button = document.getElementById('chat-button');
-      var popup = document.getElementById("chatbase-message-bubbles");
-    
-      // Determine if the chat is currently open
-      var isCurrentlyOpen = iframe.style.display !== 'none';
-    
-      // Toggle the display of the iframe and button
-      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-      button.style.display = isCurrentlyOpen ? 'block' : 'none';
-      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-    
-      // Close the popup when the chat is opened
-      if (!isCurrentlyOpen) {
-        popup.style.display = "none";
-        localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-        
-        // Track chatbot open for greeting rate statistics
-        trackChatbotOpen();
-      }
-    
-      // Adjust the iframe size
-      adjustIframeSize();
-    
-      // When opening, let the iframe know after a short delay
-      if (!isCurrentlyOpen) {
-        setTimeout(function() {
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-        }, 100);
-      }
+      /**
+   * 6. TOGGLE CHAT WINDOW
+   */
+  function toggleChatWindow() {
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    var popup = document.getElementById("chatbase-message-bubbles");
+  
+    // Determine if the chat is currently open
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+  
+    // Toggle the display of the iframe and button
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+  
+    // Close the popup when the chat is opened
+    if (!isCurrentlyOpen) {
+      popup.style.display = "none";
+      localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+      
+      console.log('Chat opened - triggering trackChatbotOpen');
+      // Track chatbot open for greeting rate statistics
+      trackChatbotOpen();
     }
+  
+    // Adjust the iframe size
+    adjustIframeSize();
+  
+    // When opening, let the iframe know after a short delay
+    if (!isCurrentlyOpen) {
+      setTimeout(function() {
+        iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+      }, 100);
+    }
+  }
   
     // If the popup is open at DOM load, hide it
     var popup = document.getElementById("chatbase-message-bubbles");
@@ -560,6 +524,7 @@ function trackChatbotOpen() {
       iframe.style.display = 'block';
       button.style.display = 'none';
       sendMessageToIframe();
+      console.log('Chat restored from localStorage - triggering trackChatbotOpen');
       // Track chatbot open if it was restored from localStorage
       trackChatbotOpen();
     } else {
@@ -570,6 +535,85 @@ function trackChatbotOpen() {
    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+
+    /**
+     * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
+     */
+    function trackChatbotOpen() {
+      console.log('trackChatbotOpen called - chatbotID:', chatbotID);
+      
+      // If chatbotID is not available yet, try to get it from the URL or try again later
+      var currentChatbotID = chatbotID;
+      if (!currentChatbotID) {
+        // Try to extract from any existing localStorage keys
+        var allKeys = Object.keys(localStorage);
+        for (var i = 0; i < allKeys.length; i++) {
+          if (allKeys[i].startsWith('userId_')) {
+            currentChatbotID = allKeys[i].replace('userId_', '');
+            console.log('Found chatbotID from localStorage key:', currentChatbotID);
+            break;
+          }
+        }
+      }
+      
+      // Only track once per session to avoid duplicate entries
+      var sessionKey = 'chatbotOpened_' + currentChatbotID;
+      if (sessionStorage.getItem(sessionKey)) {
+        console.log('Already tracked in this session for chatbot:', currentChatbotID);
+        return; // Already tracked in this session
+      }
+
+      var userId = localStorage.getItem('userId_' + currentChatbotID);
+      
+      // If userId doesn't exist, create one (same pattern as the iframe does)
+      if (!userId && currentChatbotID) {
+        userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+        localStorage.setItem('userId_' + currentChatbotID, userId);
+        console.log('Created new userId for tracking:', userId);
+      }
+      
+      console.log('trackChatbotOpen - userId:', userId, 'chatbotID:', currentChatbotID);
+      
+      if (!userId || !currentChatbotID) {
+        console.warn('Missing userId or chatbotID - userId:', userId, 'chatbotID:', currentChatbotID);
+        // If we still don't have the data, try again in a short while
+        if (!currentChatbotID) {
+          console.log('Will retry tracking in 1 second...');
+          setTimeout(trackChatbotOpen, 1000);
+        }
+        return; // No user ID or chatbot ID available
+      }
+
+      console.log('Sending tracking request for chatbot:', currentChatbotID, 'user:', userId);
+      
+      // Send tracking data to backend
+      fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chatbot_id: currentChatbotID,
+          user_id: userId
+        })
+      })
+      .then(function(response) {
+        console.log('Tracking response status:', response.status);
+        if (response.ok) {
+          // Mark as tracked in this session
+          sessionStorage.setItem(sessionKey, 'true');
+          console.log('Chatbot open tracked successfully for:', currentChatbotID);
+        } else {
+          console.warn('Failed to track chatbot open:', response.status);
+          return response.text().then(function(text) {
+            console.warn('Response text:', text);
+          });
+        }
+      })
+      .catch(function(error) {
+        console.warn('Error tracking chatbot open:', error);
+      });
+    }
 
   } // end of initChatbot
   
