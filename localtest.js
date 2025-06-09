@@ -564,6 +564,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       var userId = localStorage.getItem('userId_' + currentChatbotID);
+      
+      // If userId doesn't exist, create one (same pattern as the iframe does)
+      if (!userId && currentChatbotID) {
+        userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+        localStorage.setItem('userId_' + currentChatbotID, userId);
+        console.log('Created new userId for tracking:', userId);
+      }
+      
       console.log('trackChatbotOpen - userId:', userId, 'chatbotID:', currentChatbotID);
       
       if (!userId || !currentChatbotID) {
