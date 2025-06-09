@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 1. GLOBAL & FONT SETUP
      */
-    var isIframeEnlarged = false; 
+    var isIframeEnlarged = false;
+    var chatbotID = "nih"; // Default chatbot ID, will be updated from iframe message
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -264,9 +265,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
+      // Update the global chatbotID variable
+      chatbotID = "nih";
+      
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "nih",
+      chatbotID: chatbotID,
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
