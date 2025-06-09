@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
       return new Date().getTime();
     }
 
-
+   let chatbotID = 'nih';
     /**
  * TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
  */
