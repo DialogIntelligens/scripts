@@ -1,167 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
 
   function initChatbot() {
-
-        const urlFlag = new URLSearchParams(window.location.search).get('chat');
-  if (urlFlag === 'open') {
-    // remember the preference so refreshes or internal navigation keep it open
-    localStorage.setItem('chatWindowState', 'open');
-    // optional: scrub the parameter from the address bar
-    history.replaceState(null, '', window.location.pathname);
-  }
-    
     // Check if already initialized
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
     }    
-      
-    /**
-     * PURCHASE TRACKING
-     */
-    function generateUUID() {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
-
-    // Get or create website user ID
-    function getOrCreateWebsiteUserId() {
-      let websiteUserId = localStorage.getItem('websiteUserId');
-      if (!websiteUserId) {
-        websiteUserId = generateUUID();
-        localStorage.setItem('websiteUserId', websiteUserId);
-      }
-      return websiteUserId;
-    }
-
-    const checkoutPath = '/checkout/';
-    
-    function isCheckoutPage() {
-      return window.location.href.includes(checkoutPath);
-    }
-
-    //Extract total price from the page
-    function extractTotalPrice() {
-      let totalPrice = null;
-      let highestValue = 0;
-      
-      // Method 1: Try common selectors for price elements
-      const priceSelectors = [
-        '.total-price', '.order-total', '.cart-total', '.grand-total',
-        '[data-testid="order-summary-total"]', '.order-summary-total',
-        '.checkout-total', '.woocommerce-Price-amount', '.amount',
-        '.product-subtotal', '.order-summary__price'
-      ];
-      
-      
-      // Loop through each selector
-      for (const selector of priceSelectors) {
-        const elements = document.querySelectorAll(selector);
-        
-        if (elements && elements.length > 0) {
-          
-          // Check each element that matches the selector
-          for (const element of elements) {
-            const priceText = element.textContent.trim();
-            
-            // Extract all number sequences (ignoring currency symbols)
-            const numberMatches = priceText.match(/\d[\d.,]*/g);
-            
-            if (numberMatches && numberMatches.length > 0) {
-              // Process each potential price number
-              for (const match of numberMatches) {
-                // Clean up the match to standard format
-                let cleanedMatch = match.replace(/[^\d.,]/g, '');
-                // Convert commas to periods for consistent decimal format
-                cleanedMatch = cleanedMatch.replace(/,/g, '.');
-                
-                // Handle multiple decimal points by keeping only the last one
-                const parts = cleanedMatch.split('.');
-                if (parts.length > 2) {
-                  cleanedMatch = parts[0] + '.' + parts[parts.length - 1];
-                }
-                
-                // Convert to number
-                const numValue = parseFloat(cleanedMatch);
-                
-                // Keep the highest value found
-                if (!isNaN(numValue) && numValue > highestValue) {
-                  highestValue = numValue;
-                  totalPrice = numValue;
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      return totalPrice;
-    }
-
-    // Track purchase status
-    function trackPurchaseStatus() {
-      const websiteUserId = getOrCreateWebsiteUserId();
-      const madePurchase = isCheckoutPage();
-      const chatbotId = "test";
-      const price = madePurchase ? extractTotalPrice() : 0;
-      
-      // Only track purchase status, don't set usedChatbot flag here
-      // usedChatbot will be set only when an actual conversation occurs
-      fetch('https://egendatabasebackend.onrender.com/crm', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          websiteuserid: websiteUserId,
-          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: price | 0, //if price is null, set to 0
-          chatbot_id: chatbotId
-        })
-      })
-      .then(response => {
-        if (!response.ok) {
-          console.error('Error response:', response.status, response.statusText);
-          return response.text().then(text => { throw new Error(text || response.statusText) });
-        }
-        return response.json();
-      })
-      .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => {
-        console.error('Request error details:', error.name, error.message);
-        // Fallback for iOS - try alternative approach
-        sendTrackingViaXHR(websiteUserId, price, chatbotId);
-      });
-      
-      // Fallback method using XMLHttpRequest which has better iOS compatibility
-      function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
-        console.log("Attempting fallback tracking method for iOS");
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.onreadystatechange = function() {
-          if (xhr.readyState === 4) {
-            console.log("XHR status:", xhr.status);
-            if (xhr.status === 200) {
-              console.log('Fallback tracking updated:', JSON.parse(xhr.responseText));
-            } else {
-              console.error('Fallback tracking failed. Status:', xhr.status);
-            }
-          }
-        };
-        xhr.send(JSON.stringify({
-          websiteuserid: websiteUserId,
-          usedChatbot: false,
-          madePurchase: price | 0,
-          chatbot_id: chatbotId
-        }));
-      }
-    }
-
-    // Run tracking on page load
-    trackPurchaseStatus();
       
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
@@ -215,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
       border: none;
       position: fixed;
       z-index: 20;
-      right: 10px;
-      bottom: 20px;
+      right: 50px;
+      bottom: 50px;
     }
     #chat-button svg {
       width: 60px;
@@ -320,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #de5352;
+      --icon-color: #304f9b;
     }
   
     /* The main message content area */
@@ -420,23 +264,26 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      // Retrieve or create websiteuserid in parent domain's localStorage
-      let websiteUserId = getOrCreateWebsiteUserId();
-
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skoringen",
+      chatbotID: "nih",
       pagePath: window.location.href,
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
-      flow2Key: "product",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
-      flow3Key: "order",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
-      flow4API: "",
-      flow4Key: "",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
+      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
+      fordelingsflowAPI: "",
+      flow2Key: "",
+      flow2API: "",
+      flow3Key: "",
+      flow3API: "",
+        
+      apiEndpointBackup: "",
+      fordelingsflowAPIBackup: "",
+      flow2APIBackup: "",
+      flow3APIBackup: "",
         
       leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
+      leadMail: "martin@nih.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
@@ -444,63 +291,15 @@ document.addEventListener('DOMContentLoaded', function() {
       metaDataKey: "",
         
       imageAPI: '',
-
-      productBoxHeightMultiplier: 0.7,
-      productImageHeightMultiplier: 0.3,
-
-      useThumbsRating: false,
-      ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
-
-      pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
-      flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
-      flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "",
-      websiteOverride: "",
-      languageOverride: "",
-      valutaOverride: "",
-      customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
-
-      // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
-        
-      // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
-        
-      // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
-
-      productButtonText: "SE PRODUKT",
-        
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
-      themeColor: "#000000",
-      headerTitleG: " ",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      subtitleLinkText: "",
-      subtitleLinkUrl: "",
-        
-      titleG: "SKORINGENs AI Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
-      parentWebsiteUserId: websiteUserId,
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/12/Privatlivspolitik_Nih.pdf",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746083566174.png",
+      themeColor: "#224e9a",
+      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerSubtitleG: "Du skriver med vores kunstig intelligens, NIH-Boten Anna. Ved at skrive med mig accepterer du, at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      titleG: "NIH-Boten Anna",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -528,7 +327,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== "http://localhost:3000/") return;
-      
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -541,28 +339,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
-      } else if (event.data.action === 'conversationStarted') {
-        // User has started a conversation - track this as actual chatbot usage
-        const websiteUserId = getOrCreateWebsiteUserId();
-        const madePurchase = isCheckoutPage();
-        const price = madePurchase ? extractTotalPrice() : 0;
-        const chatbotId = "test";
-        
-        fetch('https://egendatabasebackend.onrender.com/crm', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            websiteuserid: websiteUserId,
-            usedChatbot: true,
-            madePurchase: price | 0,
-            chatbot_id: chatbotId
-          })
-        })
-        .then(response => response.json())
-        .then(data => console.log('Conversation tracking updated:', data))
-        .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
   
@@ -619,9 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      
-      const popupText = "Har du brug for hjælp?";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      var userHasVisited = getCookie("userHasVisited");
+
+      const popupText = "Har du spørgsmål, kan jeg hjælpe dig med det meste";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -636,12 +413,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
-      
-      // Add click event to message box for tracking
-      messageBox.addEventListener("click", function() {
-        // Open chat window
-        toggleChatWindow();
-      });
   
       // Blink after 2s
       setTimeout(function() {
