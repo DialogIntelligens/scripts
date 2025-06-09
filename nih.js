@@ -256,6 +256,47 @@ document.addEventListener('DOMContentLoaded', function() {
     function getCurrentTimestamp() {
       return new Date().getTime();
     }
+
+
+    /**
+ * TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
+ */
+function trackChatbotOpen() {
+  // Only track once per session to avoid duplicate entries
+  var sessionKey = 'chatbotOpened_' + chatbotID;
+  if (sessionStorage.getItem(sessionKey)) {
+    return; // Already tracked in this session
+  }
+
+  var userId = localStorage.getItem('userId_' + chatbotID);
+  if (!userId || !chatbotID) {
+    return; // No user ID or chatbot ID available
+  }
+
+  // Send tracking data to backend
+  fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      chatbot_id: chatbotID,
+      user_id: userId
+    })
+  })
+  .then(function(response) {
+    if (response.ok) {
+      // Mark as tracked in this session
+      sessionStorage.setItem(sessionKey, 'true');
+      console.log('Chatbot open tracked successfully');
+    } else {
+      console.warn('Failed to track chatbot open:', response.status);
+    }
+  })
+  .catch(function(error) {
+    console.warn('Error tracking chatbot open:', error);
+  });
+}
   
     /**
      * 5. CHAT IFRAME LOGIC
@@ -362,6 +403,9 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!isCurrentlyOpen) {
         popup.style.display = "none";
         localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+        
+        // Track chatbot open for greeting rate statistics
+        trackChatbotOpen();
       }
     
       // Adjust the iframe size
@@ -516,6 +560,8 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.display = 'block';
       button.style.display = 'none';
       sendMessageToIframe();
+      // Track chatbot open if it was restored from localStorage
+      trackChatbotOpen();
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
