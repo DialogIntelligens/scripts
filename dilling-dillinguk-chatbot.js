@@ -378,7 +378,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Name is required",
       freshdeskNameLabel: "Name:",
 
-      
+      productImageHeightMultiplier: 1.1,
       freshdeskGroupId: 22000162678,
 
       inputPlaceholder: "Type your question here...",
