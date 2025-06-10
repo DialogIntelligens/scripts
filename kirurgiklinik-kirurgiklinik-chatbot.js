@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #233241;
     }
   
     /* The main message content area */
@@ -506,16 +506,16 @@ document.addEventListener('DOMContentLoaded', function() {
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749546748940.png",
       messageIcon: "",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      themeColor: "#426587",
+      headerTitleG: "Kirugiklinik",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behandling til generelle spørgsmål 🦷",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
