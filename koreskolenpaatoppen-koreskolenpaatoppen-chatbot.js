@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_KoreskolenpaaTopppen.pdf.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_KoreskolenpaaTopppen.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
