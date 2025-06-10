@@ -42,12 +42,70 @@ document.addEventListener('DOMContentLoaded', function() {
       return window.location.href.includes(checkoutPath);
     }
 
+    //Extract total price from the page
+    function extractTotalPrice() {
+      let totalPrice = null;
+      let highestValue = 0;
+      
+      // Method 1: Try common selectors for price elements
+      const priceSelectors = [
+        '.total-price', '.order-total', '.cart-total', '.grand-total',
+        '[data-testid="order-summary-total"]', '.order-summary-total',
+        '.checkout-total', '.woocommerce-Price-amount', '.amount',
+        '.product-subtotal', '.order-summary__price'
+      ];
+      
+      
+      // Loop through each selector
+      for (const selector of priceSelectors) {
+        const elements = document.querySelectorAll(selector);
+        
+        if (elements && elements.length > 0) {
+          
+          // Check each element that matches the selector
+          for (const element of elements) {
+            const priceText = element.textContent.trim();
+            
+            // Extract all number sequences (ignoring currency symbols)
+            const numberMatches = priceText.match(/\d[\d.,]*/g);
+            
+            if (numberMatches && numberMatches.length > 0) {
+              // Process each potential price number
+              for (const match of numberMatches) {
+                // Clean up the match to standard format
+                let cleanedMatch = match.replace(/[^\d.,]/g, '');
+                // Convert commas to periods for consistent decimal format
+                cleanedMatch = cleanedMatch.replace(/,/g, '.');
+                
+                // Handle multiple decimal points by keeping only the last one
+                const parts = cleanedMatch.split('.');
+                if (parts.length > 2) {
+                  cleanedMatch = parts[0] + '.' + parts[parts.length - 1];
+                }
+                
+                // Convert to number
+                const numValue = parseFloat(cleanedMatch);
+                
+                // Keep the highest value found
+                if (!isNaN(numValue) && numValue > highestValue) {
+                  highestValue = numValue;
+                  totalPrice = numValue;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      return totalPrice;
+    }
 
     // Track purchase status
     function trackPurchaseStatus() {
       const websiteUserId = getOrCreateWebsiteUserId();
       const madePurchase = isCheckoutPage();
-      const chatbotId = "jagttegnkurser";
+      const chatbotId = "test";
+      const price = madePurchase ? extractTotalPrice() : 0;
       
       // Only track purchase status, don't set usedChatbot flag here
       // usedChatbot will be set only when an actual conversation occurs
@@ -59,13 +117,47 @@ document.addEventListener('DOMContentLoaded', function() {
         body: JSON.stringify({
           websiteuserid: websiteUserId,
           usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
-          madePurchase: madePurchase,
+          madePurchase: price | 0, //if price is null, set to 0
           chatbot_id: chatbotId
         })
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          console.error('Error response:', response.status, response.statusText);
+          return response.text().then(text => { throw new Error(text || response.statusText) });
+        }
+        return response.json();
+      })
       .then(data => console.log('Purchase tracking updated:', data))
-      .catch(error => console.error('Error updating purchase tracking:', error));
+      .catch(error => {
+        console.error('Request error details:', error.name, error.message);
+        // Fallback for iOS - try alternative approach
+        sendTrackingViaXHR(websiteUserId, price, chatbotId);
+      });
+      
+      // Fallback method using XMLHttpRequest which has better iOS compatibility
+      function sendTrackingViaXHR(websiteUserId, price, chatbotId) {
+        console.log("Attempting fallback tracking method for iOS");
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://egendatabasebackend.onrender.com/crm', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4) {
+            console.log("XHR status:", xhr.status);
+            if (xhr.status === 200) {
+              console.log('Fallback tracking updated:', JSON.parse(xhr.responseText));
+            } else {
+              console.error('Fallback tracking failed. Status:', xhr.status);
+            }
+          }
+        };
+        xhr.send(JSON.stringify({
+          websiteuserid: websiteUserId,
+          usedChatbot: false,
+          madePurchase: price | 0,
+          chatbot_id: chatbotId
+        }));
+      }
     }
 
     // Run tracking on page load
@@ -78,8 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /**
      * 1. GLOBAL & FONT SETUP
      */
-    var isIframeEnlarged = false;
-    var chatbotID = "bevco";
+    var isIframeEnlarged = false; 
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -226,18 +317,10 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 69px;
         right: 0vw;
       }
-      #chatbase-message-bubbles .close-popup {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: scale(1.4) !important;
-        font-size: 27px !important;
-      }
-      #chatbase-message-bubbles .message-box {
-      font-size: 25px !important;
-	    } 
-      } 	
+    }
+  
     :root {
-      --icon-color: #2d473e;
+      --icon-color: #000000;
     }
   
     /* The main message content area */
@@ -250,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding: 12px 15px 12px 20px;
+      padding: 12px 24px 12px 20px;
       margin: 8px;
       font-size: 28px;
       font-family: 'Source Sans 3', sans-serif;
@@ -342,59 +425,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "bevco",
+      chatbotID: "skoringen",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9b5c61e2-5915-42ac-b348-37ff0a78aeb6",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6b24d40e-26e6-44b8-8ec3-f5c4c8a7de85",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e5db4106-a57a-46b1-baa2-e19f7bfaa917",
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dc1dcd8c-8ac3-4f39-8277-360189239b9f",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/228a05d1-06af-49ed-89ff-1b9f57fe7d4f",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
       flow2Key: "product",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/33f10ef1-ab35-4cf1-b468-bc407de54cf0",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow3Key: "order",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b3dd20c6-7111-43a7-961a-ce91e632cfc8",
-      flow4API: "",
-      flow4Key: "",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
+      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
+      flow4Key: "productfilter",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataAPI: "",
-      metaDataKey: "",
+      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
+      metaDataKey: "productfilter",
         
       imageAPI: '',
-
-      apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e7bed92f-688d-4cb1-a963-087ea3a4d450",
-      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/cca56d9a-ced2-4fd6-8d93-2fc3751e9111",
-      apiFlowKey: "order",
-
-// Original API URL (for reference only)
-  orderTrackingUrl: 'https://api.bevco.dk/store-api/dialog-intelligens/order/search',
-  
-  // No token auth needed (proxy handles it)
-  trackingNeedsAuth: false,
-  
-  // Enable proxy and set the proxy URL
-  trackingUseProxy: true,
-	trackingProxyUrl: 'https://egendatabasebackend.onrender.com/api/proxy/bevco-order', // For production
-  
-  // POST method since BevCo uses POST
-  trackingRequestMethod: 'POST',
-  
-  // Empty headers (proxy adds them)
-  trackingCustomHeaders: {},
-  
-  // Request body template
-  trackingRequestBody: '{"order_number":"","email":"","phone":"","order_date":""}',
-  
-  // Required fields
-  trackingRequiredFields: ['order_number', 'email', 'phone', 'order_date'],
-  
-  // No state details needed
-  trackingStateUrl: '',
-  trackingStateIdPath: '',
-  trackingLineItemStatePath: '',
-  trackingStateNameLocale: '',
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
@@ -410,8 +461,11 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       customVar1: "",
+
+      productBoxHeightMultiplier: 0.8,
+      productImageHeightMultiplier: 0.7,
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_bevco.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
@@ -435,15 +489,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgsmål?",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
-      themeColor: "#f9b655",
-      headerTitleG: "AI Bæver",
+
+      productButtonText: "SE PRODUKT",
+        
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
+      themeColor: "#000000",
+      headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "AI Bæver",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
+      titleG: "Snørre - Din Ai Assistent",
+      firstMessage: "Hej, mit navn er Snørre 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -489,7 +547,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // User has started a conversation - track this as actual chatbot usage
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
+        const price = madePurchase ? extractTotalPrice() : 0;
+        const chatbotId = "test";
         
         fetch('https://egendatabasebackend.onrender.com/crm', {
           method: 'POST',
@@ -499,7 +558,7 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({
             websiteuserid: websiteUserId,
             usedChatbot: true,
-            madePurchase: madePurchase,
+            madePurchase: price | 0,
             chatbot_id: chatbotId
           })
         })
@@ -526,15 +585,10 @@ document.addEventListener('DOMContentLoaded', function() {
       localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
     
       // Close the popup when the chat is opened
-    // Close the popup when the chat is opened
-    if (!isCurrentlyOpen) {
-      popup.style.display = "none";
-      localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-      
-      console.log('Chat opened - triggering trackChatbotOpen');
-      // Track chatbot open for greeting rate statistics
-      trackChatbotOpen();
-    }
+      if (!isCurrentlyOpen) {
+        popup.style.display = "none";
+        localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+      }
     
       // Adjust the iframe size
       adjustIframeSize();
@@ -568,7 +622,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter, vin til mad, besvare spørgsmål og se ordrestatus🍾";
+      const popupText = "Har du brug for hjælp?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -612,15 +666,6 @@ document.addEventListener('DOMContentLoaded', function() {
           }, 1000);
         }
       }, 12000);
-      
-      // Auto-hide popup after 10 seconds on mobile devices
-      if (window.innerWidth < 800) {
-        setTimeout(function() {
-          if (popup.style.display === "flex") {
-            popup.style.display = "none";
-          }
-        }, 10000);
-      }
     }
   
     // Close the popup and save the state in LocalStorage
@@ -702,92 +747,9 @@ document.addEventListener('DOMContentLoaded', function() {
       iframe.style.display = 'block';
       button.style.display = 'none';
       sendMessageToIframe();
-      console.log('Chat restored from localStorage - triggering trackChatbotOpen');
-      // Track chatbot open if it was restored from localStorage
-      trackChatbotOpen();
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
-    }
-
-
-	      /**
-     * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
-     */
-    function trackChatbotOpen() {
-      console.log('trackChatbotOpen called - chatbotID:', chatbotID);
-      
-      // If chatbotID is not available yet, try to get it from the URL or try again later
-      var currentChatbotID = chatbotID;
-      if (!currentChatbotID) {
-        // Try to extract from any existing localStorage keys
-        var allKeys = Object.keys(localStorage);
-        for (var i = 0; i < allKeys.length; i++) {
-          if (allKeys[i].startsWith('userId_')) {
-            currentChatbotID = allKeys[i].replace('userId_', '');
-            console.log('Found chatbotID from localStorage key:', currentChatbotID);
-            break;
-          }
-        }
-      }
-      
-      // Only track once per session to avoid duplicate entries
-      var sessionKey = 'chatbotOpened_' + currentChatbotID;
-      if (sessionStorage.getItem(sessionKey)) {
-        console.log('Already tracked in this session for chatbot:', currentChatbotID);
-        return; // Already tracked in this session
-      }
-
-      var userId = localStorage.getItem('userId_' + currentChatbotID);
-      
-      // If userId doesn't exist, create one (same pattern as the iframe does)
-      if (!userId && currentChatbotID) {
-        userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
-        localStorage.setItem('userId_' + currentChatbotID, userId);
-        console.log('Created new userId for tracking:', userId);
-      }
-      
-      console.log('trackChatbotOpen - userId:', userId, 'chatbotID:', currentChatbotID);
-      
-      if (!userId || !currentChatbotID) {
-        console.warn('Missing userId or chatbotID - userId:', userId, 'chatbotID:', currentChatbotID);
-        // If we still don't have the data, try again in a short while
-        if (!currentChatbotID) {
-          console.log('Will retry tracking in 1 second...');
-          setTimeout(trackChatbotOpen, 1000);
-        }
-        return; // No user ID or chatbot ID available
-      }
-
-      console.log('Sending tracking request for chatbot:', currentChatbotID, 'user:', userId);
-      
-      // Send tracking data to backend
-      fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chatbot_id: currentChatbotID,
-          user_id: userId
-        })
-      })
-      .then(function(response) {
-        console.log('Tracking response status:', response.status);
-        if (response.ok) {
-          // Mark as tracked in this session
-          sessionStorage.setItem(sessionKey, 'true');
-          console.log('Chatbot open tracked successfully for:', currentChatbotID);
-        } else {
-          console.warn('Failed to track chatbot open:', response.status);
-          return response.text().then(function(text) {
-            console.warn('Response text:', text);
-          });
-        }
-      })
-      .catch(function(error) {
-        console.warn('Error tracking chatbot open:', error);
-      });
     }
 
    
