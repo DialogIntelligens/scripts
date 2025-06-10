@@ -309,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_policy_sexshop.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1743501770778.png",
       themeColor: "#4bc1b2",
       headerTitleG: "Sexhop.dk",
