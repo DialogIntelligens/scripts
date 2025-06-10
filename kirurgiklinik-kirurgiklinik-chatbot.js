@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Kirugkliniks Virtuelle Assistent",
+      titleG: "Kirugikliniks Virtuelle Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra behandling til generelle spørgsmål 🦷",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
