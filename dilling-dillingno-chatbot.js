@@ -354,7 +354,7 @@ function initChatbot() {
       productImageHeightMultiplier: 1.1,      
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
-      
+      productImageHeightMultiplier: 1.1,
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din e-post:",
       freshdeskMessageLabel: "Melding til kundeservice:",
