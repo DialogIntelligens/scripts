@@ -370,7 +370,7 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_policy_Mundret.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746524627101.png",
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
