@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
+      titleG: "Kirugkliniks Virtuelle Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra behandling til generelle spørgsmål 🦷",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
