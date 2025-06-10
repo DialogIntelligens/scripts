@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #925d51;
+      --icon-color: #49868f;
     }
   
     /* The main message content area */
@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_policy_MarienlystStrandhotel.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
