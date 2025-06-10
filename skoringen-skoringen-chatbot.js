@@ -501,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Snørre - Din Ai Assistent",
-      firstMessage: "Hej, mit navn er Snørre 😊 \\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
+      firstMessage: "Hej, mit navn er Snørre 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
