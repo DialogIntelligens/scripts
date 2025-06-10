@@ -355,7 +355,7 @@ function initChatbot() {
       
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
-      
+      productImageHeightMultiplier: 1.1,
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Deine E-Mail-Adresse:",
       freshdeskMessageLabel: "Nachricht an den Kundenservice:",
