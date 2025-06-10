@@ -370,7 +370,7 @@ function initChatbot() {
       freshdeskFormErrorText: "Please correct the errors in the form",
       freshdeskMessageRequiredError: "Message is required",
       freshdeskSubmitErrorText: "An error occurred while sending the inquiry. Please try again.",
-        
+      productImageHeightMultiplier: 1.1,  
       // Set confirmation messages
       contactConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
       freshdeskConfirmationText: "Thank you for your inquiry, we will get back to you as soon as possible.",
