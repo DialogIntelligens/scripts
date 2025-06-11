@@ -462,8 +462,8 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       customVar1: "",
 
-      productBoxHeightMultiplier: 0.6,
-      productImageHeightMultiplier: 0.4,
+      productBoxHeightMultiplier: 0.7,
+      productImageHeightMultiplier: 0.55,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Skoringen.pdf",
 
