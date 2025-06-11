@@ -427,7 +427,6 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "marienlyst",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/49c16836-c662-4e7e-9e88-52d38e3cd946",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9573db4f-b8d7-4501-8a42-24566aaaa132",
       fordelingsflowAPI: "",
       flow2Key: "",
