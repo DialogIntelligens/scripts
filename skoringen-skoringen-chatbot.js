@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productBoxHeightMultiplier: 0.8,
       productImageHeightMultiplier: 0.7,
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Skoringen.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
