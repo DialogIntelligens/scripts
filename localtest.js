@@ -431,7 +431,6 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
       flow2Key: "product",
       flow3Key: "order",
-      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
