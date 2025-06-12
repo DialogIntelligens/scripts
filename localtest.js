@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skoringen",
+      chatbotID: "test",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dc1dcd8c-8ac3-4f39-8277-360189239b9f",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
