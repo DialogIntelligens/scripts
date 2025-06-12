@@ -58,7 +58,7 @@ function initChatbot() {
     #chat-container {
       position: fixed;
       bottom: 20px;
-      right: 10px;
+      right: 20px;
       z-index: 200;
     }
     #chat-button {
@@ -67,14 +67,13 @@ function initChatbot() {
       border: none;
       position: fixed;
       z-index: 20;
-      right: 10px;
+      right: 20px;
       bottom: 20px;
     }
     #chat-button svg {
       width: 60px;
       height: 60px;
       transition: opacity 0.3s;
-      scale: 1.35;
     }
     #chat-button:hover svg {
       opacity: 0.7;
@@ -134,13 +133,13 @@ function initChatbot() {
     #chatbase-message-bubbles .close-popup {
       position: absolute;
       top: 8px;
-      right: 9px;
+      right: 15px;
       font-weight: bold;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       text-align: center;
       font-size: 18px;
