@@ -74,11 +74,26 @@ function initChatbot() {
       width: 60px;
       height: 60px;
       transition: opacity 0.3s;
-      scale: 1.4;
+      scale: 1.13;
     }
     #chat-button:hover svg {
       opacity: 0.7;
       transform: scale(1.1);
+    }
+    
+    /* Notification badge styles */
+    .notification-badge {
+      fill: var(--badge-color);
+    }
+    .notification-badge-text {
+      fill: white;
+      font-size: 10px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+    .notification-badge.hidden {
+      display: none;
     }
   
     /* Popup rise animation */
@@ -174,6 +189,7 @@ function initChatbot() {
   
     :root {
       --icon-color: #000000;
+      --badge-color: #CC2B20;
     }
   
     /* The main message content area */
@@ -235,6 +251,11 @@ function initChatbot() {
           <path d="M23.4243 28.7374C24.2035 28.7374 24.8352 28.1187 24.8352 27.3554C24.8352 26.5921 24.2035 25.9734 23.4243 25.9734C22.645 25.9734 22.0133 26.5921 22.0133 27.3554C22.0133 28.1187 22.645 28.7374 23.4243 28.7374Z" fill="#231F20"/>
           <path d="M29.5307 28.7374C30.31 28.7374 30.9417 28.1187 30.9417 27.3554C30.9417 26.5921 30.31 25.9734 29.5307 25.9734C28.7515 25.9734 28.1198 26.5921 28.1198 27.3554C28.1198 28.1187 28.7515 28.7374 29.5307 28.7374Z" fill="#231F20"/>
           <path d="M35.6373 28.7374C36.4165 28.7374 37.0482 28.1187 37.0482 27.3554C37.0482 26.5921 36.4165 25.9734 35.6373 25.9734C34.858 25.9734 34.2263 26.5921 34.2263 27.3554C34.2263 28.1187 34.858 28.7374 35.6373 28.7374Z" fill="#231F20"/>
+          <!-- Notification badge -->
+          <g id="notification-badge" class="notification-badge">
+            <circle cx="54.5" cy="11.5" r="11.5"/>
+            <text x="54.5" y="11.5" class="notification-badge-text">1</text>
+          </g>
           </svg>
         </button>
   
@@ -439,7 +460,34 @@ function initChatbot() {
   });
 
   /**
-   * 6. TOGGLE CHAT WINDOW
+   * 6. BADGE MANAGEMENT
+   */
+  function hideBadge() {
+    var badge = document.getElementById('notification-badge');
+    if (badge) {
+      badge.classList.add('hidden');
+      localStorage.setItem('chatBadgeHidden', 'true');
+    }
+  }
+
+  function showBadge() {
+    var badge = document.getElementById('notification-badge');
+    if (badge) {
+      badge.classList.remove('hidden');
+    }
+  }
+
+  function checkBadgeVisibility() {
+    var hasOpenedChat = localStorage.getItem('chatBadgeHidden');
+    if (hasOpenedChat === 'true') {
+      hideBadge();
+    } else {
+      showBadge();
+    }
+  }
+
+  /**
+   * 7. TOGGLE CHAT WINDOW
    */
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
@@ -457,6 +505,8 @@ function initChatbot() {
     // Close the popup when the chat is opened
     if (!isCurrentlyOpen) {
       popup.style.display = "none";
+      // Hide the badge when user first opens the chat
+      hideBadge();
     //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
     }
   
@@ -478,7 +528,7 @@ function initChatbot() {
   }
   
   /**
-   * 7. SHOW/HIDE POPUP
+   * 8. SHOW/HIDE POPUP
    */
   function showPopup() {
     // Prevent popup on mobile devices (window width < 800px)
@@ -624,6 +674,9 @@ popupContainer.addEventListener("click", function(e) {
   
   // Chat button click
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+  
+  // Initialize badge visibility
+  checkBadgeVisibility();
 } // end of initChatbot
 
 // Initial attempt to load the chatbot.
