@@ -77,7 +77,7 @@ function initChatbot() {
       scale: 1.13;
     }
     #chat-button:hover svg {
-      opacity: 0.7;
+      opacity: 1;
       transform: scale(1.1);
     }
     
