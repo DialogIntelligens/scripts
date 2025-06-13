@@ -393,9 +393,9 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#aeaeae",
-      headerTitleG: "I am DILLING's AI chatbot",
+      headerTitleG: " ",
       headerSubtitleG: "You are chatting with an AI chatbot. By doing so, you accept that the conversation may be stored and processed to improve your experience. Read more in our privacy policy. Note: the chatbot may occasionally provide incorrect information.",
-      titleG: "DILLING's chat",
+      titleG: "DILLING chat",
       firstMessage: "Hello there 😊 I'm Emma, and I'm DILLING's chatbot.\n\nHow can I help you?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
