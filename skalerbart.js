@@ -871,7 +871,6 @@ document.addEventListener('DOMContentLoaded', function() {
        */
       function adjustIframeSize() {
         var iframe = document.getElementById('chat-iframe');
-        console.log("Adjusting iframe size. Window width:", window.innerWidth);
       
         // Keep 'isIframeEnlarged' logic if toggled from the iframe
         if (isIframeEnlarged) {
@@ -916,6 +915,33 @@ document.addEventListener('DOMContentLoaded', function() {
       // Adjust size on page load + on resize
       adjustIframeSize();
       window.addEventListener('resize', adjustIframeSize);
+      
+      // Ensure chatbot loads - retry mechanism
+      function ensureChatbotLoads() {
+        console.log('Ensuring chatbot loads...');
+        // Force the same actions that happen on resize
+        adjustIframeSize();
+        sendMessageToIframe();
+        
+        // Check if iframe exists and is properly set up
+        var iframe = document.getElementById('chat-iframe');
+        if (iframe && iframe.src) {
+          console.log('Chatbot iframe found and configured');
+        } else {
+          console.warn('Chatbot iframe not properly configured, retrying...');
+        }
+      }
+      
+      // Try multiple times to ensure chatbot loads
+      setTimeout(ensureChatbotLoads, 500);   // After 0.5s
+      setTimeout(ensureChatbotLoads, 1500);  // After 1.5s
+      setTimeout(ensureChatbotLoads, 3000);  // After 3s
+      
+      // Also trigger on window load event (in case DOMContentLoaded fired too early)
+      window.addEventListener('load', function() {
+        console.log('Window fully loaded, ensuring chatbot...');
+        setTimeout(ensureChatbotLoads, 100);
+      });
     
       // Attach event listener to chat-button
       document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
