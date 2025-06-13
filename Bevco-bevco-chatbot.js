@@ -128,8 +128,8 @@ document.addEventListener('DOMContentLoaded', function() {
       bottom: 20px;
     }
     #chat-button svg {
-      width: 60px;
-      height: 60px;
+      width: 65px;
+      height: 65px;
       transition: opacity 0.3s;
     }
     #chat-button:hover svg {
@@ -152,13 +152,13 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 70px;
-      right: 7px;
-      border-radius: 10px;
-      font-family: 'Source Sans 3', sans-serif;
+        bottom: 9px;
+        right: 46px;
+        border-radius: 20px;
+        font-family: 'Montserrat', sans-serif;
       font-size: 20px;
       z-index: 18;
-      scale: 0.55;
+        scale: 0.60;
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
@@ -173,6 +173,14 @@ document.addEventListener('DOMContentLoaded', function() {
         rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
       animation: rise-from-bottom 0.6s ease-out;
     }
+    
+    /* Longer message styling */
+    #chatbase-message-bubbles.long-message {
+      bottom: 11px;
+      right: 50px;
+      scale: 0.55;
+    }
+    
     #chatbase-message-bubbles::after {
       content: '';
       position: absolute;
@@ -190,13 +198,13 @@ document.addEventListener('DOMContentLoaded', function() {
     #chatbase-message-bubbles .close-popup {
       position: absolute;
       top: 8px;
-      right: 9px;
+      right: 15px;
       font-weight: bold;
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 25px;
-      height: 25px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       text-align: center;
       font-size: 18px;
@@ -219,25 +227,51 @@ document.addEventListener('DOMContentLoaded', function() {
       color: white;
     }
    
-    @media (max-width: 600px) {
-      #chatbase-message-bubbles {
-        width: 90vw;
-        max-width: 90vw;
+          @media (max-width: 600px) {
+    #chatbase-message-bubbles {
         bottom: 69px;
-        right: 0vw;
+        right: 60px;
       }
+      
+      #chatbase-message-bubbles.long-message {
+        bottom: 12px;
+        right: 55px;
+        scale: 0.50;
+      }
+      
+      /* Always show close button on mobile as simple X */
       #chatbase-message-bubbles .close-popup {
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: scale(1.4) !important;
-        font-size: 27px !important;
+        opacity: 1;
+        transform: scale(1);
+        pointer-events: auto;
+        background-color: transparent;
       }
-      #chatbase-message-bubbles .message-box {
-      font-size: 25px !important;
-	    } 
-      } 	
+      
+      #chatbase-message-bubbles .close-popup:hover {
+        background-color: transparent;
+        color: black;
+      }
+    }
+
+  
     :root {
       --icon-color: #2d473e;
+      --badge-color: #CC2B20;
+    }
+    
+    /* Notification badge styles */
+    .notification-badge {
+      fill: var(--badge-color);
+    }
+    .notification-badge-text {
+      fill: white;
+      font-size: 100px;
+      font-weight: bold;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+    .notification-badge.hidden {
+      display: none;
     }
   
     /* The main message content area */
@@ -250,12 +284,12 @@ document.addEventListener('DOMContentLoaded', function() {
       background-color: white;
       color: black;
       border-radius: 10px;
-      padding: 12px 15px 12px 20px;
+      padding: 12px 12px 12px 20px;
       margin: 8px;
-      font-size: 28px;
-      font-family: 'Source Sans 3', sans-serif;
+      font-size: 25px;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 400;
-      line-height: 1em;
+      line-height: 1.4em;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
@@ -263,6 +297,17 @@ document.addEventListener('DOMContentLoaded', function() {
       box-sizing: border-box;
       word-wrap: break-word;
       max-width: 100%;
+      text-align: center;
+    }
+    
+    /* Short message padding */
+    #chatbase-message-bubbles:not(.long-message) .message-box {
+      padding: 12px 12px 12px 20px;
+    }
+    
+    /* Long message padding */
+    #chatbase-message-bubbles.long-message .message-box {
+      padding: 12px 40px 12px 20px;
     }
     `;
     var style = document.createElement('style');
@@ -281,12 +326,17 @@ document.addEventListener('DOMContentLoaded', function() {
             <path d="M0 0 C0.85706543 0.14985352 1.71413086 0.29970703 2.59716797 0.45410156 C17.0170868 2.98787577 30.77750998 6.55507562 44 13 C45.78664063 13.84691406 45.78664063 13.84691406 47.609375 14.7109375 C87.07502571 33.69100547 119.07180587 65.16520401 134.30859375 106.5546875 C138.9352944 119.76206443 141.53838908 132.98381376 142 147 C142.02723145 147.78149414 142.05446289 148.56298828 142.08251953 149.36816406 C143.37847843 191.86583503 126.64289485 227.83108864 98.3828125 258.875 C80.24181982 277.84308961 58.06574921 290.20862839 34 300 C33.09185547 300.37092773 32.18371094 300.74185547 31.24804688 301.12402344 C-3.93069611 315.36427475 -46.66009235 316.09851389 -83 306 C-84.32462235 305.66053702 -85.65015398 305.32460278 -86.9765625 304.9921875 C-95.63984495 302.80482715 -103.67492263 300.07073573 -111.734375 296.2265625 C-112.39695312 295.91178955 -113.05953125 295.5970166 -113.7421875 295.27270508 C-115.04829648 294.64807878 -116.35064216 294.01550037 -117.6484375 293.3737793 C-123.85344318 290.38101924 -128.12278393 289.36545867 -134.78379822 291.58804321 C-135.84794701 291.96598526 -135.84794701 291.96598526 -136.93359375 292.3515625 C-137.68858658 292.60747162 -138.44357941 292.86338074 -139.22145081 293.12704468 C-141.63134825 293.94705175 -144.03432541 294.78552001 -146.4375 295.625 C-148.01714778 296.16662131 -149.59722321 296.70699707 -151.17773438 297.24609375 C-154.2894114 298.30897685 -157.39837654 299.37929374 -160.50561523 300.45507812 C-165.92871704 302.3276149 -171.37655302 304.12298322 -176.828125 305.91064453 C-179.78869474 306.92742888 -182.67355203 308.04652931 -185.5625 309.25 C-189.0293238 310.68534608 -192.24039325 311.60425192 -196 312 C-194.89219427 305.97755272 -192.99406134 300.21763575 -191.1875 294.375 C-190.67219727 292.68697266 -190.67219727 292.68697266 -190.14648438 290.96484375 C-188.22230087 284.7193701 -186.14744249 278.56607533 -183.87719727 272.43847656 C-182.71912963 269.2192226 -181.78069506 265.98681774 -180.875 262.6875 C-179.95652158 259.35896456 -179.04686551 256.12337112 -177.8203125 252.89453125 C-176.90677616 249.67105301 -176.8933762 248.14055735 -178 245 C-179.52979046 242.81242302 -179.52979046 242.81242302 -181.5 240.6875 C-190.49063046 229.81510967 -196.3134459 216.98660623 -201.28613281 203.87792969 C-201.89813607 202.26796763 -202.53634767 200.66801075 -203.1796875 199.0703125 C-215.64398732 165.73555717 -212.04036962 127.09414809 -197.68359375 95.06298828 C-192.76044566 84.75207878 -187.27888413 74.84643409 -180 66 C-179.58782227 65.49065918 -179.17564453 64.98131836 -178.75097656 64.45654297 C-157.23696408 37.93726169 -129.07892276 16.59824284 -96 7 C-94.51829248 6.48643968 -93.03875988 5.96651621 -91.5625 5.4375 C-61.96364451 -4.2464139 -30.53405019 -5.6251629 0 0 Z " fill="#FEFEFE" transform="translate(364,171)"/>
             <path d="M0 0 C2.23673916 -0.37473011 2.23673916 -0.37473011 5.07969666 -0.3742218 C6.15512222 -0.38123611 7.23054779 -0.38825043 8.33856201 -0.39547729 C9.52355286 -0.38783356 10.7085437 -0.38018982 11.92944336 -0.37231445 C13.17337357 -0.37596512 14.41730377 -0.37961578 15.69892883 -0.38337708 C19.11645637 -0.39010858 22.53344236 -0.38334747 25.95091701 -0.37004495 C29.52363945 -0.35874731 33.09634748 -0.36283671 36.66908264 -0.36479187 C42.67063068 -0.3656755 48.67206591 -0.35458113 54.67358398 -0.33618164 C61.61502757 -0.31502254 68.55630573 -0.31150166 75.49777502 -0.3177436 C82.16985508 -0.32343649 88.84187679 -0.31779188 95.51394844 -0.30657005 C98.35559733 -0.30192207 101.19721057 -0.30105109 104.03886223 -0.3031559 C108.00635829 -0.30538757 111.97369672 -0.29093638 115.94116211 -0.2746582 C117.12412872 -0.27713562 118.30709534 -0.27961304 119.52590942 -0.28216553 C121.14327751 -0.27153831 121.14327751 -0.27153831 122.7933197 -0.26069641 C124.2011492 -0.25761711 124.2011492 -0.25761711 125.6374197 -0.25447559 C128 0 128 0 131 2 C131.30400756 4.7390485 131.41829599 7.20263633 131.375 9.9375 C131.38660156 10.66646484 131.39820313 11.39542969 131.41015625 12.14648438 C131.38094932 17.4572772 131.38094932 17.4572772 129.80051517 19.70885658 C127.3670332 21.45389838 125.77646716 21.37735585 122.7933197 21.38095093 C121.71507431 21.3894104 120.63682892 21.39786987 119.52590942 21.40658569 C118.34294281 21.400513 117.1599762 21.39444031 115.94116211 21.38818359 C114.69547958 21.39344055 113.44979706 21.39869751 112.16636658 21.40411377 C108.74897219 21.41506662 105.33212159 21.41248392 101.91475749 21.40297651 C98.34156604 21.39538848 94.76839804 21.40242298 91.19520569 21.40713501 C85.19544291 21.41259437 79.19579089 21.40539554 73.19604492 21.39111328 C66.25394891 21.3747789 59.31211711 21.38008011 52.37002748 21.3965925 C46.41412335 21.41019343 40.45829888 21.41213411 34.50238425 21.40427649 C30.94315957 21.39959321 27.38405921 21.39899308 23.82484245 21.40888596 C19.85960438 21.41913744 15.89466388 21.40494096 11.92944336 21.38818359 C10.74445251 21.39425629 9.55946167 21.40032898 8.33856201 21.40658569 C7.26313644 21.39812622 6.18771088 21.38966675 5.07969666 21.38095093 C4.14152068 21.37981985 3.20334471 21.37868877 2.23673916 21.37752342 C1.12955328 21.19064933 1.12955328 21.19064933 0 21 C-2.41564046 17.37653931 -2.29781669 14.68396018 -2.25 10.5 C-2.25773438 9.82324219 -2.26546875 9.14648438 -2.2734375 8.44921875 C-2.25884811 4.75080743 -2.10264442 3.15396663 0 0 Z " fill="var(--icon-color, #0459E1)" transform="translate(234,301)"/>
             <path d="M0 0 C2.42222595 -0.3742218 2.42222595 -0.3742218 5.50366211 -0.37231445 C6.65503159 -0.37854324 7.80640106 -0.38477203 8.99266052 -0.39118958 C10.24160599 -0.38197983 11.49055145 -0.37277008 12.77734375 -0.36328125 C14.05476944 -0.36377975 15.33219513 -0.36427826 16.64833069 -0.36479187 C19.35464344 -0.36244729 22.06017943 -0.35426448 24.76635742 -0.33618164 C28.23451479 -0.3135166 31.70223634 -0.31294556 35.17044735 -0.31969929 C38.47694563 -0.32384598 41.78336662 -0.31186453 45.08984375 -0.30078125 C46.33676498 -0.30169266 47.58368622 -0.30260406 48.86839294 -0.30354309 C50.6001754 -0.28924507 50.6001754 -0.28924507 52.36694336 -0.2746582 C53.38461288 -0.27005081 54.40228241 -0.26544342 55.45079041 -0.26069641 C58 0 58 0 61 2 C61.30400756 4.7390485 61.41829599 7.20263633 61.375 9.9375 C61.38660156 10.66646484 61.39820313 11.39542969 61.41015625 12.14648438 C61.38101687 17.44499419 61.38101687 17.44499419 59.8271637 19.70840454 C57.27876677 21.50982929 55.47369442 21.38089721 52.36694336 21.38818359 C51.21242172 21.39764008 50.05790009 21.40709656 48.86839294 21.4168396 C47.62147171 21.41076691 46.37455048 21.40469421 45.08984375 21.3984375 C43.81146133 21.40130768 42.53307892 21.40417786 41.21595764 21.40713501 C38.51141991 21.4091782 35.80769347 21.40513451 33.10327148 21.39111328 C29.63381046 21.37400378 26.16504473 21.38387422 22.69560909 21.40183067 C19.38949547 21.41526339 16.08346643 21.40586585 12.77734375 21.3984375 C10.90392555 21.40754654 10.90392555 21.40754654 8.99266052 21.4168396 C7.84129105 21.40738312 6.68992157 21.39792664 5.50366211 21.38818359 C3.97835121 21.38460342 3.97835121 21.38460342 2.42222595 21.38095093 C1.62289139 21.25523712 0.82355682 21.12952332 0 21 C-2.41564046 17.37653931 -2.29781669 14.68396018 -2.25 10.5 C-2.25773438 9.82324219 -2.26546875 9.14648438 -2.2734375 8.44921875 C-2.25884811 4.75080743 -2.10264442 3.15396663 0 0 Z " fill="var(--icon-color, #00FF00)" transform="translate(234,344)"/>
+                         <!-- Notification badge -->
+             <g id="notification-badge" class="notification-badge">
+               <circle cx="545" cy="115" r="115"/>
+               <text x="545" y="115" class="notification-badge-text">1</text>
+             </g>
           </svg>
         </button>
   
         <!-- Popup -->
         <div id="chatbase-message-bubbles">
-          <div class="close-popup">&times;</div>
+          <div class="close-popup">−</div>
           <div class="message-content">
             <div class="message-box" id="popup-message-box">
               <!-- Will be replaced dynamically for new/returning user -->
@@ -485,11 +535,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
-      } else if (event.data.action === 'conversationStarted') {
+            } else if (event.data.action === 'conversationStarted') {
         // User has started a conversation - track this as actual chatbot usage
         const websiteUserId = getOrCreateWebsiteUserId();
         const madePurchase = isCheckoutPage();
-        const chatbotId = "jagttegnkurser";
+        const chatbotId = "bevco";
         
         fetch('https://egendatabasebackend.onrender.com/crm', {
           method: 'POST',
@@ -508,9 +558,36 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
-  
+
     /**
-     * 6. TOGGLE CHAT WINDOW
+     * 6. BADGE MANAGEMENT
+     */
+    function hideBadge() {
+      var badge = document.getElementById('notification-badge');
+      if (badge) {
+        badge.classList.add('hidden');
+        localStorage.setItem('chatBadgeHidden', 'true');
+      }
+    }
+
+    function showBadge() {
+      var badge = document.getElementById('notification-badge');
+      if (badge) {
+        badge.classList.remove('hidden');
+      }
+    }
+
+    function checkBadgeVisibility() {
+      var hasOpenedChat = localStorage.getItem('chatBadgeHidden');
+      if (hasOpenedChat === 'true') {
+        hideBadge();
+      } else {
+        showBadge();
+      }
+    }
+
+    /**
+     * 7. TOGGLE CHAT WINDOW
      */
     function toggleChatWindow() {
       var iframe = document.getElementById('chat-iframe');
@@ -529,6 +606,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close the popup when the chat is opened
     if (!isCurrentlyOpen) {
       popup.style.display = "none";
+      // Hide the badge when user first opens the chat
+      hideBadge();
       localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
       
       console.log('Chat opened - triggering trackChatbotOpen');
@@ -556,12 +635,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     /**
-     * 7. SHOW/HIDE POPUP
+     * 8. SHOW/HIDE POPUP
      */
     function showPopup() {
       var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible or the popup has been closed, do not show the popup
-      if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
+        // If the iframe is visible, do not show the popup
+        if (iframe.style.display !== "none") {
+        return;
+      }
+      
+      // Check if popup was previously closed/minimized
+      if (localStorage.getItem("popupClosed") === "true") {
         return;
       }
         
@@ -574,8 +658,17 @@ document.addEventListener('DOMContentLoaded', function() {
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
       var popupElem = document.getElementById("chatbase-message-bubbles");
+      
+      // Remove any existing long-message class
+      popupElem.classList.remove('long-message');
+      
+      // Apply long-message class if more than 26 characters
+      if (charCount > 26) {
+        popupElem.classList.add('long-message');
+      }
+      
       if (charCount < 25) {
-        popupElem.style.width = "380px";
+        popupElem.style.width = "40px";
       } else if (charCount < 60) {
         popupElem.style.width = "405px";
       } else {
@@ -628,15 +721,21 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closePopupButton) {
       closePopupButton.addEventListener("click", function() {
         document.getElementById("chatbase-message-bubbles").style.display = "none";
-        localStorage.setItem("popupClosed", "true");  // Save popup closed state
+        localStorage.setItem("popupClosed", "true");  // Save popup closed state permanently
       });
     }
+
+    // Add event listener to popup so clicking on it (except the close button) toggles the chat window
+    var popupContainer = document.getElementById("chatbase-message-bubbles");
+    popupContainer.addEventListener("click", function(e) {
+      // Ensure that clicking on the close button does not trigger toggling the chat
+      if (e.target.closest(".close-popup") === null) {
+        toggleChatWindow();
+      }
+    });
     
-    // Check if the popup has been closed previously
-    var popupClosed = localStorage.getItem("popupClosed");
-    if (!popupClosed || popupClosed === "false") {
-      setTimeout(showPopup, 7000);
-    }
+    // Show popup after 1 second (matching skalerbart.js timing)
+    setTimeout(showPopup, 1000);
 
 
     /**
@@ -793,6 +892,9 @@ document.addEventListener('DOMContentLoaded', function() {
    
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+    
+    // Initialize badge visibility
+    checkBadgeVisibility();
 
   } // end of initChatbot
   
