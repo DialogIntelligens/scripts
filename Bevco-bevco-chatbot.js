@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     :root {
       --icon-color: #2d473e;
-      --badge-color: #CC2B20;
+      --badge-color: #F9B654;
     }
     
     /* Notification badge styles */
