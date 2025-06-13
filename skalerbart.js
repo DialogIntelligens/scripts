@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles .close-popup {
         position: absolute;
         top: 8px;
-        left: 15px;
+        left: 8px;
         font-weight: bold;
         display: flex;
         justify-content: center;
@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
           <!-- Popup -->
           <div id="chatbase-message-bubbles">
-            <div class="close-popup">&times;</div>
+            <div class="close-popup">−</div>
             <div class="message-content">
               <div class="message-box" id="popup-message-box">
                 <!-- Will be replaced dynamically for new/returning user -->
@@ -808,7 +808,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (charCount < 25) {
           popupElem.style.width = "40px";
         } else if (charCount < 60) {
-          popupElem.style.width = "425px";
+          popupElem.style.width = "405px";
         } else {
           popupElem.style.width = "460px";
         }
