@@ -74,7 +74,7 @@ function initChatbot() {
       width: 60px;
       height: 60px;
       transition: opacity 0.3s;
-      scale: 1.13;
+      scale: 1.05;
     }
     #chat-button:hover svg {
       opacity: 1;
@@ -207,7 +207,7 @@ function initChatbot() {
       font-size: 25px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 400;
-      line-height: 1.4em;
+      line-height: 1.3em;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
