@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
    
     @media (max-width: 800px) {
-      /* Adjust the popup’s position/width on small screens */
+      /* Adjust the popup's position/width on small screens */
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 120vw;
@@ -337,6 +337,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     :root {
       --icon-color: #626b4e;
+      --badge-color: #626b4e;
     }
   
     /* The main message content area */
