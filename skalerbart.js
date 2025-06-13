@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     .notification-badge-text {
       fill: white;
-      font-size: 10px;
+      font-size: 100px;
       font-weight: bold;
       text-anchor: middle;
       dominant-baseline: central;
@@ -388,8 +388,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <circle cx="54.5" cy="11.5" r="11.5"/>
               <text x="54.5" y="11.5" class="notification-badge-text">1</text>
             </g>
-          </svg>
-        </button>
+            </svg>
+          </button>
   
         <!-- Popup -->
         <div id="chatbase-message-bubbles">
