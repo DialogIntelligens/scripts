@@ -786,6 +786,11 @@ document.addEventListener('DOMContentLoaded', function() {
           if (iframe.style.display !== "none") {
           return;
         }
+        
+        // Check if popup was previously closed/minimized
+        if (localStorage.getItem("popupClosed") === "true") {
+          return;
+        }
           
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
@@ -844,7 +849,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (closePopupButton) {
         closePopupButton.addEventListener("click", function() {
           document.getElementById("chatbase-message-bubbles").style.display = "none";
-          localStorage.setItem("popupClosed", "true");  // Save popup closed state
+          localStorage.setItem("popupClosed", "true");  // Save popup closed state permanently
         });
       }
   
