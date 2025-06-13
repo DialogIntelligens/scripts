@@ -653,7 +653,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var messageBox = document.getElementById("popup-message-box");
       
       const popupText = "Jeg kan anbefale alkohol, finde ordre og svare på spørgsmål🍾";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -672,7 +672,7 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (charCount < 60) {
         popupElem.style.width = "405px";
       } else {
-        popupElem.style.width = "470px";
+        popupElem.style.width = "480px";
       }
 
      
