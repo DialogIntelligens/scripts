@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles .close-popup {
         position: absolute;
         top: 8px;
-        right: 15px;
+        left: 15px;
         font-weight: bold;
         display: flex;
         justify-content: center;
@@ -377,6 +377,16 @@ document.addEventListener('DOMContentLoaded', function() {
         word-wrap: break-word;
         max-width: 100%;
         text-align: center;
+      }
+      
+      /* Short message padding */
+      #chatbase-message-bubbles:not(.long-message) .message-box {
+        padding: 12px 40px 12px 20px;
+      }
+      
+      /* Long message padding */
+      #chatbase-message-bubbles.long-message .message-box {
+        padding: 12px 12px 12px 20px;
       }
       `;
       var style = document.createElement('style');
