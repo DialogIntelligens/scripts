@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles.long-message {
         bottom: 11px;
         right: 50px;
-        scale: 0.5;
+        scale: 0.55;
       }
       
       #chatbase-message-bubbles::after {
@@ -328,6 +328,7 @@ document.addEventListener('DOMContentLoaded', function() {
         #chatbase-message-bubbles.long-message {
           bottom: 12px;
           right: 55px;
+          scale: 0.50;
         }
       }
   
