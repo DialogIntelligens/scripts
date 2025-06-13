@@ -714,7 +714,6 @@ document.addEventListener('DOMContentLoaded', function() {
       })
     })
     .then(function(response) {
-      console.log('Tracking response status:', response.status);
       if (response.ok) {
         // Mark as tracked in this session
         sessionStorage.setItem(sessionKey, 'true');
@@ -754,7 +753,6 @@ document.addEventListener('DOMContentLoaded', function() {
           hideBadge();
           localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
           
-          console.log('Chat opened - triggering trackChatbotOpen');
           // Track chatbot open for greeting rate statistics
           trackChatbotOpen();
         }
@@ -918,18 +916,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Ensure chatbot loads - retry mechanism
       function ensureChatbotLoads() {
-        console.log('Ensuring chatbot loads...');
         // Force the same actions that happen on resize
         adjustIframeSize();
         sendMessageToIframe();
-        
-        // Check if iframe exists and is properly set up
-        var iframe = document.getElementById('chat-iframe');
-        if (iframe && iframe.src) {
-          console.log('Chatbot iframe found and configured');
-        } else {
-          console.warn('Chatbot iframe not properly configured, retrying...');
-        }
       }
       
       // Try multiple times to ensure chatbot loads
@@ -939,7 +928,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Also trigger on window load event (in case DOMContentLoaded fired too early)
       window.addEventListener('load', function() {
-        console.log('Window fully loaded, ensuring chatbot...');
         setTimeout(ensureChatbotLoads, 100);
       });
     
@@ -955,7 +943,6 @@ document.addEventListener('DOMContentLoaded', function() {
         iframe.style.display = 'block';
         button.style.display = 'none';
         sendMessageToIframe();
-        console.log('Chat restored from localStorage - triggering trackChatbotOpen');
         // Track chatbot open if it was restored from localStorage
         trackChatbotOpen();
       } else {
