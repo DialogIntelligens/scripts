@@ -233,6 +233,8 @@ document.addEventListener('DOMContentLoaded', function() {
       
       #chatbase-message-bubbles.long-message {
         scale: 0.50;
+	right: 45px;
+ 	bottom: 10px;
       }
       
       /* Always show close button on mobile as simple X */
