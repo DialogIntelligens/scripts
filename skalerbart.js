@@ -220,8 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
         bottom: 20px;
       }
       #chat-button svg {
-        width: 60px;
-        height: 60px;
+        width: 65px;
+        height: 65px;
         transition: opacity 0.3s;
       }
       #chat-button:hover svg {
@@ -244,13 +244,13 @@ document.addEventListener('DOMContentLoaded', function() {
       /* Popup container */
       #chatbase-message-bubbles {
         position: absolute;
-        bottom: 18px;
-        right: 55px;
-        border-radius: 20px;
-        font-family: 'Montserrat', sans-serif;
+          bottom: 17px;
+          right: 55px;
+          border-radius: 20px;
+          font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         z-index: 18;
-        scale: 0.60;
+          scale: 0.60;
         cursor: pointer;
         display: none; /* hidden by default */
         flex-direction: column;
@@ -265,6 +265,14 @@ document.addEventListener('DOMContentLoaded', function() {
           rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
         animation: rise-from-bottom 0.6s ease-out;
       }
+      
+      /* Longer message styling */
+      #chatbase-message-bubbles.long-message {
+        bottom: 10px;
+        right: 58px;
+        scale: 0.55;
+      }
+      
       #chatbase-message-bubbles::after {
         content: '';
         position: absolute;
@@ -318,7 +326,12 @@ document.addEventListener('DOMContentLoaded', function() {
           bottom: 18px;
           right: 55px;
         }
-    }
+        
+        #chatbase-message-bubbles.long-message {
+          bottom: 12px;
+          right: 55px;
+        }
+      }
   
     
       :root {
@@ -356,7 +369,7 @@ document.addEventListener('DOMContentLoaded', function() {
         font-size: 25px;
         font-family: 'Montserrat', sans-serif;
         font-weight: 400;
-        line-height: 1.4em;
+        line-height: 1.3em;
         opacity: 1;
         transform: scale(1);
         transition: opacity 1s, transform 1s;
@@ -385,8 +398,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <path d="M0 0 C2.42222595 -0.3742218 2.42222595 -0.3742218 5.50366211 -0.37231445 C6.65503159 -0.37854324 7.80640106 -0.38477203 8.99266052 -0.39118958 C10.24160599 -0.38197983 11.49055145 -0.37277008 12.77734375 -0.36328125 C14.05476944 -0.36377975 15.33219513 -0.36427826 16.64833069 -0.36479187 C19.35464344 -0.36244729 22.06017943 -0.35426448 24.76635742 -0.33618164 C28.23451479 -0.3135166 31.70223634 -0.31294556 35.17044735 -0.31969929 C38.47694563 -0.32384598 41.78336662 -0.31186453 45.08984375 -0.30078125 C46.33676498 -0.30169266 47.58368622 -0.30260406 48.86839294 -0.30354309 C50.6001754 -0.28924507 50.6001754 -0.28924507 52.36694336 -0.2746582 C53.38461288 -0.27005081 54.40228241 -0.26544342 55.45079041 -0.26069641 C58 0 58 0 61 2 C61.30400756 4.7390485 61.41829599 7.20263633 61.375 9.9375 C61.38660156 10.66646484 61.39820313 11.39542969 61.41015625 12.14648438 C61.38101687 17.44499419 61.38101687 17.44499419 59.8271637 19.70840454 C57.27876677 21.50982929 55.47369442 21.38089721 52.36694336 21.38818359 C51.21242172 21.39764008 50.05790009 21.40709656 48.86839294 21.4168396 C47.62147171 21.41076691 46.37455048 21.40469421 45.08984375 21.3984375 C43.81146133 21.40130768 42.53307892 21.40417786 41.21595764 21.40713501 C38.51141991 21.4091782 35.80769347 21.40513451 33.10327148 21.39111328 C29.63381046 21.37400378 26.16504473 21.38387422 22.69560909 21.40183067 C19.38949547 21.41526339 16.08346643 21.40586585 12.77734375 21.3984375 C10.90392555 21.40754654 10.90392555 21.40754654 8.99266052 21.4168396 C7.84129105 21.40738312 6.68992157 21.39792664 5.50366211 21.38818359 C3.97835121 21.38460342 3.97835121 21.38460342 2.42222595 21.38095093 C1.62289139 21.25523712 0.82355682 21.12952332 0 21 C-2.41564046 17.37653931 -2.29781669 14.68396018 -2.25 10.5 C-2.25773438 9.82324219 -2.26546875 9.14648438 -2.2734375 8.44921875 C-2.25884811 4.75080743 -2.10264442 3.15396663 0 0 Z " fill="var(--icon-color, #00FF00)" transform="translate(234,344)"/>
                              <!-- Notification badge -->
                <g id="notification-badge" class="notification-badge">
-                 <circle cx="605" cy="115" r="115"/>
-                 <text x="605" y="135" class="notification-badge-text">1</text>
+                 <circle cx="605" cy="105" r="115"/>
+                 <text x="605" y="105" class="notification-badge-text">1</text>
                </g>
               </svg>
             </button>
@@ -742,14 +755,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   
   
-      
       /**
        * 7. SHOW/HIDE POPUP
        */
       function showPopup() {
         var iframe = document.getElementById("chat-iframe");
-        // If the iframe is visible, do not show the popup
-        if (iframe.style.display !== "none") {
+          // If the iframe is visible, do not show the popup
+          if (iframe.style.display !== "none") {
           return;
         }
           
@@ -762,6 +774,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // Determine popup width based on character count (excluding any HTML tags)
         var charCount = messageBox.textContent.trim().length;
         var popupElem = document.getElementById("chatbase-message-bubbles");
+        
+        // Remove any existing long-message class
+        popupElem.classList.remove('long-message');
+        
+        // Apply long-message class if more than 26 characters
+        if (charCount > 26) {
+          popupElem.classList.add('long-message');
+        }
+        
         if (charCount < 25) {
           popupElem.style.width = "380px";
         } else if (charCount < 60) {
@@ -769,10 +790,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
           popupElem.style.width = "460px";
         }
-  
+
        
         popup.style.display = "flex";
-        
+    
         // Blink after 2s
         setTimeout(function() {
           var smiley = document.getElementById('funny-smiley');
