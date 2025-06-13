@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3APIBackup: "",
         
       leadGen: "%%",
-      leadMail: "martin@nih.dk",
+      leadMail: "eva@nih.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
