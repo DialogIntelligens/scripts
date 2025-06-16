@@ -510,7 +510,7 @@ document.addEventListener('DOMContentLoaded', function() {
       messageIcon: "",
       themeColor: "#426587",
       headerTitleG: "Kirugiklinik",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med Liv, Kirurgiklinikkens virtuelle assistent. \nVed brug af denne chatbot accepterer du, at der kan opstå fejl, og at samtalen kan gemmes og behandles. Bemærk venligst, at vi fraråder at dele personfølsomme oplysninger som f.eks. helbredsdata eller CPR-nummer. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
