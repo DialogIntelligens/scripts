@@ -389,7 +389,7 @@ function initChatbot() {
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
       headerTitleG: "I am DILLING's chatbot",
-      headerSubtitleG: "You are chatting with an chatbot. By doing so, you accept that the conversation may be stored and processed to improve your experience. Read more in our privacy policy. Note: the chatbot may occasionally provide incorrect information.",
+      headerSubtitleG: "You are chatting with a chatbot. By doing so, you accept that the conversation may be stored and processed to improve your experience. Read more in our privacy policy. Note: the chatbot may occasionally provide incorrect information.",
       titleG: "DILLING's chat",
       firstMessage: "Hello 🙂 I am new at DILLING and still in training. But I will do my best if you have questions about DILLING or our products. How can I help you?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
