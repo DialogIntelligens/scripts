@@ -146,10 +146,11 @@ function initChatbot() {
     }
   
     /* Close button is hidden by default; becomes visible/enlarged on hover */
+    /* Close button is hidden by default; becomes visible/enlarged on hover */
     #chatbase-message-bubbles .close-popup {
       position: absolute;
-      top: 8px;
-      right: 15px;
+      top: 0px;
+      right: 30px;
       font-weight: bold;
       display: flex;
       justify-content: center;
@@ -173,10 +174,7 @@ function initChatbot() {
       transform: scale(1.2);
       pointer-events: auto;
     }
-    #chatbase-message-bubbles .close-popup:hover {
-      background-color: black;
-      color: white;
-    }
+
    
     @media (max-width: 600px) {
       #chatbase-message-bubbles {
