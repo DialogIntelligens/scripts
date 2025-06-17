@@ -462,7 +462,34 @@ function initChatbot() {
   });
 
   /**
-   * 6. TOGGLE CHAT WINDOW
+   * 6. BADGE MANAGEMENT
+   */
+  function hideBadge() {
+    var badge = document.getElementById('notification-badge');
+    if (badge) {
+      badge.classList.add('hidden');
+      localStorage.setItem('chatBadgeHidden', 'true');
+    }
+  }
+
+  function showBadge() {
+    var badge = document.getElementById('notification-badge');
+    if (badge) {
+      badge.classList.remove('hidden');
+    }
+  }
+
+  function checkBadgeVisibility() {
+    var hasOpenedChat = localStorage.getItem('chatBadgeHidden');
+    if (hasOpenedChat === 'true') {
+      hideBadge();
+    } else {
+      showBadge();
+    }
+  }
+
+  /**
+   * 7. TOGGLE CHAT WINDOW
    */
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
@@ -480,6 +507,8 @@ function initChatbot() {
     // Close the popup when the chat is opened
     if (!isCurrentlyOpen) {
       popup.style.display = "none";
+      // Hide the badge when user first opens the chat
+      hideBadge();
     //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
     }
   
@@ -501,18 +530,23 @@ function initChatbot() {
   }
   
   /**
-   * 7. SHOW/HIDE POPUP
+   * 8. SHOW/HIDE POPUP
    */
   function showPopup() {
+    // Prevent popup on mobile devices (window width < 800px)
+    if (window.innerWidth < 800) {
+      return;
+    }
+  
     var iframe = document.getElementById("chat-iframe");
-    // If the iframe is visible or the popup has been closed, do not show the popup
+    // If the iframe is visible, do not show the popup
     if (iframe.style.display !== "none") {
       return;
     }
-        
+          
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-
+    
     const popupText = "Heb je hulp nodig?";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
@@ -526,9 +560,9 @@ function initChatbot() {
     } else {
       popupElem.style.width = "460px";
     }
-  
+    
     popup.style.display = "flex";
-  
+    
     // Blink after 2s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -539,7 +573,7 @@ function initChatbot() {
         }, 1000);
       }
     }, 2000);
-  
+    
     // Jump after 12s
     setTimeout(function() {
       var smiley = document.getElementById('funny-smiley');
@@ -642,6 +676,9 @@ popupContainer.addEventListener("click", function(e) {
   
   // Chat button click
   document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+  
+  // Initialize badge visibility
+  checkBadgeVisibility();
 } // end of initChatbot
 
 // Initial attempt to load the chatbot.
