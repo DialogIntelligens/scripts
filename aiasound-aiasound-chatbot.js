@@ -506,16 +506,16 @@ document.addEventListener('DOMContentLoaded', function() {
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749628136075.png",
-      messageIcon: "",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1750258518865.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1750258628303.png",
       themeColor: "#ccf56a",
-      headerTitleG: "AIA Sound",
+      headerTitleG: "Aia",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "AIA",
-      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingman hele festivalen 🥳",
+      titleG: "AIA CHAT",
+      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingwomen hele festen 🥳",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
