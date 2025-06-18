@@ -253,7 +253,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
     :root {
-      --icon-color: #2d473e;
+      --icon-color: #f9b655;
       --badge-color: #F9B654;
     }
     
