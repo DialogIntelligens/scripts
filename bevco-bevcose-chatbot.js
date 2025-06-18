@@ -485,13 +485,13 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingMessage: "Fik du besvaret dit spørgsmål?",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
       themeColor: "#f9b655",
-      headerTitleG: "AI Bæver",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerTitleG: "AI Bäver",
+      headerSubtitleG: "Du skriver med en artificiell intelligens. Genom att använda denna chattbot accepterar du att fel kan förekomma, och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "AI Bæver",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
+      titleG: "AI Bäver",
+      firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från produkter till allmänna frågor, orderstatus eller tips & tricks om drycker och utrustning 🍹🍾",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -650,7 +650,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale alkohol, finde ordre og svare på spørgsmål🍾";
+      const popupText = "Jag kan rekommendera drycker, hitta beställningar och svara på frågor 🍾";
       messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
