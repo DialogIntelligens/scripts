@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "BOLIG & HAVEN'S AI",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, jeg kan også søge for dig 🤖",
+      firstMessage: "Jeg kan finde og anbefale dig produkter, samt svare på dine spørgsmål🛋️",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
