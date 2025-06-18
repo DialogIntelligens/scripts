@@ -511,9 +511,9 @@ document.addEventListener('DOMContentLoaded', function() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "",
-        knowledgebaseIndexApiEndpoint: "",
+        knowledgebaseIndexApiEndpoint: "yaay-alt",
         flow2KnowledgebaseIndex: "",
-        flow3KnowledgebaseIndex: "",
+        flow3KnowledgebaseIndex: "yaay-pro",
         flow4KnowledgebaseIndex: "",
         apiFlowKnowledgebaseIndex: "",
         websiteOverride: "",
