@@ -525,7 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "BOLIG & HAVEN'S AI",
-      firstMessage: "Jeg kan finde og anbefale dig produkter, samt svare på dine spørgsmål 🛋️",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, jeg kan også søge for dig 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
@@ -761,7 +761,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
         
-        const popupText = "Har du brug for hjælp med at finde dit produkt, jeg kan søge for dig og guide dig";
+        const popupText = "Jeg kan finde og anbefale dig produkter, samt svare på dine spørgsmål🛋️";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
         
         // Determine popup width based on character count (excluding any HTML tags)
