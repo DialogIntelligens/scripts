@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     
       :root {
-        --icon-color: #626b4e;
+        --icon-color: #040a34;
         --badge-color: #CC2B20;
       }
       
@@ -549,15 +549,15 @@ document.addEventListener('DOMContentLoaded', function() {
         productButtonText: "SE PRODUKT",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-        messageIcon: "",
-        themeColor: "#224e9a",
-        headerTitleG: "Nordjyllands Idrætshøjskole",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1750232046115.png",
+        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1750232142152.png",
+        themeColor: "#040a34",
+        headerTitleG: " ",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
           
-        titleG: "NIH's Virtuelle Assistent",
+        titleG: "YAAY AI hjælper",
         firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
         parentWebsiteUserId: websiteUserId,
         isTabletView: false,
