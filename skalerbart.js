@@ -486,25 +486,17 @@ document.addEventListener('DOMContentLoaded', function() {
         action: 'integrationOptions',
         chatbotID: "test",
         pagePath: window.location.href,
-        statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
-        apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
         fordelingsflowAPI: "",
         flow2Key: "",
-        flow2API: "",
         flow3Key: "product",
-        flow3API: "",
-        flow4API: "",
         flow4Key: "",
           
         leadGen: "%%",
         leadMail: "Team@dialogintelligens.dk",
         leadField1: "Navn",
         leadField2: "Tlf nummer",
-  
-        metaDataAPI: "",
+
         metaDataKey: "",
-          
-        imageAPI: '',
   
         useThumbsRating: false,
         ratingTimerDuration: 15000,
