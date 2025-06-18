@@ -510,7 +510,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "",
+        pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
         knowledgebaseIndexApiEndpoint: "yaay-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "yaay-pro",
