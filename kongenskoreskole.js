@@ -337,7 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
         action: 'integrationOptions',
         chatbotID: "kongenskoreskole",
         pagePath: window.location.href,
-        apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/89ca0a49-fc5f-4e3d-90c7-7e5b01c937d6",
         fordelingsflowAPI: "",
         flow2Key: "sadsads",
         flow2API: "",
