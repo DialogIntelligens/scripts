@@ -511,7 +511,7 @@ document.addEventListener('DOMContentLoaded', function() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
-        knowledgebaseIndexApiEndpoint: "kongenskoreskole",
+        knowledgebaseIndexApiEndpoint: "yaay-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "yaay-pro",
         flow4KnowledgebaseIndex: "",
