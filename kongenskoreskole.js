@@ -344,7 +344,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
           
         leadGen: "%%",
-        leadMail: "Team@dialogintelligens.dk",
+        leadMail: "torben@kongenskoreskole.dk",
         leadField1: "Navn",
         leadField2: "Tlf nummer",
 
