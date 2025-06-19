@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     
       :root {
-        --icon-color: #e69000;
+        --icon-color: #ee9000;
         --badge-color: #CC2B20;
       }
       
@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "",
-        knowledgebaseIndexApiEndpoint: "",
+        knowledgebaseIndexApiEndpoint: "koreskole",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "",
         flow4KnowledgebaseIndex: "",
