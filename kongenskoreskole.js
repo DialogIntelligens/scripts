@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     
       :root {
-        --icon-color: #626b4e;
+        --icon-color: #e69000;
         --badge-color: #CC2B20;
       }
       
