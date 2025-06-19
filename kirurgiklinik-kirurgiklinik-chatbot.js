@@ -509,7 +509,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749546748940.png",
       messageIcon: "",
       themeColor: "#426587",
-      headerTitleG: "Kirugiklinik",
+      headerTitleG: "Hejsa",
       headerSubtitleG: "Du skriver med Liv, Kirurgiklinikkens virtuelle assistent. Ved brug af denne chatbot accepterer du, at der kan opstå fejl, og at samtalen kan gemmes og behandles. Bemærk venligst, at vi fraråder at dele personfølsomme oplysninger som f.eks. helbredsdata eller CPR-nummer. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
