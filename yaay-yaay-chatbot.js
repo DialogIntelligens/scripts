@@ -487,7 +487,6 @@ document.addEventListener('DOMContentLoaded', function() {
         chatbotID: "yaay",
         pagePath: window.location.href,
         statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
-        apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/2dc8552d-16a1-4cf0-b62c-bb4f4ed959fe",
         fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4f520e9d-77fb-4f5e-b851-10cf5a73b05c",
         flow2Key: "",
         flow2API: "",
