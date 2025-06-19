@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "",
+        pineconeApiKey: "pcsk_49Sz19_67L3itZVBZBH8t77oME9tPMX3rnFre52VW3QvazNrWPY2ntJfF4WTs8NpWCzaio",
         knowledgebaseIndexApiEndpoint: "koreskole",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "",
