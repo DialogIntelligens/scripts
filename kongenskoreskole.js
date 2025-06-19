@@ -337,7 +337,6 @@ document.addEventListener('DOMContentLoaded', function() {
         action: 'integrationOptions',
         chatbotID: "kongenskoreskole",
         pagePath: window.location.href,
-        fordelingsflowAPI: "",
         flow2Key: "sadsads",
         flow2API: "",
         flow3Key: "asdsad",
