@@ -7,6 +7,61 @@ document.addEventListener('DOMContentLoaded', function() {
       return;
     }    
       
+    /**
+     * PURCHASE TRACKING
+     */
+    function generateUUID() {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Get or create website user ID
+    function getOrCreateWebsiteUserId() {
+      let websiteUserId = localStorage.getItem('websiteUserId');
+      if (!websiteUserId) {
+        websiteUserId = generateUUID();
+        localStorage.setItem('websiteUserId', websiteUserId);
+      }
+      return websiteUserId;
+    }
+
+    const checkoutPath = '/checkout/';
+    
+    function isCheckoutPage() {
+      return window.location.href.includes(checkoutPath);
+    }
+
+
+    // Track purchase status
+    function trackPurchaseStatus() {
+      const websiteUserId = getOrCreateWebsiteUserId();
+      const madePurchase = isCheckoutPage();
+      const chatbotId = "jagttegnkurser";
+      
+      // Only track purchase status, don't set usedChatbot flag here
+      // usedChatbot will be set only when an actual conversation occurs
+      fetch('https://egendatabasebackend.onrender.com/crm', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          websiteuserid: websiteUserId,
+          usedChatbot: false, // Default to false - will be updated to true only when a real conversation happens
+          madePurchase: madePurchase,
+          chatbot_id: chatbotId
+        })
+      })
+      .then(response => response.json())
+      .then(data => console.log('Purchase tracking updated:', data))
+      .catch(error => console.error('Error updating purchase tracking:', error));
+    }
+
+    // Run tracking on page load
+    trackPurchaseStatus();
+      
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -164,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #304f9b;
+      --icon-color: #fb9039;
     }
   
     /* The main message content area */
@@ -225,8 +280,10 @@ document.addEventListener('DOMContentLoaded', function() {
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="http://localhost:3000/"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+        src="https://skalerbartprodukt.onrender.com"
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowfullscreen>
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -264,31 +321,60 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
+      // Retrieve or create websiteuserid in parent domain's localStorage
+      let websiteUserId = getOrCreateWebsiteUserId();
+
       var messageData = {
-          action: 'integrationOptions',
-          chatbotID: 'egenhjemmeside',
-          apiEndpoint:
-            'https://den-utrolige-snebold.onrender.com/api/v1/prediction/6119a88d-60dd-4b2e-98e3-6dabfa4fa06f',
-          statestikAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/53e9c446-b2a3-41ca-8a01-8d48c05fcc7a',
-          fordelingsflowAPI: '',
-          flow2Key: 'shhdsahfdshfds',
-          flow2API: '',
-          flow3Key: 'sdfdsfds',
-          flow3API: '',
-	  toHumanMail: true,
-          privacyLink: 'https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/privacy_policy_dialogintelligens.pdf',
-          headerLogoG:
-            'https://dialogintelligens.dk/wp-content/uploads/2025/03/Untitled_Artwork-2.png',
-          themeColor: '#1D5288',
-          headerTitleG: 'Virtuel assistent',
-          headerSubtitleG:
-            'Vores virtuelle assistent er trænet med information omkring vores virksomhed, og kan hjælpe dig med at besvare dine spørgsmål.',
-          titleG: 'Dialog Intelligens',
-          leadMail: "team@dialogintelligens.dk",
-          leadField1: "Firmanavn",
-          leadField2: "Tlf Nummer",
-          firstMessage:
-            'Hej🤖 har du et spørgsmål om Dialog Intelligens?',
+      action: 'integrationOptions',
+      chatbotID: "linaa",
+      pagePath: window.location.href,
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b0e5bb2d-d87e-4366-b97e-6eefb47f11b9",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0d61ebd0-98a6-4f0e-832f-14227370cdc2",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/67639b65-4b22-4a32-977d-764c1cf0c274",
+      flow2Key: "",
+      flow2API: "",
+      flow3Key: "product",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
+      flow4API: "",
+      flow4Key: "",
+        
+      leadGen: "%%",
+      leadMail: "firma@linaa.dk",
+      leadField1: "Email",
+      leadField2: "Besked (din samtale sendes også)",
+
+      productButtonText: "SE PRODUKT",
+      productImageHeightMultiplier: 1,
+
+      metaDataAPI: "",
+      metaDataKey: "",
+        
+      imageAPI: '',
+
+      useThumbsRating: false,
+      ratingTimerDuration: 15000,
+      replaceExclamationWithPeriod: false,
+
+      knowledgebaseIndexApiEndpoint: "",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
+      websiteOverride: "",
+      languageOverride: "",
+      valutaOverride: "",
+      
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/linaa-privatlivpolitik.pdf",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744626251999.png",
+      themeColor: "#fb9039",
+      headerTitleG: "LINÅ'S CHATBOT",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      subtitleLinkText: "",
+      subtitleLinkUrl: "",
+        
+      titleG: "Linå's Virtuelle Assistent",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -297,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "http://localhost:3000/");
+          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -305,7 +391,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "http://localhost:3000/");
+            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -315,7 +401,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "http://localhost:3000/") return;
+      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -328,6 +415,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      } else if (event.data.action === 'conversationStarted') {
+        // User has started a conversation - track this as actual chatbot usage
+        const websiteUserId = getOrCreateWebsiteUserId();
+        const madePurchase = isCheckoutPage();
+        const chatbotId = "jagttegnkurser";
+        
+        fetch('https://egendatabasebackend.onrender.com/crm', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            websiteuserid: websiteUserId,
+            usedChatbot: true,
+            madePurchase: madePurchase,
+            chatbot_id: chatbotId
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('Conversation tracking updated:', data))
+        .catch(error => console.error('Error updating conversation tracking:', error));
       }
     });
   
@@ -384,8 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      var userHasVisited = getCookie("userHasVisited");
-      
+
       const popupText = "Har du brug for hjælp?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
@@ -402,6 +509,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
      
       popup.style.display = "flex";
+      
+      // Add click event to message box for tracking
+      messageBox.addEventListener("click", function() {
+        // Open chat window
+        toggleChatWindow();
+      });
   
       // Blink after 2s
       setTimeout(function() {
