@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // ——— 0) only for logged-in users ———
   const isLoggedIn = document.body.classList.contains('logged-in');
   if (!isLoggedIn) {
-    // clear the “first-login” flag on logout so we auto-open next time
+    // clear the "first-login" flag on logout so we auto-open next time
     localStorage.removeItem('hasSeenChatAfterLogin');
-    return;  // bail out; don’t even load the chatbot
+    return;  // bail out; don't even load the chatbot
   }
 
   // — then proceed with your existing initChatbot logic ——
@@ -758,7 +758,36 @@ document.addEventListener('DOMContentLoaded', function() {
       button.style.display = 'block';
     }
 
-   
+    // ------------- AUTO-OPEN ON FIRST LOGIN -------------
+    // If the user has not yet seen the chatbot after logging in, open it automatically once.
+    if (!localStorage.getItem('hasSeenChatAfterLogin')) {
+      // Mark as seen so we only auto-open once per login session
+      localStorage.setItem('hasSeenChatAfterLogin', 'true');
+
+      // Hide any intro popup
+      var introPopup = document.getElementById("chatbase-message-bubbles");
+      if (introPopup) {
+        introPopup.style.display = "none";
+        localStorage.setItem("popupClosed", "true");
+      }
+
+      // Show the chat iframe and hide the button
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      // Ensure correct sizing before sending data
+      adjustIframeSize();
+
+      // Give the iframe a moment to load, then send initial data & announce open state
+      setTimeout(function() {
+        sendMessageToIframe();
+        try {
+          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+        } catch (e) {
+          console.error('Unable to post chatOpened message on auto-open:', e);
+        }
+      }, 150);
+    }
+
     // Chat button click
     document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
 
