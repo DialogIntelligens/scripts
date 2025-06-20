@@ -4,8 +4,35 @@ document.addEventListener('DOMContentLoaded', function() {
   if (!isLoggedIn) {
     // clear the "first-login" flag on logout so we auto-open next time
     localStorage.removeItem('hasSeenChatAfterLogin');
+    // Also clear session-scoped flags so next login counts correctly
+    sessionStorage.removeItem('chatLoginCounted');
+    sessionStorage.removeItem('chatAutoOpened');
     return;  // bail out; don't even load the chatbot
   }
+
+  /* --------------------------------------------------
+     LOGIN COUNT & AUTO-OPEN FREQUENCY
+     --------------------------------------------------
+     We want to auto-open the chatbot on the first login and
+     then again after every three subsequent logins, i.e.
+     login #1, #5, #9 ... (show once, skip next three).
+     We track the total number of logins in localStorage and
+     only increment it once per browser session using
+     sessionStorage to avoid multiple increments on page
+     reloads within the same session/tab.
+  -------------------------------------------------- */
+
+  // Increment the persistent login counter exactly once per session
+  if (!sessionStorage.getItem('chatLoginCounted')) {
+    let loginCount = parseInt(localStorage.getItem('chatLoginCount') || '0');
+    loginCount += 1;
+    localStorage.setItem('chatLoginCount', loginCount);
+    sessionStorage.setItem('chatLoginCounted', 'true');
+  }
+
+  // Determine if we should auto-open on this login
+  const chatLoginCount = parseInt(localStorage.getItem('chatLoginCount') || '0');
+  const shouldAutoOpenChat = (chatLoginCount % 4 === 1); // show on 1st, 5th, 9th ...
 
   // — then proceed with your existing initChatbot logic ——
   function initChatbot() {
@@ -758,11 +785,10 @@ document.addEventListener('DOMContentLoaded', function() {
       button.style.display = 'block';
     }
 
-    // ------------- AUTO-OPEN ON FIRST LOGIN -------------
-    // If the user has not yet seen the chatbot after logging in, open it automatically once.
-    if (!localStorage.getItem('hasSeenChatAfterLogin')) {
-      // Mark as seen so we only auto-open once per login session
-      localStorage.setItem('hasSeenChatAfterLogin', 'true');
+    // ------------- AUTO-OPEN ON LOGIN CYCLE -------------
+    if (shouldAutoOpenChat && !sessionStorage.getItem('chatAutoOpened')) {
+      // Mark as opened for the current session so we don't repeat on page reloads
+      sessionStorage.setItem('chatAutoOpened', 'true');
 
       // Hide any intro popup
       var introPopup = document.getElementById("chatbase-message-bubbles");
