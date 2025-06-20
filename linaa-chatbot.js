@@ -339,6 +339,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4Key: "",
         
       leadGen: "%%",
+      toHumanMail: true,
       leadMail: "firma@linaa.dk",
       leadField1: "Email",
       leadField2: "Besked (din samtale sendes også)",
