@@ -337,9 +337,10 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
       flow4API: "",
       flow4Key: "",
-        
+
+      toHumanMail: true,
       leadGen: "%%",
-      leadMail: "firma@linaa.dk",
+      leadMail: "team@dialogintelligens.dk",
       leadField1: "Email",
       leadField2: "Besked (din samtale sendes også)",
 
