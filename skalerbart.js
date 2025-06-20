@@ -760,16 +760,18 @@ document.addEventListener('DOMContentLoaded', function() {
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
     
-      if (savedState === 'open') {
-        iframe.style.display = 'block';
-        button.style.display = 'none';
-        sendMessageToIframe();
-        // Track chatbot open if it was restored from localStorage
-        trackChatbotOpen();
-      } else {
-        iframe.style.display = 'none';
-        button.style.display = 'block';
-      }
+    if (savedState === 'open' && !isPhoneView) {
+      iframe.style.display = 'block';
+      button.style.display = 'none';
+      sendMessageToIframe();
+      trackChatbotOpen();          // keep your analytics
+    } else {
+      iframe.style.display = 'none';
+      button.style.display = 'block';
+    
+      /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
+      if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
+    }
   
      
       // Chat button click
