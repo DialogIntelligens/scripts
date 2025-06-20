@@ -32,7 +32,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Determine if we should auto-open on this login
   const chatLoginCount = parseInt(localStorage.getItem('chatLoginCount') || '0');
-  const shouldAutoOpenChat = (chatLoginCount % 4 === 1); // show on 1st, 5th, 9th ...
+  const shouldAutoOpenChat = (chatLoginCount % 4 === 1);
+
+  // Only auto-open on larger screens (desktop/tablet). Treat widths under 800px as phone.
+  const isDesktopScreen = window.innerWidth >= 800;
 
   // — then proceed with your existing initChatbot logic ——
   function initChatbot() {
@@ -786,16 +789,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ------------- AUTO-OPEN ON LOGIN CYCLE -------------
-    if (shouldAutoOpenChat && !sessionStorage.getItem('chatAutoOpened')) {
+    if (shouldAutoOpenChat && isDesktopScreen && !sessionStorage.getItem('chatAutoOpened')) {
       // Mark as opened for the current session so we don't repeat on page reloads
       sessionStorage.setItem('chatAutoOpened', 'true');
-
-      // Hide any intro popup
-      var introPopup = document.getElementById("chatbase-message-bubbles");
-      if (introPopup) {
-        introPopup.style.display = "none";
-        localStorage.setItem("popupClosed", "true");
-      }
 
       // Show the chat iframe and hide the button
       iframe.style.display = 'block';
