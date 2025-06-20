@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		flow3Key: "sdfdsfds",
 		flow3API: "",
       
-    toHumanMail: true;
+    		toHumanMail: true,
 
 		privacyLink: "",
 		titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/04/DIlogo.png",
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
       
-    }, "https://skalerbartprodukt.onrender.com");
+    }, "http://localhost:3000/");
   }
 
 
