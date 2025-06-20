@@ -754,7 +754,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
       // Attach event listener to chat-button
       document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
-    
+
+    const isPhoneView = window.innerWidth < 800;
       // Modify the initial chat window state logic
       var savedState = localStorage.getItem('chatWindowState');
       var iframe = document.getElementById('chat-iframe');
