@@ -221,6 +221,29 @@ function initChatbot() {
 
       toHumanMail: true,
       leadMail: "kundendienst@washworld.de",
+
+            // Set FreshdeskForm text
+      freshdeskEmailLabel: "Deine E-Mail-Adresse:",
+      freshdeskMessageLabel: "Nachricht an den Kundenservice:",
+      freshdeskImageLabel: "Bild hochladen (optional):",
+      freshdeskChooseFileText: "Datei auswählen",
+      freshdeskNoFileText: "Keine Datei ausgewählt",
+      freshdeskSendingText: "Senden...",
+      freshdeskSubmitText: "Anfrage absenden",
+        
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: " E-Mail ist erforderlich",
+      freshdeskEmailInvalidError: "Bitte eine gültige E-Mail-Adresse eingeben",
+      freshdeskFormErrorText: "Bitte korrigiere die Fehler im Formular",
+      freshdeskMessageRequiredError: "Nachricht ist erforderlich",
+      freshdeskSubmitErrorText: "Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+        
+      // Set confirmation messages
+      contactConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
+      freshdeskConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
+
+      freshdeskNameRequiredError: "Name ist erforderlich",
+      freshdeskNameLabel: "Name:",
       
       privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_DE.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
