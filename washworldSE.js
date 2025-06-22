@@ -220,6 +220,29 @@ function initChatbot() {
 
       toHumanMail: true,
       leadMail: "kundeservice@washworld.se",
+
+      // Set FreshdeskForm text
+      freshdeskEmailLabel: "Din e-post:",
+      freshdeskMessageLabel: "Meddelande till kundtjänst:",
+      freshdeskImageLabel: "Ladda upp bild (valfritt):",
+      freshdeskChooseFileText: "Välj fil",
+      freshdeskNoFileText: "Ingen fil vald",
+      freshdeskSendingText: "Skickar...",
+      freshdeskSubmitText: "Skicka förfrågan",
+        
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: "E-post är obligatoriskt",
+      freshdeskEmailInvalidError: "Vänligen ange en giltig e-postadress",
+      freshdeskFormErrorText: "Vänligen rätta till felen i formuläret",
+      freshdeskMessageRequiredError: "Meddelande är obligatoriskt",
+      freshdeskSubmitErrorText: "Ett fel uppstod vid skickandet av förfrågan. Vänligen försök igen.",
+        
+      // Set confirmation messages
+      contactConfirmationText: "Tack för din förfrågan, vi återkommer så snart som möjligt.",
+      freshdeskConfirmationText: "Tack för din förfrågan, vi återkommer så snart som möjligt.",
+
+      freshdeskNameRequiredError: "Namn är obligatoriskt",
+      freshdeskNameLabel: "Namn:",
       
       privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_SE.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
