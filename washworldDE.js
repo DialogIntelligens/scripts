@@ -218,6 +218,9 @@ function initChatbot() {
       flow3APIBackup: "",
 
       imageAPI: '',
+
+      toHumanMail: true,
+      leadMail: "kundendienst@washworld.de",
       
       privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_DE.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
