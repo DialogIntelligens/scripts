@@ -229,7 +229,7 @@ function initChatbot() {
       imageAPI: '',
 
       toHumanMail: true,
-      leadMail: "team@dialogintelligens.dk",
+      leadMail: "kundeservice@washworld.dk",
       
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_WashWorld.pdf",
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
