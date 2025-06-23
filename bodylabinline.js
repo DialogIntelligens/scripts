@@ -88,7 +88,7 @@
             // Extra feature
             gptInterface: true
           },
-          'https://bodylab.onrender.com/' // Target origin must match the iframe's domain
+          'http://localhost:3000/' // Target origin must match the iframe's domain
         );
       } else {
         console.error('[bodylabinline.js] Iframe window not available.');
