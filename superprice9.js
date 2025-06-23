@@ -229,10 +229,11 @@ function purchaseKey(userId) {
         bottom: 70px;
       }
 
-    #chat-button svg {
-      width: 60px;
-      height: 60px;
-      transition: opacity 0.3s;
+    #chat-button#chat-button svg {
+      /* double-ID has specificity 0,2,0,0 vs. 0,1,0,0 */
+      width: 60px    !important;
+      height: 60px   !important;
+      transition: opacity 0.3s !important;
     }
     #chat-button:hover svg {
       opacity: 0.7;
