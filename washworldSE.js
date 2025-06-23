@@ -219,7 +219,7 @@ function initChatbot() {
       imageAPI: '',
 
       toHumanMail: true,
-      leadMail: "kundeservice@washworld.se",
+      leadMail: "kundservice@washworld.se",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din e-post:",
@@ -250,8 +250,8 @@ function initChatbot() {
       themeColor: "#3ac165",
       headerTitleG: "Wish Wash, vår virtuella assistent",
       headerSubtitleG: "Här skriver du med vår chatbot, som är baserad på artificiell intelligens. Samtal med chatboten kan sparas och användas för att förbättra funktionen. Läs mer i vår integritetspolicy. Om du inte får svar på dina frågor här, är du välkommen att kontakta vår kundtjänst på",
-      subtitleLinkText: "kundeservice@washworld.se",
-      subtitleLinkUrl: "mailto:kundeservice@washworld.se",
+      subtitleLinkText: "kundservice@washworld.se",
+      subtitleLinkUrl: "mailto:kundservice@washworld.se",
 
       inputPlaceholder: "Skriv din fråga här...",
       ratingMessage: "Fick du svar på din fråga?",
