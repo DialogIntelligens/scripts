@@ -438,7 +438,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow4Key: "",
         
       leadGen: "%%",
-      leadMail: "laulo@trafikskolerne.dk",
+      leadMail: "laulo@trafikteori.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
