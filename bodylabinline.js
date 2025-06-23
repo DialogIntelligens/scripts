@@ -8,7 +8,7 @@
     // Wait until DOM is ready so we can safely append elements
     document.addEventListener('DOMContentLoaded', function() {
   
-      // --- 1) Inject the <style> for responsive margin ---
+      // --- 1) Inject the <style> for responsive margin and fixed input ---
       var styleElement = document.createElement('style');
       styleElement.innerHTML = `
         /* Add margin on the left side for PC screens only */
@@ -16,6 +16,62 @@
           #chat-iframe {
             margin-left: 0px; /* you can adjust if needed */
           }
+        }
+        
+        /* Fixed input field styles */
+        #chat-input-container {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: white;
+          border-top: 1px solid #e0e0e0;
+          padding: 15px;
+          box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+        
+        #chat-input-field {
+          flex: 1;
+          padding: 12px 50px 12px 15px;
+          border: 1px solid #A9A9A9;
+          border-radius: 0;
+          font-size: 16px;
+          outline: none;
+          font-family: 'Barlow Semi Condensed', Arial, sans-serif;
+        }
+        
+        #chat-input-field:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        }
+        
+        #chat-send-button {
+          position: absolute;
+          right: 25px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 8px;
+          opacity: 0.7;
+          transition: opacity 0.2s;
+        }
+        
+        #chat-send-button:hover {
+          opacity: 1;
+        }
+        
+        #chat-send-button img {
+          width: 20px;
+          height: 20px;
+        }
+        
+        /* Adjust iframe to leave space for fixed input */
+        #chat-iframe {
+          margin-bottom: 80px; /* Leave space for the fixed input */
         }
       `;
       document.head.appendChild(styleElement);
@@ -31,6 +87,25 @@
   
       // Insert the iframe *after* this <script> element
       thisScript.insertAdjacentElement('afterend', iframeElement);
+
+      // --- 3) Create the external fixed input field ---
+      var inputContainer = document.createElement('div');
+      inputContainer.id = 'chat-input-container';
+      
+      var inputField = document.createElement('input');
+      inputField.id = 'chat-input-field';
+      inputField.type = 'text';
+      inputField.placeholder = 'Skriv dit spørgsmål her...';
+      
+      var sendButton = document.createElement('button');
+      sendButton.id = 'chat-send-button';
+      sendButton.innerHTML = '<img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTIuMDEgMjFMMjMgMTJMMi4wMSAzTDIuMDAgMTBMMTcgMTJMMi4wMCAxNEwyLjAxIDIxWiIgZmlsbD0iIzY1YmRkYiIvPgo8L3N2Zz4K" alt="Send" />';
+      
+      inputContainer.appendChild(inputField);
+      inputContainer.appendChild(sendButton);
+      
+      // Append to body so it's always visible
+      document.body.appendChild(inputContainer);
   
       // Keep track of toggling large/small
       var isIframeEnlarged = false;
@@ -100,6 +175,36 @@
         iframeElement.style.height = isIframeEnlarged ? '800px' : '600px';
       }
   
+      // --- 4) Handle input field functionality ---
+      function sendMessageToChat() {
+        var message = inputField.value.trim();
+        if (message) {
+          // Send the message to the iframe
+          var iframeWindow = iframeElement.contentWindow;
+          if (iframeWindow) {
+            iframeWindow.postMessage(
+              {
+                action: 'sendMessage',
+                message: message
+              },
+              'http://localhost:3000/'
+            );
+            // Clear the input field
+            inputField.value = '';
+          }
+        }
+      }
+
+      // Handle send button click
+      sendButton.addEventListener('click', sendMessageToChat);
+
+      // Handle Enter key press
+      inputField.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendMessageToChat();
+        }
+      });
+
       // Listen for messages from the iframe
       window.addEventListener('message', function (event) {
         if (event.origin !== 'http://localhost:3000/') {
