@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function() {
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 15px;
+      bottom: 30px;
     }
     #chat-button svg {
       width: 60px;
