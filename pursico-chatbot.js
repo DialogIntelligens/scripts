@@ -510,30 +510,37 @@ function purchaseKey(userId) {
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
+      // Only accept messages from our iframe origin
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+    
       if (event.data.action === 'toggleSize') {
+        // Toggle enlarged state and resize
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
+    
       } else if (event.data.action === 'closeChat') {
+        // Hide iframe, show button, record state
         document.getElementById('chat-iframe').style.display = 'none';
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
+    
       } else if (event.data.action === 'navigate') {
+        // Hide chat and navigate away
         document.getElementById('chat-iframe').style.display = 'none';
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
-      }
+    
       } else if (event.data.action === 'setChatbotUserId') {
-      // Handle the new message from the iframe
-      chatbotUserId = event.data.userId;
-      localStorage.setItem('chatbotUserId', chatbotUserId);   
-      console.log("Received and stored chatbotUserId:", chatbotUserId);
-      
-      // If we're on a checkout page, immediately check for purchase
-      if (isCheckoutPage()) {
-        setTimeout(checkForPurchase, 1000);
-      }
+        // Receive and persist the new user ID
+        chatbotUserId = event.data.userId;
+        localStorage.setItem('chatbotUserId', chatbotUserId);
+        console.log("Received and stored chatbotUserId:", chatbotUserId);
+    
+        // If we're already on checkout, trigger purchase check
+        if (isCheckoutPage()) {
+          setTimeout(checkForPurchase, 1000);
+        }
       }
     });
   
