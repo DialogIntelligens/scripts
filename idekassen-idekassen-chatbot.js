@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 70px;
+      bottom: 100px;
       right: 7px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
