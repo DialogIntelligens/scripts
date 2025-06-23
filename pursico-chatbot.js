@@ -12,6 +12,8 @@ function purchaseKey(userId) {
       return;
     }
 
+    const enablePulseAnimation = true;
+
     /**
      * PURCHASE TRACKING
      */
@@ -625,7 +627,6 @@ function purchaseKey(userId) {
       if (enablePulseAnimation) {
         document.getElementById('chat-button').querySelector('svg').classList.add('pulse');
       }
-      var enablePulseAnimation = false; 
   
       // Blink after 2s
       setTimeout(function() {
