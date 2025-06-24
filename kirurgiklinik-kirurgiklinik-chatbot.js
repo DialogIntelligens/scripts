@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "Liv - Kirurgiklinikkens AI",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra behandling til generelle spørgsmål 🦷",
+      firstMessage: "Hejsa 😊 Spørg mig om alt – lige fra behandling til generelle spørgsmål 🦷 Jeg ved utrolig mange ting og vil hellere end gerne hjælpe dig.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
