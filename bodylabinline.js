@@ -8,7 +8,7 @@
     // Wait until DOM is ready so we can safely append elements
     document.addEventListener('DOMContentLoaded', function() {
   
-      // --- 1) Inject the <style> for responsive margin ---
+      // --- 1) Inject the <style> for responsive margin and sticky input ---
       var styleElement = document.createElement('style');
       styleElement.innerHTML = `
         /* Add margin on the left side for PC screens only */
@@ -16,6 +16,66 @@
           #chat-iframe {
             margin-left: 0px; /* you can adjust if needed */
           }
+        }
+        
+        /* Sticky input field styles */
+        #sticky-input-container {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          background-color: white;
+          border-top: 1px solid #e0e0e0;
+          box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+          z-index: 1000;
+          padding: 1em;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        #sticky-input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          width: 100%;
+          max-width: 100%;
+        }
+        
+        #sticky-chat-input {
+          background-color: white;
+          padding: 0.6em;
+          padding-right: 3.2em;
+          border: none;
+          border-radius: 0.0em;
+          width: 100%;
+          box-sizing: border-box;
+          outline: 0.064em solid #A9A9A9;
+          outline-offset: 0.13em;
+          font-size: 16px;
+        }
+        
+        #sticky-chat-input:focus {
+          outline: 0.064em solid #007bff;
+        }
+        
+        #sticky-chat-input::placeholder {
+          color: #A9A9A9;
+        }
+        
+        #sticky-send-button {
+          cursor: pointer;
+          width: 1.3em;
+          height: 1.3em;
+          position: absolute;
+          right: 1.4em;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        
+        /* Add bottom padding to iframe container to make room for sticky input */
+        #chat-iframe {
+          margin-bottom: 80px;
         }
       `;
       document.head.appendChild(styleElement);
@@ -29,9 +89,50 @@
       iframeElement.style.border = 'none';
       iframeElement.setAttribute('sandbox', 'allow-scripts allow-same-origin');
   
-      // Insert the iframe *after* this <script> element
+            // Insert the iframe *after* this <script> element
       thisScript.insertAdjacentElement('afterend', iframeElement);
-  
+
+      // --- 3) Create sticky input field ---
+      var stickyInputContainer = document.createElement('div');
+      stickyInputContainer.id = 'sticky-input-container';
+      
+      var stickyInputWrapper = document.createElement('div');
+      stickyInputWrapper.id = 'sticky-input-wrapper';
+      
+      var stickyInput = document.createElement('input');
+      stickyInput.id = 'sticky-chat-input';
+      stickyInput.type = 'text';
+      stickyInput.placeholder = 'Skriv dit spørgsmål her...';
+      
+      var stickySendButton = document.createElement('img');
+      stickySendButton.id = 'sticky-send-button';
+      stickySendButton.src = 'https://dialogintelligens.dk/wp-content/uploads/2024/06/sendButton.png';
+      stickySendButton.alt = 'Send';
+      
+      stickyInputWrapper.appendChild(stickyInput);
+      stickyInputWrapper.appendChild(stickySendButton);
+      stickyInputContainer.appendChild(stickyInputWrapper);
+      
+      // Get the iframe width and apply it to the sticky input
+      function updateStickyInputWidth() {
+        var iframeRect = iframeElement.getBoundingClientRect();
+        var iframeLeft = iframeRect.left;
+        var iframeWidth = iframeRect.width;
+        
+        stickyInputWrapper.style.maxWidth = iframeWidth + 'px';
+        stickyInputWrapper.style.marginLeft = iframeLeft + 'px';
+        stickyInputWrapper.style.marginRight = 'auto';
+      }
+      
+      // Insert sticky input into page
+      document.body.appendChild(stickyInputContainer);
+      
+      // Update width on window resize
+      window.addEventListener('resize', updateStickyInputWidth);
+      
+      // Initial width update
+      setTimeout(updateStickyInputWidth, 100);
+
       // Keep track of toggling large/small
       var isIframeEnlarged = false;
   
@@ -100,6 +201,30 @@
         iframeElement.style.height = isIframeEnlarged ? '800px' : '600px';
       }
   
+      // Handle input events
+      function handleStickyInputSend() {
+        var message = stickyInput.value.trim();
+        if (message) {
+          // Send message to iframe
+          var iframeWindow = iframeElement.contentWindow;
+          if (iframeWindow) {
+            iframeWindow.postMessage({
+              action: 'sendMessage',
+              message: message
+            }, 'http://localhost:3000/');
+          }
+          stickyInput.value = ''; // Clear input
+        }
+      }
+      
+      // Sticky input event listeners
+      stickySendButton.addEventListener('click', handleStickyInputSend);
+      stickyInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          handleStickyInputSend();
+        }
+      });
+
       // Listen for messages from the iframe
       window.addEventListener('message', function (event) {
         if (event.origin !== 'http://localhost:3000/') {
@@ -108,6 +233,8 @@
         if (event.data.action === 'toggleSize') {
           isIframeEnlarged = !isIframeEnlarged;
           adjustIframeSize();
+          // Update sticky input width after size change
+          setTimeout(updateStickyInputWidth, 100);
         }
         // Handle other actions if needed
       });
