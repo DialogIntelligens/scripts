@@ -23,7 +23,7 @@
       // --- 2) Create and insert the <iframe> ---
       var iframeElement = document.createElement('iframe');
       iframeElement.id = 'chat-iframe';
-      iframeElement.src = 'http://localhost:3000/';
+      iframeElement.src = 'https://bodylab.onrender.com';
       iframeElement.style.width = '100%';
       iframeElement.style.height = '600px';
       iframeElement.style.border = 'none';
@@ -88,7 +88,7 @@
               // Extra feature
               gptInterface: true
             },
-            'http://localhost:3000/' // Target origin must match the iframe's domain
+            'https://bodylab.onrender.com' // Target origin must match the iframe's domain
           );
         } else {
           console.error('[bodylabinline.js] Iframe window not available.');
@@ -97,7 +97,7 @@
   
       // Listen for messages from the iframe
       window.addEventListener('message', function (event) {
-        if (event.origin !== 'http://localhost:3000/') {
+        if (event.origin !== 'https://bodylab.onrender.com') {
           return; // Ignore messages from unknown origins
         }
         if (event.data.action === 'toggleSize') {
