@@ -401,6 +401,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Namn är obligatoriskt",
       freshdeskNameLabel: "Namn:",
 
+      freshdeskSubjectText: 'Din förfrågan till DILLING',
             
       freshdeskGroupId: 22000157429,
 
