@@ -400,6 +400,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Navn er påkrevd",
       freshdeskNameLabel: "Navn:",
 
+      freshdeskSubjectText: 'Din henvendelse til DILLING',
             
       freshdeskGroupId: 22000166117,
 
