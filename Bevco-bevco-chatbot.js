@@ -28,16 +28,15 @@ document.addEventListener('DOMContentLoaded', function() {
   let hasReportedPurchase = false;  // <-- add this line
 
 
-    // Check if on checkout page
-    function isCheckoutPage() {
-    return window.location.href.includes('/ordre') || 
-           window.location.href.includes('/order-complete/') ||
-           window.location.href.includes('/thank-you/') ||
-           window.location.href.includes('/order-received/') ||
-           document.querySelector('.order-complete') ||
-           document.querySelector('.thank-you') ||
-           document.querySelector('.order-confirmation');
-  }
+function isCheckoutPage() {
+  const path = window.location.pathname            // e.g. "/checkout", "/checkout/", "/checkout/cart"
+                  .replace(/\/$/, '');             // strip trailing “/”
+
+  const isRootCheckout = path === '/checkout';
+
+  return isRootCheckout;
+}
+
   
     //Extract total price from the page
     function extractTotalPrice() {
