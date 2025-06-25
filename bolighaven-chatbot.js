@@ -53,7 +53,7 @@ function purchaseKey(userId) {
         '.total-price', '.order-total', '.cart-total', '.grand-total',
         '[data-testid="order-summary-total"]', '.order-summary-total',
         '.checkout-total', '.woocommerce-Price-amount', '.amount',
-        '.product-subtotal', '.order-summary__price'
+        '.product-subtotal', '.order-summary__price', '.ctotal'
       ];
       
       
