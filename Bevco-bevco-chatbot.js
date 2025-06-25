@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id:   chatbotUserId,
-        chatbot_id:'test',
+        chatbot_id:'bevco',
         amount:    totalPrice
       })
     })
