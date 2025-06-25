@@ -404,6 +404,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Nimi on pakollinen",
       freshdeskNameLabel: "Nimi:",
 
+      freshdeskSubjectText: 'Yhteydenottosi DILLINGille',
             
       freshdeskGroupId: 22000157432,
 
