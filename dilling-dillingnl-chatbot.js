@@ -403,6 +403,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Naam is verplicht",
       freshdeskNameLabel: "Naam:",
 
+      freshdeskSubjectText: 'Je vraag aan DILLING',
           
       freshdeskGroupId: 22000157430,
 
