@@ -95,11 +95,6 @@
         }
       }
   
-      // Optional: Adjust the iframe size if the iframe toggles
-      function adjustIframeSize() {
-        iframeElement.style.height = isIframeEnlarged ? '800px' : '600px';
-      }
-  
       // Listen for messages from the iframe
       window.addEventListener('message', function (event) {
         if (event.origin !== 'http://localhost:3000/') {
