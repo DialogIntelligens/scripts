@@ -140,7 +140,7 @@ function purchaseKey(userId) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id:   chatbotUserId,
-        chatbot_id:'skadedyrshop',
+        chatbot_id:'pursico',
         amount:    totalPrice
       })
     })
