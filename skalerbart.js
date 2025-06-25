@@ -386,6 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set confirmation messages
         contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
         freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+
+        freshdeskSubjectText: 'Din henvendelse',
   
         inputPlaceholder: "Skriv dit spørgsmål her...",
         ratingMessage: "Fik du besvaret dit spørgmål?",
