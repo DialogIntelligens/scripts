@@ -401,6 +401,8 @@ function initChatbot() {
       freshdeskNameRequiredError: "Name wird benötigt",
       freshdeskNameLabel: "Name:",
 
+      freshdeskSubjectText: 'Ihre Anfrage an DILLING',
+
 
       inputPlaceholder: "Stellen Sie Ihre Frage hier...",
       ratingMessage: "Wurde Ihre Frage beantwortet?",
