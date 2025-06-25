@@ -401,6 +401,7 @@ function initChatbot() {
       freshdeskNameRequiredError: "Le nom est obligatoire",
       freshdeskNameLabel: "Nom :",
 
+      freshdeskSubjectText: 'Votre demande à DILLING',
             
       freshdeskGroupId: 22000163683,
 
