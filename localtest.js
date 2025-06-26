@@ -600,7 +600,7 @@ function isCheckoutPage() {
       subtitleLinkUrl: "",
         
       titleG: "AI Bæver",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
+      firstMessage: "Hej 😊 Spørg mig om alt – liasdfge fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍹🍾",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
