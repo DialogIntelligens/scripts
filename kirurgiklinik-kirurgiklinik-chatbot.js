@@ -478,7 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
       valutaOverride: "",
       customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Kirurgiklinik.pdf",
+      privacyLink: " https://www.kirurgiklinik.dk/patienter/persondatapolitik/",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
