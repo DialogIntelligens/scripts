@@ -365,7 +365,7 @@ function isCheckoutPage() {
 
   
     :root {
-      --icon-color: #2d473e;
+      --icon-color: #f9b655;
       --badge-color: #F9B654;
     }
     
@@ -590,8 +590,8 @@ function isCheckoutPage() {
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
       freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
+      inputPlaceholder: "Skriv din fråga här...",
+      ratingMessage: "Fick du svar på din fråga?",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1746541405373.png",
       themeColor: "#f9b655",
       headerTitleG: "AI Bæver",
