@@ -146,7 +146,7 @@ function isCheckoutPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id:   chatbotUserId,
-        chatbot_id:'bevco',
+        chatbot_id:'bevcose',
         amount:    totalPrice
       })
     })
@@ -191,7 +191,7 @@ function isCheckoutPage() {
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "bevco";
+    var chatbotID = "bevcose";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -499,7 +499,7 @@ function isCheckoutPage() {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "bevco",
+      chatbotID: "bevcose",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9b5c61e2-5915-42ac-b348-37ff0a78aeb6",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/876a9bc7-51b3-40e9-ae3f-34092eb0b41b",
