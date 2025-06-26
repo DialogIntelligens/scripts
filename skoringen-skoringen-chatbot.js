@@ -500,8 +500,8 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Skobot - Din Sko Ekspert",
-      firstMessage: "Hej, mit navn er Snørre 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
+      titleG: "SkoBot - Din Sko Ekspert",
+      firstMessage: "Hej, mit navn er SkoBot 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
