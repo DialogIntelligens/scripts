@@ -323,13 +323,13 @@ document.addEventListener('DOMContentLoaded', function() {
       /* Always show the “×” on phones/tablets */
       #chatbase-message-bubbles .close-popup {
         opacity: 1 !important;
-        transform: scale(1) !important;
+        transform: scale(1.2) !important;
         pointer-events: auto !important;
       }
     
       /* 
       #chat-button {
-        bottom: 15px !important;
+        bottom: 65px !important;
       }
       */
     }
