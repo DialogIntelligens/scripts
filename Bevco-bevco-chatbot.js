@@ -366,7 +366,7 @@ function isCheckoutPage() {
   
     :root {
       --icon-color: #f9b655;
-      --badge-color: #F9B654;
+      --badge-color: #CC2B20;
     }
     
     /* Notification badge styles */
