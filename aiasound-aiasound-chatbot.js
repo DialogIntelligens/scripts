@@ -312,27 +312,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
    
     @media (max-width: 800px) {
-      /* Adjust the popup’s position/width on small screens */
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 120vw;
         bottom: 115px;
-        right: 15;
+        right: 15px; /* FIXED HERE */
       }
     
-      /* Always show the “×” on phones/tablets */
+      #chat-button {
+        bottom: 65px !important;
+        right: 10px !important;
+      }
+    
       #chatbase-message-bubbles .close-popup {
         opacity: 1 !important;
         transform: scale(1.2) !important;
         pointer-events: auto !important;
       }
-    
-
-      #chat-button {
-        bottom: 65px !important;
-        right: 10px !important;
-      }
-
     }
 
   
