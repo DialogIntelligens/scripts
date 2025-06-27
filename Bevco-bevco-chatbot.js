@@ -506,8 +506,8 @@ function isCheckoutPage() {
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e5db4106-a57a-46b1-baa2-e19f7bfaa917",
       flow2Key: "product",
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/33f10ef1-ab35-4cf1-b468-bc407de54cf0",
-      flow3Key: "order",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b3dd20c6-7111-43a7-961a-ce91e632cfc8",
+      flow3Key: "",
+      flow3API: "",
       flow4API: "",
       flow4Key: "",
         
