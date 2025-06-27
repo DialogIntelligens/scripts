@@ -220,12 +220,12 @@ document.addEventListener('DOMContentLoaded', function() {
       bottom: 65px;
     }
     #chat-button svg {
-      width: 70px;
-      height: 70px;
+      width: 65px;
+      height: 65px;
       transition: opacity 0.3s;
     }
     #chat-button:hover svg {
-      opacity: 0.7;
+      opacity: 0.8;
       transform: scale(1.1);
     }
   
@@ -244,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-      bottom: 70px;
-      right: 7px;
+      bottom: 100px;
+      right: 30px;
       border-radius: 10px;
       font-family: 'Source Sans 3', sans-serif;
       font-size: 20px;
