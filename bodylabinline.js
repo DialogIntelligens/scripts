@@ -14,7 +14,7 @@
 
     var iframeElement = document.createElement('iframe');
     iframeElement.id = 'chat-iframe';
-    iframeElement.src = 'http://localhost:3000/';
+    iframeElement.src = 'https://bodylab.onrender.com';
     iframeElement.style.width = '100%';
     iframeElement.style.height = '600px';
     iframeElement.style.border = '1px solid #000';
@@ -67,7 +67,7 @@
 
             gptInterface: true
           },
-          'http://localhost:3000/'
+          'https://bodylab.onrender.com'
         );
       } else {
         console.error('[bodylabinline.js] Iframe window not available.');
@@ -75,7 +75,7 @@
     }
 
     window.addEventListener('message', function (event) {
-      if (event.origin !== 'http://localhost:3000/') {
+      if (event.origin !== 'https://bodylab.onrender.com') {
         return;
       }
       if (event.data.action === 'toggleSize') {
