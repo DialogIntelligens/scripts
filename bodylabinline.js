@@ -23,7 +23,7 @@
       // --- 2) Create and insert the <iframe> ---
       var iframeElement = document.createElement('iframe');
       iframeElement.id = 'chat-iframe';
-      iframeElement.src = 'https://bodylab.onrender.com';
+      iframeElement.src = 'http://localhost:3000/';
       iframeElement.style.width = '100%';
       iframeElement.style.height = '600px';
       iframeElement.style.border = 'none';
@@ -63,9 +63,9 @@
               recipeAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/34b30c22-d938-4701-b644-d8da7755ad29',
               statestikAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cf402f5-4796-4929-8853-e078f93bf7fe',
   
-                    apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d04e4181-6db3-4acf-aad7-8a41878e8df6",
-        apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a0f4e81d-bc70-41fe-8fa4-316707513839",
-        apiFlowKey: "order",
+              apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d04e4181-6db3-4acf-aad7-8a41878e8df6",
+              apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a0f4e81d-bc70-41fe-8fa4-316707513839",
+              apiFlowKey: "order",
   
               chatbotID: 'bodylab',
   
@@ -88,7 +88,7 @@
               // Extra feature
               gptInterface: true
             },
-            'https://bodylab.onrender.com' // Target origin must match the iframe's domain
+            'http://localhost:3000/' // Target origin must match the iframe's domain
           );
         } else {
           console.error('[bodylabinline.js] Iframe window not available.');
@@ -97,7 +97,7 @@
   
       // Listen for messages from the iframe
       window.addEventListener('message', function (event) {
-        if (event.origin !== 'https://bodylab.onrender.com') {
+        if (event.origin !== 'http://localhost:3000/') {
           return; // Ignore messages from unknown origins
         }
         if (event.data.action === 'toggleSize') {
