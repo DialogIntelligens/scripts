@@ -316,8 +316,8 @@ document.addEventListener('DOMContentLoaded', function() {
       #chatbase-message-bubbles {
         width: 90vw;
         max-width: 120vw;
-        bottom: 105px;
-        right: 0;
+        bottom: 115px;
+        right: 15;
       }
     
       /* Always show the “×” on phones/tablets */
@@ -327,11 +327,12 @@ document.addEventListener('DOMContentLoaded', function() {
         pointer-events: auto !important;
       }
     
-      /* 
+
       #chat-button {
         bottom: 65px !important;
+        right: 10px !important;
       }
-      */
+
     }
 
   
@@ -515,7 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "AIA CHAT",
-      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingwoman hele festen 🥳",
+      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingwomen hele festen 🥳",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
