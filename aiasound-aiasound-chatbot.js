@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     
       #chat-button {
-        bottom: 65px !important;
+        bottom: 80px !important;
         right: 10px !important;
       }
     
