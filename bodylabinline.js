@@ -51,11 +51,6 @@
               headerLogoG: 'https://dialogintelligens.dk/wp-content/uploads/2024/10/customLogo.png',
               themeColor: '#65bddb',
               pagePath: window.location.href,
-              headerTitleG: 'AI Buddy',
-              titleG: 'AI Buddy',
-              headerSubtitleG: 'Du chatter med Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores',
-              contactLink: 'https://www.bodylab.dk/shop/cms-contact.html',
-              contactTitle: 'kundeservice',
               privacyLink: 'http://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf',
               inputText: 'Skriv dit spørgsmål her...',
   
