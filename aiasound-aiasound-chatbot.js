@@ -216,12 +216,12 @@ document.addEventListener('DOMContentLoaded', function() {
       border: none;
       position: fixed;
       z-index: 20;
-      right: 10px;
-      bottom: 20px;
+      right: 20px;
+      bottom: 65px;
     }
     #chat-button svg {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       transition: opacity 0.3s;
     }
     #chat-button:hover svg {
