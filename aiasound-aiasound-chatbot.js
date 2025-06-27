@@ -515,7 +515,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkUrl: "",
         
       titleG: "AIA CHAT",
-      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingwomen hele festen 🥳",
+      firstMessage: "Spørg mig om hvad som helst – hvem der spiller, hvor du finder den vildeste vibe, eller bare hvad du ikke må misse 🔥 Jeg er din AI-wingwoman hele festen 🥳",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
