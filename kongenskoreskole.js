@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
        * 1. GLOBAL & FONT SETUP
        */
       var isIframeEnlarged = false;
-      var chatbotID = "test";
+      var chatbotID = "kongenskoreskole";
       var fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
       fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "pcsk_49Sz19_67L3itZVBZBH8t77oME9tPMX3rnFre52VW3QvazNrWPY2ntJfF4WTs8NpWCzaio",
+        pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
         knowledgebaseIndexApiEndpoint: "koreskole",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "",
