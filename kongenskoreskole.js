@@ -355,7 +355,7 @@ document.addEventListener('DOMContentLoaded', function() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
-        knowledgebaseIndexApiEndpoint: "koreskole",
+        knowledgebaseIndexApiEndpoint: "kongen-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "",
         flow4KnowledgebaseIndex: "",
