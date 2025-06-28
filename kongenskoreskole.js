@@ -395,10 +395,10 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/koreskolewhitemessagelogo.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/10/koreskolelogo.png",
       themeColor: "#ee9000",
-      headerTitleG: "Kongens Køreskoles AI Assistent",
+      headerTitleG: "Kongens AI",
       headerSubtitleG: "Du skriver med en AI. Ved at bruge denne chatbot accepterer du, at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      titleG: "Kongens Køreskoles",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗",
+      titleG: "Konge AI",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🚗 Kan besvare næsten alle dine sprøgsmål 🤖",
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
       };
@@ -610,7 +610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
         
-        const popupText = "Har du brug for hjælp? ";
+        const popupText = "Har du brug for hjælp? Jeg er din Kongens AI, klar til din service 🤖";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
         
         // Determine popup width based on character count (excluding any HTML tags)
