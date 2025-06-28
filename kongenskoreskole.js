@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
+        pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
         knowledgebaseIndexApiEndpoint: "kongen-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "",
