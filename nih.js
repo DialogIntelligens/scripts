@@ -165,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   
     :root {
-      --icon-color: #304f9b;
+      --icon-color: #224e9a;
     }
   
     /* The main message content area */
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3APIBackup: "",
         
       leadGen: "%%",
-      leadMail: "eva@nih.dk",
+      leadMail: "info@nih.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
