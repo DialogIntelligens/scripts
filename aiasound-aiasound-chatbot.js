@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   
     :root {
-      --icon-color: #e834bd;
+      --icon-color: #ccf56a;
     }
   
     /* The main message content area */
