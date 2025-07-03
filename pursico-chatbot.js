@@ -477,6 +477,8 @@ function purchaseKey(userId) {
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
+      inputPlaceholder: "Write your question here...",          
+          
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Pursico.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744025109845.png",
