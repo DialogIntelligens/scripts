@@ -711,7 +711,7 @@ function showPopup() {
   var popup = document.getElementById("chatbase-message-bubbles");
   var messageBox = document.getElementById("popup-message-box");
   
-  const popupText = "Jeg kan anbefale drikkevarer, finde ordrer og svare på spørgsmål🍾";
+  const popupText = "Jeg kan anbefale produkter og besvare på spørgsmål 🛠️";
   messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
   
   // Determine popup width based on character count (excluding any HTML tags)
