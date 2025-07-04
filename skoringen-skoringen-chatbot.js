@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
-
-  function initChatbot() {
+function initChatbot() {
 
         const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
@@ -768,5 +766,3 @@ document.addEventListener('DOMContentLoaded', function() {
       initChatbot();
     }
   }, 5000);
-        
-});  
