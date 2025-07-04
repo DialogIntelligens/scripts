@@ -514,9 +514,6 @@ function getCurrentTimestamp() {
 function sendMessageToIframe() {
   var iframe = document.getElementById("chat-iframe");
   var iframeWindow = iframe.contentWindow;
-  
-      // Retrieve or create websiteuserid in parent domain's localStorage
-  let websiteUserId = getOrCreateWebsiteUserId();
 
   var messageData = {
   action: 'integrationOptions',
@@ -569,7 +566,6 @@ function sendMessageToIframe() {
         
   titleG: "Linå's Virtuelle Assistent",
   firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
-  parentWebsiteUserId: websiteUserId,
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
@@ -1486,8 +1482,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-      // Retrieve or create websiteuserid in parent domain's localStorage
-      let websiteUserId = getOrCreateWebsiteUserId();
 
       var messageData = {
       action: 'integrationOptions',
@@ -1540,7 +1534,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       titleG: "Linå's Virtuelle Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
-      parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
