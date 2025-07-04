@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #E2954C;
+      --icon-color: #626b4e;
       --badge-color: #CC2B20;
     }
     
@@ -560,7 +560,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       isPhoneView: window.innerWidth < 800
     };
 
-
+  
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
@@ -777,7 +777,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og svare på spørgsmål🛠️ ";
+      const popupText = "Har du brug for hjælp? ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
