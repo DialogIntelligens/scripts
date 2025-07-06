@@ -290,8 +290,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: 11px;
-      right: 50px;
+      bottom: 9px;
+      right: 40px;
       scale: 0.55;
     }
     
@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #000000;
       --badge-color: #CC2B20;
     }
     
@@ -421,7 +421,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Long message padding */
     #chatbase-message-bubbles.long-message .message-box {
-      padding: 12px 40px 12px 20px;
+      padding: 12px 55px 12px 20px;
     }
     `;
     var style = document.createElement('style');
