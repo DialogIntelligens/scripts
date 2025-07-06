@@ -367,7 +367,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #000000;
       --badge-color: #CC2B20;
     }
     
@@ -801,7 +801,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp? ";
+      const popupText = "Jeg kan besvare sprøgsmål og anbefale sko  👟";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
