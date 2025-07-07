@@ -346,7 +346,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: 12px;
+        bottom: -2px;
         right: 55px;
         scale: 0.50;
       }
