@@ -4,7 +4,6 @@
   }
   
   function initChatbot() {
-  let websiteUserId = localStorage.getItem('websiteUserId') || null;
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
@@ -23,159 +22,175 @@
     widgetContainer.id = 'my-chat-widget';
     document.body.appendChild(widgetContainer);    
 
-
-      /**
-   * PURCHASE TRACKING
-   */
+/**
+ * PURCHASE TRACKING
+ */
 let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
 let hasReportedPurchase = false;  // <-- add this line
 
 
-  // Check if on checkout page
-  function isCheckoutPage() {
-  return window.location.href.includes('/ordre') || 
-         window.location.href.includes('/order-complete/') ||
-         window.location.href.includes('/thank-you/') ||
-         window.location.href.includes('/order-received/') ||
-         document.querySelector('.order-complete') ||
-         document.querySelector('.thank-you') ||
-         document.querySelector('.order-confirmation');
+function isCheckoutPage() {
+const path = window.location.pathname            // e.g. "/checkout", "/checkout/", "/checkout/cart"
+              .replace(/\/$/, '');             // strip trailing “/”
+
+const isRootCheckout = path === '/checkout';
+
+return isRootCheckout;
 }
 
-  //Extract total price from the page
-  function extractTotalPrice() {
-    let totalPrice = null;
-    let highestValue = 0;
+
+//Extract total price from the page
+function extractTotalPrice() {
+  let totalPrice = null;
+  let highestValue = 0;
+
+console.log('Starting price extraction...');
   
-  console.log('Starting price extraction...');
+  // Method 1: Try common selectors for price elements
+  const priceSelectors = [
+    '.total-price', '.order-total', '.cart-total', '.grand-total',
+    '[data-testid="order-summary-total"]', '.order-summary-total',
+    '.checkout-total', '.woocommerce-Price-amount', '.amount',
+    '.product-subtotal', '.order-summary__price', '[data-price-value]'
+  ];
+  
+  
+  // Loop through each selector
+  for (const selector of priceSelectors) {
+    const elements = document.querySelectorAll(selector);
+  console.log(`Checking selector "${selector}": found ${elements.length} elements`);
     
-    // Method 1: Try common selectors for price elements
-    const priceSelectors = [
-      '.total-price', '.order-total', '.cart-total', '.grand-total',
-      '[data-testid="order-summary-total"]', '.order-summary-total',
-      '.checkout-total', '.woocommerce-Price-amount', '.amount',
-      '.product-subtotal', '.order-summary__price', '[data-price-value]'
-    ];
-    
-    
-    // Loop through each selector
-    for (const selector of priceSelectors) {
-      const elements = document.querySelectorAll(selector);
-    console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+    if (elements && elements.length > 0) {
       
-      if (elements && elements.length > 0) {
-        
-        // Check each element that matches the selector
-        for (const element of elements) {
-          const priceText = element.textContent.trim();
-        console.log(`Element text: "${priceText}"`);
-        
-        // Extract Danish currency format (100,00 kr.) and other formats
-        const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
-        const regularMatches = priceText.match(/\d[\d.,]*/g);
-        
-        let allMatches = [];
-        if (danishMatches) {
-          allMatches = allMatches.concat(danishMatches);
-        }
-        if (regularMatches) {
-          allMatches = allMatches.concat(regularMatches);
-        }
-        
-        console.log(`Found matches:`, allMatches);
-        
-        if (allMatches && allMatches.length > 0) {
-            // Process each potential price number
-          for (const match of allMatches) {
-            let cleanedMatch = match;
+      // Check each element that matches the selector
+      for (const element of elements) {
+        const priceText = element.textContent.trim();
+      console.log(`Element text: "${priceText}"`);
+      
+      // Extract Danish currency format (100,00 kr.) and other formats
+      const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+      const regularMatches = priceText.match(/\d[\d.,]*/g);
+      
+      let allMatches = [];
+      if (danishMatches) {
+        allMatches = allMatches.concat(danishMatches);
+      }
+      if (regularMatches) {
+        allMatches = allMatches.concat(regularMatches);
+      }
+      
+      console.log(`Found matches:`, allMatches);
+      
+      if (allMatches && allMatches.length > 0) {
+          // Process each potential price number
+        for (const match of allMatches) {
+          let cleanedMatch = match;
+          
+          // Handle Danish format (1.148,00 kr)
+          if (match.includes('kr')) {
+            cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
             
-            // Handle Danish format (100,00 kr)
-            if (match.includes('kr')) {
-              cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
-              // Convert Danish decimal comma to period
+            // Danish format: periods are thousands separators, comma is decimal separator
+            // Convert Danish format to standard format: remove periods (thousands), replace comma with period (decimal)
+            if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+              // Format like "1.148,00" - remove periods, replace comma with period
+              cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+            } else if (cleanedMatch.includes(',')) {
+              // Format like "148,00" - just replace comma with period
               cleanedMatch = cleanedMatch.replace(',', '.');
-            } else {
-              // Handle other formats
-              cleanedMatch = match.replace(/[^\d.,]/g, '');
-              // If it has both comma and period, assume comma is thousands separator
-              if (cleanedMatch.includes(',') && cleanedMatch.includes('.')) {
+            }
+          } else {
+            // Handle other formats
+            cleanedMatch = match.replace(/[^\d.,]/g, '');
+            
+            // Check if this looks like Danish format (periods before comma)
+            if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+              const lastCommaIndex = cleanedMatch.lastIndexOf(',');
+              const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
+              
+              // If period comes before comma and comma has 2 digits after it, it's Danish format
+              if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
+                cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+              } else {
+                // Assume period is decimal, comma is thousands
                 cleanedMatch = cleanedMatch.replace(/,/g, '');
-              } else if (cleanedMatch.includes(',')) {
-                // If only comma, could be decimal separator (European style)
-                const parts = cleanedMatch.split(',');
-                if (parts.length === 2 && parts[1].length <= 2) {
-                  cleanedMatch = cleanedMatch.replace(',', '.');
-                } else {
-                  cleanedMatch = cleanedMatch.replace(/,/g, '');
-                }
+              }
+            } else if (cleanedMatch.includes(',')) {
+              // If only comma, check if it's likely decimal separator
+              const parts = cleanedMatch.split(',');
+              if (parts.length === 2 && parts[1].length <= 2) {
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              } else {
+                cleanedMatch = cleanedMatch.replace(/,/g, '');
               }
             }
+          }
+          
+          console.log(`Cleaned match: "${cleanedMatch}"`);
             
-            console.log(`Cleaned match: "${cleanedMatch}"`);
-              
-              // Convert to number
-              const numValue = parseFloat(cleanedMatch);
-            console.log(`Parsed number: ${numValue}`);
-              
-              // Keep the highest value found
-              if (!isNaN(numValue) && numValue > highestValue) {
-                highestValue = numValue;
-                totalPrice = numValue;
-              console.log(`New highest price: ${totalPrice}`);
-              }
+            // Convert to number
+            const numValue = parseFloat(cleanedMatch);
+          console.log(`Parsed number: ${numValue}`);
+            
+            // Keep the highest value found
+            if (!isNaN(numValue) && numValue > highestValue) {
+              highestValue = numValue;
+              totalPrice = numValue;
+            console.log(`New highest price: ${totalPrice}`);
             }
           }
         }
       }
     }
-    
-  console.log(`Final extracted price: ${totalPrice}`);
-    return totalPrice;
   }
+  
+console.log(`Final extracted price: ${totalPrice}`);
+  return totalPrice;
+}
 
 function reportPurchase(totalPrice) {
 
-  /* Abort if we already stored a flag for this user
-     (covers page refreshes & navigation).           */
-  if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
-    console.log('Purchase already logged for user – skip');
-    hasReportedPurchase = true;                             // ★ NEW
-    return;
+/* Abort if we already stored a flag for this user
+   (covers page refreshes & navigation).           */
+if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
+  console.log('Purchase already logged for user – skip');
+  hasReportedPurchase = true;                             // ★ NEW
+  return;
+}
+
+console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
+
+fetch('https://egendatabasebackend.onrender.com/purchases', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    user_id:   chatbotUserId,
+    chatbot_id:'skoringen',
+    amount:    totalPrice
+  })
+})
+.then(res => {
+  if (res.ok) {
+    console.log('Purchase reported successfully');
+    hasReportedPurchase = true;
+    localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+  } else {
+    console.error('Failed to report purchase:', res.status);
   }
-
-  console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
-
-  fetch('https://egendatabasebackend.onrender.com/purchases', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      user_id:   chatbotUserId,
-      chatbot_id:'test',
-      amount:    totalPrice
-    })
-  })
-  .then(res => {
-    if (res.ok) {
-      console.log('Purchase reported successfully');
-      hasReportedPurchase = true;
-      localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-    } else {
-      console.error('Failed to report purchase:', res.status);
-    }
-  })
-  .catch(err => console.error('Error reporting purchase:', err));
+})
+.catch(err => console.error('Error reporting purchase:', err));
 }
 
 // -------------------------------------------------------
 // 4. Main purchase detector (small tweak)
 // -------------------------------------------------------
 function checkForPurchase() {
-  if (!chatbotUserId) return;
+if (!chatbotUserId) return;
 
-  if (isCheckoutPage() && !hasReportedPurchase) {
-    const totalPrice = extractTotalPrice();
-    if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
-  }
+if (isCheckoutPage() && !hasReportedPurchase) {
+  const totalPrice = extractTotalPrice();
+  if (totalPrice && totalPrice > 0) reportPurchase(totalPrice);
+}
 }
 
 // Check for purchase immediately and then periodically
@@ -184,6 +199,7 @@ setTimeout(checkForPurchase, 1000); // Check after 1 second
 setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
 setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
 setInterval(checkForPurchase, 15000); // Check every 15 seconds
+
 
 
       
@@ -579,7 +595,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       titleG: "SKORINGENs Chat 👟",
       firstMessage: "Hej! 😊 Jeg er din AI assistent og ved en hel del om sko, størrelser, mærker og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan...",
-      parentWebsiteUserId: websiteUserId,
+      purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
