@@ -572,13 +572,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
       themeColor: "#000000",
-      headerTitleG: " ",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerTitleG: "",
+      headerSubtitleG: "Jeg er din digitale assistent og ved en hel del om sko, størrelser, brands og hvordan du handler hos Skoringen - både online og i butik.\nSpørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan. Men husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "SkoBot - Din Sko Ekspert",
-      firstMessage: "Hej, mit navn er SkoBot 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👟",
+      titleG: "Skobot - Din digitale AI assistent",
+      firstMessage: "Hej! Jeg hedder Skobot 😊\nJeg er din digitale AI assistent og står klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services.\n\nTøv ikke med at skrive, hvis du har brug for hjælp!\nNår du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖\n\n",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
