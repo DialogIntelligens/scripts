@@ -4,7 +4,7 @@
   }
   
   function initChatbot() {
-
+  let websiteUserId = localStorage.getItem('websiteUserId') || null;
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
