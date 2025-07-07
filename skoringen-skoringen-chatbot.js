@@ -577,7 +577,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "SKORINGENs Chat - Din AI assistent 👟",
+      titleG: "SKORINGENs Chat 👟",
       firstMessage: "Hej! 😊 Jeg er din AI assistent og ved en hel del om sko, størrelser, mærker og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan...",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
