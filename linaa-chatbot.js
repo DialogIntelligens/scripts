@@ -565,7 +565,7 @@ function sendMessageToIframe() {
   subtitleLinkUrl: "",
         
   titleG: "Linå's Virtuelle Assistent",
-  firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+  firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter, guides – til generelle spørgsmål, eller få personlige anbefalinger 🤖",
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
@@ -1350,7 +1350,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #626b4e;
+      --icon-color: #f9b655;
       --badge-color: #CC2B20;
     }
     
@@ -1533,7 +1533,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "Linå's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter, guides – til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -1755,7 +1755,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg besvarer spørgsmål og anbefaler produkter🛠️";
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🛠️";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
