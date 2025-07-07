@@ -578,7 +578,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "Skobot - Din digitale AI assistent",
-      firstMessage: "Hej! Jeg hedder Skobot 😊\nJeg er din digitale AI assistent og står klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services.\n\nTøv ikke med at skrive, hvis du har brug for hjælp!\\nNår du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖\\n\\n",
+      firstMessage: "Hej! Jeg hedder Skobot 😊\nJeg er din digitale AI assistent og står klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services.\n\nTøv ikke med at skrive, hvis du har brug for hjælp!\\nNår du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
