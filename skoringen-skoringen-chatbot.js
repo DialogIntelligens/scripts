@@ -573,12 +573,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
       themeColor: "#000000",
       headerTitleG: " ",
-      headerSubtitleG: "Jeg er din AI assistent og ved en hel del om sko, størrelser, brands og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan. Men husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
+      headerSubtitleG: "Jeg er din AI assistent. Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖 Husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "SKORINGENs Chat - Din AI assistent 👟",
-      firstMessage: "Hej! 😊 Jeg er din AI assistent og er klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services. Tøv ikke med at skrive, hvis du har brug for hjælp! Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖",
+      firstMessage: "Hej! 😊 Jeg er din AI assistent og ved en hel del om sko, størrelser, mærker og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan...",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
