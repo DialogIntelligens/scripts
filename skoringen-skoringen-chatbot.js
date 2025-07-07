@@ -885,11 +885,14 @@ function trackChatbotOpen() {
         iframe.style.height = '90vh';
       } else {
         // Default sizing:
-        // For phone/tablet (< 1000px), use 95vw
+        // For phone/tablet (< 1000px), use more consistent height calculation
         // For larger screens, use 50vh x 90vh
         if (window.innerWidth < 1000) {
             iframe.style.width = '95vw';
-            iframe.style.height = '90vh';
+            // Use a more consistent height approach for mobile
+            // Use clamp() function for better viewport height handling with min/max constraints
+            // This provides better consistency across different iPhone models
+            iframe.style.height = 'clamp(500px, 85vh, 700px)';
         } else {
             iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
             iframe.style.height = '90vh';
@@ -957,7 +960,7 @@ function trackChatbotOpen() {
     iframe.style.display = 'none';
     button.style.display = 'block';
   
-    /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
+    /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
