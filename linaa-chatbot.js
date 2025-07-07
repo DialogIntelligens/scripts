@@ -258,12 +258,12 @@ var css = `
   bottom: 20px;
 }
 #chat-button svg {
-  width: 65px;
+  width: 70px;
   height: 65px;
   transition: opacity 0.3s;
 }
 #chat-button:hover svg {
-  opacity: 0.7;
+  opacity: 1;
   transform: scale(1.1);
 }
 
