@@ -573,7 +573,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
       themeColor: "#000000",
       headerTitleG: "",
-      headerSubtitleG: "Jeg er din digitale assistent og ved en hel del om sko, størrelser, brands og hvordan du handler hos Skoringen - både online og i butik.\\nSpørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan. Men husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
+      headerSubtitleG: "Jeg er din digitale assistent og ved en hel del om sko, størrelser, brands og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan. Men husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
