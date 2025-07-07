@@ -419,7 +419,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Long message padding */
     #chatbase-message-bubbles.long-message .message-box {
-      padding: 12px 55px 12px 20px;
+      padding: 12px 65px 12px 20px;
     }
     `;
     var style = document.createElement('style');
