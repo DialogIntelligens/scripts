@@ -282,8 +282,8 @@ var css = `
 /* Popup container */
 #chatbase-message-bubbles {
   position: absolute;
-    bottom: 9px;
-    right: 46px;
+    bottom: 16px;
+    right: 55px;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
   font-size: 20px;
@@ -363,8 +363,8 @@ var css = `
   
   #chatbase-message-bubbles.long-message {
     scale: 0.50;
-right: 45px;
-bottom: 10px;
+    right: 55px;
+    bottom: 19px;
   }
   
   /* Always show close button on mobile as simple X */
