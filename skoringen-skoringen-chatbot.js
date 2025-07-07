@@ -577,8 +577,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Skobot - Din AI assistent 👟",
-      firstMessage: "Hej! Jeg hedder Skobot 😊 Jeg er din AI assistent og står klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services. Tøv ikke med at skrive, hvis du har brug for hjælp! Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖",
+      titleG: "SKORINGENs Chat - Din AI assistent 👟",
+      firstMessage: "Hej! 😊 Jeg er din AI assistent og er klar til at hjælpe dig med spørgsmål om produkter, åbningstider og vores services. Tøv ikke med at skrive, hvis du har brug for hjælp! Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -801,7 +801,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan hjælpe dig med spørgsmål om produkter, åbningstider og vores services";
+      const popupText = "Jeg er din AI assistent og er klar til at hjælpe dig";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
