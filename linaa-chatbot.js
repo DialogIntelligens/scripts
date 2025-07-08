@@ -363,8 +363,8 @@ var css = `
   
   #chatbase-message-bubbles.long-message {
     scale: 0.50;
-    right: 50px;
-    bottom: 29px;
+    right: 39px;
+    bottom: 36px;
   }
   
   /* Always show close button on mobile as simple X */
@@ -1219,8 +1219,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       border: none;
       position: fixed;
       z-index: 20;
-      right: 0px;
-      bottom: 30px;
+      right: -14px;
+      bottom: 37px;
     }
     #chat-button svg {
       width: 65px;
@@ -1247,8 +1247,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-        bottom: 17px;
-        right: 55px;
+        bottom: 35px;
+        right: 33px;
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
       font-size: 20px;
