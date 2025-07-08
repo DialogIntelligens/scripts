@@ -405,6 +405,7 @@ function initChatbot() {
 
       productImageHeightMultiplier: 1.1,
       freshdeskGroupId: 22000162678,
+      freshdeskProductId: 22000002032,
 
       inputPlaceholder: "Type your question here...",
       ratingMessage: "Did you get your question answered?",
