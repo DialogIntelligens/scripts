@@ -406,6 +406,7 @@ function initChatbot() {
 
             
       freshdeskGroupId: 22000157431,
+      freshdeskProductId: 22000001491,
 
       inputPlaceholder: "Schreibe hier deine Frage...",
       ratingMessage: "Wurde deine Frage beantwortet?",
