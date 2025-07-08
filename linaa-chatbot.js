@@ -254,8 +254,8 @@ var css = `
   border: none;
   position: fixed;
   z-index: 20;
-  right: 0px;
-  bottom: 30px;
+  right: -14px;
+  bottom: 36px;
 }
 #chat-button svg {
   width: 70px;
