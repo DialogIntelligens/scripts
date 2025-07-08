@@ -407,6 +407,7 @@ function initChatbot() {
       freshdeskSubjectText: 'Yhteydenottosi DILLINGille',
             
       freshdeskGroupId: 22000157432,
+      freshdeskProductId: 22000001659,
 
       inputPlaceholder: "Kirjoita kysymyksesi tähän...",
       ratingMessage: "Saitko vastauksen kysymykseesi?",
