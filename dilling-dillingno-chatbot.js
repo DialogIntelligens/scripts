@@ -403,6 +403,7 @@ function initChatbot() {
       freshdeskSubjectText: 'Din henvendelse til DILLING',
             
       freshdeskGroupId: 22000166117,
+      freshdeskProductId: 22000002633,
 
       inputPlaceholder: "Skriv inn spørsmålet ditt her...",
       ratingMessage: "Fikk du svar på spørsmålet ditt?",
