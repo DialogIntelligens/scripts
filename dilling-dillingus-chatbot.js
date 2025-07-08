@@ -404,6 +404,7 @@ function initChatbot() {
       freshdeskSubjectText: 'Your inquiry to DILLING',
       
       freshdeskGroupId: 22000168002,
+      freshdeskProductId: 22000008702,
 
       inputPlaceholder: "Type your question here...",
       ratingMessage: "Did you get your question answered?",
