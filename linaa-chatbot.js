@@ -282,8 +282,8 @@ var css = `
 /* Popup container */
 #chatbase-message-bubbles {
   position: absolute;
-    bottom: 28px;
-    right: 45px;
+    bottom: 35px;
+    right: 32px;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
   font-size: 20px;
