@@ -282,7 +282,7 @@ var css = `
 /* Popup container */
 #chatbase-message-bubbles {
   position: absolute;
-    bottom: 25.5px;
+    bottom: 28px;
     right: 45px;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
