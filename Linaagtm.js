@@ -236,7 +236,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       display: inline-block;
       animation: jump 0.5s ease-in-out 2;
     }
-  
+    
     /* ----------------------------------------
        C) CHAT BUTTON + POPUP STYLES
        ---------------------------------------- */
@@ -250,21 +250,21 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       cursor: pointer;
       background: none;
       border: none;
-      position: relative;
+      position: fixed;
       z-index: 20;
-      right: 0px;
-      bottom: 16px;
+      right: -14px;
+      bottom: 36px;
     }
     #chat-button svg {
-      width: 65px;
+      width: 70px;
       height: 65px;
       transition: opacity 0.3s;
     }
     #chat-button:hover svg {
-      opacity: 0.7;
+      opacity: 1;
       transform: scale(1.1);
     }
-  
+    
     /* Popup rise animation */
     @keyframes rise-from-bottom {
       0% {
@@ -276,12 +276,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         opacity: 1;
       }
     }
-  
+    
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-        bottom: 17px;
-        right: 55px;
+        bottom: 35px;
+        right: 32px;
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
       font-size: 20px;
@@ -304,8 +304,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: 9px;
-      right: 40px;
       scale: 0.55;
     }
     
@@ -321,7 +319,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       border-color: white transparent transparent transparent;
       box-shadow: rgba(150, 150, 150, 0.2) 0px 10px 30px 0px;
     }
-  
+    
     /* Close button is hidden by default; becomes visible/enlarged on hover */
     #chatbase-message-bubbles .close-popup {
       position: absolute;
@@ -354,17 +352,17 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       background-color: black;
       color: white;
     }
-   
+    
           @media (max-width: 600px) {
     #chatbase-message-bubbles {
-        bottom: 18px;
+        bottom: 69px;
         right: 60px;
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: -2px;
-        right: 55px;
         scale: 0.50;
+        right: 39px;
+        bottom: 36px;
       }
       
       /* Always show close button on mobile as simple X */
@@ -380,10 +378,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         color: black;
       }
     }
-
-  
+    
+    
     :root {
-      --icon-color: #000000;
+      --icon-color: #fb9039;
       --badge-color: #CC2B20;
     }
     
@@ -401,7 +399,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     .notification-badge.hidden {
       display: none;
     }
-  
+    
     /* The main message content area */
     #chatbase-message-bubbles .message-content {
       display: flex;
@@ -417,7 +415,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       font-size: 25px;
       font-family: 'Montserrat', sans-serif;
       font-weight: 400;
-      line-height: 1.3em;
+      line-height: 1.4em;
       opacity: 1;
       transform: scale(1);
       transition: opacity 1s, transform 1s;
@@ -435,7 +433,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Long message padding */
     #chatbase-message-bubbles.long-message .message-box {
-      padding: 12px 65px 12px 20px;
+      padding: 12px 40px 12px 20px;
     }
     `;
     var style = document.createElement('style');
@@ -518,33 +516,36 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skoringen",
+      chatbotID: "linaa",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dc1dcd8c-8ac3-4f39-8277-360189239b9f",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/228a05d1-06af-49ed-89ff-1b9f57fe7d4f",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
-      flow2Key: "product",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
-      flow3Key: "order",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
-      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
-      flow4Key: "productfilter",
-        
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b0e5bb2d-d87e-4366-b97e-6eefb47f11b9",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0d61ebd0-98a6-4f0e-832f-14227370cdc2",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/67639b65-4b22-4a32-977d-764c1cf0c274",
+      flow2Key: "",
+      flow2API: "",
+      flow3Key: "product",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
+      flow4API: "",
+      flow4Key: "",
+            
       leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
-      leadField1: "Navn",
-      leadField2: "Tlf nummer",
-
-      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
-      metaDataKey: "productfilter",
-        
+      toHumanMail: true,
+      leadMail: "firma@linaa.dk",
+      leadField1: "Email",
+      leadField2: "Besked (din samtale sendes også)",
+    
+      productButtonText: "SE PRODUKT",
+      productImageHeightMultiplier: 1,
+    
+      metaDataAPI: "",
+      metaDataKey: "",
+            
       imageAPI: '',
-
+    
       useThumbsRating: false,
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
-
-      pineconeApiKey: "",
+    
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
@@ -553,53 +554,20 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
-      customVar1: "",
-
-      productBoxHeightMultiplier: 0.7,
-      productImageHeightMultiplier: 0.53,
-      
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Skoringen.pdf",
-
-      // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
-        
-      // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
-        
-      // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
-
-      productButtonText: "SE PRODUKT",
-        
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
-      themeColor: "#000000",
-      headerTitleG: " ",
-      headerSubtitleG: "Jeg er din AI assistent. Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖 Husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
+          
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/linaa-privatlivpolitik.pdf",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744626251999.png",
+      themeColor: "#fb9039",
+      headerTitleG: "LINÅ'S AI-hjælper",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
-        
-      titleG: "SKORINGENs Chat 👟",
-      firstMessage: "Hej! 😊 Jeg er din AI assistent og ved en hel del om sko, størrelser, mærker og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan...",
-      purchaseTrackingEnabled: true,
+            
+      titleG: "Linå's Virtuelle Assistent",
+      firstMessage: "Hej – jeg er din AI-hjælper her hos Linå. \n\nJa, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊 \n\nDu er velkommen til at spørge om alt fra produkter (skriv gerne varenr. – så går det hurtigere), materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design. \n\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \n\nOg bare rolig 🔥🧯\nHvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
-
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
@@ -817,7 +785,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg er din AI assistent og er klar til at hjælpe dig";
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🛠️";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
