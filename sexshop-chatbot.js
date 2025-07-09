@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp? 🍆 Jeg kan guide dig til det helt rigtige sexlegetøj – uanset hvad du er til. ";
+      const popupText = "Har du brug for hjælp? 🍆 Jeg kan guide dig til det helt rigtige sexlegetøj – uanset hvad du er til. \nJeg kan altid hjælpe!";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
