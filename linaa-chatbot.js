@@ -565,7 +565,7 @@ function sendMessageToIframe() {
   subtitleLinkUrl: "",
         
   titleG: "Linå's Virtuelle Assistent",
-  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå. \n\nJa, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊 \n\nDu er velkommen til at spørge om alt fra produkter (skriv gerne varenr. – så går det hurtigere), materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design. \n\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \n\nOg bare rolig 🔥🧯\nHvis jeg er i tvivl, eller \nikke helt stoler på mit eget svar, rækker vi ud \ntil Linås faglige kundeservice. ",
+  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå. Ja, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊 Du er velkommen til at spørge om alt fra produkter, materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design. Jeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 Og bare rolig 🔥🧯Hvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
@@ -593,28 +593,36 @@ function sendMessageToIframe() {
  * 7. TOGGLE CHAT WINDOW
  */
 function toggleChatWindow() {
+  console.log("toggleChatWindow called");
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
   var popup = document.getElementById("chatbase-message-bubbles");
 
+  console.log("Elements found - iframe:", !!iframe, "button:", !!button, "popup:", !!popup);
+
   // Determine if the chat is currently open
   var isCurrentlyOpen = iframe.style.display !== 'none';
+  console.log("isCurrentlyOpen:", isCurrentlyOpen, "iframe display:", iframe.style.display);
 
   // Toggle the display of the iframe and button
   if (isCurrentlyOpen) {
+    console.log("Closing chat...");
     // Closing the chat
     iframe.style.display = 'none';
     iframe.style.zIndex = '-1'; // Move behind everything when hidden
     iframe.style.pointerEvents = 'none'; // Disable all pointer events
     button.style.display = 'block';
     localStorage.setItem('chatWindowState', 'closed');
+    console.log("Chat closed");
   } else {
+    console.log("Opening chat...");
     // Opening the chat
     iframe.style.display = 'block';
     iframe.style.zIndex = '40000'; // Restore high z-index when shown
     iframe.style.pointerEvents = 'auto'; // Enable pointer events
     button.style.display = 'none';
     localStorage.setItem('chatWindowState', 'open');
+    console.log("Chat opened - iframe display:", iframe.style.display, "z-index:", iframe.style.zIndex);
   }
 
   // Close the popup when the chat is opened
@@ -639,8 +647,8 @@ function toggleChatWindow() {
         iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
       } catch (e) {
         console.error('Error sending chatOpened message:', e);
-        // If iframe communication fails, reset the iframe
-        resetIframe();
+        // Don't reset immediately - iframe might still be loading
+        console.log('Iframe still loading, will retry later');
       }
     }, 100);
   }
@@ -674,38 +682,38 @@ function setupIframeErrorHandling() {
     resetIframe();
   });
   
-  // Add timeout to detect if iframe is stuck
-  var iframeTimeout;
-  
   iframe.addEventListener('load', function() {
-    clearTimeout(iframeTimeout);
     console.log('Iframe loaded successfully');
   });
   
-  // Set timeout when iframe is shown
+  // Less aggressive monitoring - only check if iframe is actually stuck
+  var iframeTimeout;
+  
   function startIframeTimeout() {
     clearTimeout(iframeTimeout);
+    // Give more time and only check if iframe is really stuck
     iframeTimeout = setTimeout(function() {
-      console.warn('Iframe may be stuck, checking...');
-      try {
-        iframe.contentWindow.postMessage({ action: 'ping' }, '*');
-      } catch (e) {
-        console.error('Iframe is stuck, resetting...');
-        resetIframe();
+      var iframe = document.getElementById('chat-iframe');
+      if (iframe.style.display === 'block') {
+        console.log('Checking iframe health...');
+        try {
+          iframe.contentWindow.postMessage({ action: 'ping' }, '*');
+        } catch (e) {
+          console.error('Iframe communication failed, but not resetting immediately');
+        }
       }
-    }, 5000);
+    }, 10000); // Increased timeout to 10 seconds
   }
   
-  // Start timeout when iframe is shown
-  var originalToggle = toggleChatWindow;
-  toggleChatWindow = function() {
-    originalToggle();
+  // Monitor iframe state changes but don't interfere with toggle
+  setInterval(function() {
+    var iframe = document.getElementById('chat-iframe');
     if (iframe.style.display === 'block') {
       startIframeTimeout();
     } else {
       clearTimeout(iframeTimeout);
     }
-  };
+  }, 15000); // Check every 15 seconds
 }
 
 // Listen for messages from the iframe
@@ -829,6 +837,7 @@ function showPopup() {
   
   // Add click event to message box for tracking
   messageBox.addEventListener("click", function() {
+    console.log("Popup clicked, opening chat...");
     // Open chat window
     toggleChatWindow();
   });
@@ -876,12 +885,15 @@ if (closePopupButton) {
 
 // Add event listener to popup so clicking on it (except the close button) toggles the chat window
 var popupContainer = document.getElementById("chatbase-message-bubbles");
-popupContainer.addEventListener("click", function(e) {
-  // Ensure that clicking on the close button does not trigger toggling the chat
-  if (e.target.closest(".close-popup") === null) {
-    toggleChatWindow();
-  }
-});
+if (popupContainer) {
+  popupContainer.addEventListener("click", function(e) {
+    // Ensure that clicking on the close button does not trigger toggling the chat
+    if (e.target.closest(".close-popup") === null) {
+      console.log("Popup container clicked, opening chat...");
+      toggleChatWindow();
+    }
+  });
+}
 
 // Show popup after 1 second (matching skalerbart.js timing)
 setTimeout(showPopup, 1000);
@@ -972,8 +984,10 @@ if (savedState === 'open') {
   button.style.display = 'block';
 }
 
-// Setup error handling
-setupIframeErrorHandling();
+// Setup error handling (but delay it to not interfere with initial setup)
+setTimeout(function() {
+  setupIframeErrorHandling();
+}, 2000);
 
 // Add page visibility change handler to prevent iframe from staying stuck
 document.addEventListener('visibilitychange', function() {
@@ -1084,8 +1098,28 @@ function trackChatbotOpen() {
 }
 
 
-// Chat button click
-document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+// Chat button click with debug
+var chatButton = document.getElementById("chat-button");
+if (chatButton) {
+  console.log("Chat button found, adding event listener");
+  chatButton.addEventListener("click", function() {
+    console.log("Chat button clicked!");
+    toggleChatWindow();
+  });
+} else {
+  console.error("Chat button not found!");
+}
+
+// Also attach via onclick as backup
+setTimeout(function() {
+  var chatButton = document.getElementById("chat-button");
+  if (chatButton) {
+    chatButton.onclick = function() {
+      console.log("Chat button clicked via onclick!");
+      toggleChatWindow();
+    };
+  }
+}, 100);
 
 // Initialize badge visibility
 checkBadgeVisibility();
@@ -1108,11 +1142,29 @@ function debugIframeState() {
 window.debugChatbot = debugIframeState;
 window.resetChatbot = resetIframe;
 
+// Add simple test function for button functionality
+window.testChatButton = function() {
+  console.log("Testing chat button functionality...");
+  var button = document.getElementById('chat-button');
+  var iframe = document.getElementById('chat-iframe');
+  
+  console.log("Button exists:", !!button);
+  console.log("Button display:", button ? button.style.display : 'N/A');
+  console.log("Iframe exists:", !!iframe);
+  console.log("Iframe display:", iframe ? iframe.style.display : 'N/A');
+  
+  if (button && iframe) {
+    console.log("Manually triggering toggle...");
+    toggleChatWindow();
+    console.log("Toggle completed. New iframe display:", iframe.style.display);
+  }
+};
+
 // Add monitoring for stuck iframe detection
 function monitorIframeHealth() {
   var iframe = document.getElementById('chat-iframe');
   
-  // Check every 10 seconds if iframe is in a problematic state
+  // Check every 30 seconds if iframe is in a problematic state (less aggressive)
   setInterval(function() {
     if (iframe.style.display === 'block' && iframe.style.zIndex !== '40000') {
       console.warn('Iframe in inconsistent state, fixing...');
@@ -1125,7 +1177,7 @@ function monitorIframeHealth() {
       iframe.style.zIndex = '-1';
       iframe.style.pointerEvents = 'none';
     }
-  }, 10000);
+  }, 30000); // Reduced frequency to every 30 seconds
 }
 
 // Start monitoring
