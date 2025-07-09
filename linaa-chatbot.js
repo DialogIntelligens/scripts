@@ -28,7 +28,7 @@ let hasReportedPurchase = false;  // <-- add this line
 
 function isCheckoutPage() {
 const path = window.location.pathname            // e.g. "/checkout", "/checkout/", "/checkout/cart"
-              .replace(/\/$/, '');             // strip trailing “/”
+              .replace(/\/$/, '');             // strip trailing "
 
 const isRootCheckout = path === '/checkout';
 
@@ -585,6 +585,24 @@ function sendMessageToIframe() {
       }
     };
   }
+
+  // --- Ensure data is sent after iframe fully loads ---
+  iframe.addEventListener(
+    'load',
+    function handleChatbotIframeLoad() {
+      try {
+        iframe.contentWindow.postMessage(
+          messageData,
+          'https://skalerbartprodukt.onrender.com'
+        );
+        adjustIframeSize();          // keep sizing correct
+      } catch (e) {
+        console.error('Error posting message to iframe after load:', e);
+      }
+      iframe.removeEventListener('load', handleChatbotIframeLoad);
+    },
+    { once: true }
+  );
 }
 
 // Listen for messages from the iframe
