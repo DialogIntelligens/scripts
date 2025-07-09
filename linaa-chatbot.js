@@ -1,6 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
 
-  // Build a unique local-storage key for the current chatbot user
 function purchaseKey(userId) {
   return `purchaseReported_${userId}`;
 }
@@ -1263,5 +1261,3 @@ if (!document.getElementById('chat-container')) {
   initChatbot();
 }
 }, 5000);
-    
-});  
