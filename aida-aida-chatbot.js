@@ -524,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "aida-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
