@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Sexhop.dk",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Sexshop's AI Assistent",
-      firstMessage: "Hej, jeg er din digitale wingman eller -woman 😉 Mangler du hjælp? Så spørg løs om produkter, anbefalinger eller bare nogle solide tips & tricks – \n\n\nJeg ved, hvad der rykker (og vibrerer) 💪",
+      firstMessage: "Hej, jeg er din digitale wingman eller -woman 😉 Mangler du hjælp? Så spørg løs om produkter, anbefalinger eller bare nogle solide tips & tricks – Jeg ved, hvad der rykker (og vibrerer) 💪",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
@@ -412,7 +412,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Har du brug for hjælp? 🍆 Jeg kan guide dig til det helt rigtige sexlegetøj – uanset hvad du er til. \n\nJeg kan altid hjælpe!";
+      const popupText = "Har du brug for hjælp? 🍆 Jeg kan guide dig til det helt rigtige sexlegetøj – uanset hvad du er til. Jeg kan altid hjælpe!";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
