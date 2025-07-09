@@ -164,7 +164,7 @@ fetch('https://egendatabasebackend.onrender.com/purchases', {
   headers: { 'Content-Type': 'application/json' },
   body: JSON.stringify({
     user_id:   chatbotUserId,
-    chatbot_id:'bevco',
+    chatbot_id:'linaa',
     amount:    totalPrice
   })
 })
@@ -209,7 +209,7 @@ document.body.appendChild(widgetContainer);
  * 1. GLOBAL & FONT SETUP
  */
 var isIframeEnlarged = false;
-var chatbotID = "bevco";
+var chatbotID = "linaa";
 var fontLink = document.createElement('link');
 fontLink.rel = 'stylesheet';
 fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -383,7 +383,7 @@ var css = `
 
 
 :root {
-  --icon-color: #f9b655;
+  --icon-color: #fb9039;
   --badge-color: #CC2B20;
 }
 
@@ -565,7 +565,7 @@ function sendMessageToIframe() {
   subtitleLinkUrl: "",
         
   titleG: "Linå's Virtuelle Assistent",
-  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå.\\n\\nJa, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊\\n\\nDu er velkommen til at spørge om alt fra produkter, materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design.\\n\\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \\n\\nOg bare rolig 🔥🧯\\nHvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
+  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå.\\\\n\\\\nJa, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊\\\\n\\\\nDu er velkommen til at spørge om alt fra produkter, materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design.\\\\n\\\\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \\\\n\\\\nOg bare rolig 🔥🧯\\\\nHvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
