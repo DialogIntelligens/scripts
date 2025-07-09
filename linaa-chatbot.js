@@ -565,7 +565,7 @@ function sendMessageToIframe() {
   subtitleLinkUrl: "",
         
   titleG: "Linå's Virtuelle Assistent",
-  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå.\n\nJa, jeg er en robot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊\n\nDu er velkommen til at spørge om alt fra produkter (skriv gerne varenummer – så går det hurtigere), materialevalg og guides, til gode råd til dit næste projekt.\n\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \n\nOg bare rolig! \nHvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
+  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå.\n\nJa, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊\n\nDu er velkommen til at spørge om alt fra produkter (skriv gerne varenummer – så går det hurtigere), materialevalg og guides, til gode råd til dit næste projekt.\n\nJeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 \n\nOg bare rolig! \nHvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
