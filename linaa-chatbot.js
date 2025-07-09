@@ -524,8 +524,8 @@ function sendMessageToIframe() {
   flow2API: "",
   flow3Key: "product",
   flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
-  flow4API: "",
-  flow4Key: "",
+  flow4API: "productfilter",
+  flow4Key: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
         
   leadGen: "%%",
   toHumanMail: true,
@@ -536,8 +536,8 @@ function sendMessageToIframe() {
   productButtonText: "SE PRODUKT",
   productImageHeightMultiplier: 1,
 
-  metaDataAPI: "",
-  metaDataKey: "",
+  metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/50f2300f-5dd8-44bd-a859-540774c0c686",
+  metaDataKey: "productfilter",
         
   imageAPI: '',
 
