@@ -563,7 +563,7 @@ function sendMessageToIframe() {
   subtitleLinkUrl: "",
         
   titleG: "Linå's Virtuelle Assistent",
-  firstMessage: "Hej – jeg er din AI-hjælper her hos Linå. Ja, jeg er en chatbot 🤖– men jeg kan måske alligevel godt hjælpe dig godt på vej 😊 Du er velkommen til at spørge om alt fra produkter, materialevalg, værktøj og guides, til gode råd til dit næste projekt hjemme eller til undervisning i Håndværk & design. Jeg gør mit bedste for at finde svar – og lærer løbende, så jeg bliver klogere til næste gang, vi mødes 😍 Og bare rolig 🔥🧯Hvis jeg er i tvivl, eller ikke helt stoler på mit eget svar, rækker vi ud til Linås faglige kundeservice. ",
+  firstMessage: "Hej! Jeg er din AI-hjælper hos Linå 🤖. \n\nSpørg om produkter (varenr.), materialer, værktøj, guides eller råd til dit projekt – hjemme eller til undervisning. \n\nJeg lærer løbende og henter hjælp fra kundeservice, hvis nødvendigt.",
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
 };
