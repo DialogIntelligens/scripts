@@ -524,8 +524,8 @@ function sendMessageToIframe() {
   flow2API: "",
   flow3Key: "product",
   flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
-  flow4API: "productfilter",
-  flow4Key: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/1f055a51-4aad-479d-bf6a-d00ed2e30627",
+  flow4API: "",
+  flow4Key: "",
         
   leadGen: "%%",
   toHumanMail: true,
@@ -536,8 +536,8 @@ function sendMessageToIframe() {
   productButtonText: "SE PRODUKT",
   productImageHeightMultiplier: 1,
 
-  metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/50f2300f-5dd8-44bd-a859-540774c0c686",
-  metaDataKey: "productfilter",
+  metaDataAPI: "",
+  metaDataKey: "",
         
   imageAPI: '',
 
@@ -982,4 +982,19 @@ if (!document.getElementById('chat-container')) {
   console.log("Chatbot not loaded after 2 seconds, retrying...");
   initChatbot();
 }
-}, 5000); 
+}, 5000);
+
+// Put this right after your initial `initChatbot();` call
+function fallbackResizeAndSend() {
+  const iframe = document.getElementById('chat-iframe');
+  // Only try if the chat is meant to be visible
+  if (iframe && iframe.style.display === 'block') {
+    // Same effect as manually resizing the window
+    window.dispatchEvent(new Event('resize'));   // calls adjustIframeSize()
+    // Resend the init payload, just in case
+    sendMessageToIframe();
+  }
+}
+
+// Fire once after 1 s and again after 3 s
+[1000, 3000].forEach(delay => setTimeout(fallbackResizeAndSend, delay)); 
