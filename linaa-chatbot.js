@@ -30,7 +30,7 @@ let hasReportedPurchase = false;  // <-- add this line
 
 function isCheckoutPage() {
 const path = window.location.pathname            // e.g. "/checkout", "/checkout/", "/checkout/cart"
-              .replace(/\/$/, '');             // strip trailing “/”
+              .replace(/\/$/, '');             // strip trailing "
 
 const isRootCheckout = path === '/checkout';
 
@@ -477,7 +477,7 @@ var chatbotHTML = `
   <iframe
     id="chat-iframe"
     src="https://skalerbartprodukt.onrender.com"
-    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+    style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: -1; pointer-events: none;">
   </iframe>
 `;
 document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -589,6 +589,125 @@ function sendMessageToIframe() {
   }
 }
 
+/**
+ * 7. TOGGLE CHAT WINDOW
+ */
+function toggleChatWindow() {
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
+  var popup = document.getElementById("chatbase-message-bubbles");
+
+  // Determine if the chat is currently open
+  var isCurrentlyOpen = iframe.style.display !== 'none';
+
+  // Toggle the display of the iframe and button
+  if (isCurrentlyOpen) {
+    // Closing the chat
+    iframe.style.display = 'none';
+    iframe.style.zIndex = '-1'; // Move behind everything when hidden
+    iframe.style.pointerEvents = 'none'; // Disable all pointer events
+    button.style.display = 'block';
+    localStorage.setItem('chatWindowState', 'closed');
+  } else {
+    // Opening the chat
+    iframe.style.display = 'block';
+    iframe.style.zIndex = '40000'; // Restore high z-index when shown
+    iframe.style.pointerEvents = 'auto'; // Enable pointer events
+    button.style.display = 'none';
+    localStorage.setItem('chatWindowState', 'open');
+  }
+
+  // Close the popup when the chat is opened
+  if (!isCurrentlyOpen) {
+    popup.style.display = "none";
+    // Hide the badge when user first opens the chat
+    hideBadge();
+    localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
+    
+    console.log('Chat opened - triggering trackChatbotOpen');
+    // Track chatbot open for greeting rate statistics
+    trackChatbotOpen();
+  }
+
+  // Adjust the iframe size
+  adjustIframeSize();
+
+  // When opening, let the iframe know after a short delay
+  if (!isCurrentlyOpen) {
+    setTimeout(function() {
+      try {
+        iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+      } catch (e) {
+        console.error('Error sending chatOpened message:', e);
+        // If iframe communication fails, reset the iframe
+        resetIframe();
+      }
+    }, 100);
+  }
+}
+
+// Add new function to reset iframe when it's stuck
+function resetIframe() {
+  console.log('Resetting iframe due to communication error');
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
+  
+  // Force close the iframe and reset all properties
+  iframe.style.display = 'none';
+  iframe.style.zIndex = '-1';
+  iframe.style.pointerEvents = 'none';
+  button.style.display = 'block';
+  localStorage.setItem('chatWindowState', 'closed');
+  
+  // Reload the iframe src to reset its state
+  setTimeout(function() {
+    iframe.src = iframe.src;
+  }, 100);
+}
+
+// Add error handling for iframe loading
+function setupIframeErrorHandling() {
+  var iframe = document.getElementById('chat-iframe');
+  
+  iframe.addEventListener('error', function() {
+    console.error('Iframe failed to load');
+    resetIframe();
+  });
+  
+  // Add timeout to detect if iframe is stuck
+  var iframeTimeout;
+  
+  iframe.addEventListener('load', function() {
+    clearTimeout(iframeTimeout);
+    console.log('Iframe loaded successfully');
+  });
+  
+  // Set timeout when iframe is shown
+  function startIframeTimeout() {
+    clearTimeout(iframeTimeout);
+    iframeTimeout = setTimeout(function() {
+      console.warn('Iframe may be stuck, checking...');
+      try {
+        iframe.contentWindow.postMessage({ action: 'ping' }, '*');
+      } catch (e) {
+        console.error('Iframe is stuck, resetting...');
+        resetIframe();
+      }
+    }, 5000);
+  }
+  
+  // Start timeout when iframe is shown
+  var originalToggle = toggleChatWindow;
+  toggleChatWindow = function() {
+    originalToggle();
+    if (iframe.style.display === 'block') {
+      startIframeTimeout();
+    } else {
+      clearTimeout(iframeTimeout);
+    }
+  };
+}
+
 // Listen for messages from the iframe
 window.addEventListener('message', function(event) {
   if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
@@ -597,26 +716,45 @@ window.addEventListener('message', function(event) {
     isIframeEnlarged = !isIframeEnlarged;
     adjustIframeSize();
   } else if (event.data.action === 'closeChat') {
-    document.getElementById('chat-iframe').style.display = 'none';
-    document.getElementById('chat-button').style.display = 'block';
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    
+    iframe.style.display = 'none';
+    iframe.style.zIndex = '-1';
+    iframe.style.pointerEvents = 'none';
+    button.style.display = 'block';
     localStorage.setItem('chatWindowState', 'closed');
   } else if (event.data.action === 'navigate') {
-    document.getElementById('chat-iframe').style.display = 'none';
-    document.getElementById('chat-button').style.display = 'block';
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    
+    iframe.style.display = 'none';
+    iframe.style.zIndex = '-1';
+    iframe.style.pointerEvents = 'none';
+    button.style.display = 'block';
     localStorage.setItem('chatWindowState', 'closed');
     window.location.href = event.data.url;
-        } else if (event.data.action === 'setChatbotUserId') {
-  // Handle the new message from the iframe
-  chatbotUserId = event.data.userId;
-  localStorage.setItem('chatbotUserId', chatbotUserId);
-  console.log("Received and stored chatbotUserId:", chatbotUserId);
-  
-  // If we're on a checkout page, immediately check for purchase
-  if (isCheckoutPage()) {
-    setTimeout(checkForPurchase, 1000);
-  }
+  } else if (event.data.action === 'setChatbotUserId') {
+    // Handle the new message from the iframe
+    chatbotUserId = event.data.userId;
+    localStorage.setItem('chatbotUserId', chatbotUserId);
+    console.log("Received and stored chatbotUserId:", chatbotUserId);
+    
+    // If we're on a checkout page, immediately check for purchase
+    if (isCheckoutPage()) {
+      setTimeout(checkForPurchase, 1000);
+    }
+  } else if (event.data.action === 'pong') {
+    // Response to ping - iframe is working
+    console.log('Iframe is responsive');
   }
 });
+
+// If the popup is open at DOM load, hide it
+var popup = document.getElementById("chatbase-message-bubbles");
+if (popup && popup.style.display === "flex") {
+  popup.style.display = "none";
+}
 
 /**
  * 6. BADGE MANAGEMENT
@@ -644,54 +782,6 @@ function checkBadgeVisibility() {
     showBadge();
   }
 }
-
-/**
- * 7. TOGGLE CHAT WINDOW
- */
-function toggleChatWindow() {
-  var iframe = document.getElementById('chat-iframe');
-  var button = document.getElementById('chat-button');
-  var popup = document.getElementById("chatbase-message-bubbles");
-
-  // Determine if the chat is currently open
-  var isCurrentlyOpen = iframe.style.display !== 'none';
-
-  // Toggle the display of the iframe and button
-  iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-  button.style.display = isCurrentlyOpen ? 'block' : 'none';
-  localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-
-  // Close the popup when the chat is opened
-// Close the popup when the chat is opened
-if (!isCurrentlyOpen) {
-  popup.style.display = "none";
-  // Hide the badge when user first opens the chat
-  hideBadge();
-  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-  
-  console.log('Chat opened - triggering trackChatbotOpen');
-  // Track chatbot open for greeting rate statistics
-  trackChatbotOpen();
-}
-
-  // Adjust the iframe size
-  adjustIframeSize();
-
-  // When opening, let the iframe know after a short delay
-  if (!isCurrentlyOpen) {
-    setTimeout(function() {
-      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-    }, 100);
-  }
-}
-
-// If the popup is open at DOM load, hide it
-var popup = document.getElementById("chatbase-message-bubbles");
-if (popup && popup.style.display === "flex") {
-  popup.style.display = "none";
-}
-
-
 
 /**
  * 8. SHOW/HIDE POPUP
@@ -841,9 +931,19 @@ function adjustIframeSize() {
     iframe.style.right = '2vw';
   }
 
+  // Ensure proper z-index and pointer events based on visibility
+  if (iframe.style.display === 'none') {
+    iframe.style.zIndex = '-1';
+    iframe.style.pointerEvents = 'none';
+  } else {
+    iframe.style.zIndex = '40000';
+    iframe.style.pointerEvents = 'auto';
+  }
+
   // Re-send data to iframe in case layout changes
   sendMessageToIframe();
 }
+
 // Adjust size on page load + on resize
 adjustIframeSize();
 window.addEventListener('resize', adjustIframeSize);
@@ -858,6 +958,8 @@ var button = document.getElementById('chat-button');
 
 if (savedState === 'open') {
   iframe.style.display = 'block';
+  iframe.style.zIndex = '40000';
+  iframe.style.pointerEvents = 'auto';
   button.style.display = 'none';
   sendMessageToIframe();
   console.log('Chat restored from localStorage - triggering trackChatbotOpen');
@@ -865,11 +967,44 @@ if (savedState === 'open') {
   trackChatbotOpen();
 } else {
   iframe.style.display = 'none';
+  iframe.style.zIndex = '-1';
+  iframe.style.pointerEvents = 'none';
   button.style.display = 'block';
 }
 
+// Setup error handling
+setupIframeErrorHandling();
 
-    /**
+// Add page visibility change handler to prevent iframe from staying stuck
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    // Page is hidden, pause any timeouts
+    console.log('Page hidden, pausing iframe monitoring');
+  } else {
+    // Page is visible again, check iframe state
+    console.log('Page visible, checking iframe state');
+    var iframe = document.getElementById('chat-iframe');
+    if (iframe.style.display === 'block') {
+      // Verify iframe is actually working
+      try {
+        iframe.contentWindow.postMessage({ action: 'ping' }, '*');
+      } catch (e) {
+        console.error('Iframe not responsive after page visibility change');
+        resetIframe();
+      }
+    }
+  }
+});
+
+// Add beforeunload handler to prevent iframe from blocking during navigation
+window.addEventListener('beforeunload', function() {
+  var iframe = document.getElementById('chat-iframe');
+  iframe.style.display = 'none';
+  iframe.style.zIndex = '-1';
+  iframe.style.pointerEvents = 'none';
+});
+
+/**
  * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
  */
 function trackChatbotOpen() {
@@ -954,6 +1089,115 @@ document.getElementById("chat-button").addEventListener("click", toggleChatWindo
 
 // Initialize badge visibility
 checkBadgeVisibility();
+
+// Add debugging function to monitor iframe state
+function debugIframeState() {
+  var iframe = document.getElementById('chat-iframe');
+  var button = document.getElementById('chat-button');
+  
+  console.log('=== IFRAME DEBUG INFO ===');
+  console.log('Display:', iframe.style.display);
+  console.log('Z-index:', iframe.style.zIndex);
+  console.log('Pointer events:', iframe.style.pointerEvents);
+  console.log('Button display:', button.style.display);
+  console.log('LocalStorage state:', localStorage.getItem('chatWindowState'));
+  console.log('========================');
+}
+
+// Add to window for easy debugging
+window.debugChatbot = debugIframeState;
+window.resetChatbot = resetIframe;
+
+// Add monitoring for stuck iframe detection
+function monitorIframeHealth() {
+  var iframe = document.getElementById('chat-iframe');
+  
+  // Check every 10 seconds if iframe is in a problematic state
+  setInterval(function() {
+    if (iframe.style.display === 'block' && iframe.style.zIndex !== '40000') {
+      console.warn('Iframe in inconsistent state, fixing...');
+      iframe.style.zIndex = '40000';
+      iframe.style.pointerEvents = 'auto';
+    }
+    
+    if (iframe.style.display === 'none' && (iframe.style.zIndex === '40000' || iframe.style.pointerEvents === 'auto')) {
+      console.warn('Hidden iframe still blocking, fixing...');
+      iframe.style.zIndex = '-1';
+      iframe.style.pointerEvents = 'none';
+    }
+  }, 10000);
+}
+
+// Start monitoring
+monitorIframeHealth();
+
+// Add emergency fix for unresponsive right side
+function addEmergencyFix() {
+  var rightSideElements = ['button', 'a', 'input', 'select', 'textarea'];
+  var clickCount = 0;
+  
+  // Listen for clicks on the right side of the screen
+  document.addEventListener('click', function(event) {
+    var screenWidth = window.innerWidth;
+    var clickX = event.clientX;
+    
+    // If click is on the right 30% of screen
+    if (clickX > screenWidth * 0.7) {
+      clickCount++;
+      
+      // If user has tried clicking 3 times in right area within 5 seconds
+      if (clickCount >= 3) {
+        var iframe = document.getElementById('chat-iframe');
+        
+        // Check if iframe might be blocking
+        if (iframe.style.display === 'none' && 
+            (iframe.style.zIndex === '40000' || iframe.style.pointerEvents === 'auto')) {
+          console.warn('Detecting possible iframe blocking issue, auto-fixing...');
+          resetIframe();
+          
+          // Show a brief notification
+          showFixNotification();
+        }
+      }
+      
+      // Reset click count after 5 seconds
+      setTimeout(function() {
+        clickCount = 0;
+      }, 5000);
+    }
+  });
+}
+
+// Show notification when auto-fix is applied
+function showFixNotification() {
+  var notification = document.createElement('div');
+  notification.innerHTML = '🔧 Chatbot problem automatisk løst';
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 99999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  `;
+  
+  document.body.appendChild(notification);
+  
+  // Remove after 3 seconds
+  setTimeout(function() {
+    if (notification.parentNode) {
+      notification.parentNode.removeChild(notification);
+    }
+  }, 3000);
+}
+
+// Initialize emergency fix
+addEmergencyFix();
 
 } // end of initChatbot
 
