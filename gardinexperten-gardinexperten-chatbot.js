@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #3e4b50;
+      --icon-color: #374c51;
       --badge-color: #CC2B20;
     }
     
