@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', function() {
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
-      productBoxHeightMultiplier: 1.1,
+      productBoxHeightMultiplier: 1,
       productImageHeightMultiplier: 0.9,
 
         
