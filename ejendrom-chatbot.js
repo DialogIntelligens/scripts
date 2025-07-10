@@ -359,7 +359,10 @@ document.addEventListener('DOMContentLoaded', function() {
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
-      
+      productBoxHeightMultiplier: 1.2,
+      productImageHeightMultiplier: 1.2,
+
+        
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/egendrom.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744635588416.png",
       messageIcon: "https://image-hosting-pi.vercel.app/logo-1744635588416.png",
