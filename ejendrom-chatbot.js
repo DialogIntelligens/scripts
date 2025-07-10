@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
       languageOverride: "",
       valutaOverride: "",
       productBoxHeightMultiplier: 1.1,
-      productImageHeightMultiplier: 1,
+      productImageHeightMultiplier: 0.9,
 
         
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/egendrom.pdf",
