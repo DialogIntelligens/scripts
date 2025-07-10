@@ -359,8 +359,8 @@ document.addEventListener('DOMContentLoaded', function() {
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
-      productBoxHeightMultiplier: 1.2,
-      productImageHeightMultiplier: 1.2,
+      productBoxHeightMultiplier: 1.1,
+      productImageHeightMultiplier: 1.1,
 
         
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/egendrom.pdf",
