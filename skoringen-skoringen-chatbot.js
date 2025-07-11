@@ -588,6 +588,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749111433601.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slogo.png",
       themeColor: "#000000",
+      aiMessageColor: "#e9ecef",
+      aiMessageTextColor: "#000000",
       headerTitleG: " ",
       headerSubtitleG: "Jeg er din AI assistent. Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖 Husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
       subtitleLinkText: "",
