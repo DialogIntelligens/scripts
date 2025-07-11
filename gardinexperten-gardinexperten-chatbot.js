@@ -522,7 +522,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
-      knowledgebaseIndexApiEndpoint: "gardinexpertensddsa",
+      knowledgebaseIndexApiEndpoint: "gardinexperten",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
