@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #679c49;
       --badge-color: #CC2B20;
     }
     
@@ -562,16 +562,16 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      messageIcon: "",
-      themeColor: "#224e9a",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1752237023221.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1752237015310.png",
+      themeColor: "#14451f",
+      headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "AI fluen",
+      firstMessage: "Hej 😊 Jeg kan hjælpe dig med spørgsmål om vores løsninger🪰",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
