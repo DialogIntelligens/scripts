@@ -142,6 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
       titleLogoG: "https://image-hosting-pi.vercel.app/haengekoejerWhiteMessageLogo2.png",
       headerLogoG: "http://dialogintelligens.dk/wp-content/uploads/2024/12/haengekoejerLogo.png",
       themeColor: "#4b9e33",
+      aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "Tropical Hængekøjers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Tropical Hængekøjer",
