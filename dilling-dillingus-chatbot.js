@@ -413,6 +413,8 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
+      aiMessageColor: "#e9ecef",
+      aiMessageTextColor: "#000000",
         aiMessageColor: "#e9ecef",
   aiMessageTextColor: "#000000",
       headerTitleG: " ",
