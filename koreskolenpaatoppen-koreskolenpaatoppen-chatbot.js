@@ -493,6 +493,8 @@ document.addEventListener('DOMContentLoaded', function() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1749023235638.png",
       messageIcon: "",
       themeColor: "#019c3d",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "Køreskolen på Toppen",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
