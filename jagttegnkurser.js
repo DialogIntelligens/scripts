@@ -452,6 +452,8 @@ function purchaseKey(userId) {
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserWhiteMessageLogo.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/12/jagttegnkurserLogo.png",
       themeColor: "#626b4e",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "Jagttegn kursers Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at brug denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "Jagttegn kurser",
