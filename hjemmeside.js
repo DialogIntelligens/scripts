@@ -279,6 +279,8 @@ document.addEventListener('DOMContentLoaded', function() {
           headerLogoG:
             'https://dialogintelligens.dk/wp-content/uploads/2025/03/Untitled_Artwork-2.png',
           themeColor: '#1D5288',
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
           headerTitleG: 'Virtuel assistent',
           headerSubtitleG:
             'Vores virtuelle assistent er trænet med information omkring vores virksomhed, og kan hjælpe dig med at besvare dine spørgsmål.',
