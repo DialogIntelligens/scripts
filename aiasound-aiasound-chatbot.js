@@ -440,8 +440,6 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "aiasound",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/895ebf87-a105-412e-b376-2ccaa9b0cdf6",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/e1ecef1e-212e-4124-a561-16c0c2449bbc",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
