@@ -248,6 +248,8 @@ function initChatbot() {
       titleLogoG: "https://image-hosting-pi.vercel.app/WashWorld_WhiteMessageLogo.png",
       headerLogoG: "https://image-hosting-pi.vercel.app/WashWorld_logo.png",
       themeColor: "#3ac165",
+          aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "Wish Wash, vår virtuella assistent",
       headerSubtitleG: "Här skriver du med vår chatbot, som är baserad på artificiell intelligens. Samtal med chatboten kan sparas och användas för att förbättra funktionen. Läs mer i vår integritetspolicy. Om du inte får svar på dina frågor här, är du välkommen att kontakta vår kundtjänst på",
       subtitleLinkText: "kundservice@washworld.se",
