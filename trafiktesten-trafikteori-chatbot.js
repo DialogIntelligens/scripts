@@ -492,6 +492,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/10/logo.png",
       themeColor: "#f7c800",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "Trafikteori's Virtuelle Assistent",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
