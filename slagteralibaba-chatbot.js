@@ -362,6 +362,8 @@ document.addEventListener('DOMContentLoaded', function() {
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slagteralibaba.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744704790777.png",
       themeColor: "#121212",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: " ",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
