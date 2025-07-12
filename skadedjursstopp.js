@@ -450,6 +450,8 @@ function purchaseKey(userId) {
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
       themeColor: "#18803E",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "SkadedjursStopps Virtuelle Assistent",
       headerSubtitleG: "Du skriver med konstgjord intelligens. Genom att använda denna chatbot accepterar du att samtalet kan sparas och bearbetas. Läs mer i vår integritetspolicy.",
       titleG: "SkadedjursStopp",
