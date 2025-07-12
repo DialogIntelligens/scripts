@@ -416,6 +416,8 @@ function initChatbot() {
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
+        aiMessageColor: "#e9ecef",
+  aiMessageTextColor: "#000000",
       headerTitleG: "Olen DILLINGin chatbotti",
       headerSubtitleG: "Keskustelet chatbotin kanssa. Hyväksyt samalla, että keskustelu voidaan tallentaa ja käsitellä kokemuksesi parantamiseksi. Lue lisää tietosuojakäytännöstämme. Huom: chatbot voi joissain tapauksissa antaa virheellistä tietoa.",
       titleG: "DILLINGin chat",
