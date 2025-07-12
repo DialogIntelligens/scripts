@@ -504,6 +504,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1747395605782.png",
       themeColor: "#8ebe56",
+      aiMessageColor: "#e9ecef",
+      aiMessageTextColor: "#000000",
       headerTitleG: "DKTrimmer AI",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
