@@ -450,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "virtooai",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
