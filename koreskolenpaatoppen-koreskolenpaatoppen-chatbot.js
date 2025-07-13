@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "koreskolenpaatoppen",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
