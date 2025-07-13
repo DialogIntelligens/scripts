@@ -467,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "dktrimmer-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
