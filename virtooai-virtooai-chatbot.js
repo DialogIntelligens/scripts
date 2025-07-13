@@ -427,8 +427,6 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "virtooai",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/787ccd13-90cb-4bb5-a123-c8789cee9d7d",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/f1088c17-3b6f-4280-a08c-8d786d222054",
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
