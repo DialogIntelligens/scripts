@@ -438,7 +438,7 @@ function purchaseKey(userId) {
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "jagtogvildt-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "jagtogvildt-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
         
