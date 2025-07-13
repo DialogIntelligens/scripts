@@ -435,7 +435,7 @@ function purchaseKey(userId) {
       flow3Key: "product",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7db7a8d8-3d77-4299-b10f-3b76db6262ed",
         
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
       knowledgebaseIndexApiEndpoint: "jagtogvildt-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "jagtogvildt-pro",
