@@ -449,7 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
       knowledgebaseIndexApiEndpoint: "virtooai",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
