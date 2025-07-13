@@ -431,7 +431,7 @@ function purchaseKey(userId) {
       chatbotID: "jagttegnkurser",
       pagePath: window.location.href,
       pineconeApiKey: "pcsk_2buCaw_MZpZhKjhqorEq278kAhzVN64dd6mwbHh3ai4VNfzhSnWw6qApuuiVWG25dCBjtV",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "jagttegn",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
