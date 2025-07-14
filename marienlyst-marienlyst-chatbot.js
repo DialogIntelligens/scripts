@@ -427,13 +427,8 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "marienlyst",
       pagePath: window.location.href,
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9573db4f-b8d7-4501-8a42-24566aaaa132",
-      fordelingsflowAPI: "",
       flow2Key: "",
-      flow2API: "",
       flow3Key: "",
-      flow3API: "",
-      flow4API: "",
       flow4Key: "",
         
       leadGen: "%%",
@@ -450,7 +445,7 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
       knowledgebaseIndexApiEndpoint: "marienlyst-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
