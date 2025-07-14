@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3Key: "product",
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "naturmand",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
