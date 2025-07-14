@@ -442,8 +442,13 @@ document.addEventListener('DOMContentLoaded', function() {
       action: 'integrationOptions',
       chatbotID: "dktrimmer",
       pagePath: window.location.href,
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9aa0c59e-19bd-4109-b7fb-434666e8192f",
+      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/321d4d38-4dcf-49fc-954d-ae72348d790c",
+      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3d357c66-fd0e-4244-a8e8-610c4cc04273",
       flow2Key: "product",
+      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/95e82621-a2fd-4314-b806-96bea3706642",
       flow3Key: "models",
+      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6187bb92-0674-4540-aa0c-f1980e8762c6",
       flow4API: "",
       flow4Key: "",
         
