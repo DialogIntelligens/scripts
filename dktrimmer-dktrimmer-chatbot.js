@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
       knowledgebaseIndexApiEndpoint: "dktrimmer-alt",
-      flow2KnowledgebaseIndex: "",
+      flow2KnowledgebaseIndex: "dktrimmer-pro",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
