@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       flow2API: "",
       flow3Key: "product",
 
-      pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
+      pineconeApiKey: "pcsk_49Sz19_67L3itZVBZBH8t77oME9tPMX3rnFre52VW3QvazNrWPY2ntJfF4WTs8NpWCzaio",
       knowledgebaseIndexApiEndpoint: "naturmand",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "naturmand-pro",
