@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', function() {
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1748526465787.png",
-      messageIcon: "",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1752481232922.png",
       themeColor: "#0074af",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
