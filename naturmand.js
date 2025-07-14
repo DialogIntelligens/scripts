@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
       knowledgebaseIndexApiEndpoint: "naturmand",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "naturmand-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       
