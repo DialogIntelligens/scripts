@@ -514,7 +514,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
-
+      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/aa4d5211-309b-4828-8a8d-739039bc0796",
       metaDataKey: "produktfilter",
 
       useThumbsRating: false,
