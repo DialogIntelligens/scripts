@@ -508,14 +508,14 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pagePath: window.location.href,
       flow2Key: "",
       flow3Key: "product",
-      flow4Key: "",
+      flow4Key: "produktfilter",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataKey: "",
+      metaDataKey: "produktfilter",
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
