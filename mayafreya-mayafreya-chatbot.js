@@ -562,7 +562,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1752578231721.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1752580569214.png",
       messageIcon: "",
       themeColor: "#4d3a4b",
       aiMessageColor: "#e9ecef",
@@ -572,7 +572,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "AI Freya",
+      titleG: "Freya - Din digitale assistent",
       firstMessage: "Hej😊\nJeg hedder AI Freya. \nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
