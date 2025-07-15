@@ -525,7 +525,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       knowledgebaseIndexApiEndpoint: "naturbutikken-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "naturbutikken-pro",
-      flow4KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "naturbutikken-pro",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
       languageOverride: "",
