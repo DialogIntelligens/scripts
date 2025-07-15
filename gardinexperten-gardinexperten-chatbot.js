@@ -511,7 +511,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow4Key: "",
         
       leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
+      leadMail: "gardin@gardinexperten.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
