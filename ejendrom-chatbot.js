@@ -291,7 +291,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
       bottom: 23px;
-      right: 60px;
+      right: 62px;
       scale: 0.55;
     }
     
@@ -349,7 +349,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       #chatbase-message-bubbles.long-message {
         bottom: 24px;
-        right: 58px;
+        right: 63px;
         scale: 0.53;
       }
       
@@ -781,7 +781,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan besvare spørgsmål of hjælpe I at finde den rette bolig?🏠";
+      const popupText = "Jeg kan besvare spørgsmål of hjælpe I at finde din bolig?🏠";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
