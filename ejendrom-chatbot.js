@@ -764,6 +764,11 @@ function trackChatbotOpen() {
      * 7. SHOW/HIDE POPUP
      */
     function showPopup() {
+      // Don't show popup on mobile devices
+      if (window.innerWidth < 800) {
+        return;
+      }
+      
       var iframe = document.getElementById("chat-iframe");
         // If the iframe is visible, do not show the popup
         if (iframe.style.display !== "none") {
