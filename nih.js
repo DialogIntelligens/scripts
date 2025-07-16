@@ -305,7 +305,7 @@ document.addEventListener('DOMContentLoaded', function() {
       headerTitleG: "Nordjyllands Idrætshøjskole",
       headerSubtitleG: "Du skriver med vores kunstig intelligens, NIH-Boten Anna. Ved at skrive med mig accepterer du, at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "NIH-Boten Anna",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️🤾‍♂️",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🤾‍♂️",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
