@@ -500,8 +500,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
-  
-
+      let websiteUserId = chatbotUserId;
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "ejendrom",
