@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #4d3a4b;
+      --icon-color: #fd8e7b;
       --badge-color: #CC2B20;
     }
     
@@ -564,7 +564,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1752580604765.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1752580589606.png",
-      themeColor: "#4d3a4b",
+      themeColor: "#fd8e7b",
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
       headerTitleG: "",
