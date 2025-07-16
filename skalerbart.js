@@ -247,7 +247,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       transition: opacity 0.3s;
     }
     #chat-button:hover svg {
-      opacity: 0.7;
+      opacity: 1;
       transform: scale(1.1);
     }
   
