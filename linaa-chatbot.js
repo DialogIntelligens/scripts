@@ -743,14 +743,7 @@ function showPopup() {
   if (charCount > 26) {
     popupElem.classList.add('long-message');
   }
-  
-  if (charCount < 25) {
-    popupElem.style.width = "40px";
-  } else if (charCount < 60) {
-    popupElem.style.width = "435px";
-  } else {
-    popupElem.style.width = "480px";
-  }
+
 
  
   popup.style.display = "flex";
