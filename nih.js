@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var messageBox = document.getElementById("popup-message-box");
       var userHasVisited = getCookie("userHasVisited");
 
-      const popupText = "Har du spørgsmål, kan jeg hjælpe dig med det meste";
+      const popupText = "Har du spørgsmål, kan jeg hjælpe dig med det meste.";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
