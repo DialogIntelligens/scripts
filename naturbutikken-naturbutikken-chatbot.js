@@ -813,7 +813,7 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "405px";
+        popupElem.style.width = "460px";
       } else {
         popupElem.style.width = "460px";
       }
