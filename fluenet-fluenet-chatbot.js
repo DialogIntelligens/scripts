@@ -524,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "fluenet-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "fluenet-alt",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
