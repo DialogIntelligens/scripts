@@ -532,7 +532,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       valutaOverride: "",
       customVar1: "",
       
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
+      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
@@ -573,7 +573,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "Freya - Din digitale assistent",
-      firstMessage: "Hej 😊\n\nJeg er Freya. Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      firstMessage: "Hej 😊\\n\\nJeg er Freya. Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
