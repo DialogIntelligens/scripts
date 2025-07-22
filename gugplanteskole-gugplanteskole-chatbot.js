@@ -521,7 +521,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15003,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "gugplanteskole-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "gugplanteskole-pro",
