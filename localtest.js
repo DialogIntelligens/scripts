@@ -606,6 +606,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
+      } else if (event.data.action === 'openFullscreenImage') {
+        openFullscreenImage(event.data.imageSrc);
+      } else if (event.data.action === 'closeFullscreenImage') {
+        closeFullscreenImage();
       } else if (event.data.action === 'closeChat') {
         document.getElementById('chat-iframe').style.display = 'none';
         document.getElementById('chat-button').style.display = 'block';
@@ -615,8 +619,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
-      } else if (event.data.action === 'openImageFullscreen') {
-        openImageFullscreen(event.data.imageUrl);
       } else if (event.data.action === 'setChatbotUserId') {
     // Handle the new message from the iframe
     chatbotUserId = event.data.userId;
@@ -954,7 +956,7 @@ function trackChatbotOpen() {
     iframe.style.display = 'none';
     button.style.display = 'block';
   
-    /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
+    /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
@@ -964,6 +966,104 @@ function trackChatbotOpen() {
     
     // Initialize badge visibility
     checkBadgeVisibility();
+
+    // Fullscreen Image Functions
+    function openFullscreenImage(imageSrc) {
+      // Create fullscreen overlay
+      const overlay = document.createElement('div');
+      overlay.id = 'fullscreen-image-overlay';
+      overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999;
+        cursor: pointer;
+      `;
+
+      // Create image element
+      const img = document.createElement('img');
+      img.src = imageSrc;
+      img.style.cssText = `
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+        cursor: default;
+      `;
+
+      // Create close button
+      const closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '×';
+      closeBtn.style.cssText = `
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        background: none;
+        border: none;
+        font-size: 40px;
+        color: white;
+        cursor: pointer;
+        z-index: 1000000;
+      `;
+
+      // Add hover effect to close button
+      closeBtn.addEventListener('mouseenter', function() {
+        this.style.opacity = '0.7';
+      });
+      closeBtn.addEventListener('mouseleave', function() {
+        this.style.opacity = '1';
+      });
+
+      // Add event listeners
+      overlay.addEventListener('click', function(e) {
+        if (e.target === overlay) {
+          closeFullscreenImage();
+        }
+      });
+      
+      closeBtn.addEventListener('click', closeFullscreenImage);
+      
+      // Prevent image click from closing modal
+      img.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+
+      // Add keyboard support (ESC key)
+      function handleKeyDown(e) {
+        if (e.key === 'Escape') {
+          closeFullscreenImage();
+        }
+      }
+      document.addEventListener('keydown', handleKeyDown);
+      
+      // Store reference to keydown handler for cleanup
+      overlay.keydownHandler = handleKeyDown;
+
+      // Append elements
+      overlay.appendChild(img);
+      overlay.appendChild(closeBtn);
+      document.body.appendChild(overlay);
+    }
+
+    function closeFullscreenImage() {
+      const overlay = document.getElementById('fullscreen-image-overlay');
+      if (overlay) {
+        // Remove keyboard listener
+        if (overlay.keydownHandler) {
+          document.removeEventListener('keydown', overlay.keydownHandler);
+        }
+        overlay.remove();
+      }
+    }
+
+    // Make functions available globally for backward compatibility
+    window.openFullscreenImage = openFullscreenImage;
+    window.closeFullscreenImage = closeFullscreenImage;
 
   } // end of initChatbot
   
@@ -979,56 +1079,3 @@ function trackChatbotOpen() {
   }, 5000);
         
 });  
-
-/**
- * Display an image in a full-screen overlay on the host page
- */
-function openImageFullscreen(imageUrl) {
-  if (!imageUrl) return;
-
-  // Remove any existing overlay first
-  var existing = document.getElementById('chatbot-image-overlay');
-  if (existing) existing.parentNode.removeChild(existing);
-
-  var overlay = document.createElement('div');
-  overlay.id = 'chatbot-image-overlay';
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.width = '100%';
-  overlay.style.height = '100%';
-  overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
-  overlay.style.display = 'flex';
-  overlay.style.alignItems = 'center';
-  overlay.style.justifyContent = 'center';
-  overlay.style.zIndex = '100000';
-
-  var img = document.createElement('img');
-  img.src = imageUrl;
-  img.style.maxWidth = '90%';
-  img.style.maxHeight = '90%';
-  img.style.objectFit = 'contain';
-  img.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
-
-  overlay.appendChild(img);
-
-  // Close on click anywhere
-  overlay.addEventListener('click', function () {
-    if (overlay && overlay.parentNode) {
-      overlay.parentNode.removeChild(overlay);
-    }
-  });
-
-  // Close on ESC key
-  function escHandler(e) {
-    if (e.key === 'Escape') {
-      if (overlay && overlay.parentNode) {
-        overlay.parentNode.removeChild(overlay);
-      }
-      document.removeEventListener('keydown', escHandler);
-    }
-  }
-  document.addEventListener('keydown', escHandler);
-
-  document.body.appendChild(overlay);
-}  
