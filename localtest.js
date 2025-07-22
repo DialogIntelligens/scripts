@@ -615,6 +615,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         document.getElementById('chat-button').style.display = 'block';
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
+      } else if (event.data.action === 'openImageFullscreen') {
+        openImageFullscreen(event.data.imageUrl);
       } else if (event.data.action === 'setChatbotUserId') {
     // Handle the new message from the iframe
     chatbotUserId = event.data.userId;
@@ -952,7 +954,7 @@ function trackChatbotOpen() {
     iframe.style.display = 'none';
     button.style.display = 'block';
   
-    /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
+    /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
@@ -977,3 +979,56 @@ function trackChatbotOpen() {
   }, 5000);
         
 });  
+
+/**
+ * Display an image in a full-screen overlay on the host page
+ */
+function openImageFullscreen(imageUrl) {
+  if (!imageUrl) return;
+
+  // Remove any existing overlay first
+  var existing = document.getElementById('chatbot-image-overlay');
+  if (existing) existing.parentNode.removeChild(existing);
+
+  var overlay = document.createElement('div');
+  overlay.id = 'chatbot-image-overlay';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100%';
+  overlay.style.height = '100%';
+  overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+  overlay.style.zIndex = '100000';
+
+  var img = document.createElement('img');
+  img.src = imageUrl;
+  img.style.maxWidth = '90%';
+  img.style.maxHeight = '90%';
+  img.style.objectFit = 'contain';
+  img.style.boxShadow = '0 0 10px rgba(0,0,0,0.5)';
+
+  overlay.appendChild(img);
+
+  // Close on click anywhere
+  overlay.addEventListener('click', function () {
+    if (overlay && overlay.parentNode) {
+      overlay.parentNode.removeChild(overlay);
+    }
+  });
+
+  // Close on ESC key
+  function escHandler(e) {
+    if (e.key === 'Escape') {
+      if (overlay && overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+      document.removeEventListener('keydown', escHandler);
+    }
+  }
+  document.addEventListener('keydown', escHandler);
+
+  document.body.appendChild(overlay);
+}  
