@@ -625,126 +625,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     if (isCheckoutPage()) {
       setTimeout(checkForPurchase, 1000);
     }
-    } else if (event.data.action === 'expandImage') {
-        // Handle fullscreen image display
-        showFullscreenImage(event.data.imageUrl, event.data.altText);
-      }
+    }
     });
-
-    /**
-     * FULLSCREEN IMAGE FUNCTIONALITY
-     */
-    function showFullscreenImage(imageUrl, altText) {
-      // Remove any existing fullscreen overlay
-      removeFullscreenImage();
-      
-      // Create fullscreen overlay
-      const overlay = document.createElement('div');
-      overlay.id = 'chatbot-fullscreen-image-overlay';
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.95);
-        z-index: 999999;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        backdrop-filter: blur(3px);
-      `;
-      
-      // Create image element
-      const img = document.createElement('img');
-      img.src = imageUrl;
-      img.alt = altText || 'Fullscreen Image';
-      img.style.cssText = `
-        max-width: 95vw;
-        max-height: 95vh;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-        border-radius: 8px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-        cursor: pointer;
-      `;
-      
-      // Create close button
-      const closeButton = document.createElement('button');
-      closeButton.innerHTML = '×';
-      closeButton.style.cssText = `
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.9);
-        border: none;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        font-size: 24px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #333;
-        transition: all 0.2s ease;
-        z-index: 1000000;
-      `;
-      
-      // Add hover effects to close button
-      closeButton.addEventListener('mouseenter', function() {
-        this.style.background = 'rgba(255, 255, 255, 1)';
-        this.style.transform = 'scale(1.1)';
-      });
-      
-      closeButton.addEventListener('mouseleave', function() {
-        this.style.background = 'rgba(255, 255, 255, 0.9)';
-        this.style.transform = 'scale(1)';
-      });
-      
-      // Add elements to overlay
-      overlay.appendChild(img);
-      overlay.appendChild(closeButton);
-      
-      // Add overlay to body
-      document.body.appendChild(overlay);
-      
-      // Close on overlay click, close button click, or ESC key
-      overlay.addEventListener('click', removeFullscreenImage);
-      closeButton.addEventListener('click', function(e) {
-        e.stopPropagation();
-        removeFullscreenImage();
-      });
-      
-      // Prevent image click from closing overlay
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-      
-      // Close on ESC key
-      document.addEventListener('keydown', handleEscapeKey);
-      
-      // Prevent body scroll when overlay is active
-      document.body.style.overflow = 'hidden';
-    }
-    
-    function removeFullscreenImage() {
-      const overlay = document.getElementById('chatbot-fullscreen-image-overlay');
-      if (overlay) {
-        overlay.remove();
-        document.removeEventListener('keydown', handleEscapeKey);
-        document.body.style.overflow = ''; // Restore scrolling
-      }
-    }
-    
-    function handleEscapeKey(event) {
-      if (event.key === 'Escape') {
-        removeFullscreenImage();
-      }
-    }
 
     /**
      * 6. BADGE MANAGEMENT
@@ -1070,7 +952,7 @@ function trackChatbotOpen() {
     iframe.style.display = 'none';
     button.style.display = 'block';
   
-    /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
+    /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
