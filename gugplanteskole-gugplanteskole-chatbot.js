@@ -518,11 +518,11 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       metaDataKey: "",
 
       useThumbsRating: false,
-      ratingTimerDuration: 15000,
+      ratingTimerDuration: 15003,
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "gugplanteskole-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
