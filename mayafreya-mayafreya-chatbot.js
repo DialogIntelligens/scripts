@@ -4,6 +4,129 @@ document.addEventListener('DOMContentLoaded', function() {
   function purchaseKey(userId) {
     return `purchaseReported_${userId}`;
   }
+
+  // Fullscreen image functionality (new feature with backwards compatibility)
+  function openFullscreenImage(src, alt) {
+    // Create fullscreen modal
+    const modal = document.createElement('div');
+    modal.id = 'chatbot-fullscreen-modal';
+    modal.style.cssText = `
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999999;
+      cursor: pointer;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    `;
+
+    // Close button
+    const closeBtn = document.createElement('button');
+    closeBtn.innerHTML = '×';
+    closeBtn.style.cssText = `
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: white;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      transition: background 0.2s ease;
+    `;
+    closeBtn.addEventListener('mouseenter', function() {
+      this.style.background = 'rgba(255, 255, 255, 0.3)';
+    });
+    closeBtn.addEventListener('mouseleave', function() {
+      this.style.background = 'rgba(255, 255, 255, 0.2)';
+    });
+    closeBtn.addEventListener('click', closeFullscreenImage);
+
+    // Image
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = alt || 'Image';
+    img.style.cssText = `
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    `;
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // Instructions
+    const instructions = document.createElement('div');
+    instructions.innerHTML = 'Click outside image or press ESC to close';
+    instructions.style.cssText = `
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 8px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    `;
+
+    // Add elements to modal
+    modal.appendChild(closeBtn);
+    modal.appendChild(img);
+    modal.appendChild(instructions);
+
+    // Close on background click
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        closeFullscreenImage();
+      }
+    });
+
+    // Close on escape key
+    const handleEscape = function(e) {
+      if (e.key === 'Escape') {
+        closeFullscreenImage();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    modal.setAttribute('data-escape-handler', 'true');
+
+    // Add modal to document
+    document.body.appendChild(modal);
+  }
+
+  function closeFullscreenImage() {
+    const modal = document.getElementById('chatbot-fullscreen-modal');
+    if (modal) {
+      // Remove escape key listener
+      if (modal.getAttribute('data-escape-handler')) {
+        const handleEscape = function(e) {
+          if (e.key === 'Escape') {
+            closeFullscreenImage();
+          }
+        };
+        document.removeEventListener('keydown', handleEscape);
+      }
+      
+      document.body.removeChild(modal);
+    }
+  }
   
   function initChatbot() {
 
@@ -462,7 +585,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="https://skalerbartprodukt.onrender.com"
+        src="http://localhost:3000/"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -583,7 +706,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          iframeWindow.postMessage(messageData, "http://localhost:3000/");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -591,7 +714,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            iframeWindow.postMessage(messageData, "http://localhost:3000/");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -601,7 +724,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      if (event.origin !== "http://localhost:3000/") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
@@ -625,6 +748,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     if (isCheckoutPage()) {
       setTimeout(checkForPurchase, 1000);
     }
+    } else if (event.data.action === 'openFullscreenImage') {
+      // Handle fullscreen image requests from chatbot
+      openFullscreenImage(event.data.src, event.data.alt);
+    } else if (event.data.action === 'closeFullscreenImage') {
+      // Handle close fullscreen image requests from chatbot
+      closeFullscreenImage();
     }
     });
 
