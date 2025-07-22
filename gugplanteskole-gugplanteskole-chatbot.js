@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #386026;
       --badge-color: #CC2B20;
     }
     
@@ -562,17 +562,17 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      messageIcon: "",
-      themeColor: "#224e9a",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1753169287687.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1753169304239.png",
+      themeColor: "#386026",
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerTitleG: "Gug Planteskole AI",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
+      titleG: "Gugs AI Gardener",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
@@ -796,7 +796,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🌿";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
