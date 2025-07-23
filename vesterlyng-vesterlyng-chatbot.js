@@ -522,7 +522,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "vesterlyng-alt",
+      knowledgebaseIndexApiEndpoint: "vesterlyngcamping-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "vesterlyng-alt",
       flow4KnowledgebaseIndex: "",
