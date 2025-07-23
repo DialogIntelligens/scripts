@@ -524,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "vesterlyngcamping-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "vesterlyng-alt",
+      flow3KnowledgebaseIndex: "vesterlyngcamping-alt",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
