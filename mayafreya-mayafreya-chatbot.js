@@ -585,7 +585,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="http://localhost:3000/"
+        src="https://skalerbartprodukt.onrender.com"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -706,7 +706,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "http://localhost:3000/");
+          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -714,7 +714,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "http://localhost:3000/");
+            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -724,7 +724,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "http://localhost:3000/") return;
+      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
