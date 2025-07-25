@@ -532,6 +532,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       customVar1: "",
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
+      showPoweredBy: false,
 
       // Set FreshdeskForm text
       freshdeskEmailLabel: "Din email:",
