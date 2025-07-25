@@ -524,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "vinhuset-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "vinhuset-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
