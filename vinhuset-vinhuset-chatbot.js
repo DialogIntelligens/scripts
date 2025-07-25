@@ -506,7 +506,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       action: 'integrationOptions',
       chatbotID: "vinhuset",
       pagePath: window.location.href,
-      flow2Key: "",
+      flow2Key: "order",
       flow3Key: "product",
       flow4Key: "",
         
