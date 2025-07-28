@@ -1,4 +1,51 @@
-document.addEventListener('DOMContentLoaded', function() {
+// More robust initialization that works regardless of DOM state
+(function() {
+  'use strict';
+  
+  // Prevent multiple instances from loading
+  if (window.chatbotInitialized) {
+    console.log('Chatbot already initialized, skipping...');
+    return;
+  }
+  window.chatbotInitialized = true;
+  
+  // Check if DOM is already loaded
+  function isDOMReady() {
+    return document.readyState === 'complete' || document.readyState === 'interactive';
+  }
+  
+  // Enhanced initialization with multiple fallback strategies
+  function initializeWhenReady() {
+    try {
+      if (isDOMReady()) {
+        // DOM is already ready, initialize immediately
+        console.log('DOM already ready, initializing chatbot...');
+        setTimeout(initChatbot, 100); // Small delay to ensure other scripts have loaded
+      } else {
+        // DOM not ready, wait for it
+        console.log('Waiting for DOM to be ready...');
+        document.addEventListener('DOMContentLoaded', function() {
+          console.log('DOM ready event fired, initializing chatbot...');
+          setTimeout(initChatbot, 100);
+        });
+        
+        // Fallback: also listen for window.load in case DOMContentLoaded was missed
+        window.addEventListener('load', function() {
+          if (!document.getElementById('chat-container')) {
+            console.log('Window load event fired, initializing chatbot as fallback...');
+            setTimeout(initChatbot, 100);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error during chatbot initialization setup:', error);
+      // Retry after a short delay
+      setTimeout(function() {
+        console.log('Retrying chatbot initialization...');
+        initializeWhenReady();
+      }, 1000);
+    }
+  }
 
   // Build a unique local-storage key for the current chatbot user
   function purchaseKey(userId) {
@@ -6,8 +53,10 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   function initChatbot() {
+    try {
+      console.log('initChatbot called at:', new Date().toISOString());
 
-  const urlFlag = new URLSearchParams(window.location.search).get('chat');
+      const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
     localStorage.setItem('chatWindowState', 'open');
@@ -19,7 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('chat-container')) {
       console.log("Chatbot already loaded.");
       return;
-    }            
+    }
+
+    console.log("Starting chatbot initialization...", {
+      url: window.location.href,
+      readyState: document.readyState,
+      timestamp: new Date().toISOString()
+    });
       // 1. Create a unique container for your widget
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
@@ -963,17 +1018,51 @@ function trackChatbotOpen() {
     // Initialize badge visibility
     checkBadgeVisibility();
 
+    } catch (error) {
+      console.error('Error in initChatbot:', error);
+      // Don't retry automatically here to avoid infinite loops
+      // The outer retry mechanism will handle retries
+    }
   } // end of initChatbot
   
   // Initial attempt to load the chatbot.
-  initChatbot();
+  initializeWhenReady();
   
   // After 2 seconds, check if a key element is present; if not, reinitialize.
   setTimeout(function() {
     if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
-      initChatbot();
+      console.log("Chatbot not loaded after 5 seconds, retrying...");
+      // Clean up any potential partial loads
+      var existingWidget = document.getElementById('my-chat-widget');
+      if (existingWidget) {
+        existingWidget.remove();
+        console.log("Cleaned up partial widget load");
+      }
+      window.chatbotInitialized = false; // Reset flag to allow retry
+      initializeWhenReady();
+    } else {
+      console.log("Chatbot successfully loaded!");
     }
   }, 5000);
+  
+  // Additional safety check - if still not loaded after 10 seconds, try once more
+  setTimeout(function() {
+    if (!document.getElementById('chat-container')) {
+      console.log("Chatbot still not loaded after 10 seconds, final retry...");
+      // More aggressive cleanup
+      var existingElements = [
+        document.getElementById('my-chat-widget'),
+        document.getElementById('chat-container'),
+        document.getElementById('chat-iframe')
+      ];
+      existingElements.forEach(function(el) {
+        if (el) el.remove();
+      });
+      window.chatbotInitialized = false; // Reset flag to allow retry
+      initializeWhenReady();
+    } else {
+      console.log("Chatbot fully operational!");
+    }
+  }, 10000);
         
-});  
+})();  
