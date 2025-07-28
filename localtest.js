@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'mayafreya',
+      chatbot_id:'vinhuset',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "mayafreya";
+    var chatbotID = "vinhuset";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #fd8e7b;
+      --icon-color: #000000;
       --badge-color: #CC2B20;
     }
     
@@ -504,28 +504,28 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "mayafreya",
+      chatbotID: "vinhuset",
       pagePath: window.location.href,
-      flow2Key: "",
+      flow2Key: "order",
       flow3Key: "product",
-      flow4Key: "",
+      flow4Key: "productfilter",
         
       leadGen: "%%",
-      leadMail: "gardin@gardinexperten.dk",
+      leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataKey: "",
+      metaDataKey: "productfilter",
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "mayafreya-alt",
-      flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "mayafreya-pro",
-      flow4KnowledgebaseIndex: "",
+      knowledgebaseIndexApiEndpoint: "vinhuset-alt",
+      flow2KnowledgebaseIndex: "vinhuset-alt",
+      flow3KnowledgebaseIndex: "vinhuset-pro",
+      flow4KnowledgebaseIndex: "vinhuset-pro",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
       languageOverride: "",
@@ -562,18 +562,18 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1752580604765.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1752580589606.png",
-      themeColor: "#fd8e7b",
-      aiMessageColor: "#e9ecef",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1753457191158.png",
+      messageIcon: "",
+      themeColor: "#000000",
+      aiMessageColor: "#efefef",
       aiMessageTextColor: "#000000",
-      headerTitleG: "",
+      headerTitleG: "VinBot - Din AI Hjælper",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Freya - Din digitale assistent",
-      firstMessage: "Hej 😊\\n\\nJeg er Freya. Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "VinBot",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖🍷",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
@@ -606,10 +606,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
-      } else if (event.data.action === 'openFullscreenImage') {
-        openFullscreenImage(event.data.imageSrc);
-      } else if (event.data.action === 'closeFullscreenImage') {
-        closeFullscreenImage();
       } else if (event.data.action === 'closeChat') {
         document.getElementById('chat-iframe').style.display = 'none';
         document.getElementById('chat-button').style.display = 'block';
@@ -800,7 +796,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål";
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🍷";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -966,104 +962,6 @@ function trackChatbotOpen() {
     
     // Initialize badge visibility
     checkBadgeVisibility();
-
-    // Fullscreen Image Functions
-    function openFullscreenImage(imageSrc) {
-      // Create fullscreen overlay
-      const overlay = document.createElement('div');
-      overlay.id = 'fullscreen-image-overlay';
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.9);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 999999;
-        cursor: pointer;
-      `;
-
-      // Create image element
-      const img = document.createElement('img');
-      img.src = imageSrc;
-      img.style.cssText = `
-        max-width: 90vw;
-        max-height: 90vh;
-        object-fit: contain;
-        cursor: default;
-      `;
-
-      // Create close button
-      const closeBtn = document.createElement('button');
-      closeBtn.innerHTML = '×';
-      closeBtn.style.cssText = `
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        background: none;
-        border: none;
-        font-size: 40px;
-        color: white;
-        cursor: pointer;
-        z-index: 1000000;
-      `;
-
-      // Add hover effect to close button
-      closeBtn.addEventListener('mouseenter', function() {
-        this.style.opacity = '0.7';
-      });
-      closeBtn.addEventListener('mouseleave', function() {
-        this.style.opacity = '1';
-      });
-
-      // Add event listeners
-      overlay.addEventListener('click', function(e) {
-        if (e.target === overlay) {
-          closeFullscreenImage();
-        }
-      });
-      
-      closeBtn.addEventListener('click', closeFullscreenImage);
-      
-      // Prevent image click from closing modal
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-
-      // Add keyboard support (ESC key)
-      function handleKeyDown(e) {
-        if (e.key === 'Escape') {
-          closeFullscreenImage();
-        }
-      }
-      document.addEventListener('keydown', handleKeyDown);
-      
-      // Store reference to keydown handler for cleanup
-      overlay.keydownHandler = handleKeyDown;
-
-      // Append elements
-      overlay.appendChild(img);
-      overlay.appendChild(closeBtn);
-      document.body.appendChild(overlay);
-    }
-
-    function closeFullscreenImage() {
-      const overlay = document.getElementById('fullscreen-image-overlay');
-      if (overlay) {
-        // Remove keyboard listener
-        if (overlay.keydownHandler) {
-          document.removeEventListener('keydown', overlay.keydownHandler);
-        }
-        overlay.remove();
-      }
-    }
-
-    // Make functions available globally for backward compatibility
-    window.openFullscreenImage = openFullscreenImage;
-    window.closeFullscreenImage = closeFullscreenImage;
 
   } // end of initChatbot
   
