@@ -526,7 +526,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2KnowledgebaseIndex: "vinhuset-alt",
       flow3KnowledgebaseIndex: "vinhuset-pro",
       flow4KnowledgebaseIndex: "vinhuset-pro",
-      apiFlowKnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "vinhuset-alt",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
