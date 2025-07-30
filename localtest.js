@@ -581,7 +581,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       // Shopify Order Tracking Configuration
       shopifyEnabled: true,
-      shopifyStore: "vinhuset", // Replace with your actual Shopify store name
+      shopifyStore: "vin-huset-podi", // Replace with your actual Shopify store name
       shopifyAccessToken: "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",
       shopifyApiKey: "ea17dc96ab4adfd5d4673d9db255c3bc",
       shopifySecretKey: "ae73f631c171891e65d2549787360c35",
