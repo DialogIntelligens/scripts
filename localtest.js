@@ -512,7 +512,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       
       apiFlowKey: "order",
-      apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/cca56d9a-ced2-4fd6-8d93-2fc3751e9111",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
