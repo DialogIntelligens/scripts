@@ -509,6 +509,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2Key: "",
       flow3Key: "product",
       flow4Key: "productfilter",
+
+      
+      apiFlowKey: "order",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
@@ -521,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "vinhuset-alt",
       flow2KnowledgebaseIndex: "vinhuset-alt",
       flow3KnowledgebaseIndex: "vinhuset-pro",
@@ -575,6 +578,31 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       titleG: "VinBot",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖🍷",
       purchaseTrackingEnabled: true,
+      
+      // Shopify Order Tracking Configuration
+      shopifyEnabled: true,
+      shopifyStore: "vin-huset-podi", // Replace with your actual Shopify store name
+      shopifyAccessToken: "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",
+      shopifyApiKey: "ea17dc96ab4adfd5d4673d9db255c3bc",
+      shopifySecretKey: "ae73f631c171891e65d2549787360c35",
+      shopifyApiVersion: "2025-01",
+      
+      // Order tracking via proxy (recommended for security)
+      orderTrackingUseProxy: true,
+      orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
+      orderTrackingRequestMethod: "POST",
+      orderTrackingRequiredFields: ["email", "phone", "order_number"],
+      
+      // Request body template for Shopify tracking
+      orderTrackingRequestBody: JSON.stringify({
+        shopifyStore: "vinhuset",
+        shopifyAccessToken: "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",
+        shopifyApiVersion: "2025-01",
+        email: "",
+        phone: "", 
+        order_number: ""
+      }),
+      
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
     };
