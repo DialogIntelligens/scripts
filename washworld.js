@@ -212,7 +212,6 @@ function initChatbot() {
       action: 'integrationOptions',
       chatbotID: "washworld",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cde4a03-08c1-4ce7-952b-e4e1509140b0",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/0a4d59c3-adeb-4246-830b-1aa69476801f",
       fordelingsflowAPI: "",
