@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #9d353a;
       --badge-color: #CC2B20;
     }
     
@@ -825,7 +825,7 @@ function trackChatbotOpen() {
       var messageBox = document.getElementById("popup-message-box");
       
       const popupText = "Jeg kan anbefale vin, finde ordrer og svare spørgsmål🍷";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -842,9 +842,9 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "460px";
+        popupElem.style.width = "485px";
       } else {
-        popupElem.style.width = "460px";
+        popupElem.style.width = "485px";
       }
 
      
