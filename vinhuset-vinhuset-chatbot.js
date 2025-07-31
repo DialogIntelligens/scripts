@@ -370,7 +370,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     :root {
       --icon-color: #9d353a;
-      --badge-color: #CC2B20;
+      --badge-color: #000000;
     }
     
     /* Notification badge styles */
@@ -842,9 +842,9 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "485px";
+        popupElem.style.width = "490px";
       } else {
-        popupElem.style.width = "485px";
+        popupElem.style.width = "490px";
       }
 
      
