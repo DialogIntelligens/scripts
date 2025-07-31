@@ -367,7 +367,7 @@ function initChatbot() {
       flow3KnowledgebaseIndex: "dillingus-pro",
       flow4KnowledgebaseIndex: "dillingus-kat",
       
-      apiFlowKnowledgebaseIndex: "dillinguss-faq",
+      apiFlowKnowledgebaseIndex: "dillingus-faq",
       
       websiteOverride: "dilling.us",
       languageOverride: "English",
