@@ -369,8 +369,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #9d353a;
-      --badge-color: #000000;
+      --icon-color: #000000;
+      --badge-color: #9d353a;
     }
     
     /* Notification badge styles */
