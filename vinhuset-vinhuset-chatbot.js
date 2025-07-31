@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #252525;
       --badge-color: #9d353a;
     }
     
@@ -567,15 +567,15 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1753457191158.png",
       messageIcon: "",
-      themeColor: "#000000",
-      aiMessageColor: "#efefef",
-      aiMessageTextColor: "#000000",
-      headerTitleG: "VinBot - Din AI Hjælper",
+      themeColor: "#252525",
+      aiMessageColor: "#fbf7f4",
+      aiMessageTextColor: "#252525",
+      headerTitleG: "Vin Bot - Din AI Hjælper",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "VinBot",
+      titleG: "Vin Bot",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
       purchaseTrackingEnabled: true,
       
