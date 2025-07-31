@@ -576,7 +576,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "VinBot",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖🍷",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
       purchaseTrackingEnabled: true,
       
       // Shopify Order Tracking Configuration
