@@ -203,7 +203,6 @@ function initChatbot() {
       action: 'integrationOptions',
       chatbotID: "washworldno",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/8cde4a03-08c1-4ce7-952b-e4e1509140b0",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/58fd2fcb-45a5-43b9-93bc-05f75acfe1dd",
       fordelingsflowAPI: "",
       flow2Key: "",
