@@ -824,7 +824,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale vin, finde ordrer og svare på spørgsmål🍷";
+      const popupText = "Jeg kan anbefale vin, finde ordrer og svare spørgsmål🍷";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
