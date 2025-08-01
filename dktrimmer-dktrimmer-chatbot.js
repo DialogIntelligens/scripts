@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function initChatbot() {
 
+  
+
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
@@ -31,6 +33,23 @@ document.addEventListener('DOMContentLoaded', function() {
    */
 let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
 let hasReportedPurchase = false;  // <-- add this line
+
+
+    // Listen for the checkout button click
+document.addEventListener('click', function (event) {
+  const button = event.target.closest('button[name="checkout"]');
+  if (button && !hasReportedPurchase && chatbotUserId) {
+    console.log("Checkout button clicked!");
+
+    setTimeout(() => {
+      const totalPrice = extractTotalPrice();
+      if (totalPrice && totalPrice > 0) {
+        reportPurchase(totalPrice);
+      }
+    }, 500);
+  }
+});
+
 
 
   // Check if on checkout page
