@@ -35,22 +35,6 @@ let chatbotUserId = localStorage.getItem('chatbotUserId') || null;
 let hasReportedPurchase = false;  // <-- add this line
 
 
-    // Listen for the checkout button click
-document.addEventListener('click', function (event) {
-  const button = event.target.closest('button[name="checkout"]');
-  if (button && !hasReportedPurchase && chatbotUserId) {
-    console.log("Checkout button clicked!");
-
-    setTimeout(() => {
-      const totalPrice = extractTotalPrice();
-      if (totalPrice && totalPrice > 0) {
-        reportPurchase(totalPrice);
-      }
-    }, 500);
-  }
-});
-
-
 
   // Check if on checkout page
   function isCheckoutPage() {
@@ -546,7 +530,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       titleG: "DKTrimmer ",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖 Jeg kan også se hvilke ukrudtsbørster, der passer på din model.",
-      purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
