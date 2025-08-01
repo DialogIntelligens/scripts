@@ -521,7 +521,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "vinhuset-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
