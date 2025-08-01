@@ -521,7 +521,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
       knowledgebaseIndexApiEndpoint: "hjemmeside3",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
