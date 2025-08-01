@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'vinhuset',
+      chatbot_id:'humac',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "vinhuset";
+    var chatbotID = "humac";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #1e1e57;
       --badge-color: #CC2B20;
     }
     
@@ -504,21 +504,18 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "vinhuset",
+      chatbotID: "humac",
       pagePath: window.location.href,
       flow2Key: "",
       flow3Key: "product",
-      flow4Key: "productfilter",
-
-      
-      apiFlowKey: "order",
+      flow4Key: "",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataKey: "productfilter",
+      metaDataKey: "",
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
@@ -526,10 +523,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "vinhuset-alt",
-      flow2KnowledgebaseIndex: "vinhuset-alt",
-      flow3KnowledgebaseIndex: "vinhuset-pro",
-      flow4KnowledgebaseIndex: "vinhuset-pro",
-      apiFlowKnowledgebaseIndex: "vinhuset-alt",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
@@ -565,44 +562,21 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1753457191158.png",
-      messageIcon: "",
-      themeColor: "#000000",
-      aiMessageColor: "#efefef",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1754065524045.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1754065574331.png",
+      themeColor: "#1e1e57",
+      aiMessageColor: "#e5e5f5",
       aiMessageTextColor: "#000000",
-      headerTitleG: "VinBot - Din AI Hjælper",
+      headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
+
+      enableLivechat: true,
         
-      titleG: "VinBot",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖🍷",
+      titleG: "Humac assistent",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
-      
-      // Shopify Order Tracking Configuration
-      shopifyEnabled: true,
-      shopifyStore: "vin-huset-podi", // Replace with your actual Shopify store name
-      shopifyAccessToken: "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",
-      shopifyApiKey: "ea17dc96ab4adfd5d4673d9db255c3bc",
-      shopifySecretKey: "ae73f631c171891e65d2549787360c35",
-      shopifyApiVersion: "2025-01",
-      
-      // Order tracking via proxy (recommended for security)
-      orderTrackingUseProxy: true,
-      orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
-      orderTrackingRequestMethod: "POST",
-      orderTrackingRequiredFields: ["email", "phone", "order_number"],
-      
-      // Request body template for Shopify tracking
-      orderTrackingRequestBody: JSON.stringify({
-        shopifyStore: "vinhuset",
-        shopifyAccessToken: "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",
-        shopifyApiVersion: "2025-01",
-        email: "",
-        phone: "", 
-        order_number: ""
-      }),
-      
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
     };
@@ -824,7 +798,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🍷";
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
