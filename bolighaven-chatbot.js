@@ -549,7 +549,7 @@ function sendMessageToIframe() {
 
   knowledgebaseIndexApiEndpoint: "boligoghaven-alt",
   flow2KnowledgebaseIndex: "",
-  flow3KnowledgebaseIndex: "",
+  flow3KnowledgebaseIndex: "boligoghaven-pro",
   flow4KnowledgebaseIndex: "",
   apiFlowKnowledgebaseIndex: "",
   websiteOverride: "",
