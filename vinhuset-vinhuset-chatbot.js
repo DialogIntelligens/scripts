@@ -369,8 +369,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #2e2e2e;
-      --badge-color: #9d353a;
+      --icon-color: #000000;
+      --badge-color: #CC2B20;
     }
     
     /* Notification badge styles */
@@ -566,26 +566,22 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1753457191158.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1753980908566.png",
-      themeColor: "#2e2e2e",
-      aiMessageColor: "#fbf7f4",
-      aiMessageTextColor: "#2e2e2e",
-      headerTitleG: "Vin Bot - Din AI Hjælper",
+      messageIcon: "",
+      themeColor: "#000000",
+      aiMessageColor: "#efefef",
+      aiMessageTextColor: "#000000",
+      headerTitleG: "VinBot - Din AI Hjælper",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Vin Bot",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
+      titleG: "VinBot",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖🍷",
       purchaseTrackingEnabled: true,
       
       // Shopify Order Tracking Configuration
       shopifyEnabled: true,
-      shopifyStore: "vin-huset-podi", // Replace with your actual Shopify store name
-      shopifyAccessToken: "",
-      shopifyApiKey: "",
-      shopifySecretKey: "",
-      shopifyApiVersion: "2025-01",
+      shopifyApiVersion: "2024-10",
       
       // Order tracking via proxy (recommended for security)
       orderTrackingUseProxy: true,
@@ -593,11 +589,11 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       orderTrackingRequestMethod: "POST",
       orderTrackingRequiredFields: ["email", "phone", "order_number"],
       
-      // Request body template for Shopify tracking
+      // Request body template for Shopify tracking (credentials will be loaded from database)
       orderTrackingRequestBody: JSON.stringify({
-        shopifyStore: "vinhuset",
+        shopifyStore: "",
         shopifyAccessToken: "",
-        shopifyApiVersion: "2025-01",
+        shopifyApiVersion: "2024-10",
         email: "",
         phone: "", 
         order_number: ""
@@ -824,8 +820,8 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale vin, finde ordrer og svare spørgsmål🍷";
-      messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🍷";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -842,9 +838,9 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "490px";
+        popupElem.style.width = "460px";
       } else {
-        popupElem.style.width = "490px";
+        popupElem.style.width = "460px";
       }
 
      
