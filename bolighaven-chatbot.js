@@ -387,7 +387,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
 
   :root {
-    --icon-color: #626b4e;
+    --icon-color: #517745;
     --badge-color: #CC2B20;
   }
   
@@ -547,7 +547,7 @@ function sendMessageToIframe() {
   ratingTimerDuration: 15000,
   replaceExclamationWithPeriod: false,
 
-  knowledgebaseIndexApiEndpoint: "",
+  knowledgebaseIndexApiEndpoint: "boligoghaven-alt",
   flow2KnowledgebaseIndex: "",
   flow3KnowledgebaseIndex: "",
   flow4KnowledgebaseIndex: "",
