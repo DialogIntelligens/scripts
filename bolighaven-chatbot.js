@@ -523,13 +523,9 @@ function sendMessageToIframe() {
   action: 'integrationOptions',
   chatbotID: "bolighaven",
   pagePath: window.location.href,
-  statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d04558f1-5d8c-4659-b78a-2031f3ce6465",
-  apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d5b6c413-31f0-4f41-a722-f783fe9efcae",
-  fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dad10faf-c048-4e4e-aa03-d5955a0bdc88",
   flow2Key: "",
   flow2API: "",
   flow3Key: "product",
-  flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4da45969-be56-403c-ad00-0a3a676406c1",
   flow4API: "",
   flow4Key: "",
     
@@ -540,13 +536,12 @@ function sendMessageToIframe() {
 
   metaDataAPI: "",
   metaDataKey: "",
-    
-  imageAPI: '',
 
   useThumbsRating: false,
   ratingTimerDuration: 15000,
   replaceExclamationWithPeriod: false,
 
+  pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
   knowledgebaseIndexApiEndpoint: "boligoghaven-alt",
   flow2KnowledgebaseIndex: "",
   flow3KnowledgebaseIndex: "boligoghaven-pro",
