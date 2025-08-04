@@ -521,7 +521,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
       knowledgebaseIndexApiEndpoint: "",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
