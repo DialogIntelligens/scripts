@@ -582,9 +582,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // Shopify Order Tracking Configuration
       shopifyEnabled: true,
       shopifyStore: "vin-huset-podi", // Replace with your actual Shopify store name
-      shopifyAccessToken: "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",
-      shopifyApiKey: "ea17dc96ab4adfd5d4673d9db255c3bc",
-      shopifySecretKey: "ae73f631c171891e65d2549787360c35",
+      shopifyAccessToken: "",
+      shopifyApiKey: "",
+      shopifySecretKey: "",
       shopifyApiVersion: "2025-01",
       
       // Order tracking via proxy (recommended for security)
@@ -596,7 +596,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // Request body template for Shopify tracking
       orderTrackingRequestBody: JSON.stringify({
         shopifyStore: "vinhuset",
-        shopifyAccessToken: "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",
+        shopifyAccessToken: "",
         shopifyApiVersion: "2025-01",
         email: "",
         phone: "", 
