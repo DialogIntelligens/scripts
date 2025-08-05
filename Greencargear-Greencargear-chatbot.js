@@ -568,12 +568,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       aiMessageColor: "#e6e6e6",
       aiMessageTextColor: "#000000",
       headerTitleG: "",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i privatlivspolitikken nederst i dette vindue. ",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "GreenCarBuddy 🚗",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Elmer 🤖⚡️",
+      firstMessage: "Hej! \n\nMit navn er Elmer - jeg er GreenCarGears AI chatbot. Jeg kan hjælpe dig med produktspørgsmål eller generelle spørgsmål omkring vores webshop ⚡️",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
@@ -796,7 +796,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Hej! Jeg hjælper med tilbehør til din elbil ⚡";
+      const popupText = "Hej! Jeg er GreenCarGears AI chatbot";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
