@@ -492,7 +492,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     headerTitleG: "Pursico",
     headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur and that the conversation may be stored and processed. Read more in our privacy policy.",
     titleG: "Pursico's AI assistant",
-    firstMessage: "Hi 😊 I'm an AI assistant trained to guide you in your journey to financial independence💰 How can i help?",
+    firstMessage: window.location.href.includes("https://shop.pursico.com") 
+      ? "Welcome! 👋 I'm your AI assistant. Looking for more info about the e-book? I'm happy to help! 📚 😊"
+      : "I can help you find the best ways to make money online 🚀 What would you like to know?",
     purchaseTrackingEnabled: true,
     isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
