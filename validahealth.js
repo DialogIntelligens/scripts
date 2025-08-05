@@ -278,13 +278,15 @@ document.addEventListener('DOMContentLoaded', function() {
       flow3Key: "product",
       flow3API: "",
         
-      apiEndpointBackup: "",
-      fordelingsflowAPIBackup: "",
-      flow2APIBackup: "",
-      flow3APIBackup: "",
+      pineconeApiKey: "",
+      knowledgebaseIndexApiEndpoint: "",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
         
       leadGen: "%%",
-      leadMail: "martin@nih.dk",
+      leadMail: "",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
