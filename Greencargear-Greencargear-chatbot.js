@@ -572,7 +572,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Elmer 🤖⚡️",
+      titleG: "Elmer 🤖 GreenCarGear Support",
       firstMessage: "Hej! \n\nMit navn er Elmer - jeg er GreenCarGears AI chatbot. Jeg kan hjælpe dig med produktspørgsmål eller generelle spørgsmål omkring vores webshop ⚡️",
       purchaseTrackingEnabled: true,
       isTabletView: false,
