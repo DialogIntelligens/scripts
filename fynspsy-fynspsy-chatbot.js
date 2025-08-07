@@ -491,13 +491,13 @@ document.addEventListener('DOMContentLoaded', function() {
       themeColor: "#9fa653",
           aiMessageColor: "#e9ecef",
   aiMessageTextColor: "#000000",
-      headerTitleG: "Fyns Psykolog Praksis",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerTitleG: "Fyns Psykologpraksis",
+      headerSubtitleG: "Vores 24/7 support er en AI-chatbot med kunstig intelligens, som kan besvare de mest generelle spørgsmål uden for vores åbningstid. Ved brug accepteres, at der kan ske fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Fyns Psykolog Matcher",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra dine behov og generelle spørgsmål til personlige råd om psykologhjælp. Jeg kan også hjælpe dig med at blive matchet med den rette psykolog.",
+      titleG: "Find din Psykolog og FAQ",
+      firstMessage: "Hej 😊 \nJeg er din 24/7 support og kan hjælpe med dine mest overordnede spørgsmål uden for vores åbningstid. \nDu kan spørge mig om alt lige fra priser til ventetider, og jeg kan forsøge at finde det rette psykolog match til dig, hvis du ønsker det.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -618,7 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan matche dig med en af vores psykologer eller besvare dine generelle spørgsmål ";
+      const popupText = "Jeg hjælper med generelle spørgsmål eller et psykologmatch.";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
