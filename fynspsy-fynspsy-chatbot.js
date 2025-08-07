@@ -496,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Find din Psykolog og FAQ",
+      titleG: "Find en Psykolog og FAQ",
       firstMessage: "Hej 😊 \nJeg er din 24/7 support og kan hjælpe med dine mest overordnede spørgsmål uden for vores åbningstid. \nDu kan spørge mig om alt lige fra priser til ventetider, og jeg kan forsøge at finde det rette psykolog match til dig, hvis du ønsker det.",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
