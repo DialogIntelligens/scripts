@@ -531,7 +531,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "fynspsy-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
