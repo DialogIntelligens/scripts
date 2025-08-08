@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'test',
+      chatbot_id:'fynspsy',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "test";
+    var chatbotID = "fynspsy";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -799,7 +799,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg hjælper med generelle spørgsmål eller et psykologmatch.";
+      const popupText = "Jeg hjælper med spørgsmål eller et psykologmatch.";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
