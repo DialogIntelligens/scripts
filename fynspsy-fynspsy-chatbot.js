@@ -509,7 +509,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7d824d24-2350-470d-ad19-b49bd98c7db8",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/9ab22014-952f-4971-afda-2c64895fef45",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/083e3b92-0328-4ba0-8367-71c632f58a02",
-      flow2Key: "product",
+      flow2Key: "",
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11a42c30-c988-4e76-9f6d-283055358f91",
       flow3Key: "product",
       flow3API: "",
