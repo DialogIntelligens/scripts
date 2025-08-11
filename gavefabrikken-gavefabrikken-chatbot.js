@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
+      --icon-color: #968c60;
       --badge-color: #CC2B20;
     }
     
@@ -564,8 +564,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1754895829981.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1754896009175.png",
-      themeColor: "#000000",
-      aiMessageColor: "#e9ecef",
+      themeColor: "#968c60",
+      aiMessageColor: "#dbd7c2",
       aiMessageTextColor: "#000000",
       headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
