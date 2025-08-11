@@ -468,7 +468,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow3Key: "models",
       flow4API: "",
       flow4Key: "",
-      apiFlowKey: "order",
         
       leadGen: "%%",
       leadMail: "info@dktrimmer.dk",
