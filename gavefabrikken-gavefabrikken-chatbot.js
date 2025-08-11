@@ -524,7 +524,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "gavefabrikken-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "gavefabrikken-alt",
+      flow3KnowledgebaseIndex: "gavefabrikken-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
