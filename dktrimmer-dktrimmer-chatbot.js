@@ -488,7 +488,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2KnowledgebaseIndex: "dktrimmer-pro",
       flow3KnowledgebaseIndex: "dktrimmer-spe",
       flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "dktrimmer-alt",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
