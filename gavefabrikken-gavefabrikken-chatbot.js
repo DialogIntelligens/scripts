@@ -522,7 +522,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "gavefabrikken-pro",
+      knowledgebaseIndexApiEndpoint: "gavefabrikken-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "gavefabrikken-alt",
       flow4KnowledgebaseIndex: "",
