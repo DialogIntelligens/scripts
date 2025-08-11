@@ -527,6 +527,16 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
+
+            // Shopify Order Tracking Configuration
+      shopifyEnabled: true,
+      shopifyApiVersion: "2025-01",
+      
+      // Order tracking via proxy (recommended for security)
+      orderTrackingUseProxy: true,
+      orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
+      orderTrackingRequestMethod: "POST",
+      orderTrackingRequiredFields: ["email", "phone", "order_number"],
         
       titleG: "DKTrimmer ",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖 Jeg kan også se hvilke ukrudtsbørster, der passer på din model.",
