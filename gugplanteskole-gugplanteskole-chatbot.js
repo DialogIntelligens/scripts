@@ -567,13 +567,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       themeColor: "#386026",
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
-      headerTitleG: "Gug Planteskole AI",
+      headerTitleG: "Spørg Gro fra Gug Planteskole 🌸",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Gugs AI Gardener",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: " Din AI-gartner hos Gug 🌼",
+      firstMessage: "Hej 🌿 Jeg er Gro – din AI-gartner hos Gug Planteskole. Spørg mig om blomster, jord, beskæring eller plantesygdomme – jeg finder svar fra vores hjemmeside. Kan jeg ikke hjælpe, kan du altid kontakte mine menneske-kollegaer på mail eller telefon 📞",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
