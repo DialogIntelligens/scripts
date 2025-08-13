@@ -573,7 +573,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: " Din AI-gartner hos Gug 🌼",
-      firstMessage: "Hej 🌿 Jeg er Gro – din AI-gartner hos Gug Planteskole. Spørg mig om blomster, jord, beskæring eller plantesygdomme – jeg finder svar fra vores hjemmeside.",
+      firstMessage: "Hej 🌿 Jeg er Gro – din AI-gartner hos Gug Planteskole. Spørg mig om blomster, jord, beskæring eller plantesygdomme – jeg finder svar fra vores hjemmeside. Kan jeg ikke hjælpe, så kontakt mine menneske-kollegaer på mail eller telefon 📞",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
@@ -796,7 +796,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål 🌿";
+      const popupText = "Spørg Gro 🍃 – din AI-havehjælper";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
