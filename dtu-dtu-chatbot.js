@@ -565,15 +565,15 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755080811267.png",
       messageIcon: "",
       themeColor: "#712519",
-      aiMessageColor: "#e9ecef",
-      aiMessageTextColor: "#632a1e",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      aiMessageColor: "#f1f1f1",
+      aiMessageTextColor: "#000000",
+      headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "NIH's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "DTU's Virtuelle Assistent",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra kurser til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
@@ -796,7 +796,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+      const popupText = "Jeg kan anbefale kurser og besvare spørgsmål ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
