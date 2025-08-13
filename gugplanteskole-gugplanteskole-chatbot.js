@@ -573,7 +573,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: " Din AI-gartner hos Gug 🌼",
-      firstMessage: "Hej 🌿 Jeg er Gro – din AI-gartner hos Gug Planteskole. Spørg mig om blomster, jord, beskæring eller plantesygdomme – jeg finder svar fra vores hjemmeside. Kan jeg ikke hjælpe, kan du altid kontakte mine menneske-kollegaer på mail eller telefon 📞",
+      firstMessage: "Hej 🌿 Jeg er Gro – din AI-gartner hos Gug Planteskole. Spørg mig om blomster, jord, beskæring eller plantesygdomme – jeg finder svar fra vores hjemmeside.",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
