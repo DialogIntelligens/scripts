@@ -4,6 +4,11 @@ function purchaseKey(userId) {
 }
 
 function initChatbot() {
+    // Check if we're on the restricted URL
+    if (window.location.href.includes('idekassen.dk/dagtilbud')) {
+        console.log("Chatbot disabled on this page.");
+        return;
+    }
 
     const urlFlag = new URLSearchParams(window.location.search).get('chat');
 if (urlFlag === 'open') {
@@ -280,7 +285,7 @@ var css = `
 /* Popup container */
 #chatbase-message-bubbles {
   position: absolute;
-    bottom: 59px;
+    bottom: 47px;
     right: 32px;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
