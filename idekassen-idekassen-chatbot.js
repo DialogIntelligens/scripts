@@ -589,7 +589,6 @@ function sendMessageToIframe() {
         
       titleG: "Idekassens AI Assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra materialer til generelle spørgsmål, eller få personlige råd og anbefalinger til alle vores materialer.",
-      parentWebsiteUserId: websiteUserId,
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
   };
