@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
         headerTitleG: " ",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. \nHvis du ikke får svar på dit spørgsmål, kan du sende os en mail til hej@yaay.dk.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
           
