@@ -268,8 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: 11px;
-        right: 50px;
+        bottom: 6px;
+        right: 40px;
         scale: 0.55;
       }
       
