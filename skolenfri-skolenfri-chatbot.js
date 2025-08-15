@@ -381,7 +381,7 @@ var css = `
 
 
 :root {
-  --icon-color: #76c6de;
+  --icon-color: #d65900;
   --badge-color: #CC2B20;
 }
 
@@ -513,7 +513,6 @@ function sendMessageToIframe() {
   var iframe = document.getElementById("chat-iframe");
   var iframeWindow = iframe.contentWindow;
 
-  let websiteUserId = getOrCreateWebsiteUserId();
   var messageData = {
   action: 'integrationOptions',
   chatbotID: "skolenfri",
