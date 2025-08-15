@@ -1001,15 +1001,22 @@ checkBadgeVisibility();
 } // end of initChatbot
 
 // Initial attempt to load the chatbot.
+var isChatbotDisabledForPage = (window.location.hostname === 'idekassen.dk') && (window.location.pathname.startsWith('/dagtilbud'));
+if (!isChatbotDisabledForPage) {
 initChatbot();
+} else {
+  console.log('Chatbot disabled on idekassen.dk/dagtilbud');
+}
 
 // After 2 seconds, check if a key element is present; if not, reinitialize.
+if (!isChatbotDisabledForPage) {
 setTimeout(function() {
 if (!document.getElementById('chat-container')) {
   console.log("Chatbot not loaded after 2 seconds, retrying...");
   initChatbot();
 }
 }, 5000);
+}
 
 // Put this right after your initial `initChatbot();` call
 function fallbackResizeAndSend() {
@@ -1024,4 +1031,6 @@ function fallbackResizeAndSend() {
 }
 
 // Fire once after 1 s and again after 3 s
-[1000, 3000].forEach(delay => setTimeout(fallbackResizeAndSend, delay)); 
+if (!isChatbotDisabledForPage) {
+[1000, 3000].forEach(delay => setTimeout(fallbackResizeAndSend, delay));
+}
