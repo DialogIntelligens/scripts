@@ -252,7 +252,7 @@ var css = `
   border: none;
   position: fixed;
   z-index: 20;
-  right: -14px;
+  right: 0px;
   bottom: 60px;
 }
 #chat-button svg {
@@ -589,7 +589,6 @@ function sendMessageToIframe() {
         
   titleG: "Skolen Fris AI assistent",
   firstMessage: "Hej 😊 Spørg mig om alt – lige fra undervisning til generelle spørgsmål, eller få personlig vejledning 📚",
-  parentWebsiteUserId: websiteUserId,
   isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
   isPhoneView: window.innerWidth < 800
   };
