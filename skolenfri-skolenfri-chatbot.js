@@ -253,7 +253,7 @@ var css = `
   position: fixed;
   z-index: 20;
   right: -14px;
-  bottom: 36px;
+  bottom: 60px;
 }
 #chat-button svg {
   width: 70px;
@@ -280,7 +280,7 @@ var css = `
 /* Popup container */
 #chatbase-message-bubbles {
   position: absolute;
-    bottom: 35px;
+    bottom: 59px;
     right: 32px;
     border-radius: 20px;
     font-family: 'Montserrat', sans-serif;
