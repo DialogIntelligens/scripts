@@ -563,7 +563,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755359530671.png",
-      messageIcon: "",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755359826156.png",
       themeColor: "#212e48",
       aiMessageColor: "#d8d8d8",
       aiMessageTextColor: "#161f2e",
