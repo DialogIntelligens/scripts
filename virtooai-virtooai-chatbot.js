@@ -493,13 +493,13 @@ document.addEventListener('DOMContentLoaded', function() {
       themeColor: "#0074af",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
-      headerTitleG: "Spørg om mulighederne hos os!",
-      headerSubtitleG: "Hurtige svar til gode spørgsmål",
+      headerTitleG: "Gør AI simpelt",
+      headerSubtitleG: "- og få tid til det der skaber værdi",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "Virtoo",
-      firstMessage: "AI-potentialet venter",
+      firstMessage: "Book en uforpligtende snak eller chat direkte med vores AI-bot nu",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
