@@ -493,13 +493,13 @@ document.addEventListener('DOMContentLoaded', function() {
       themeColor: "#0074af",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
-      headerTitleG: "Spørg mig om alt om AI",
-      headerSubtitleG: "Hurtige svar til gode spørgsmål. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. ",
+      headerTitleG: "Spørg om mulighederne hos os!",
+      headerSubtitleG: "Hurtige svar til gode spørgsmål",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "Virtoo",
-      firstMessage: "Er du nysgerrig på vores services så spørg bare her!",
+      firstMessage: "AI-potentialet venter",
       parentWebsiteUserId: websiteUserId,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
