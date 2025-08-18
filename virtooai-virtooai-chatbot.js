@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', function() {
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
       headerTitleG: "Gør AI simpelt",
-      headerSubtitleG: "- og få tid til det der skaber værdi",
+      headerSubtitleG: "- og få tid til det, der skaber værdi",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
