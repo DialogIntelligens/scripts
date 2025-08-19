@@ -572,6 +572,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
 
+      fontFamily: "Inter, sans-serif",
+
       enableLivechat: true,
         
       titleG: "Humac assistent",
