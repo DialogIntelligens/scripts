@@ -561,6 +561,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       productButtonText: "SE PRODUKT",
       productButtonColor: "",
+      productButtonPadding "",
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
