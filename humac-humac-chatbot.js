@@ -559,7 +559,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       inputPlaceholder: "Skriv dit spørgsmål her...",
       ratingMessage: "Fik du besvaret dit spørgsmål?",
 
-      productButtonText: "SE PRODUKT",
+      productButtonText: "Se produkt",
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
