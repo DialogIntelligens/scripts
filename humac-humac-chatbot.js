@@ -560,6 +560,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingMessage: "Fik du besvaret dit spørgsmål?",
 
       productButtonText: "Se produkt",
+      productButtonColor: "#4639E1",
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
