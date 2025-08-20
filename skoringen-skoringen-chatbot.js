@@ -912,7 +912,7 @@ function trackChatbotOpen() {
             // This provides better consistency across different iPhone models
             iframe.style.height = 'clamp(500px, 85vh, 700px)';
         } else {
-            iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
+            iframe.style.width = 'calc(50vh + 8vw)'; // Restoring your old width calculation
             iframe.style.height = '90vh';
         }
       
