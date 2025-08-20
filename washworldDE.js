@@ -346,7 +346,7 @@ function toggleChatWindow() {
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
       iframe.style.height = '90vh';
     } else {
-      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(45vh + 6vw)';
+      iframe.style.width = window.innerWidth < 1000 ? '95vw' : 'calc(50vh + 8vw)';
       iframe.style.height = '90vh';
     }
 
