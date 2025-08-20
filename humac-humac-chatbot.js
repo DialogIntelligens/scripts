@@ -1,29 +1,47 @@
-// GTM-compatible initialization with proper timing
-document.addEventListener('DOMContentLoaded', function() {
-  var maxWaitTime = 10000; // Maximum 10 seconds wait for GTM
-  var startTime = Date.now();
+// Enhanced GTM-compatible initialization with debugging
+console.log('🚀 Chatbot script loaded, DOM state:', document.readyState);
+
+function initWithDebug() {
+  console.log('🔍 Starting chatbot initialization...');
+  console.log('📊 Current state:', {
+    documentReady: document.readyState,
+    bodyExists: !!document.body,
+    gtmExists: !!(window.google_tag_manager || typeof gtag !== 'undefined' || typeof dataLayer !== 'undefined'),
+    chatbotInitialized: !!window.chatbotInitialized
+  });
   
-  // Check if GTM is loaded, if not wait for it
-  function waitForGTM() {
-    var elapsed = Date.now() - startTime;
-    
-    if (typeof gtag !== 'undefined' || typeof dataLayer !== 'undefined' || window.google_tag_manager) {
-      // GTM is loaded, safe to initialize chatbot
-      console.log('GTM detected, initializing chatbot...');
-      initChatbotSafely();
-    } else if (elapsed < maxWaitTime) {
-      // GTM not loaded yet, wait a bit more
-      setTimeout(waitForGTM, 500);
-    } else {
-      // Fallback: Initialize anyway after max wait time
-      console.log('GTM wait timeout, initializing chatbot anyway...');
-      initChatbotSafely();
-    }
+  // Force immediate initialization for GTM context
+  if (document.readyState === 'loading') {
+    console.log('⏳ DOM still loading, waiting...');
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('✅ DOM loaded, initializing...');
+      setTimeout(initChatbotSafely, 100);
+    });
+  } else {
+    console.log('✅ DOM ready, initializing immediately...');
+    setTimeout(initChatbotSafely, 100);
   }
-  
-  // Start checking for GTM after initial delay
-  setTimeout(waitForGTM, 1000);
-});
+}
+
+// Try multiple initialization strategies for GTM
+if (document.readyState === 'complete') {
+  console.log('📄 Document already complete, initializing now...');
+  initWithDebug();
+} else if (document.readyState === 'interactive') {
+  console.log('📄 Document interactive, initializing now...');
+  initWithDebug();
+} else {
+  console.log('📄 Document loading, waiting for DOMContentLoaded...');
+  document.addEventListener('DOMContentLoaded', initWithDebug);
+}
+
+// Fallback for GTM context
+setTimeout(function() {
+  if (!window.chatbotInitialized) {
+    console.log('🔄 Fallback initialization triggered...');
+    initWithDebug();
+  }
+}, 2000);
 
 // Build a unique local-storage key for the current chatbot user
 function purchaseKey(userId) {
@@ -31,9 +49,23 @@ function purchaseKey(userId) {
 }
 
 function initChatbotSafely() {
+  console.log('🎯 initChatbotSafely called');
+  
   // Prevent multiple initializations
   if (window.chatbotInitialized) {
-    console.log("Chatbot already initialized.");
+    console.log("❌ Chatbot already initialized.");
+    return;
+  }
+  
+  console.log('🔧 Checking prerequisites:', {
+    bodyExists: !!document.body,
+    documentReady: document.readyState,
+    existingContainer: !!document.getElementById('chat-container')
+  });
+  
+  if (!document.body) {
+    console.log('❌ Document body not available, retrying...');
+    setTimeout(initChatbotSafely, 500);
     return;
   }
   
@@ -47,19 +79,26 @@ function initChatbotSafely() {
     
   // Check if already initialized
   if (document.getElementById('chat-container')) {
-    console.log("Chatbot already loaded.");
+    console.log("❌ Chatbot already loaded.");
     return;
   }
   
   // Mark as initialized
-  window.chatbotInitialized = true;            
+  window.chatbotInitialized = true;
+  console.log('✅ Chatbot initialization starting...');            
       // 1. Create a unique container for your widget (GTM-safe)
+    console.log('📦 Creating widget container...');
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
     
     // Use requestAnimationFrame for smoother DOM manipulation
     requestAnimationFrame(function() {
-      document.body.appendChild(widgetContainer);
+      try {
+        document.body.appendChild(widgetContainer);
+        console.log('✅ Widget container added to DOM');
+      } catch (error) {
+        console.error('❌ Error adding widget container:', error);
+      }
     });
 
       /**
@@ -502,10 +541,52 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
-    // GTM-safe DOM insertion with delay
-    requestAnimationFrame(function() {
-      document.body.insertAdjacentHTML('beforeend', chatbotHTML);
-    });
+    // GTM-safe DOM insertion - try immediate insertion first
+    console.log('🏗️ Inserting chatbot HTML...');
+    
+    function insertChatbotHTML() {
+      try {
+        document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+        console.log('✅ Chatbot HTML inserted successfully');
+        
+        // Verify elements were created
+        setTimeout(function() {
+          var chatContainer = document.getElementById('chat-container');
+          var chatButton = document.getElementById('chat-button');
+          var chatIframe = document.getElementById('chat-iframe');
+          
+          console.log('🔍 Verifying chatbot elements:', {
+            chatContainer: !!chatContainer,
+            chatButton: !!chatButton,
+            chatIframe: !!chatIframe,
+            buttonVisible: chatButton ? chatButton.style.display !== 'none' : false
+          });
+          
+          if (!chatContainer || !chatButton) {
+            console.error('❌ Critical chatbot elements missing!');
+          } else {
+            console.log('🎉 Chatbot successfully loaded and visible!');
+          }
+        }, 100);
+        
+      } catch (error) {
+        console.error('❌ Error inserting chatbot HTML:', error);
+      }
+    }
+    
+    // Try immediate insertion for GTM context
+    if (document.body) {
+      insertChatbotHTML();
+    } else {
+      // Fallback to requestAnimationFrame if body not ready
+      requestAnimationFrame(function() {
+        if (document.body) {
+          insertChatbotHTML();
+        } else {
+          setTimeout(insertChatbotHTML, 100);
+        }
+      });
+    }
   
     /**
      * 4. COOKIE FUNCTIONS
@@ -841,7 +922,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan besvare tekniske spørgsmål og anbefale produkter ";
+      const popupText = "Jeg kan besvare tekniske spørgsmål og anbefale produkter";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -1004,4 +1085,24 @@ function trackChatbotOpen() {
     // Initialize badge visibility
     checkBadgeVisibility();
 
-  } // end of initChatbotSafely  
+  } // end of initChatbotSafely
+
+// Manual trigger function for testing
+window.forceChatbotInit = function() {
+  console.log('🔧 Manual chatbot initialization triggered');
+  window.chatbotInitialized = false; // Reset flag
+  initChatbotSafely();
+};
+
+// Global debug function
+window.debugChatbot = function() {
+  console.log('🐛 Chatbot Debug Info:', {
+    initialized: !!window.chatbotInitialized,
+    chatContainer: !!document.getElementById('chat-container'),
+    chatButton: !!document.getElementById('chat-button'),
+    chatIframe: !!document.getElementById('chat-iframe'),
+    widgetContainer: !!document.getElementById('my-chat-widget'),
+    bodyExists: !!document.body,
+    documentState: document.readyState
+  });
+};  
