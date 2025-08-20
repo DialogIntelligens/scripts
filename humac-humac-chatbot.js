@@ -366,7 +366,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
       bottom: 12px;
-      right: 33px;
+      right: 36px;
       scale: 0.52;
     }
     
@@ -940,9 +940,9 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "480px";
+        popupElem.style.width = "460px";
       } else {
-        popupElem.style.width = "480px";
+        popupElem.style.width = "460px";
       }
 
      
