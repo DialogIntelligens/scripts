@@ -1,12 +1,42 @@
+// GTM-compatible initialization with proper timing
 document.addEventListener('DOMContentLoaded', function() {
-
-  // Build a unique local-storage key for the current chatbot user
-  function purchaseKey(userId) {
-    return `purchaseReported_${userId}`;
+  var maxWaitTime = 10000; // Maximum 10 seconds wait for GTM
+  var startTime = Date.now();
+  
+  // Check if GTM is loaded, if not wait for it
+  function waitForGTM() {
+    var elapsed = Date.now() - startTime;
+    
+    if (typeof gtag !== 'undefined' || typeof dataLayer !== 'undefined' || window.google_tag_manager) {
+      // GTM is loaded, safe to initialize chatbot
+      console.log('GTM detected, initializing chatbot...');
+      initChatbotSafely();
+    } else if (elapsed < maxWaitTime) {
+      // GTM not loaded yet, wait a bit more
+      setTimeout(waitForGTM, 500);
+    } else {
+      // Fallback: Initialize anyway after max wait time
+      console.log('GTM wait timeout, initializing chatbot anyway...');
+      initChatbotSafely();
+    }
   }
   
-  function initChatbot() {
+  // Start checking for GTM after initial delay
+  setTimeout(waitForGTM, 1000);
+});
 
+// Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
+
+function initChatbotSafely() {
+  // Prevent multiple initializations
+  if (window.chatbotInitialized) {
+    console.log("Chatbot already initialized.");
+    return;
+  }
+  
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
@@ -15,16 +45,22 @@ document.addEventListener('DOMContentLoaded', function() {
     history.replaceState(null, '', window.location.pathname);
   }
     
-    // Check if already initialized
-    if (document.getElementById('chat-container')) {
-      console.log("Chatbot already loaded.");
-      return;
-    }            
-      // 1. Create a unique container for your widget
+  // Check if already initialized
+  if (document.getElementById('chat-container')) {
+    console.log("Chatbot already loaded.");
+    return;
+  }
+  
+  // Mark as initialized
+  window.chatbotInitialized = true;            
+      // 1. Create a unique container for your widget (GTM-safe)
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);    
-
+    
+    // Use requestAnimationFrame for smoother DOM manipulation
+    requestAnimationFrame(function() {
+      document.body.appendChild(widgetContainer);
+    });
 
       /**
    * PURCHASE TRACKING
@@ -466,7 +502,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
-    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+    // GTM-safe DOM insertion with delay
+    requestAnimationFrame(function() {
+      document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+    });
   
     /**
      * 4. COOKIE FUNCTIONS
@@ -923,22 +962,18 @@ function trackChatbotOpen() {
     adjustIframeSize();
     window.addEventListener('resize', adjustIframeSize);
     
-    // Ensure chatbot loads - retry mechanism
+    // GTM-friendly single retry mechanism
     function ensureChatbotLoads() {
-      // Force the same actions that happen on resize
-      adjustIframeSize();
-      sendMessageToIframe();
+      // Only retry if not already loaded and GTM has had time to initialize
+      if (!document.getElementById('chat-container')) {
+        console.log("Chatbot retry attempt...");
+        adjustIframeSize();
+        sendMessageToIframe();
+      }
     }
     
-    // Try multiple times to ensure chatbot loads
-    setTimeout(ensureChatbotLoads, 500);   // After 0.5s
-    setTimeout(ensureChatbotLoads, 1500);  // After 1.5s
-    setTimeout(ensureChatbotLoads, 3000);  // After 3s
-    
-    // Also trigger on window load event (in case DOMContentLoaded fired too early)
-    window.addEventListener('load', function() {
-      setTimeout(ensureChatbotLoads, 100);
-    });
+    // Single retry after GTM has initialized
+    setTimeout(ensureChatbotLoads, 2000);  // Single retry after 2s
   
     // Attach event listener to chat-button
     document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
@@ -969,17 +1004,4 @@ function trackChatbotOpen() {
     // Initialize badge visibility
     checkBadgeVisibility();
 
-  } // end of initChatbot
-  
-  // Initial attempt to load the chatbot.
-  initChatbot();
-  
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
-  setTimeout(function() {
-    if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
-      initChatbot();
-    }
-  }, 5000);
-        
-});  
+  } // end of initChatbotSafely  
