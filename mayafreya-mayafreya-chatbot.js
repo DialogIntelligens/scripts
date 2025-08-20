@@ -886,7 +886,7 @@ function trackChatbotOpen() {
             iframe.style.width = '95vw';
             iframe.style.height = '90vh';
         } else {
-            iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
+            iframe.style.width = 'calc(50vh + 8vw)'; // Restoring your old width calculation
             iframe.style.height = '90vh';
         }
       
