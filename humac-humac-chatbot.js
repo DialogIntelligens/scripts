@@ -565,7 +565,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productImageHeightMultiplier: 1,
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755154678975.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
       themeColor: "#1a1d56",
       aiMessageColor: "#e5eaf5",
       aiMessageTextColor: "#262641",
@@ -802,7 +802,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+      const popupText = "Jeg kan besvare tekniske spørgsmål og anbefale produkter";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
