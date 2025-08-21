@@ -1,12 +1,47 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Enhanced GTM-compatible initialization
+function initWithDebug() {
+  // Force immediate initialization for GTM context
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(initChatbotSafely, 100);
+    });
+  } else {
+    setTimeout(initChatbotSafely, 100);
+  }
+}
 
-  // Build a unique local-storage key for the current chatbot user
-  function purchaseKey(userId) {
-    return `purchaseReported_${userId}`;
+// Try multiple initialization strategies for GTM
+if (document.readyState === 'complete') {
+  initWithDebug();
+} else if (document.readyState === 'interactive') {
+  initWithDebug();
+} else {
+  document.addEventListener('DOMContentLoaded', initWithDebug);
+}
+
+// Fallback for GTM context
+setTimeout(function() {
+  if (!window.chatbotInitialized) {
+    initWithDebug();
+  }
+}, 2000);
+
+// Build a unique local-storage key for the current chatbot user
+function purchaseKey(userId) {
+  return `purchaseReported_${userId}`;
+}
+
+function initChatbotSafely() {
+  // Prevent multiple initializations
+  if (window.chatbotInitialized) {
+    return;
   }
   
-  function initChatbot() {
-
+  if (!document.body) {
+    setTimeout(initChatbotSafely, 500);
+    return;
+  }
+  
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
   if (urlFlag === 'open') {
     // remember the preference so refreshes or internal navigation keep it open
@@ -15,16 +50,25 @@ document.addEventListener('DOMContentLoaded', function() {
     history.replaceState(null, '', window.location.pathname);
   }
     
-    // Check if already initialized
-    if (document.getElementById('chat-container')) {
-      console.log("Chatbot already loaded.");
-      return;
-    }            
-      // 1. Create a unique container for your widget
+  // Check if already initialized
+  if (document.getElementById('chat-container')) {
+    return;
+  }
+  
+  // Mark as initialized
+  window.chatbotInitialized = true;            
+      // 1. Create a unique container for your widget (GTM-safe)
     var widgetContainer = document.createElement('div');
     widgetContainer.id = 'my-chat-widget';
-    document.body.appendChild(widgetContainer);    
-
+    
+    // Use requestAnimationFrame for smoother DOM manipulation
+    requestAnimationFrame(function() {
+      try {
+        document.body.appendChild(widgetContainer);
+      } catch (error) {
+        // Silent error handling
+      }
+    });
 
       /**
    * PURCHASE TRACKING
@@ -49,7 +93,7 @@ let hasReportedPurchase = false;  // <-- add this line
     let totalPrice = null;
     let highestValue = 0;
   
-  console.log('Starting price extraction...');
+  // Price extraction logic
     
     // Method 1: Try common selectors for price elements
     const priceSelectors = [
@@ -63,14 +107,14 @@ let hasReportedPurchase = false;  // <-- add this line
     // Loop through each selector
     for (const selector of priceSelectors) {
       const elements = document.querySelectorAll(selector);
-    console.log(`Checking selector "${selector}": found ${elements.length} elements`);
+    // Check elements for selector
       
       if (elements && elements.length > 0) {
         
         // Check each element that matches the selector
         for (const element of elements) {
           const priceText = element.textContent.trim();
-        console.log(`Element text: "${priceText}"`);
+        // Extract price from element text
         
         // Extract Danish currency format (100,00 kr.) and other formats
         const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
@@ -84,7 +128,7 @@ let hasReportedPurchase = false;  // <-- add this line
           allMatches = allMatches.concat(regularMatches);
         }
         
-        console.log(`Found matches:`, allMatches);
+        // Process found matches
         
         if (allMatches && allMatches.length > 0) {
             // Process each potential price number
@@ -113,17 +157,17 @@ let hasReportedPurchase = false;  // <-- add this line
               }
             }
             
-            console.log(`Cleaned match: "${cleanedMatch}"`);
+            // Clean price match
               
               // Convert to number
               const numValue = parseFloat(cleanedMatch);
-            console.log(`Parsed number: ${numValue}`);
+            // Parse number value
               
               // Keep the highest value found
               if (!isNaN(numValue) && numValue > highestValue) {
                 highestValue = numValue;
                 totalPrice = numValue;
-              console.log(`New highest price: ${totalPrice}`);
+              // Update highest price
               }
             }
           }
@@ -131,7 +175,7 @@ let hasReportedPurchase = false;  // <-- add this line
       }
     }
     
-  console.log(`Final extracted price: ${totalPrice}`);
+  // Return final extracted price
     return totalPrice;
   }
 
@@ -140,32 +184,26 @@ function reportPurchase(totalPrice) {
   /* Abort if we already stored a flag for this user
      (covers page refreshes & navigation).           */
   if (localStorage.getItem(purchaseKey(chatbotUserId))) {   // ★ NEW
-    console.log('Purchase already logged for user – skip');
     hasReportedPurchase = true;                             // ★ NEW
     return;
   }
-
-  console.log('Reporting purchase:', { userId: chatbotUserId, amount: totalPrice });
 
   fetch('https://egendatabasebackend.onrender.com/purchases', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'test',
+      chatbot_id:'humac',
       amount:    totalPrice
     })
   })
   .then(res => {
     if (res.ok) {
-      console.log('Purchase reported successfully');
       hasReportedPurchase = true;
       localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-    } else {
-      console.error('Failed to report purchase:', res.status);
     }
   })
-  .catch(err => console.error('Error reporting purchase:', err));
+  .catch(err => {/* Silent error handling */});
 }
 
 // -------------------------------------------------------
@@ -181,7 +219,6 @@ function checkForPurchase() {
 }
 
 // Check for purchase immediately and then periodically
-console.log('Setting up purchase tracking timers...');
 setTimeout(checkForPurchase, 1000); // Check after 1 second
 setTimeout(checkForPurchase, 3000); // Check again after 3 seconds  
 setTimeout(checkForPurchase, 5000); // Check again after 5 seconds
@@ -193,14 +230,14 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "test";
+    var chatbotID = "humac";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
     document.head.appendChild(fontLink);
   
     /**
-     * 2. INJECT CSS
+     * 2. INJECT CSS (with configuration variables)
      */
     var css = `
     /* ----------------------------------------
@@ -290,9 +327,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: 9px;
-      right: 40px;
-      scale: 0.55;
+      bottom: 12px;
+      right: 36px;
+      scale: 0.52;
     }
     
     #chatbase-message-bubbles::after {
@@ -348,8 +385,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: 12px;
-        right: 55px;
+        bottom: 13px;
+        right: 32px;
         scale: 0.50;
       }
       
@@ -369,8 +406,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #000000;
-      --badge-color: #CC2B20;
+      --icon-color: ${ICON_COLOR};
+      --badge-color: ${BADGE_COLOR};
     }
     
     /* Notification badge styles */
@@ -424,9 +461,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       padding: 12px 55px 12px 20px;
     }
     `;
-    var style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    document.head.appendChild(style);
+    // CSS injection moved to after configuration variables
   
     /**
      * 3. INJECT HTML
@@ -466,7 +501,38 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
-    document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+    // GTM-safe DOM insertion - try immediate insertion first
+    function insertChatbotHTML() {
+      try {
+        document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+        
+        // Verify elements were created
+        setTimeout(function() {
+          var chatContainer = document.getElementById('chat-container');
+          var chatButton = document.getElementById('chat-button');
+          var chatIframe = document.getElementById('chat-iframe');
+          
+          // Silent verification - no logging needed
+        }, 100);
+        
+      } catch (error) {
+        // Silent error handling
+      }
+    }
+    
+    // Try immediate insertion for GTM context
+    if (document.body) {
+      insertChatbotHTML();
+    } else {
+      // Fallback to requestAnimationFrame if body not ready
+      requestAnimationFrame(function() {
+        if (document.body) {
+          insertChatbotHTML();
+        } else {
+          setTimeout(insertChatbotHTML, 100);
+        }
+      });
+    }
   
     /**
      * 4. COOKIE FUNCTIONS
@@ -495,7 +561,28 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     }
   
     /**
-     * 5. CHAT IFRAME LOGIC
+     * 5. CONFIGURATION SETTINGS (Easy to find and modify)
+     * 
+     * QUICK EDIT SECTION - Change these values as needed:
+     * - POPUP_TEXT: The message shown in the popup bubble
+     * - ICON_COLOR: Main chatbot button color
+     * - BADGE_COLOR: Notification badge color
+     */
+    
+    // Popup message text - modify this as needed
+    var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
+    
+    // Color configuration - modify these as needed
+    var ICON_COLOR = "#1a1d56";
+    var BADGE_COLOR = "#CC2B20";
+
+    // Inject CSS with configuration variables
+    var style = document.createElement('style');
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+
+    /**
+     * 6. CHAT IFRAME LOGIC
      */
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
@@ -504,7 +591,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "test",
+      chatbotID: "humac",
       pagePath: window.location.href,
       flow2Key: "",
       flow3Key: "product",
@@ -521,10 +608,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",
-      knowledgebaseIndexApiEndpoint: "",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
+      knowledgebaseIndexApiEndpoint: "humac-alt",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "humac-pro",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
@@ -557,24 +644,28 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       freshdeskSubjectText: 'Din henvendelse',
 
       inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+      ratingMessage: "Fik du besvaret dit spørgsmål?",
 
-      productButtonText: "SE PRODUKT",
-      productButtonColor: "",
-      productButtonPadding: "",
+      productButtonText: "Se produkt",
+      productButtonColor: "#4639E1",
+      productButtonPadding: "11px 20px",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1739887511831.png",
-      messageIcon: "",
-      themeColor: "#224e9a",
-      aiMessageColor: "#e9ecef",
-      aiMessageTextColor: "#000000",
-      headerTitleG: "Nordjyllands Idrætshøjskole",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
+      themeColor: "#1a1d56",
+      aiMessageColor: "#e5eaf5",
+      aiMessageTextColor: "#262641",
+      headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
+
+      fontFamily: "Inter, sans-serif",
+
+      enableLivechat: true,
         
-      titleG: "NIH's Virtuelle Assistent",
+      titleG: "Humac assistent",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
@@ -587,7 +678,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         try {
           iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
         } catch (e) {
-          console.error("Error posting message to iframe:", e);
+          // Silent error handling
         }
       } else {
         // If not visible, assign onload to post the message when it appears.
@@ -595,7 +686,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
           try {
             iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
           } catch (e) {
-            console.error("Error posting message on iframe load:", e);
+            // Silent error handling
           }
         };
       }
@@ -621,7 +712,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     // Handle the new message from the iframe
     chatbotUserId = event.data.userId;
     localStorage.setItem('chatbotUserId', chatbotUserId);
-    console.log("Received and stored chatbotUserId:", chatbotUserId);
     
     // If we're on a checkout page, immediately check for purchase
     if (isCheckoutPage()) {
@@ -661,8 +751,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
  * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
  */
 function trackChatbotOpen() {
-  console.log('trackChatbotOpen called - chatbotID:', chatbotID);
-  
   // If chatbotID is not available yet, try to get it from the URL or try again later
   var currentChatbotID = chatbotID;
   if (!currentChatbotID) {
@@ -671,7 +759,6 @@ function trackChatbotOpen() {
     for (var i = 0; i < allKeys.length; i++) {
       if (allKeys[i].startsWith('userId_')) {
         currentChatbotID = allKeys[i].replace('userId_', '');
-        console.log('Found chatbotID from localStorage key:', currentChatbotID);
         break;
       }
     }
@@ -680,7 +767,6 @@ function trackChatbotOpen() {
   // Only track once per session to avoid duplicate entries
   var sessionKey = 'chatbotOpened_' + currentChatbotID;
   if (sessionStorage.getItem(sessionKey)) {
-    console.log('Already tracked in this session for chatbot:', currentChatbotID);
     return; // Already tracked in this session
   }
 
@@ -690,22 +776,15 @@ function trackChatbotOpen() {
   if (!userId && currentChatbotID) {
     userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
     localStorage.setItem('userId_' + currentChatbotID, userId);
-    console.log('Created new userId for tracking:', userId);
   }
   
-  console.log('trackChatbotOpen - userId:', userId, 'chatbotID:', currentChatbotID);
-  
   if (!userId || !currentChatbotID) {
-    console.warn('Missing userId or chatbotID - userId:', userId, 'chatbotID:', currentChatbotID);
     // If we still don't have the data, try again in a short while
     if (!currentChatbotID) {
-      console.log('Will retry tracking in 1 second...');
       setTimeout(trackChatbotOpen, 1000);
     }
     return; // No user ID or chatbot ID available
   }
-
-  console.log('Sending tracking request for chatbot:', currentChatbotID, 'user:', userId);
   
   // Send tracking data to backend
   fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
@@ -722,16 +801,10 @@ function trackChatbotOpen() {
     if (response.ok) {
       // Mark as tracked in this session
       sessionStorage.setItem(sessionKey, 'true');
-      console.log('Chatbot open tracked successfully for:', currentChatbotID);
-    } else {
-      console.warn('Failed to track chatbot open:', response.status);
-      return response.text().then(function(text) {
-        console.warn('Response text:', text);
-      });
     }
   })
   .catch(function(error) {
-    console.warn('Error tracking chatbot open:', error);
+    // Silent error handling
   });
 }
   
@@ -798,8 +871,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      messageBox.innerHTML = `${POPUP_TEXT} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -888,7 +960,7 @@ function trackChatbotOpen() {
             iframe.style.width = '95vw';
             iframe.style.height = '90vh';
         } else {
-            iframe.style.width = 'calc(45vh + 6vw)'; // Restoring your old width calculation
+            iframe.style.width = 'calc(50vh + 8vw)'; // Restoring your old width calculation
             iframe.style.height = '90vh';
         }
       
@@ -919,22 +991,17 @@ function trackChatbotOpen() {
     adjustIframeSize();
     window.addEventListener('resize', adjustIframeSize);
     
-    // Ensure chatbot loads - retry mechanism
+    // GTM-friendly single retry mechanism
     function ensureChatbotLoads() {
-      // Force the same actions that happen on resize
-      adjustIframeSize();
-      sendMessageToIframe();
+      // Only retry if not already loaded and GTM has had time to initialize
+      if (!document.getElementById('chat-container')) {
+        adjustIframeSize();
+        sendMessageToIframe();
+      }
     }
     
-    // Try multiple times to ensure chatbot loads
-    setTimeout(ensureChatbotLoads, 500);   // After 0.5s
-    setTimeout(ensureChatbotLoads, 1500);  // After 1.5s
-    setTimeout(ensureChatbotLoads, 3000);  // After 3s
-    
-    // Also trigger on window load event (in case DOMContentLoaded fired too early)
-    window.addEventListener('load', function() {
-      setTimeout(ensureChatbotLoads, 100);
-    });
+    // Single retry after GTM has initialized
+    setTimeout(ensureChatbotLoads, 2000);  // Single retry after 2s
   
     // Attach event listener to chat-button
     document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
@@ -965,17 +1032,23 @@ function trackChatbotOpen() {
     // Initialize badge visibility
     checkBadgeVisibility();
 
-  } // end of initChatbot
-  
-  // Initial attempt to load the chatbot.
-  initChatbot();
-  
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
-  setTimeout(function() {
-    if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
-      initChatbot();
-    }
-  }, 5000);
-        
-});  
+  } // end of initChatbotSafely
+
+// Manual trigger function for testing (no logging)
+window.forceChatbotInit = function() {
+  window.chatbotInitialized = false; // Reset flag
+  initChatbotSafely();
+};
+
+// Global debug function (no logging)
+window.debugChatbot = function() {
+  return {
+    initialized: !!window.chatbotInitialized,
+    chatContainer: !!document.getElementById('chat-container'),
+    chatButton: !!document.getElementById('chat-button'),
+    chatIframe: !!document.getElementById('chat-iframe'),
+    widgetContainer: !!document.getElementById('my-chat-widget'),
+    bodyExists: !!document.body,
+    documentState: document.readyState
+  };
+};  
