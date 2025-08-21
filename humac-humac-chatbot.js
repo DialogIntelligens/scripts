@@ -632,6 +632,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       leadGen: "%%",
       leadMail: "kontakt@humac.com",
+      toHumanMail: true,
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
