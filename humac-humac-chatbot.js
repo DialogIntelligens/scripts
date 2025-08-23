@@ -1054,8 +1054,38 @@ function trackChatbotOpen() {
       }
     }
     
+    // Enhanced visibility trigger function - simulates resize events to ensure chatbot shows
+    function triggerVisibilityCheck() {
+      console.log('🔍 Triggering visibility check...');
+      
+      // Call adjustIframeSize which handles all the positioning and sizing logic
+      adjustIframeSize();
+      
+      // Also trigger a window resize event to activate any other resize listeners
+      window.dispatchEvent(new Event('resize'));
+      
+      // Force a reflow by accessing offsetHeight
+      var chatContainer = document.getElementById('chat-container');
+      var chatButton = document.getElementById('chat-button');
+      
+      if (chatContainer) {
+        var height = chatContainer.offsetHeight; // Force reflow
+      }
+      if (chatButton) {
+        var height = chatButton.offsetHeight; // Force reflow
+      }
+      
+      console.log('✅ Visibility check completed');
+    }
+    
     // Single retry after GTM has initialized
     setTimeout(ensureChatbotLoads, 2000);  // Single retry after 2s
+    
+    // Multiple visibility triggers to ensure chatbot loads properly
+    setTimeout(triggerVisibilityCheck, 500);   // Quick first check
+    setTimeout(triggerVisibilityCheck, 1500);  // Second check
+    setTimeout(triggerVisibilityCheck, 3000);  // Third check
+    setTimeout(triggerVisibilityCheck, 5000);  // Final check
   
     // Attach event listener to chat-button
     document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
