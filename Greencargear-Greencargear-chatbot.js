@@ -568,7 +568,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       aiMessageColor: "#e6e6e6",
       aiMessageTextColor: "#000000",
       headerTitleG: "",
-      headerSubtitleG: "Ved at bruge chatbotten accepterer du at der kan opstå fejl, og at samtalen gemmes og behandles. Har du behov for menneskelig hjælp, kan du altid kontakte vores kundeservice på hey@greencargear.dk",
+      headerSubtitleG: "Ved at bruge chatbotten accepterer du at der kan opstå fejl, og at samtalen gemmes og behandles. Har du behov for menneskelig hjælp, kan du altid kontakte vores kundeservice på mail: hey@greencargear.dk eller\n på telefonnummer: 70 60 40 61",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
