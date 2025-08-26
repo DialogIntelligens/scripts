@@ -220,20 +220,30 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* ----------------------------------------
        A) ANIMATIONS
        ---------------------------------------- */
+    @-webkit-keyframes blink-eye {
+      0%, 100% { -webkit-transform: scaleY(1); transform: scaleY(1); }
+      50% { -webkit-transform: scaleY(0.1); transform: scaleY(0.1); }
+    }
     @keyframes blink-eye {
-      0%, 100% { transform: scaleY(1); }
-      50% { transform: scaleY(0.1); }
+      0%, 100% { -webkit-transform: scaleY(1); transform: scaleY(1); }
+      50% { -webkit-transform: scaleY(0.1); transform: scaleY(0.1); }
+    }
+    @-webkit-keyframes jump {
+      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+      50% { -webkit-transform: translateY(-10px); transform: translateY(-10px); }
     }
     @keyframes jump {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      0%, 100% { -webkit-transform: translateY(0); transform: translateY(0); }
+      50% { -webkit-transform: translateY(-10px); transform: translateY(-10px); }
     }
     #funny-smiley.blink {
       display: inline-block;
+      -webkit-animation: blink-eye 0.5s ease-in-out 2;
       animation: blink-eye 0.5s ease-in-out 2;
     }
     #funny-smiley.jump {
       display: inline-block;
+      -webkit-animation: jump 0.5s ease-in-out 2;
       animation: jump 0.5s ease-in-out 2;
     }
   
@@ -244,34 +254,66 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       position: fixed;
       bottom: 20px;
       right: 10px;
-      z-index: 200;
+      z-index: 2147483647; /* Maximum z-index value for better layering */
+      -webkit-transform: translateZ(0); /* Force hardware acceleration on Safari */
+      transform: translateZ(0);
     }
     #chat-button {
       cursor: pointer;
       background: none;
       border: none;
       position: relative;
-      z-index: 20;
+      z-index: 2147483647;
       right: 0px;
       bottom: 16px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile Safari */
     }
     #chat-button svg {
       width: 65px;
       height: 65px;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s, -webkit-transform 0.3s, transform 0.3s;
+      -webkit-transition: opacity 0.3s, -webkit-transform 0.3s, transform 0.3s;
+      display: block; /* Ensure SVG displays properly in all browsers */
     }
-    #chat-button:hover svg {
+    #chat-button:hover svg,
+    #chat-button:focus svg {
       opacity: 0.7;
+      -webkit-transform: scale(1.1);
       transform: scale(1.1);
     }
+    
+    /* Add touch support for mobile Safari */
+    #chat-button:active svg {
+      opacity: 0.5;
+      -webkit-transform: scale(0.95);
+      transform: scale(0.95);
+    }
   
-    /* Popup rise animation */
-    @keyframes rise-from-bottom {
+    /* Popup rise animation with webkit prefixes */
+    @-webkit-keyframes rise-from-bottom {
       0% {
+        -webkit-transform: translateY(50px);
         transform: translateY(50px);
         opacity: 0;
       }
       100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes rise-from-bottom {
+      0% {
+        -webkit-transform: translateY(50px);
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0);
         transform: translateY(0);
         opacity: 1;
       }
@@ -280,18 +322,22 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Popup container */
     #chatbase-message-bubbles {
       position: absolute;
-        bottom: 17px;
-        right: 55px;
-        border-radius: 20px;
-        font-family: 'Montserrat', sans-serif;
+      bottom: 17px;
+      right: 55px;
+      border-radius: 20px;
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 20px;
-      z-index: 18;
-        scale: 0.60;
+      z-index: 2147483646; /* Just below chat button */
+      -webkit-transform: scale(0.60);
+      -ms-transform: scale(0.60);
+      transform: scale(0.60);
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
       gap: 50px;
       background-color: white;
+      -webkit-transform-origin: bottom right;
+      -ms-transform-origin: bottom right;
       transform-origin: bottom right;
       box-shadow:
         0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15),
@@ -299,14 +345,21 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         0px 10px 9px -4px rgba(0, 0, 0, 0.04),
         rgba(0, 0, 0, 0.125) 0px 0.362176px 0.941657px -1px,
         rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
+      -webkit-animation: rise-from-bottom 0.6s ease-out;
       animation: rise-from-bottom 0.6s ease-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
       bottom: 9px;
       right: 40px;
-      scale: 0.55;
+      -webkit-transform: scale(0.55);
+      -ms-transform: scale(0.55);
+      transform: scale(0.55);
     }
     
     #chatbase-message-bubbles::after {
@@ -364,7 +417,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       #chatbase-message-bubbles.long-message {
         bottom: -2px;
         right: 55px;
-        scale: 0.50;
+        -webkit-transform: scale(0.50);
+        -ms-transform: scale(0.50);
+        transform: scale(0.50);
       }
       
       /* Always show close button on mobile as simple X */
@@ -477,7 +532,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <iframe
         id="chat-iframe"
         src="https://skalerbartprodukt.onrender.com"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+        allow="microphone; camera; geolocation"
+        sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox"
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 2147483645; -webkit-transform: translateZ(0); transform: translateZ(0);">
       </iframe>
     `;
     document.body.insertAdjacentHTML('beforeend', chatbotHTML);
@@ -514,7 +571,20 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      */
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
-      var iframeWindow = iframe.contentWindow;
+      
+      // Check if iframe exists and is loaded
+      if (!iframe) {
+        console.warn('Iframe not found');
+        return;
+      }
+      
+      var iframeWindow;
+      try {
+        iframeWindow = iframe.contentWindow;
+      } catch (e) {
+        console.warn('Cannot access iframe contentWindow:', e);
+        return;
+      }
 
       var messageData = {
       action: 'integrationOptions',
@@ -605,19 +675,28 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
-        try {
-          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
-        } catch (e) {
-          console.error("Error posting message to iframe:", e);
-        }
-      } else {
-        // If not visible, assign onload to post the message when it appears.
-        iframe.onload = function() {
+        setTimeout(function() {
           try {
             iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
           } catch (e) {
-            console.error("Error posting message on iframe load:", e);
+            console.error("Error posting message to iframe:", e);
           }
+        }, 100); // Small delay to ensure iframe is ready
+      } else {
+        // If not visible, assign onload to post the message when it appears.
+        iframe.onload = function() {
+          setTimeout(function() {
+            try {
+              iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            } catch (e) {
+              console.error("Error posting message on iframe load:", e);
+            }
+          }, 100);
+        };
+        
+        // Also try after iframe becomes visible
+        iframe.onerror = function() {
+          console.error("Iframe failed to load");
         };
       }
     }
@@ -789,7 +868,11 @@ function trackChatbotOpen() {
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
         setTimeout(function() {
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+          try {
+            iframe.contentWindow.postMessage({ action: 'chatOpened' }, 'https://skalerbartprodukt.onrender.com');
+          } catch (e) {
+            console.warn('Could not send chatOpened message:', e);
+          }
         }, 100);
       }
     }
@@ -879,7 +962,25 @@ function trackChatbotOpen() {
 
     // Add event listener to popup so clicking on it (except the close button) toggles the chat window
     var popupContainer = document.getElementById("chatbase-message-bubbles");
+    
+    // Click handler
     popupContainer.addEventListener("click", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Ensure that clicking on the close button does not trigger toggling the chat
+      if (e.target.closest(".close-popup") === null) {
+        toggleChatWindow();
+      }
+    });
+    
+    // Touch handlers for mobile Safari
+    popupContainer.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+    });
+    
+    popupContainer.addEventListener("touchend", function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       // Ensure that clicking on the close button does not trigger toggling the chat
       if (e.target.closest(".close-popup") === null) {
         toggleChatWindow();
@@ -960,8 +1061,26 @@ function trackChatbotOpen() {
       setTimeout(ensureChatbotLoads, 100);
     });
   
-    // Attach event listener to chat-button
-    document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+    // Attach multiple event listeners for better browser compatibility
+    var chatButton = document.getElementById('chat-button');
+    
+    // Add click event with preventDefault to avoid any default behavior
+    chatButton.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleChatWindow();
+    });
+    
+    // Add touch events for mobile Safari
+    chatButton.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+    });
+    
+    chatButton.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleChatWindow();
+    });
 
   const isPhoneView = window.innerWidth < 800;
     // Modify the initial chat window state logic
@@ -983,21 +1102,42 @@ function trackChatbotOpen() {
   }
 
    
-    // Chat button click
-    document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
+    // Chat button click (remove duplicate - already handled above)
     
     // Initialize badge visibility
     checkBadgeVisibility();
 
   } // end of initChatbot
   
-  // Initial attempt to load the chatbot.
-  initChatbot();
+  // Wait for DOM to be fully loaded before initializing
+  function initializeWhenReady() {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        initChatbot();
+      });
+    } else {
+      // DOM is already loaded
+      initChatbot();
+    }
+  }
   
-  // After 2 seconds, check if a key element is present; if not, reinitialize.
+  // Initial attempt to load the chatbot
+  initializeWhenReady();
+  
+  // Backup initialization for Safari and other browsers that might have issues
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      if (!document.getElementById('chat-container')) {
+        console.log("Chatbot not loaded after page load, retrying...");
+        initChatbot();
+      }
+    }, 1000);
+  });
+  
+  // Final fallback after 5 seconds
   setTimeout(function() {
     if (!document.getElementById('chat-container')) {
-      console.log("Chatbot not loaded after 2 seconds, retrying...");
+      console.log("Chatbot not loaded after 5 seconds, final retry...");
       initChatbot();
     }
   }, 5000);
