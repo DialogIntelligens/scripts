@@ -653,7 +653,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-      themeColor: "#224e9a",
+      themeColor: "#e5d58f",
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
       headerTitleG: "",
@@ -665,7 +665,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       enableLivechat: true,
         
-      titleG: "Humac assistent",
+      titleG: "Storeandstefterskole",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
