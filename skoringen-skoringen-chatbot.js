@@ -296,25 +296,77 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Popup rise animation with webkit prefixes */
     @-webkit-keyframes rise-from-bottom {
       0% {
-        -webkit-transform: translateY(50px);
-        transform: translateY(50px);
+        -webkit-transform: scale(0.60) translateY(50px);
+        transform: scale(0.60) translateY(50px);
         opacity: 0;
       }
       100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
+        -webkit-transform: scale(0.60) translateY(0);
+        transform: scale(0.60) translateY(0);
         opacity: 1;
       }
     }
     @keyframes rise-from-bottom {
       0% {
-        -webkit-transform: translateY(50px);
-        transform: translateY(50px);
+        -webkit-transform: scale(0.60) translateY(50px);
+        transform: scale(0.60) translateY(50px);
         opacity: 0;
       }
       100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
+        -webkit-transform: scale(0.60) translateY(0);
+        transform: scale(0.60) translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Animation for long messages */
+    @-webkit-keyframes rise-from-bottom-long {
+      0% {
+        -webkit-transform: scale(0.55) translateY(50px);
+        transform: scale(0.55) translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: scale(0.55) translateY(0);
+        transform: scale(0.55) translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes rise-from-bottom-long {
+      0% {
+        -webkit-transform: scale(0.55) translateY(50px);
+        transform: scale(0.55) translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: scale(0.55) translateY(0);
+        transform: scale(0.55) translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Animation for mobile long messages */
+    @-webkit-keyframes rise-from-bottom-mobile {
+      0% {
+        -webkit-transform: scale(0.50) translateY(50px);
+        transform: scale(0.50) translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: scale(0.50) translateY(0);
+        transform: scale(0.50) translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes rise-from-bottom-mobile {
+      0% {
+        -webkit-transform: scale(0.50) translateY(50px);
+        transform: scale(0.50) translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: scale(0.50) translateY(0);
+        transform: scale(0.50) translateY(0);
         opacity: 1;
       }
     }
@@ -328,9 +380,10 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 20px;
       z-index: 2147483646; /* Just below chat button */
-      -webkit-transform: scale(0.60);
-      -ms-transform: scale(0.60);
-      transform: scale(0.60);
+      -webkit-transform: scale(0.60) translateY(50px);
+      -ms-transform: scale(0.60) translateY(50px);
+      transform: scale(0.60) translateY(50px);
+      opacity: 0;
       cursor: pointer;
       display: none; /* hidden by default */
       flex-direction: column;
@@ -345,21 +398,32 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         0px 10px 9px -4px rgba(0, 0, 0, 0.04),
         rgba(0, 0, 0, 0.125) 0px 0.362176px 0.941657px -1px,
         rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px;
-      -webkit-animation: rise-from-bottom 0.6s ease-out;
-      animation: rise-from-bottom 0.6s ease-out;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+      /* Initial state - hidden and scaled down */
+    }
+    
+    /* When popup is shown, animate to visible state */
+    #chatbase-message-bubbles.show {
+      -webkit-animation: rise-from-bottom 0.6s ease-out forwards;
+      animation: rise-from-bottom 0.6s ease-out forwards;
     }
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
       bottom: 9px;
       right: 40px;
-      -webkit-transform: scale(0.55);
-      -ms-transform: scale(0.55);
-      transform: scale(0.55);
+      -webkit-transform: scale(0.55) translateY(50px);
+      -ms-transform: scale(0.55) translateY(50px);
+      transform: scale(0.55) translateY(50px);
+    }
+    
+    /* When long message popup is shown, animate to visible state */
+    #chatbase-message-bubbles.long-message.show {
+      -webkit-animation: rise-from-bottom-long 0.6s ease-out forwards;
+      animation: rise-from-bottom-long 0.6s ease-out forwards;
     }
     
     #chatbase-message-bubbles::after {
@@ -417,9 +481,15 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       #chatbase-message-bubbles.long-message {
         bottom: -2px;
         right: 55px;
-        -webkit-transform: scale(0.50);
-        -ms-transform: scale(0.50);
-        transform: scale(0.50);
+        -webkit-transform: scale(0.50) translateY(50px);
+        -ms-transform: scale(0.50) translateY(50px);
+        transform: scale(0.50) translateY(50px);
+      }
+      
+      /* Mobile animation for long messages */
+      #chatbase-message-bubbles.long-message.show {
+        -webkit-animation: rise-from-bottom-mobile 0.6s ease-out forwards;
+        animation: rise-from-bottom-mobile 0.6s ease-out forwards;
       }
       
       /* Always show close button on mobile as simple X */
@@ -501,9 +571,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 3. INJECT HTML
      */
     var chatbotHTML = `
-      <div id="chat-container">
+      <div id="chat-container" style="position: fixed; bottom: 20px; right: 10px; z-index: 2147483647; transform: translateZ(0);">
         <!-- Chat Button -->
-        <button id="chat-button">
+        <button id="chat-button" style="cursor: pointer; background: none; border: none; position: relative; z-index: 2147483647; right: 0px; bottom: 16px; user-select: none; -webkit-tap-highlight-color: transparent;">
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 651">
             <path d="M0 0 C1.18013672 0.19335938 2.36027344 0.38671875 3.57617188 0.5859375 C59.5538758 10.10655486 113.52671101 33.42516318 157.42724609 69.70361328 C158.96654476 70.97242358 160.52414335 72.21892833 162.08203125 73.46484375 C170.48246311 80.31135664 178.13814279 87.92667924 185.8125 95.5625 C186.61646713 96.35856659 186.61646713 96.35856659 187.43667603 97.17071533 C194.4282304 104.10912388 200.90456545 111.24413176 207 119 C207.85759874 120.06027954 208.71557379 121.12025504 209.57421875 122.1796875 C243.74294324 165.75902188 265.49246848 216.56825559 275 271 C275.18079102 272.03382813 275.36158203 273.06765625 275.54785156 274.1328125 C280.79965418 306.12391236 280.53979773 342.07591201 275 374 C274.80664062 375.13598633 274.61328125 376.27197266 274.4140625 377.44238281 C263.53963247 439.24874978 235.2590019 496.61201036 192.3828125 542.42578125 C190.32466446 544.64925594 188.36675656 546.91531996 186.4375 549.25 C185.633125 550.1575 184.82875 551.065 184 552 C183.34 552 182.68 552 182 552 C182 552.66 182 553.32 182 554 C180.671875 555.33984375 180.671875 555.33984375 178.75 556.9375 C175.24889003 559.90091769 171.89656086 562.97488733 168.5625 566.125 C102.31951852 627.5707075 12.3232672 650.95326951 -76 648 C-85.41882655 647.59353945 -94.70187709 646.53577614 -104 645 C-105.18013672 644.80664062 -106.36027344 644.61328125 -107.57617188 644.4140625 C-184.7741212 631.28433254 -261.89597425 590.08881155 -310 527 C-310.7940625 526.03449219 -311.588125 525.06898438 -312.40625 524.07421875 C-325.77273216 507.77131255 -337.42154229 489.77313074 -347 471 C-347.61367432 469.80141357 -347.61367432 469.80141357 -348.23974609 468.57861328 C-363.35816113 438.71901813 -373.24976624 406.9207696 -379 374 C-379.27118652 372.44925781 -379.27118652 372.44925781 -379.54785156 370.8671875 C-384.79965418 338.87608764 -384.53979773 302.92408799 -379 271 C-378.80664062 269.86401367 -378.61328125 268.72802734 -378.4140625 267.55761719 C-373.76087535 241.11056741 -365.97792782 215.50596918 -355 191 C-354.57992676 190.05962891 -354.15985352 189.11925781 -353.72705078 188.15039062 C-342.14115426 162.49559862 -327.35427257 138.39713257 -309 117 C-308.21753906 116.03449219 -307.43507813 115.06898437 -306.62890625 114.07421875 C-299.87385447 105.82225862 -292.45411117 98.23904328 -284.9375 90.6875 C-284.43088837 90.17571198 -283.92427673 89.66392395 -283.40231323 89.1366272 C-276.6083393 82.28800378 -269.59514163 75.96976514 -262 70 C-261.29625244 69.43692139 -260.59250488 68.87384277 -259.86743164 68.29370117 C-187.84667734 10.91605894 -91.12983552 -15.05196565 0 0 Z " fill="var(--icon-color, #0459E1)" transform="translate(382,3)"/>
             <path d="M0 0 C0.85706543 0.14985352 1.71413086 0.29970703 2.59716797 0.45410156 C17.0170868 2.98787577 30.77750998 6.55507562 44 13 C45.78664063 13.84691406 45.78664063 13.84691406 47.609375 14.7109375 C87.07502571 33.69100547 119.07180587 65.16520401 134.30859375 106.5546875 C138.9352944 119.76206443 141.53838908 132.98381376 142 147 C142.02723145 147.78149414 142.05446289 148.56298828 142.08251953 149.36816406 C143.37847843 191.86583503 126.64289485 227.83108864 98.3828125 258.875 C80.24181982 277.84308961 58.06574921 290.20862839 34 300 C33.09185547 300.37092773 32.18371094 300.74185547 31.24804688 301.12402344 C-3.93069611 315.36427475 -46.66009235 316.09851389 -83 306 C-84.32462235 305.66053702 -85.65015398 305.32460278 -86.9765625 304.9921875 C-95.63984495 302.80482715 -103.67492263 300.07073573 -111.734375 296.2265625 C-112.39695312 295.91178955 -113.05953125 295.5970166 -113.7421875 295.27270508 C-115.04829648 294.64807878 -116.35064216 294.01550037 -117.6484375 293.3737793 C-123.85344318 290.38101924 -128.12278393 289.36545867 -134.78379822 291.58804321 C-135.84794701 291.96598526 -135.84794701 291.96598526 -136.93359375 292.3515625 C-137.68858658 292.60747162 -138.44357941 292.86338074 -139.22145081 293.12704468 C-141.63134825 293.94705175 -144.03432541 294.78552001 -146.4375 295.625 C-148.01714778 296.16662131 -149.59722321 296.70699707 -151.17773438 297.24609375 C-154.2894114 298.30897685 -157.39837654 299.37929374 -160.50561523 300.45507812 C-165.92871704 302.3276149 -171.37655302 304.12298322 -176.828125 305.91064453 C-179.78869474 306.92742888 -182.67355203 308.04652931 -185.5625 309.25 C-189.0293238 310.68534608 -192.24039325 311.60425192 -196 312 C-194.89219427 305.97755272 -192.99406134 300.21763575 -191.1875 294.375 C-190.67219727 292.68697266 -190.67219727 292.68697266 -190.14648438 290.96484375 C-188.22230087 284.7193701 -186.14744249 278.56607533 -183.87719727 272.43847656 C-182.71912963 269.2192226 -181.78069506 265.98681774 -180.875 262.6875 C-179.95652158 259.35896456 -179.04686551 256.12337112 -177.8203125 252.89453125 C-176.90677616 249.67105301 -176.8933762 248.14055735 -178 245 C-179.52979046 242.81242302 -179.52979046 242.81242302 -181.5 240.6875 C-190.49063046 229.81510967 -196.3134459 216.98660623 -201.28613281 203.87792969 C-201.89813607 202.26796763 -202.53634767 200.66801075 -203.1796875 199.0703125 C-215.64398732 165.73555717 -212.04036962 127.09414809 -197.68359375 95.06298828 C-192.76044566 84.75207878 -187.27888413 74.84643409 -180 66 C-179.58782227 65.49065918 -179.17564453 64.98131836 -178.75097656 64.45654297 C-157.23696408 37.93726169 -129.07892276 16.59824284 -96 7 C-94.51829248 6.48643968 -93.03875988 5.96651621 -91.5625 5.4375 C-61.96364451 -4.2464139 -30.53405019 -5.6251629 0 0 Z " fill="#FEFEFE" transform="translate(364,171)"/>
@@ -518,7 +588,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
           </button>
   
         <!-- Popup -->
-        <div id="chatbase-message-bubbles">
+        <div id="chatbase-message-bubbles" style="position: absolute; bottom: 17px; right: 55px; border-radius: 20px; font-size: 20px; z-index: 2147483646; transform: scale(0.60) translateY(50px); opacity: 0; cursor: pointer; display: none; flex-direction: column; gap: 50px; background-color: white; transform-origin: bottom right; box-shadow: 0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15), 0px 2.29px 2.06px -2.67px rgba(0, 0, 0, 0.13), 0px 10px 9px -4px rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.125) 0px 0.362176px 0.941657px -1px, rgba(0, 0, 0, 0.18) 0px 3px 7.8px -2px; user-select: none;">
           <div class="close-popup">−</div>
           <div class="message-content">
             <div class="message-box" id="popup-message-box">
@@ -853,6 +923,7 @@ function trackChatbotOpen() {
     
       // Close the popup when the chat is opened
       if (!isCurrentlyOpen) {
+        popup.classList.remove("show");
         popup.style.display = "none";
         // Hide the badge when user first opens the chat
         hideBadge();
@@ -912,9 +983,31 @@ function trackChatbotOpen() {
       // Remove any existing long-message class
       popupElem.classList.remove('long-message');
       
-      // Apply long-message class if more than 26 characters
+      // Determine if it's mobile
+      var isMobile = window.innerWidth < 600;
+      
+      // Apply long-message class and set initial transform if more than 26 characters
       if (charCount > 26) {
         popupElem.classList.add('long-message');
+        if (isMobile) {
+          popupElem.style.transform = "scale(0.50) translateY(50px)";
+          popupElem.style.bottom = "-2px";
+          popupElem.style.right = "55px";
+        } else {
+          popupElem.style.transform = "scale(0.55) translateY(50px)";
+          popupElem.style.bottom = "9px";
+          popupElem.style.right = "40px";
+        }
+      } else {
+        // Regular message - keep default scale
+        popupElem.style.transform = "scale(0.60) translateY(50px)";
+        if (isMobile) {
+          popupElem.style.bottom = "18px";
+          popupElem.style.right = "60px";
+        } else {
+          popupElem.style.bottom = "17px";
+          popupElem.style.right = "55px";
+        }
       }
       
       if (charCount < 25) {
@@ -927,6 +1020,14 @@ function trackChatbotOpen() {
 
      
       popup.style.display = "flex";
+      
+      // Force a reflow to ensure the initial styles are applied
+      popup.offsetHeight;
+      
+      // Add the show class to trigger animation
+      setTimeout(function() {
+        popup.classList.add('show');
+      }, 10);
   
       // Blink after 2s
       setTimeout(function() {
@@ -955,7 +1056,9 @@ function trackChatbotOpen() {
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
       closePopupButton.addEventListener("click", function() {
-        document.getElementById("chatbase-message-bubbles").style.display = "none";
+        var popup = document.getElementById("chatbase-message-bubbles");
+        popup.classList.remove("show");
+        popup.style.display = "none";
         localStorage.setItem("popupClosed", "true");  // Save popup closed state permanently
       });
     }
