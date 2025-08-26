@@ -609,7 +609,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
-      knowledgebaseIndexApiEndpoint: "humac-alt",
+      knowledgebaseIndexApiEndpoint: "storeandstefterskole-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "humac-pro",
       flow4KnowledgebaseIndex: "",
