@@ -563,6 +563,8 @@ function sendMessageToIframe() {
   headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
   subtitleLinkText: "",
   subtitleLinkUrl: "",
+
+  purchaseTrackingEnabled: true,
         
   titleG: "Linå's Virtuelle Assistent",
   firstMessage: "Hej! Jeg er din AI-hjælper hos Linå 🤖. \n\nSpørg om produkter (varenr.), materialer, værktøj, guides eller råd til dit projekt – hjemme eller til undervisning. \n\nJeg lærer løbende og henter hjælp fra kundeservice, hvis nødvendigt.",
