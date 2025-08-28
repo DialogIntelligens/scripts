@@ -651,12 +651,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       productButtonPadding: "",
       productImageHeightMultiplier: 1,
         
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756407227158.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
       themeColor: "#e5d58f",
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
-      headerTitleG: "",
+      headerTitleG: "AI medhjælper 🤖",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
@@ -665,8 +665,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       enableLivechat: true,
         
-      titleG: "Storeandstefterskole",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "Storeandst Efterskole AI",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra fag til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
