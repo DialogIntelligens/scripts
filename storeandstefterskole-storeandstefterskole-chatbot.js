@@ -654,7 +654,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756407227158.png",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
       themeColor: "#e5d58f",
-      aiMessageColor: "#e9ecef",
+      aiMessageColor: "#f2eee2",
       aiMessageTextColor: "#000000",
       headerTitleG: "AI medhjælper 🤖",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
