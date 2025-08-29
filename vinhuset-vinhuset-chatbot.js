@@ -587,7 +587,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       orderTrackingUseProxy: true,
       orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
       orderTrackingRequestMethod: "POST",
-      orderTrackingRequiredFields: ["email", "phone", "order_number"],
+      trackingRequiredFields: ["email", "phone", "order_number"],
       
       // Request body template for Shopify tracking
       orderTrackingRequestBody: JSON.stringify({
