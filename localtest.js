@@ -537,7 +537,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       orderTrackingUseProxy: true,
       orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
       orderTrackingRequestMethod: "POST",
-      orderTrackingRequiredFields: ["email", "phone", "order_number"],
+      trackingRequiredFields: ["email", "phone", "order_number"],
         
       titleG: "DKTrimmer ",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖 Jeg kan også se hvilke ukrudtsbørster, der passer på din model.",
