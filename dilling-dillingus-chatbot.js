@@ -631,7 +631,7 @@ popupContainer.addEventListener("click", function(e) {
         iframe.style.width = '95vw';
         iframe.style.height = (window.innerHeight < 720) ? '87vh' : '90vh';
       } else {
-        iframe.style.width = 'calc(45vh + 6vw)';
+        iframe.style.width = 'calc(47vh + 7vw)';
         iframe.style.height = (window.innerHeight < 720) ? '87vh' : '88vh';
       }
     }
