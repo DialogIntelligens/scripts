@@ -685,7 +685,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       replaceExclamationWithPeriod: false,
 
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "skoringen-alt",
       flow2KnowledgebaseIndex: "skoringen-pro",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "skoringen-pro",
