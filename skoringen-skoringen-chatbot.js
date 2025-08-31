@@ -686,7 +686,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "",
-      flow2KnowledgebaseIndex: "",
+      flow2KnowledgebaseIndex: "skoringen-pro",
       flow3KnowledgebaseIndex: "",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
