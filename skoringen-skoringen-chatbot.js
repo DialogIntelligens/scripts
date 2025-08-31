@@ -660,14 +660,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       action: 'integrationOptions',
       chatbotID: "skoringen",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/dc1dcd8c-8ac3-4f39-8277-360189239b9f",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/228a05d1-06af-49ed-89ff-1b9f57fe7d4f",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/af396645-166a-4d16-938d-3a922dea00ed",
       flow2Key: "product",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow3Key: "",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/b8198f68-05ad-4aec-9e75-3e2dc7ef8051",
-      flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/24167b75-8034-4d37-91d9-4189b7f8960b",
       flow4Key: "productfilter",
         
       leadGen: "%%",
@@ -675,7 +669,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/5b94608a-d8fb-4740-b272-8a2abe4dfad1",
       metaDataKey: "productfilter",
         
       imageAPI: '',
@@ -684,7 +677,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
       knowledgebaseIndexApiEndpoint: "skoringen-alt",
       flow2KnowledgebaseIndex: "skoringen-pro",
       flow3KnowledgebaseIndex: "",
