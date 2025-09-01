@@ -237,7 +237,23 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     document.head.appendChild(fontLink);
   
     /**
-     * 2. INJECT CSS (with configuration variables)
+     * 2. CONFIGURATION SETTINGS (Easy to find and modify)
+     * 
+     * QUICK EDIT SECTION - Change these values as needed:
+     * - POPUP_TEXT: The message shown in the popup bubble
+     * - ICON_COLOR: Main chatbot button color
+     * - BADGE_COLOR: Notification badge color
+     */
+    
+    // Popup message text - modify this as needed
+    var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
+    
+    // Color configuration - modify these as needed
+    var ICON_COLOR = "#547567";
+    var BADGE_COLOR = "#CC2B20";
+
+    /**
+     * 3. INJECT CSS (with configuration variables)
      */
     var css = `
     /* ----------------------------------------
@@ -560,22 +576,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       return new Date().getTime();
     }
   
-    /**
-     * 5. CONFIGURATION SETTINGS (Easy to find and modify)
-     * 
-     * QUICK EDIT SECTION - Change these values as needed:
-     * - POPUP_TEXT: The message shown in the popup bubble
-     * - ICON_COLOR: Main chatbot button color
-     * - BADGE_COLOR: Notification badge color
-     */
-    
-    // Popup message text - modify this as needed
-    var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
-    
-    // Color configuration - modify these as needed
-    var ICON_COLOR = "#547567";
-    var BADGE_COLOR = "#CC2B20";
-
     // Inject CSS with configuration variables
     var style = document.createElement('style');
     style.appendChild(document.createTextNode(css));
