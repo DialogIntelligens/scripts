@@ -573,7 +573,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
     
     // Color configuration - modify these as needed
-    var ICON_COLOR = "#1a1d56";
+    var ICON_COLOR = "#547567";
     var BADGE_COLOR = "#CC2B20";
 
     // Inject CSS with configuration variables
