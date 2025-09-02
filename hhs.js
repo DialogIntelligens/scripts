@@ -508,7 +508,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       chatbotID: "skadedyrshop",
       flow2Key: "category",
       flow3Key: "product",
-         
+      pineconeApiKey: "74e78129-2960-4af1-bda3-7ae89011ed06",   
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', // Ensure this is true in your integrationOptions data
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
