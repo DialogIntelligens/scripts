@@ -525,7 +525,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       titleG: "SkadedyrShop AI ",
-      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål eller uploade et billede📷)",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål, få anbefalet et produkt eller uploade et billede📷)",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
