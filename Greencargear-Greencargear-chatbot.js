@@ -502,10 +502,15 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       var iframeWindow = iframe.contentWindow;
 
 
+          // Get current split test information
+    var currentSplitTest = localStorage.getItem('current_split_test');
+    console.log('Sending split test info to iframe:', currentSplitTest);
+
       var messageData = {
       action: 'integrationOptions',
       chatbotID: "Greencargear",
       pagePath: window.location.href,
+      split_test_name: currentSplitTest,
       flow2Key: "",
       flow3Key: "product",
       flow4Key: "",
@@ -616,16 +621,25 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         localStorage.setItem('chatWindowState', 'closed');
         window.location.href = event.data.url;
       } else if (event.data.action === 'setChatbotUserId') {
-    // Handle the new message from the iframe
-    chatbotUserId = event.data.userId;
-    localStorage.setItem('chatbotUserId', chatbotUserId);
-    console.log("Received and stored chatbotUserId:", chatbotUserId);
-    
-    // If we're on a checkout page, immediately check for purchase
-    if (isCheckoutPage()) {
-      setTimeout(checkForPurchase, 1000);
-    }
-    }
+        // Handle the new message from the iframe
+        chatbotUserId = event.data.userId;
+        localStorage.setItem('chatbotUserId', chatbotUserId);
+        console.log("Received and stored chatbotUserId:", chatbotUserId);
+        
+        // If we're on a checkout page, immediately check for purchase
+        if (isCheckoutPage()) {
+          setTimeout(checkForPurchase, 1000);
+        }
+      } else if (event.data.action === 'requestSplitTestInfo') {
+        // Send split test information back to iframe for conversation tracking
+        const currentSplit = localStorage.getItem('current_split_test');
+        if (currentSplit) {
+          iframe.contentWindow.postMessage({
+            action: 'splitTestInfo',
+            split_name: currentSplit
+          }, "https://skalerbartprodukt.onrender.com");
+        }
+      }
     });
 
     /**
@@ -779,22 +793,45 @@ function trackChatbotOpen() {
 
 
     /**
-     * 7. LOAD POPUP MESSAGE FROM DATABASE WITH GITHUB FALLBACK
+     * 7. LOAD POPUP MESSAGE FROM DATABASE WITH SPLIT TESTING AND GITHUB FALLBACK
      */
     async function loadPopupMessage() {
       // First check if there's a legacy popupText variable defined in the script
       if (window.legacyPopupText && window.legacyPopupText.trim() !== '') {
         console.log('Using legacy popupText from script:', window.legacyPopupText);
-        return window.legacyPopupText;
+        return { message: window.legacyPopupText, source: 'legacy', split_name: null };
       }
       
       try {
-        // Try to get popup message from database
+        // Try to get split test popup message first
+        const sessionId = localStorage.getItem('chatbot_session_id') || 
+                          sessionStorage.getItem('chatbot_session_id') || 
+                          'session-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+        
+        // Store session ID for consistent split assignment
+        if (!localStorage.getItem('chatbot_session_id')) {
+          localStorage.setItem('chatbot_session_id', sessionId);
+        }
+        
+        const splitResponse = await fetch(`https://egendatabasebackend.onrender.com/public/split-test-popup/${chatbotID}?session_id=${sessionId}`);
+        if (splitResponse.ok) {
+          const splitData = await splitResponse.json();
+          if (splitData.source === 'split_test') {
+            console.log('Popup message loaded from split test:', splitData.popup_message, 'Split:', splitData.split_name);
+            return { 
+              message: splitData.popup_message, 
+              source: 'split_test', 
+              split_name: splitData.split_name 
+            };
+          }
+        }
+        
+        // If no split test, try regular popup message from database
         const response = await fetch(`https://egendatabasebackend.onrender.com/public/popup-message/${chatbotID}`);
         if (response.ok) {
           const data = await response.json();
           console.log('Popup message loaded from database:', data.popup_message);
-          return data.popup_message;
+          return { message: data.popup_message, source: 'database', split_name: null };
         }
       } catch (error) {
         console.error('Error loading popup message from database:', error);
@@ -802,11 +839,11 @@ function trackChatbotOpen() {
       
       // Final fallback to hardcoded message
       console.log('Using final fallback popup message');
-      return "Hej! Jeg hedder Elmer- jeg er GreenCarGears AI chatbot";
+      return { message: "Hej! Jeg hedder Elmer- jeg er GreenCarGears AI chatbot", source: 'fallback', split_name: null };
     }
 
     /**
-     * 8. SHOW/HIDE POPUP (UPDATED TO USE DATABASE)
+     * 8. SHOW/HIDE POPUP (UPDATED TO USE DATABASE WITH SPLIT TESTING)
      */
     async function showPopup() {
       var iframe = document.getElementById("chat-iframe");
@@ -823,8 +860,16 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      // Load popup message from database with fallback
-      const popupText = await loadPopupMessage();
+      // Load popup message from database with split testing support
+      const popupResult = await loadPopupMessage();
+      const popupText = popupResult.message;
+      
+      // Store split test information for analytics
+      if (popupResult.split_name) {
+        localStorage.setItem('current_split_test', popupResult.split_name);
+        console.log('User assigned to split test:', popupResult.split_name);
+      }
+      
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
