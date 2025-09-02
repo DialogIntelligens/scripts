@@ -511,7 +511,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       pineconeApiKey: "pcsk_61ikwk_TrrPrpagck8PLsqoc2aeTdhBZoMzRwPXP2Y1pTuw4zw7ewskEyC74Vh7yhcrFEN",   
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', 
       knowledgebaseIndexApiEndpoint: "hhs-se-alt",
-      flow2KnowledgebaseIndex: "hhs-links",
+      flow2KnowledgebaseIndex: "hhs-link-se",
       flow3KnowledgebaseIndex: "hhs-produkter",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
