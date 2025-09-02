@@ -245,8 +245,7 @@ function initWithDebug() {
        * - BADGE_COLOR: Notification badge color
        */
       
-      // Popup message text - modify this as needed
-      var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
+
       
       // Color configuration - modify these as needed
       var ICON_COLOR = "#1a1d56";
@@ -870,7 +869,8 @@ function initWithDebug() {
           
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
-        
+              // Popup message text - modify this as needed
+        const POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
         messageBox.innerHTML = `${POPUP_TEXT} <span id="funny-smiley">😊</span>`;    
         
         // Determine popup width based on character count (excluding any HTML tags)
