@@ -518,7 +518,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
       themeColor: "#2a803c",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
