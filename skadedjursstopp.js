@@ -430,19 +430,12 @@ function purchaseKey(userId) {
       action: 'integrationOptions',
       chatbotID: "skadedyrshop",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/770b080d-aae7-4fb4-bacb-bca088c83a32",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3305c13a-f8d9-4e4a-9e78-4d2675a14e32",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/d7334623-3f5a-46bc-874f-23ff77912fc3",
       flow2Key: "category",
-      flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/655cd3a9-477a-4f83-99f2-6b5477b1a148",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/89b806f8-8710-464b-b26c-599e59391781",
       SOCKET_SERVER_URL_Backup: "",
       apiEndpointBackup: "",
-      fordelingsflowAPIBackup: "",
-      flow2APIBackup: "",
-      flow3APIBackup: "",
+
 
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', // Ensure this is true in your integrationOptions data
       
