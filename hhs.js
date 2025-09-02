@@ -508,9 +508,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       chatbotID: "skadedyrshop",
       flow2Key: "category",
       flow3Key: "product",
-      pineconeApiKey: "74e78129-2960-4af1-bda3-7ae89011ed06",   
+      pineconeApiKey: "pcsk_61ikwk_TrrPrpagck8PLsqoc2aeTdhBZoMzRwPXP2Y1pTuw4zw7ewskEyC74Vh7yhcrFEN",   
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', // Ensure this is true in your integrationOptions data
-      
+      knowledgebaseIndexApiEndpoint: "ditur-alt",
+      flow2KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "ditur-pro",
+      flow4KnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "",
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
