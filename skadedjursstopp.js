@@ -512,7 +512,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', 
       knowledgebaseIndexApiEndpoint: "hhs-se-alt",
       flow2KnowledgebaseIndex: "hhs-link-se",
-      flow3KnowledgebaseIndex: "hhs-produkter",
+      flow3KnowledgebaseIndex: "hhs-se-produkter",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1756824373784.png",
