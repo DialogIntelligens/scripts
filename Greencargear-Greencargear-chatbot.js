@@ -497,25 +497,36 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /**
      * 5. CHAT IFRAME LOGIC
      */
+    // Cache split test assignment to avoid repeated API calls
+    let cachedSplitAssignment = null;
+    let splitAssignmentFetched = false;
+
+    async function getSplitAssignmentOnce() {
+      if (splitAssignmentFetched) return cachedSplitAssignment;
+      
+      try {
+        const visitorKey = generateVisitorKey();
+        const splitResp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        if (splitResp.ok) {
+          const splitData = await splitResp.json();
+          if (splitData.enabled && splitData.variant_id) {
+            cachedSplitAssignment = splitData;
+          }
+        }
+      } catch (e) {
+        console.warn('Failed to get split assignment:', e);
+      }
+      
+      splitAssignmentFetched = true;
+      return cachedSplitAssignment;
+    }
+
     async function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
 
-
-      // Get split test assignment for this visitor
-      let splitTestAssignment = null;
-      try {
-        const visitorKey = generateVisitorKey();
-        const splitResp = await fetch(`https://egendatabasebackend.onrender.com/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
-        if (splitResp.ok) {
-          const splitData = await splitResp.json();
-          if (splitData.enabled && splitData.variant_id) {
-            splitTestAssignment = splitData;
-          }
-        }
-      } catch (e) {
-        console.warn('Failed to get split assignment for iframe:', e);
-      }
+      // Get split test assignment for this visitor (cached)
+      const splitTestAssignment = await getSplitAssignmentOnce();
 
       var messageData = {
       action: 'integrationOptions',
@@ -808,23 +819,12 @@ function trackChatbotOpen() {
       return visitorKey;
     }
 
-    async function fetchSplitAssignment() {
-      try {
-        const visitorKey = generateVisitorKey();
-        const resp = await fetch(`https://egendatabasebackend.onrender.com/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
-        if (!resp.ok) return null;
-        const data = await resp.json();
-        return data.enabled ? data : null;
-      } catch (e) {
-        console.warn('Split assignment fetch failed:', e);
-        return null;
-      }
-    }
+
 
     async function logSplitImpression(variantId) {
       try {
         const visitorKey = generateVisitorKey();
-        await fetch('https://egendatabasebackend.onrender.com/split-impression', {
+        await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -842,7 +842,7 @@ function trackChatbotOpen() {
     async function fetchPopupFromBackend() {
       try {
         const visitorKey = generateVisitorKey();
-        const resp = await fetch(`https://egendatabasebackend.onrender.com/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
         if (!resp.ok) return null;
         const data = await resp.json();
         return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -875,7 +875,7 @@ function trackChatbotOpen() {
       // Check for split test assignment and log impression if applicable
       let splitAssignment = null;
       if (typeof popupText === 'undefined' || !popupText || String(popupText).trim().length === 0) {
-        splitAssignment = await fetchSplitAssignment();
+        splitAssignment = await getSplitAssignmentOnce();
         if (splitAssignment && splitAssignment.variant && splitAssignment.variant.config && splitAssignment.variant.config.popup_text) {
           finalPopupText = splitAssignment.variant.config.popup_text;
         }
