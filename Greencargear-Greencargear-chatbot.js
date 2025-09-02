@@ -656,8 +656,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     }
 
     /**
- * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
- */
+| * 10. TRACK CHATBOT OPEN FOR GREETING RATE STATISTICS
+| */
 function trackChatbotOpen() {
   console.log('trackChatbotOpen called - chatbotID:', chatbotID);
   
@@ -779,60 +779,35 @@ function trackChatbotOpen() {
 
 
     /**
-     * 7. SHOW/HIDE POPUP
+     * 7. LOAD POPUP MESSAGE FROM DATABASE WITH GITHUB FALLBACK
      */
-    async function getPopupMessage() {
-      try {
-        // First check if we have a user session ID for split testing
-        const userSessionId = localStorage.getItem('chatbotUserId') || localStorage.getItem('userId_' + chatbotID) || null;
-        
-        // If we have a user session ID, try to get/assign split test variant first
-        if (userSessionId) {
-          try {
-            const assignResponse = await fetch('https://egendatabasebackend.onrender.com/split-test-assign', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                user_session_id: userSessionId,
-                chatbot_id: chatbotID
-              })
-            });
-            
-            if (assignResponse.ok) {
-              const assignData = await assignResponse.json();
-              if (assignData.assigned && assignData.popup_message) {
-                console.log('Using split test popup message:', assignData.popup_message);
-                return assignData.popup_message;
-              }
-            }
-          } catch (splitError) {
-            console.log('Split test assignment failed, continuing with normal flow:', splitError);
-          }
-        }
-        
-        // Try to get popup message from database (user default)
-        const params = new URLSearchParams();
-        if (userSessionId) {
-          params.append('user_session_id', userSessionId);
-        }
-        
-        const response = await fetch(`https://egendatabasebackend.onrender.com/popup-message/${chatbotID}?${params.toString()}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.popup_message && data.source !== 'github') {
-            console.log(`Using popup message from ${data.source}:`, data.popup_message);
-            return data.popup_message;
-          }
-        }
-      } catch (error) {
-        console.log('Could not fetch popup message from database, using fallback:', error);
+    async function loadPopupMessage() {
+      // First check if there's a legacy popupText variable defined in the script
+      if (window.legacyPopupText && window.legacyPopupText.trim() !== '') {
+        console.log('Using legacy popupText from script:', window.legacyPopupText);
+        return window.legacyPopupText;
       }
       
-      // Fallback to hardcoded message if database doesn't have one
+      try {
+        // Try to get popup message from database
+        const response = await fetch(`https://egendatabasebackend.onrender.com/public/popup-message/${chatbotID}`);
+        if (response.ok) {
+          const data = await response.json();
+          console.log('Popup message loaded from database:', data.popup_message);
+          return data.popup_message;
+        }
+      } catch (error) {
+        console.error('Error loading popup message from database:', error);
+      }
+      
+      // Final fallback to hardcoded message
+      console.log('Using final fallback popup message');
       return "Hej! Jeg hedder Elmer- jeg er GreenCarGears AI chatbot";
     }
 
+    /**
+     * 8. SHOW/HIDE POPUP (UPDATED TO USE DATABASE)
+     */
     async function showPopup() {
       var iframe = document.getElementById("chat-iframe");
         // If the iframe is visible, do not show the popup
@@ -848,15 +823,8 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      // Get popup message from database or fallback to hardcoded
-      const popupText = await getPopupMessage();
-      
-      // If we get the database placeholder, don't show popup (means it should be handled by database)
-      if (popupText === "DATABASE_POPUP_MESSAGE") {
-        console.log('Popup message is managed by database system, not showing hardcoded popup');
-        return;
-      }
-      
+      // Load popup message from database with fallback
+      const popupText = await loadPopupMessage();
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -923,97 +891,8 @@ function trackChatbotOpen() {
       }
     });
     
-    // New function to show popup with database message
-    async function showDatabasePopup() {
-      var iframe = document.getElementById("chat-iframe");
-      // If the iframe is visible, do not show the popup
-      if (iframe.style.display !== "none") {
-        return;
-      }
-      
-      // Check if popup was previously closed/minimized
-      if (localStorage.getItem("popupClosed") === "true") {
-        return;
-      }
-
-      try {
-        // Get user session ID for split testing
-        const userSessionId = localStorage.getItem('chatbotUserId') || localStorage.getItem('userId_' + chatbotID) || null;
-        
-        // Try to get popup message from database
-        const params = new URLSearchParams();
-        if (userSessionId) {
-          params.append('user_session_id', userSessionId);
-        }
-        
-        const response = await fetch(`https://egendatabasebackend.onrender.com/popup-message/${chatbotID}?${params.toString()}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.popup_message && data.source !== 'github') {
-            var popup = document.getElementById("chatbase-message-bubbles");
-            var messageBox = document.getElementById("popup-message-box");
-            
-            messageBox.innerHTML = `${data.popup_message} <span id="funny-smiley">😊</span>`;
-            
-            // Determine popup width based on character count (excluding any HTML tags)
-            var charCount = messageBox.textContent.trim().length;
-            var popupElem = document.getElementById("chatbase-message-bubbles");
-            
-            // Remove any existing long-message class
-            popupElem.classList.remove('long-message');
-            
-            // Apply long-message class if more than 26 characters
-            if (charCount > 26) {
-              popupElem.classList.add('long-message');
-            }
-            
-            if (charCount < 25) {
-              popupElem.style.width = "40px";
-            } else if (charCount < 60) {
-              popupElem.style.width = "460px";
-            } else {
-              popupElem.style.width = "460px";
-            }
-
-            popup.style.display = "flex";
-
-            // Blink after 2s
-            setTimeout(function() {
-              var smiley = document.getElementById('funny-smiley');
-              if (smiley && popup.style.display === "flex") {
-                smiley.classList.add('blink');
-                setTimeout(function() {
-                  smiley.classList.remove('blink');
-                }, 1000);
-              }
-            }, 2000);
-
-            // Jump after 12s
-            setTimeout(function() {
-              var smiley = document.getElementById('funny-smiley');
-              if (smiley && popup.style.display === "flex") {
-                smiley.classList.add('jump');
-                setTimeout(function() {
-                  smiley.classList.remove('jump');
-                }, 1000);
-              }
-            }, 12000);
-
-            console.log(`Popup shown with ${data.source} message:`, data.popup_message);
-            return;
-          }
-        }
-      } catch (error) {
-        console.log('Could not fetch popup message from database, falling back to GitHub version:', error);
-      }
-      
-      // Fallback to GitHub version
-      showPopup();
-    }
-
-    // Show popup after 1 second - try database first, then fallback
-    setTimeout(showDatabasePopup, 1000);
+    // Show popup after 1 second (matching function initChatbot() {.js timing)
+    setTimeout(showPopup, 1000);
 
 
     /**
@@ -1101,7 +980,7 @@ function trackChatbotOpen() {
     iframe.style.display = 'none';
     button.style.display = 'block';
   
-    /* clear any stale “open” flag so page-to-page nav on phone never re-opens */
+    /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
@@ -1126,3 +1005,21 @@ function trackChatbotOpen() {
   }, 5000);
         
 });  
+
+/**
+ * BACKWARDS COMPATIBILITY SUPPORT
+ * This section maintains support for the old popupText variable system
+ * while transitioning to the new database-driven system
+ */
+
+// Legacy popupText variable (kept for backwards compatibility)
+// This will be empty in new scripts as popup messages are now stored in database
+const popupText = "";
+
+// If popupText is defined in the script and not empty, use it as fallback
+// This ensures existing scripts continue to work without modification
+if (typeof popupText !== 'undefined' && popupText.trim() !== '') {
+  console.log('Using legacy popupText from script:', popupText);
+  // Override the database lookup function to use the script value
+  window.legacyPopupText = popupText;
+}
