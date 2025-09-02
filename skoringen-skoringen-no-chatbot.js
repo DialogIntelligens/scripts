@@ -724,12 +724,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       aiMessageColor: "#e9ecef",
       aiMessageTextColor: "#000000",
       headerTitleG: " ",
-      headerSubtitleG: "Jeg er din AI assistent. Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖 Husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
+      headerSubtitleG: "Jeg er din AI-assistent. Når du skriver til meg, godtar du samtidig at samtalen vår blir behandlet og lagret. 🤖 Husk, jeg er bare en robot – så hvis noe er uklart eller ikke gir mening, kan du alltid ta kontakt med vår kundeservice 💬",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "SKORINGENs Chat 👟",
-      firstMessage: "Hej! 😊 Jeg er din AI assistent og ved en hel del om sko, størrelser, mærker og hvordan du handler hos Skoringen - både online og i butik. Spørg endelig løs, så prøver jeg at hjælpe dig så godt jeg kan...",
+      firstMessage: "Hei! 😊 Jeg er din AI-assistent og vet en hel del om sko, størrelser, merker og hvordan du handler hos Skoringen – både på nett og i butikk. Spør i vei, så skal jeg prøve å hjelpe deg så godt jeg kan...",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
@@ -966,7 +966,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg er din AI assistent og er klar til at hjælpe dig";
+      const popupText = "Jeg er din AI-assistent og klar til å hjelpe deg";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
