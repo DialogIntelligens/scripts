@@ -527,6 +527,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       // Get split test assignment for this visitor (cached)
       const splitTestAssignment = await getSplitAssignmentOnce();
+      console.log('Split test assignment for iframe:', splitTestAssignment);
 
       var messageData = {
       action: 'integrationOptions',
