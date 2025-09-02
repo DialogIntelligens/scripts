@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'skadedyrshop',
+      chatbot_id:'skadedyrshopse',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "skadedyrshop";
+    var chatbotID = "skadedyrshopse";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -505,7 +505,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skadedyrshop",
+      chatbotID: "skadedyrshopse",
       flow2Key: "category",
       flow3Key: "product",
       pineconeApiKey: "pcsk_61ikwk_TrrPrpagck8PLsqoc2aeTdhBZoMzRwPXP2Y1pTuw4zw7ewskEyC74Vh7yhcrFEN",   
@@ -515,7 +515,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow3KnowledgebaseIndex: "hhs-produkter",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
-      messageIcon: "",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1756824373784.png",
 
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_skadedjursstopp.pdf",
 
@@ -529,7 +529,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       themeColor: "#2b3528",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
-      headerTitleG: "SkadedyrShops Virtuelle Assistent",
+      headerTitleG: "SkadedjursStopps Virtuelle Assistent",
       purchaseTrackingEnabled: true,
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
     isPhoneView: window.innerWidth < 800
@@ -1074,7 +1074,7 @@ function purchaseKey(userId) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id:   chatbotUserId,
-        chatbot_id:'skadedyrshop',
+        chatbot_id:'skadedyrshopse',
         amount:    totalPrice
       })
     })
@@ -1262,7 +1262,7 @@ function purchaseKey(userId) {
     }
   
     :root {
-      --icon-color: #2a803c;
+      --icon-color: #2b3528;
     }
   
     /* The main message content area */
@@ -1364,7 +1364,7 @@ function purchaseKey(userId) {
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "skadedyrshop",
+      chatbotID: "skadedyrshopse",
       pagePath: window.location.href,
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       flow2Key: "category",
@@ -1377,8 +1377,8 @@ function purchaseKey(userId) {
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_skadedjursstopp.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/Logo.png",
-      themeColor: "#18803E",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
+      themeColor: "#2b3528",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
       headerTitleG: "SkadedjursStopps Virtuelle Assistent",
@@ -1506,7 +1506,7 @@ function purchaseKey(userId) {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
 
-      const popupText = "Hej. Jag kan svara på frågor och rekommendera rätt produkt mot dina skadedjur🐜";
+      const popupText = "Jeg kan anbefale produkter og hjælpe med dine skadedyr🐜 ";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
