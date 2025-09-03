@@ -135,17 +135,20 @@ function initChatbot() {
       /* Minimized state styles (mobile only) */
       @media (max-width: 800px) {
         #chat-container.minimized {
-          transform: scale(0.5) !important;
+          transform: scale(0.5) translate(10px, 10px) !important;
           opacity: 0.6 !important;
           transition: all 0.3s ease !important;
           transform-origin: bottom right !important;
+        }
+        #chat-container.minimized #chat-button {
+          z-index: 19 !important; /* Lower z-index so it goes behind the plus */
         }
         #chat-container.minimized #chat-button svg {
           filter: grayscale(70%) !important;
         }
         #chat-container.minimized:hover {
           opacity: 0.8 !important;
-          transform: scale(0.55) !important;
+          transform: scale(0.55) translate(10px, 10px) !important;
         }
       }
       
@@ -154,9 +157,9 @@ function initChatbot() {
         #chat-container.minimized::after {
           content: "+";
           position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) !important;
+          top: 20%;
+          right: 20%;
+          transform: none !important;
           font-size: 24px;
           font-weight: bold;
           color: #333;
@@ -168,7 +171,7 @@ function initChatbot() {
           display: flex;
           justify-content: center;
           align-items: center;
-          z-index: 21;
+          z-index: 25; /* Higher z-index to stay on top of the chat button */
           box-shadow: 0 2px 6px rgba(0,0,0,0.2);
           cursor: pointer;
           line-height: 1;
