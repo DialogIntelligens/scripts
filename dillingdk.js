@@ -1,3 +1,4 @@
+
 function initChatbot() {
 
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
@@ -22,7 +23,8 @@ function initChatbot() {
   /**
    * 1. GLOBAL & FONT SETUP
    */
-  var isIframeEnlarged = false; 
+  var isIframeEnlarged = false;
+  var isChatMinimized = false; 
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
   fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;900&display=swap';
@@ -79,6 +81,65 @@ function initChatbot() {
     #chat-button:hover svg {
       opacity: 1;
       transform: scale(1.1);
+    }
+    
+    /* Mobile minimize button styles */
+    #minimize-button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 0, 0, 0.7);
+      border: none;
+      border-radius: 50%;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 50000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    #minimize-button:hover {
+      background: rgba(0, 0, 0, 0.9);
+      transform: scale(1.1);
+    }
+    
+    /* Minimized chatbot state */
+    #chat-button.minimized {
+      opacity: 0.3;
+      pointer-events: auto;
+    }
+    #chat-button.minimized svg {
+      filter: grayscale(100%);
+    }
+    #chat-button.minimized::after {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      background: rgba(0, 0, 0, 0.8);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 21;
+    }
+    
+    /* Show minimize button only on mobile when chat is open */
+    @media (max-width: 800px) {
+      #minimize-button.show {
+        display: flex;
+      }
     }
     
     /* Notification badge styles */
@@ -267,6 +328,9 @@ function initChatbot() {
         </div>
       </div>
   
+      <!-- Minimize Button (mobile only) -->
+      <button id="minimize-button">−</button>
+      
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
@@ -450,10 +514,12 @@ function initChatbot() {
     } else if (event.data.action === 'closeChat') {
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
+      document.getElementById('minimize-button').classList.remove('show');
       localStorage.setItem('chatWindowState', 'closed');
     } else if (event.data.action === 'navigate') {
       document.getElementById('chat-iframe').style.display = 'none';
       document.getElementById('chat-button').style.display = 'block';
+      document.getElementById('minimize-button').classList.remove('show');
       localStorage.setItem('chatWindowState', 'closed');
       window.location.href = event.data.url;
     }
@@ -487,13 +553,63 @@ function initChatbot() {
   }
 
   /**
-   * 7. TOGGLE CHAT WINDOW
+   * 7. MINIMIZE/RESTORE CHAT FUNCTIONS
+   */
+  function minimizeChat() {
+    if (window.innerWidth >= 800) return; // Only on mobile
+    
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    var minimizeBtn = document.getElementById('minimize-button');
+    
+    isChatMinimized = true;
+    iframe.style.display = 'none';
+    button.style.display = 'block';
+    button.classList.add('minimized');
+    minimizeBtn.classList.remove('show');
+    
+    localStorage.setItem('chatMinimizedState', 'true');
+  }
+  
+  function restoreChat() {
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    var minimizeBtn = document.getElementById('minimize-button');
+    
+    isChatMinimized = false;
+    iframe.style.display = 'block';
+    button.style.display = 'none';
+    button.classList.remove('minimized');
+    
+    // Show minimize button on mobile
+    if (window.innerWidth < 800) {
+      minimizeBtn.classList.add('show');
+    }
+    
+    adjustIframeSize();
+    localStorage.setItem('chatMinimizedState', 'false');
+    
+    // Send message to iframe
+    setTimeout(function() {
+      iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+    }, 100);
+  }
+
+  /**
+   * 8. TOGGLE CHAT WINDOW
    */
   function toggleChatWindow() {
     var iframe = document.getElementById('chat-iframe');
     var button = document.getElementById('chat-button');
     var popup = document.getElementById("chatbase-message-bubbles");
+    var minimizeBtn = document.getElementById('minimize-button');
   
+    // If chat is minimized, restore it
+    if (isChatMinimized) {
+      restoreChat();
+      return;
+    }
+    
     // Determine if the chat is currently open
     var isCurrentlyOpen = iframe.style.display !== 'none';
   
@@ -501,6 +617,15 @@ function initChatbot() {
     iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
     button.style.display = isCurrentlyOpen ? 'block' : 'none';
     localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+  
+    // Handle minimize button visibility on mobile
+    if (window.innerWidth < 800) {
+      if (isCurrentlyOpen) {
+        minimizeBtn.classList.remove('show');
+      } else {
+        minimizeBtn.classList.add('show');
+      }
+    }
   
     // Close the popup when the chat is opened
     if (!isCurrentlyOpen) {
@@ -528,7 +653,7 @@ function initChatbot() {
   }
   
   /**
-   * 8. SHOW/HIDE POPUP
+   * 9. SHOW/HIDE POPUP
    */
   function showPopup() {
     // Prevent popup on mobile devices (window width < 800px)
@@ -611,7 +736,7 @@ popupContainer.addEventListener("click", function(e) {
   setTimeout(showPopup, 1000);
     
   /**
-   * 9. ADJUST IFRAME SIZE
+   * 10. ADJUST IFRAME SIZE
    */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
@@ -653,23 +778,49 @@ popupContainer.addEventListener("click", function(e) {
   }
   // Adjust size on page load + on resize
   adjustIframeSize();
-  window.addEventListener('resize', adjustIframeSize);
+  window.addEventListener('resize', function() {
+    adjustIframeSize();
+    
+    // Handle minimize button visibility on resize
+    var iframe = document.getElementById('chat-iframe');
+    var minimizeBtn = document.getElementById('minimize-button');
+    
+    if (window.innerWidth < 800 && iframe.style.display !== 'none') {
+      minimizeBtn.classList.add('show');
+    } else {
+      minimizeBtn.classList.remove('show');
+    }
+  });
   
-  // Attach event listener to chat-button
+  // Attach event listeners
   document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+  document.getElementById('minimize-button').addEventListener('click', minimizeChat);
   
   // Modify the initial chat window state logic
   var savedState = localStorage.getItem('chatWindowState');
+  var minimizedState = localStorage.getItem('chatMinimizedState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
+  var minimizeBtn = document.getElementById('minimize-button');
   
-  if (savedState === 'open') {
+  // Check if chat was minimized
+  if (minimizedState === 'true' && window.innerWidth < 800) {
+    isChatMinimized = true;
+    iframe.style.display = 'none';
+    button.style.display = 'block';
+    button.classList.add('minimized');
+    minimizeBtn.classList.remove('show');
+  } else if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
+    if (window.innerWidth < 800) {
+      minimizeBtn.classList.add('show');
+    }
     sendMessageToIframe();
   } else {
     iframe.style.display = 'none';
     button.style.display = 'block';
+    button.classList.remove('minimized');
   }
   
   // Chat button click
