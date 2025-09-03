@@ -243,10 +243,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * - POPUP_TEXT: The message shown in the popup bubble
      * - ICON_COLOR: Main chatbot button color
      * - BADGE_COLOR: Notification badge color
-     */
-    
-    // Popup message text - modify this as needed
-    var POPUP_TEXT = "Jeg kan anbefale produkter og besvare spørgsmål ";
+
     
     // Color configuration - modify these as needed
     var ICON_COLOR = "#547567";
@@ -871,7 +868,7 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       const popupText = "Har du brug for hjælp? Jeg kan besvare dine sprøgsmål ";
-      messageBox.innerHTML = `${POPUP_TEXT} <span id="funny-smiley">😊</span>`;    
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
