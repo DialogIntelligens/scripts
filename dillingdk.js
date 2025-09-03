@@ -87,23 +87,18 @@ function initChatbot() {
     
     /* Minimized state styles (mobile only) */
     @media (max-width: 800px) {
-      #chat-button.minimized {
+      #chat-container.minimized {
         transform: scale(0.5) !important;
         opacity: 0.5 !important;
         transition: all 0.3s ease !important;
+        transform-origin: bottom right !important;
       }
-      #chat-button.minimized svg {
+      #chat-container.minimized #chat-button svg {
         filter: grayscale(70%) !important;
-        transform: none !important;
-        scale: 1 !important;
       }
-      #chat-button.minimized:hover {
+      #chat-container.minimized:hover {
         opacity: 0.7 !important;
         transform: scale(0.55) !important;
-      }
-      #chat-button.minimized:hover svg {
-        transform: none !important;
-        scale: 1 !important;
       }
     }
     
@@ -150,25 +145,26 @@ function initChatbot() {
     
     /* Plus icon for restoring minimized state */
     @media (max-width: 800px) {
-      #chat-button.minimized::after {
+      #chat-container.minimized::after {
         content: "+";
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) !important;
-        font-size: 18px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
         background-color: rgba(255, 255, 255, 0.95);
         border: 2px solid #ddd;
         border-radius: 50%;
-        width: 24px;
-        height: 24px;
+        width: 28px;
+        height: 28px;
         display: flex;
         justify-content: center;
         align-items: center;
         z-index: 21;
         box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        cursor: pointer;
       }
     }
     
@@ -571,9 +567,11 @@ function initChatbot() {
     
     console.log('Minimizing icon...');
     isIconMinimized = true;
+    chatContainer.classList.add('minimized');
     chatButton.classList.add('minimized');
     localStorage.setItem('chatIconMinimized', 'true');
-    console.log('Icon minimized, classes:', chatButton.className);
+    console.log('Icon minimized, container classes:', chatContainer.className);
+    console.log('Icon minimized, button classes:', chatButton.className);
   }
   
   function restoreIcon() {
@@ -582,9 +580,11 @@ function initChatbot() {
     
     console.log('Restoring icon...');
     isIconMinimized = false;
+    chatContainer.classList.remove('minimized');
     chatButton.classList.remove('minimized');
     localStorage.setItem('chatIconMinimized', 'false');
-    console.log('Icon restored, classes:', chatButton.className);
+    console.log('Icon restored, container classes:', chatContainer.className);
+    console.log('Icon restored, button classes:', chatButton.className);
   }
   
   function checkMinimizeState() {
@@ -593,7 +593,9 @@ function initChatbot() {
     var isMinimized = localStorage.getItem('chatIconMinimized');
     if (isMinimized === 'true') {
       var chatButton = document.getElementById('chat-button');
+      var chatContainer = document.getElementById('chat-container');
       isIconMinimized = true;
+      chatContainer.classList.add('minimized');
       chatButton.classList.add('minimized');
     }
   }
@@ -811,6 +813,15 @@ popupContainer.addEventListener("click", function(e) {
       return;
     }
     toggleChatWindow();
+  });
+  
+  // Also add click handler to the container for the plus icon
+  document.getElementById('chat-container').addEventListener('click', function(e) {
+    if (isIconMinimized && window.innerWidth <= 800) {
+      e.stopPropagation();
+      restoreIcon();
+      return;
+    }
   });
   
   // Modify the initial chat window state logic
