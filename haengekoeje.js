@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pagePath: window.location.href,
       flow2Key: "",
       flow2API: "",
-      flow3Key: "product",
+      flow3Key: "product","
 
       pineconeApiKey: "pcsk_2buCaw_MZpZhKjhqorEq278kAhzVN64dd6mwbHh3ai4VNfzhSnWw6qApuuiVWG25dCBjtV",
       knowledgebaseIndexApiEndpoint: "hk-alt",
