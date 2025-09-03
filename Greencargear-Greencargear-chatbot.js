@@ -506,11 +506,17 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       try {
         const visitorKey = generateVisitorKey();
+        console.log('Fetching split assignment for chatbot:', chatbotID, 'visitor:', visitorKey);
         const splitResp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        console.log('Split assign response status:', splitResp.status);
         if (splitResp.ok) {
           const splitData = await splitResp.json();
+          console.log('Split assignment data:', splitData);
           if (splitData.enabled && splitData.variant_id) {
             cachedSplitAssignment = splitData;
+            console.log('Split test assignment cached:', cachedSplitAssignment);
+          } else {
+            console.log('Split test not enabled or no variant assigned');
           }
         }
       } catch (e) {
