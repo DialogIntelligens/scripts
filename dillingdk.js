@@ -87,14 +87,19 @@ function initChatbot() {
     /* Minimized state styles (mobile only) */
     @media (max-width: 800px) {
       #chat-button.minimized {
-        transform: scale(0.5);
-        opacity: 0.6;
+        transform: scale(0.5) !important;
+        opacity: 0.6 !important;
+        transition: all 0.3s ease !important;
       }
       #chat-button.minimized svg {
         filter: grayscale(50%);
+        transform: none !important;
       }
       #chat-button.minimized:hover {
-        opacity: 0.8;
+        opacity: 0.8 !important;
+      }
+      #chat-button.minimized:hover svg {
+        transform: none !important;
       }
     }
     
@@ -132,23 +137,27 @@ function initChatbot() {
     }
     
     /* Plus icon for restoring minimized state */
-    #chat-button.minimized::after {
-      content: "+";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 21;
+    @media (max-width: 800px) {
+      #chat-button.minimized::after {
+        content: "+";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        background-color: rgba(255, 255, 255, 0.95);
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 21;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
     }
     
     @media (min-width: 801px) {
@@ -548,18 +557,22 @@ function initChatbot() {
     var chatButton = document.getElementById('chat-button');
     var chatContainer = document.getElementById('chat-container');
     
+    console.log('Minimizing icon...');
     isIconMinimized = true;
     chatButton.classList.add('minimized');
     localStorage.setItem('chatIconMinimized', 'true');
+    console.log('Icon minimized, classes:', chatButton.className);
   }
   
   function restoreIcon() {
     var chatButton = document.getElementById('chat-button');
     var chatContainer = document.getElementById('chat-container');
     
+    console.log('Restoring icon...');
     isIconMinimized = false;
     chatButton.classList.remove('minimized');
     localStorage.setItem('chatIconMinimized', 'false');
+    console.log('Icon restored, classes:', chatButton.className);
   }
   
   function checkMinimizeState() {
@@ -806,10 +819,17 @@ popupContainer.addEventListener("click", function(e) {
   }
   
   // Minimize button event handler (mobile only)
-  document.getElementById('minimize-button').addEventListener('click', function(e) {
-    e.stopPropagation(); // Prevent triggering chat button click
-    minimizeIcon();
-  });
+  var minimizeButton = document.getElementById('minimize-button');
+  if (minimizeButton) {
+    console.log('Minimize button found, adding event listener...');
+    minimizeButton.addEventListener('click', function(e) {
+      console.log('Minimize button clicked!');
+      e.stopPropagation(); // Prevent triggering chat button click
+      minimizeIcon();
+    });
+  } else {
+    console.log('Minimize button not found!');
+  }
   
   // Initialize badge visibility
   checkBadgeVisibility();
