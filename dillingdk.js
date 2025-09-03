@@ -72,6 +72,7 @@ function initChatbot() {
       right: 20px;
       bottom: 20px;
       transition: all 0.3s ease;
+      transform-origin: center;
     }
     #chat-button svg {
       width: 60px;
@@ -88,18 +89,21 @@ function initChatbot() {
     @media (max-width: 800px) {
       #chat-button.minimized {
         transform: scale(0.5) !important;
-        opacity: 0.6 !important;
+        opacity: 0.5 !important;
         transition: all 0.3s ease !important;
       }
       #chat-button.minimized svg {
-        filter: grayscale(50%);
+        filter: grayscale(70%) !important;
         transform: none !important;
+        scale: 1 !important;
       }
       #chat-button.minimized:hover {
-        opacity: 0.8 !important;
+        opacity: 0.7 !important;
+        transform: scale(0.55) !important;
       }
       #chat-button.minimized:hover svg {
         transform: none !important;
+        scale: 1 !important;
       }
     }
     
@@ -132,7 +136,15 @@ function initChatbot() {
     /* Show minimize button only on mobile when chat is closed */
     @media (max-width: 800px) {
       #chat-container:not(.chat-open) #minimize-button {
-        display: flex;
+        display: flex !important;
+      }
+      /* Also show when explicitly not minimized */
+      #chat-button:not(.minimized) #minimize-button {
+        display: flex !important;
+      }
+      /* Hide when minimized */
+      #chat-button.minimized #minimize-button {
+        display: none !important;
       }
     }
     
