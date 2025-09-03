@@ -334,8 +334,7 @@ function initChatbot() {
               <div id="chat-container">
           <!-- Chat Button -->
           <button id="chat-button">
-            <button id="minimize-button" title="Minimize chat icon">−</button>
-          <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66" fill="none">
+            <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66" fill="none">
           <circle cx="33" cy="33" r="33" fill="#A3A3A3"/>
           <path d="M39.5405 38.5859H28.0146L20.547 46.575V38.5859H18.8959C16.6004 38.5859 14.7388 36.7626 14.7388 34.5141V20.7954C14.7388 18.5469 16.6004 16.7235 18.8959 16.7235H39.5415C41.837 16.7235 43.6986 18.5469 43.6986 20.7954V34.515C43.6986 36.7635 41.837 38.5868 39.5415 38.5868L39.5405 38.5859Z" fill="white"/>
           <path d="M20.5469 47.2986C20.4574 47.2986 20.3669 47.2823 20.2792 47.2497C19.9948 47.1412 19.8082 46.8735 19.8082 46.575V39.3096H18.8959C16.1968 39.3096 14 37.1588 14 34.5141V20.7954C14 18.1508 16.1959 16 18.8959 16H39.5414C42.2405 16 44.4373 18.1508 44.4373 20.7954V34.5151C44.4373 37.1588 42.2414 39.3105 39.5414 39.3105H28.3405L21.0918 47.0643C20.9486 47.2172 20.7501 47.2995 20.5469 47.2995V47.2986ZM18.8959 17.4471C17.0112 17.4471 15.4774 18.9494 15.4774 20.7954V34.5151C15.4774 36.361 17.0112 37.8633 18.8959 37.8633H20.5469C20.9551 37.8633 21.2857 38.1871 21.2857 38.5869V44.7137L27.4697 38.0976C27.6101 37.9474 27.8077 37.8624 28.0145 37.8624H39.5405C41.4252 37.8624 42.9589 36.3601 42.9589 34.5141V20.7954C42.9589 18.9494 41.4252 17.4471 39.5405 17.4471H18.8959Z" fill="#231F20"/>
@@ -349,9 +348,12 @@ function initChatbot() {
             <text x="54.5" y="11.5" class="notification-badge-text">1</text>
           </g>
           </svg>
-        </button>
-  
-        <!-- Popup -->
+                  </button>
+          
+          <!-- Minimize Button (mobile only) -->
+          <div id="minimize-button" title="Minimize chat icon">−</div>
+    
+          <!-- Popup -->
         <div id="chatbase-message-bubbles">
           <div class="close-popup">&times;</div>
           <div class="message-content">
@@ -370,6 +372,17 @@ function initChatbot() {
       </iframe>
   `;
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+
+  // Add minimize button event handler immediately after HTML injection
+  var minimizeButton = document.getElementById('minimize-button');
+  if (minimizeButton) {
+    minimizeButton.addEventListener('click', function(e) {
+      console.log('Minimize button clicked!');
+      e.stopPropagation(); // Prevent triggering chat button click
+      e.preventDefault();   // Prevent any default behavior
+      minimizeIcon();
+    });
+  }
 
   /**
    * 4. MINIMIZE FUNCTIONALITY (MOBILE ONLY)
@@ -629,6 +642,7 @@ function initChatbot() {
      * 8. TOGGLE CHAT WINDOW
      */
     function toggleChatWindow() {
+      console.log('toggleChatWindow called');
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
       var popup = document.getElementById("chatbase-message-bubbles");
@@ -636,11 +650,13 @@ function initChatbot() {
     
       // Determine if the chat is currently open
       var isCurrentlyOpen = iframe.style.display !== 'none';
+      console.log('Chat currently open:', isCurrentlyOpen);
     
       // Toggle the display of the iframe and button
       iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
       button.style.display = isCurrentlyOpen ? 'block' : 'none';
       localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+      console.log('Chat toggled. New state:', isCurrentlyOpen ? 'closed' : 'open');
       
       // Update chat container class for minimize button visibility
       if (isCurrentlyOpen) {
@@ -804,12 +820,22 @@ popupContainer.addEventListener("click", function(e) {
   
   // Attach event listener to chat-button with minimize logic
   document.getElementById('chat-button').addEventListener('click', function(e) {
+    console.log('Chat button clicked. Target:', e.target.tagName, 'isIconMinimized:', isIconMinimized, 'window width:', window.innerWidth);
+    
+    // Don't do anything if we clicked the minimize button
+    if (e.target.id === 'minimize-button') {
+      console.log('Minimize button was clicked, ignoring chat button click');
+      return;
+    }
+    
     // If icon is minimized, restore it instead of opening chat
     if (isIconMinimized && window.innerWidth <= 800) {
-      e.stopPropagation();
+      console.log('Icon is minimized, restoring...');
       restoreIcon();
       return;
     }
+    
+    console.log('Opening chat...');
     toggleChatWindow();
   });
   
@@ -839,18 +865,7 @@ popupContainer.addEventListener("click", function(e) {
     chatContainer.classList.remove('chat-open');
   }
   
-  // Minimize button event handler (mobile only)
-  var minimizeButton = document.getElementById('minimize-button');
-  if (minimizeButton) {
-    console.log('Minimize button found, adding event listener...');
-    minimizeButton.addEventListener('click', function(e) {
-      console.log('Minimize button clicked!');
-      e.stopPropagation(); // Prevent triggering chat button click
-      minimizeIcon();
-    });
-  } else {
-    console.log('Minimize button not found!');
-  }
+
   
   // Initialize badge visibility
   checkBadgeVisibility();
