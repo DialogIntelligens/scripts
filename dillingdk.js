@@ -106,7 +106,7 @@ function initChatbot() {
     #minimize-button {
       display: none;
       position: absolute;
-      top: -8px;
+      top: 50px;
       right: -8px;
       width: 20px;
       height: 20px;
@@ -804,23 +804,23 @@ popupContainer.addEventListener("click", function(e) {
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
   
-  // Attach event listener to chat-button with minimize logic
-  document.getElementById('chat-button').addEventListener('click', function(e) {
+  // Attach event listener to chat-container for handling minimized state clicks
+  document.getElementById('chat-container').addEventListener('click', function(e) {
     // If icon is minimized, restore it instead of opening chat
     if (isIconMinimized && window.innerWidth <= 800) {
       e.stopPropagation();
       restoreIcon();
       return;
     }
-    toggleChatWindow();
+    // If not minimized, let the button handle the click normally
+    // (this will bubble to the button's click handler)
   });
   
-  // Also add click handler to the container for the plus icon
-  document.getElementById('chat-container').addEventListener('click', function(e) {
-    if (isIconMinimized && window.innerWidth <= 800) {
-      e.stopPropagation();
-      restoreIcon();
-      return;
+  // Attach event listener to chat-button for normal chat opening
+  document.getElementById('chat-button').addEventListener('click', function(e) {
+    // Only handle if not minimized (minimized clicks are handled by container)
+    if (!isIconMinimized) {
+      toggleChatWindow();
     }
   });
   
