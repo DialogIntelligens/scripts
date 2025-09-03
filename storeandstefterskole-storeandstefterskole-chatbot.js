@@ -235,23 +235,12 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
     document.head.appendChild(fontLink);
-  
-    /**
-     * 2. CONFIGURATION SETTINGS (Easy to find and modify)
-     * 
-     * QUICK EDIT SECTION - Change these values as needed:
-     * - POPUP_TEXT: The message shown in the popup bubble
-     * - ICON_COLOR: Main chatbot button color
-     * - BADGE_COLOR: Notification badge color
 
     
-    // Color configuration - modify these as needed
+
     var ICON_COLOR = "#547567";
     var BADGE_COLOR = "#CC2B20";
 
-    /**
-     * 3. INJECT CSS (with configuration variables)
-     */
     var css = `
     /* ----------------------------------------
        A) ANIMATIONS
