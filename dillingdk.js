@@ -23,8 +23,7 @@ function initChatbot() {
   /**
    * 1. GLOBAL & FONT SETUP
    */
-      var isIframeEnlarged = false;
-    var isIconMinimized = false; 
+  var isIframeEnlarged = false; 
   var fontLink = document.createElement('link');
   fontLink.rel = 'stylesheet';
   fontLink.href = 'https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600;900&display=swap';
@@ -94,101 +93,9 @@ function initChatbot() {
       text-anchor: middle;
       dominant-baseline: central;
     }
-          .notification-badge.hidden {
-        display: none;
-      }
-
-      /* Minimize button styles (mobile only) */
-      #minimize-button {
-        display: none;
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 24px;
-        height: 24px;
-        background-color: #666;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        z-index: 25;
-        transition: all 0.2s ease;
-        justify-content: center;
-        align-items: center;
-        line-height: 1;
-      }
-      
-      #minimize-button:hover {
-        background-color: #333;
-        transform: scale(1.1);
-      }
-      
-      /* Show minimize button only on mobile when chat is closed and not minimized */
-      @media (max-width: 800px) {
-        #chat-container:not(.chat-open):not(.minimized) #minimize-button {
-          display: flex !important;
-        }
-      }
-      
-      /* Minimized state styles (mobile only) */
-      @media (max-width: 800px) {
-        #chat-container.minimized {
-          transform: scale(0.5) !important;
-          opacity: 0.6 !important;
-          transition: all 0.3s ease !important;
-          transform-origin: bottom right !important;
-        }
-        #chat-container.minimized #chat-button svg {
-          filter: grayscale(70%) !important;
-        }
-        #chat-container.minimized:hover {
-          opacity: 0.8 !important;
-          transform: scale(0.55) !important;
-        }
-      }
-      
-      /* Plus icon for restoring minimized state */
-      @media (max-width: 800px) {
-        #chat-container.minimized::after {
-          content: "+";
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) !important;
-          font-size: 24px;
-          font-weight: bold;
-          color: #333;
-          background-color: rgba(255, 255, 255, 0.95);
-          border: 2px solid #ddd;
-          border-radius: 50%;
-          width: 32px;
-          height: 32px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 21;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-          cursor: pointer;
-          line-height: 1;
-          pointer-events: auto;
-        }
-      }
-      
-      /* Hide minimize features on desktop */
-      @media (min-width: 801px) {
-        #minimize-button {
-          display: none !important;
-        }
-        #chat-container.minimized::after {
-          display: none !important;
-        }
-        #chat-container.minimized {
-          transform: none !important;
-          opacity: 1 !important;
-        }
-      }
+    .notification-badge.hidden {
+      display: none;
+    }
   
     /* Popup rise animation */
     @keyframes rise-from-bottom {
@@ -331,10 +238,9 @@ function initChatbot() {
    * 3. INJECT HTML
    */
   var chatbotHTML = `
-              <div id="chat-container">
-          <!-- Chat Button -->
-          <button id="chat-button">
-            <button id="minimize-button" title="Minimize chat icon">−</button>
+      <div id="chat-container">
+        <!-- Chat Button -->
+        <button id="chat-button">
           <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66" fill="none">
           <circle cx="33" cy="33" r="33" fill="#A3A3A3"/>
           <path d="M39.5405 38.5859H28.0146L20.547 46.575V38.5859H18.8959C16.6004 38.5859 14.7388 36.7626 14.7388 34.5141V20.7954C14.7388 18.5469 16.6004 16.7235 18.8959 16.7235H39.5415C41.837 16.7235 43.6986 18.5469 43.6986 20.7954V34.515C43.6986 36.7635 41.837 38.5868 39.5415 38.5868L39.5405 38.5859Z" fill="white"/>
@@ -372,51 +278,7 @@ function initChatbot() {
   document.body.insertAdjacentHTML('beforeend', chatbotHTML);
 
   /**
-   * 4. MINIMIZE FUNCTIONALITY (MOBILE ONLY)
-   */
-  function minimizeIcon() {
-    if (window.innerWidth > 800) return; // Only on mobile
-    
-    var chatButton = document.getElementById('chat-button');
-    var chatContainer = document.getElementById('chat-container');
-    
-    console.log('Minimizing icon...');
-    isIconMinimized = true;
-    chatContainer.classList.add('minimized');
-    chatButton.classList.add('minimized');
-    localStorage.setItem('chatIconMinimized', 'true');
-    console.log('Icon minimized, container classes:', chatContainer.className);
-    console.log('Icon minimized, button classes:', chatButton.className);
-  }
-  
-  function restoreIcon() {
-    var chatButton = document.getElementById('chat-button');
-    var chatContainer = document.getElementById('chat-container');
-    
-    console.log('Restoring icon...');
-    isIconMinimized = false;
-    chatContainer.classList.remove('minimized');
-    chatButton.classList.remove('minimized');
-    localStorage.setItem('chatIconMinimized', 'false');
-    console.log('Icon restored, container classes:', chatContainer.className);
-    console.log('Icon restored, button classes:', chatButton.className);
-  }
-  
-  function checkMinimizeState() {
-    if (window.innerWidth > 800) return; // Only on mobile
-    
-    var isMinimized = localStorage.getItem('chatIconMinimized');
-    if (isMinimized === 'true') {
-      var chatButton = document.getElementById('chat-button');
-      var chatContainer = document.getElementById('chat-container');
-      isIconMinimized = true;
-      chatContainer.classList.add('minimized');
-      chatButton.classList.add('minimized');
-    }
-  }
-
-  /**
-   * 5. COOKIE FUNCTIONS
+   * 4. COOKIE FUNCTIONS
    */
   function setCookie(name, value, days, domain) {
     var expires = "";
@@ -442,7 +304,7 @@ function initChatbot() {
   }
 
   /**
-   * 6. CHAT IFRAME LOGIC
+   * 5. CHAT IFRAME LOGIC
    */
   function sendMessageToIframe() {
     var iframe = document.getElementById("chat-iframe");
@@ -625,48 +487,40 @@ function initChatbot() {
     }
   }
 
-      /**
-     * 8. TOGGLE CHAT WINDOW
-     */
-    function toggleChatWindow() {
-      var iframe = document.getElementById('chat-iframe');
-      var button = document.getElementById('chat-button');
-      var popup = document.getElementById("chatbase-message-bubbles");
-      var chatContainer = document.getElementById('chat-container');
-    
-      // Determine if the chat is currently open
-      var isCurrentlyOpen = iframe.style.display !== 'none';
-    
-      // Toggle the display of the iframe and button
-      iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
-      button.style.display = isCurrentlyOpen ? 'block' : 'none';
-      localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
-      
-      // Update chat container class for minimize button visibility
-      if (isCurrentlyOpen) {
-        chatContainer.classList.remove('chat-open');
-      } else {
-        chatContainer.classList.add('chat-open');
-      }
-    
-      // Close the popup when the chat is opened
-      if (!isCurrentlyOpen) {
-        popup.style.display = "none";
-        // Hide the badge when user first opens the chat
-        hideBadge();
-      //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
-      }
-    
-      // Adjust the iframe size
-      adjustIframeSize();
-    
-      // When opening, let the iframe know after a short delay
-      if (!isCurrentlyOpen) {
-        setTimeout(function() {
-          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
-        }, 100);
-      }
+  /**
+   * 7. TOGGLE CHAT WINDOW
+   */
+  function toggleChatWindow() {
+    var iframe = document.getElementById('chat-iframe');
+    var button = document.getElementById('chat-button');
+    var popup = document.getElementById("chatbase-message-bubbles");
+  
+    // Determine if the chat is currently open
+    var isCurrentlyOpen = iframe.style.display !== 'none';
+  
+    // Toggle the display of the iframe and button
+    iframe.style.display = isCurrentlyOpen ? 'none' : 'block';
+    button.style.display = isCurrentlyOpen ? 'block' : 'none';
+    localStorage.setItem('chatWindowState', isCurrentlyOpen ? 'closed' : 'open');
+  
+    // Close the popup when the chat is opened
+    if (!isCurrentlyOpen) {
+      popup.style.display = "none";
+      // Hide the badge when user first opens the chat
+      hideBadge();
+    //  localStorage.setItem("popupClosed", "true");  // Save that the popup has been closed
     }
+  
+    // Adjust the iframe size
+    adjustIframeSize();
+  
+    // When opening, let the iframe know after a short delay
+    if (!isCurrentlyOpen) {
+      setTimeout(function() {
+        iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
+      }, 100);
+    }
+  }
   
   // If the popup is open at DOM load, hide it
   var popup = document.getElementById("chatbase-message-bubbles");
@@ -757,9 +611,9 @@ popupContainer.addEventListener("click", function(e) {
   // }
   setTimeout(showPopup, 1000);
     
-      /**
-     * 7. ADJUST IFRAME SIZE
-     */
+  /**
+   * 9. ADJUST IFRAME SIZE
+   */
   function adjustIframeSize() {
     var iframe = document.getElementById('chat-iframe');
     //console.log("Adjusting iframe size. Window width:", window.innerWidth);
@@ -802,61 +656,28 @@ popupContainer.addEventListener("click", function(e) {
   adjustIframeSize();
   window.addEventListener('resize', adjustIframeSize);
   
-  // Attach event listener to chat-button with minimize logic
-  document.getElementById('chat-button').addEventListener('click', function(e) {
-    // If icon is minimized, restore it instead of opening chat
-    if (isIconMinimized && window.innerWidth <= 800) {
-      e.stopPropagation();
-      restoreIcon();
-      return;
-    }
-    toggleChatWindow();
-  });
-  
-  // Also add click handler to the container for the plus icon
-  document.getElementById('chat-container').addEventListener('click', function(e) {
-    if (isIconMinimized && window.innerWidth <= 800) {
-      e.stopPropagation();
-      restoreIcon();
-      return;
-    }
-  });
+  // Attach event listener to chat-button
+  document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
   
   // Modify the initial chat window state logic
   var savedState = localStorage.getItem('chatWindowState');
   var iframe = document.getElementById('chat-iframe');
   var button = document.getElementById('chat-button');
-  var chatContainer = document.getElementById('chat-container');
   
   if (savedState === 'open') {
     iframe.style.display = 'block';
     button.style.display = 'none';
-    chatContainer.classList.add('chat-open');
     sendMessageToIframe();
   } else {
     iframe.style.display = 'none';
     button.style.display = 'block';
-    chatContainer.classList.remove('chat-open');
   }
   
-  // Minimize button event handler (mobile only)
-  var minimizeButton = document.getElementById('minimize-button');
-  if (minimizeButton) {
-    console.log('Minimize button found, adding event listener...');
-    minimizeButton.addEventListener('click', function(e) {
-      console.log('Minimize button clicked!');
-      e.stopPropagation(); // Prevent triggering chat button click
-      minimizeIcon();
-    });
-  } else {
-    console.log('Minimize button not found!');
-  }
+  // Chat button click
+  document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
   
   // Initialize badge visibility
   checkBadgeVisibility();
-  
-  // Initialize minimize state (mobile only)
-  checkMinimizeState();
 } // end of initChatbot
 
 // Initial attempt to load the chatbot.
