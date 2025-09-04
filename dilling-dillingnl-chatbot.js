@@ -420,7 +420,7 @@ function initChatbot() {
       headerTitleG: "Ik ben DILLINGs chatbot",
       headerSubtitleG: "Je chat met een chatbot. Tegelijkertijd accepteer je dat het gesprek kan worden opgeslagen en verwerkt om je ervaring te verbeteren. Lees meer in ons privacybeleid. Let op: de chatbot kan soms onjuiste informatie geven.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hallo 🙂 Ik ben nieuw bij DILLING en nog in opleiding. Maar ik zal mijn best doen om je te helpen als je vragen hebt over DILLING of onze producten. Hoe kan ik je helpen?",
+      firstMessage: "Hoi😊 Ik ben de chatbot van DILLING. \nHoe kan ik je helpen?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
