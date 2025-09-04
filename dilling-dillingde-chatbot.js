@@ -421,7 +421,7 @@ function initChatbot() {
       headerTitleG: "Ich bin DILLINGs chatbot",
       headerSubtitleG: "Du schreibst mit einem chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet werden kann, um deine Erfahrung zu verbessern. Lies mehr in unserer Datenschutzrichtlinie. Hinweis: Der Chatbot kann in manchen Fällen falsche Informationen liefern.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hallo! 😊 Ich bin der Chatbot von DILLING. \nWie kann ich Ihnen helfen?\n",
+      firstMessage: "Hallo!😊 Ich bin der Chatbot von DILLING. \nWie kann ich Ihnen helfen?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
