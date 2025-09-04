@@ -607,7 +607,7 @@ function initWithDebug() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
+        pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "humac-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "humac-pro",
