@@ -652,7 +652,7 @@ function initWithDebug() {
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756991185563.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1756991258771.png",
-        themeColor: "#a0a0a0",
+        themeColor: "#020202",
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
