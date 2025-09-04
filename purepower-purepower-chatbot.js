@@ -610,7 +610,7 @@ function initWithDebug() {
         pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "purepower-alt",
         flow2KnowledgebaseIndex: "",
-        flow3KnowledgebaseIndex: "humac-pro",
+        flow3KnowledgebaseIndex: "purepower-pro",
         flow4KnowledgebaseIndex: "",
         apiFlowKnowledgebaseIndex: "",
         websiteOverride: "",
