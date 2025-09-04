@@ -421,7 +421,7 @@ function initChatbot() {
       headerTitleG: "Olen DILLINGin chatbotti",
       headerSubtitleG: "Keskustelet chatbotin kanssa. Hyväksyt samalla, että keskustelu voidaan tallentaa ja käsitellä kokemuksesi parantamiseksi. Lue lisää tietosuojakäytännöstämme. Huom: chatbot voi joissain tapauksissa antaa virheellistä tietoa.",
       titleG: "DILLINGin chat",
-      firstMessage: "Hei 🙂 Olen uusi DILLINGillä ja vielä koulutuksessa. Mutta teen parhaani, jos sinulla on kysymyksiä DILLINGistä tai tuotteistamme. Miten voin auttaa?",
+      firstMessage: "Hei😊 Olen DILLINGin chattibotti. \nVoinko olla avuksi?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
