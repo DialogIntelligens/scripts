@@ -608,7 +608,7 @@ function initWithDebug() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "",
-        knowledgebaseIndexApiEndpoint: "humac-alt",
+        knowledgebaseIndexApiEndpoint: "purepower-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "humac-pro",
         flow4KnowledgebaseIndex: "",
