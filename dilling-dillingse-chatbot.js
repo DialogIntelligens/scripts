@@ -418,7 +418,7 @@ function initChatbot() {
       headerTitleG: "Jag är DILLINGs chattbot",
       headerSubtitleG: "Du skriver med en chattbot. Genom att använda den godkänner du att samtalet kan sparas och behandlas för att förbättra din upplevelse. Läs mer i vår integritetspolicy. Observera: chattboten kan i vissa fall ge felaktig information.",
       titleG: "DILLINGs chatt",
-      firstMessage: "Hej 🙂 Jag är ny hos DILLING och är fortfarande under upplärning. Men jag ska göra mitt bästa om du har frågor om DILLING eller våra produkter. Hur kan jag hjälpa dig?",
+      firstMessage: "Hej😊 Jag är DILLING:s chattbot. \nHur kan jag hjälpa dig?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
