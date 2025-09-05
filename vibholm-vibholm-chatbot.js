@@ -664,7 +664,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "Vibe - AI chatbot",
-        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \n\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
+        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋\n",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
