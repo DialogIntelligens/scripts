@@ -32,7 +32,6 @@ function initWithDebug() {
   }
   
   function initChatbotSafely() {
-    var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
 
     var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
 
