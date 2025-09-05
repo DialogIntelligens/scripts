@@ -34,6 +34,8 @@ function initWithDebug() {
   function initChatbotSafely() {
     var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
 
+    var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+
     // Prevent multiple initializations
     if (window.chatbotInitialized) {
       return;
@@ -663,7 +665,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "Vibe - AI chatbot",
-        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
+        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \n\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
