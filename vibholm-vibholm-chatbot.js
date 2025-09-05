@@ -607,7 +607,7 @@ function initWithDebug() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
+        pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "purepower-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "purepower-pro",
@@ -665,7 +665,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "Vibe - AI chatbot",
-        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
+        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
