@@ -417,8 +417,8 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: ;
-        --badge-color: ;
+        --icon-color: #00a770;
+        --badge-color: #CC2B20;
       }
 
       /* Notification badge styles */
