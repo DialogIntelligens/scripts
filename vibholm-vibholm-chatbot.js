@@ -32,6 +32,8 @@ function initWithDebug() {
   }
   
   function initChatbotSafely() {
+    var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+
     // Prevent multiple initializations
     if (window.chatbotInitialized) {
       return;
