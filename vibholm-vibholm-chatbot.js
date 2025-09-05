@@ -651,7 +651,7 @@ function initWithDebug() {
         productImageHeightMultiplier: 1,
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757076062870.png",
-        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
+        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1757076307002.png",
         themeColor: "#b9a678",
         aiMessageColor: "#f5f5f4",
         aiMessageTextColor: "#25221a",
@@ -665,7 +665,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "Support-botten Vibe",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \nJeg kan hjælpe dig med produktspørgsmål & generelle spørgsmål ",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
