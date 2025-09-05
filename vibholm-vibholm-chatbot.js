@@ -650,11 +650,11 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757076062870.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#020202",
-        aiMessageColor: "#e9ecef",
-        aiMessageTextColor: "#000000",
+        themeColor: "#b9a678",
+        aiMessageColor: "#f5f5f4",
+        aiMessageTextColor: "#25221a",
         headerTitleG: "",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
@@ -664,7 +664,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
+        titleG: "Support-botten Vibe",
         firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
         purchaseTrackingEnabled: true,
         isTabletView: false,
