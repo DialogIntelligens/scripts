@@ -610,7 +610,7 @@ function initWithDebug() {
         pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "purepower-alt",
         flow2KnowledgebaseIndex: "",
-        flow3KnowledgebaseIndex: "purepower-pro",
+        flow3KnowledgebaseIndex: "vibhold-pro",
         flow4KnowledgebaseIndex: "",
         apiFlowKnowledgebaseIndex: "",
         websiteOverride: "",
