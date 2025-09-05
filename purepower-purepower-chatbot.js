@@ -247,9 +247,7 @@ function initWithDebug() {
       
 
       
-      // Color configuration - modify these as needed
-      var ICON_COLOR = "#1a1d56";
-      var BADGE_COLOR = "#CC2B20";
+
 
       /**
        * 3. INJECT CSS (with configuration variables)
@@ -421,9 +419,10 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: ${ICON_COLOR};
-        --badge-color: ${BADGE_COLOR};
+        --icon-color: #1a1d56;
+        --badge-color: #CC2B20;
       }
+
       
       /* Notification badge styles */
       .notification-badge {
