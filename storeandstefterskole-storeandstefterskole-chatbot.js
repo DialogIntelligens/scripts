@@ -594,7 +594,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
+      pineconeApiKey: "",
       knowledgebaseIndexApiEndpoint: "storeandstefterskole-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "humac-pro",
@@ -856,8 +856,7 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      const popupText = "Har du brug for hjælp? Jeg kan besvare dine sprøgsmål ";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
