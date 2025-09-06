@@ -651,7 +651,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       enableLivechat: true,
         
-      titleG: "Storeandst Efterskole AI",
+      titleG: "Store Andst Efterskole AI",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra fag til generelle spørgsmål, eller få personlige anbefalinger 🤖",
       purchaseTrackingEnabled: true,
       isTabletView: false,
