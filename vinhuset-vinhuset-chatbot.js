@@ -571,13 +571,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       themeColor: "#2e2e2e",
       aiMessageColor: "#fbf7f4",
       aiMessageTextColor: "#2e2e2e",
-      headerTitleG: "Vin Bot - Din AI-hjälpare",
-      headerSubtitleG: "Du skriver med en artificiell intelligens. Genom att använda denna chatbot accepterar du att fel kan uppstå och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
+      headerTitleG: "Vin Bot - Din AI Hjælper",
+      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "Vin Bot",
-      firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från produkter till allmänna frågor, orderstatus eller tips & tricks om drycker och utrustning 🍾🍷",
+      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
       purchaseTrackingEnabled: true,
       
       isTabletView: false,
