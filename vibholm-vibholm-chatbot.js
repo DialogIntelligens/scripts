@@ -611,7 +611,7 @@ function initWithDebug() {
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "vibhold-pro",
         flow4KnowledgebaseIndex: "",
-        apiFlowKnowledgebaseIndex: "",
+        apiFlowKnowledgebaseIndex: "vibholm-alt",
         websiteOverride: "",
         languageOverride: "",
         valutaOverride: "",
