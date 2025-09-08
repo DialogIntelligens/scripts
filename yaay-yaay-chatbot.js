@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
         headerTitleG: " ",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. \nHvis du ikke får svar på dit spørgsmål, kan du sende os en mail til hej@yaay.dk.",
+        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. \\nHvis du ikke får svar på dit spørgsmål, kan du sende os en mail til hej@yaay.dk.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
           
@@ -793,9 +793,7 @@ document.addEventListener('DOMContentLoaded', function() {
           
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
-        
-        const popupText = "Har du brug for hjælp? Jeg kan hjælpe med det meste";
-        messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
         
         // Determine popup width based on character count (excluding any HTML tags)
         var charCount = messageBox.textContent.trim().length;
