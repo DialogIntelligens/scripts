@@ -663,15 +663,7 @@ function initWithDebug() {
         fontFamily: "Inter, sans-serif",
   
         enableLivechat: false,
-
-        shopifyEnabled: true,
-
-      // Order tracking via proxy (recommended for security)
-      //orderTrackingUseProxy: true,
-      //orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
-      //orderTrackingRequestMethod: "POST",
-      //trackingRequiredFields: ["email", "phone", "order_number"],
-          
+            
         titleG: "Vibe - AI chatbot",
         firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \\\\\\\\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
         purchaseTrackingEnabled: true,
