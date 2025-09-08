@@ -571,13 +571,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       themeColor: "#2e2e2e",
       aiMessageColor: "#fbf7f4",
       aiMessageTextColor: "#2e2e2e",
-      headerTitleG: "Vin Bot - Din AI Hjælper",
-      headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerTitleG: "Viini Botti – Tekoälyapuri",
+      headerSubtitleG: "Keskustelet tekoälyn kanssa. Käyttämällä tätä chatbotia hyväksyt, että virheitä voi esiintyä ja että keskustelu voidaan tallentaa ja käsitellä. Lue lisää tietosuojakäytännöstämme.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Vin Bot",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
+      titleG: "Viini Botti",
+      firstMessage: "Hei 😊 Kysy minulta mitä tahansa – tuotteista, yleisistä kysymyksistä, tilauksesi tilasta tai juomiin ja varusteisiin liittyvistä vinkeistä 🍾🍷",
       purchaseTrackingEnabled: true,
       
       isTabletView: false,
@@ -800,9 +800,7 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      
-      const popupText = "Jeg kan anbefale vin, finde ordrer og svare spørgsmål🍷";
-      messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
+messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
