@@ -314,7 +314,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 20px;
+      bottom: 57px;
     }
     #chat-button svg {
       width: 65px;
