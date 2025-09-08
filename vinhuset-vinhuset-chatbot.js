@@ -291,7 +291,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
       bottom: 9px;
-      right: 40px;
+      right: 33px;
       scale: 0.55;
     }
     
@@ -349,7 +349,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       
       #chatbase-message-bubbles.long-message {
         bottom: 12px;
-        right: 55px;
+        right: 35px;
         scale: 0.50;
       }
       
