@@ -571,13 +571,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       themeColor: "#2e2e2e",
       aiMessageColor: "#fbf7f4",
       aiMessageTextColor: "#2e2e2e",
-      headerTitleG: "Viini Botti – Tekoälyapuri",
-      headerSubtitleG: "Keskustelet tekoälyn kanssa. Käyttämällä tätä chatbotia hyväksyt, että virheitä voi esiintyä ja että keskustelu voidaan tallentaa ja käsitellä. Lue lisää tietosuojakäytännöstämme.",
+      headerTitleG: "Vin Bot - Din AI-hjälpare",
+      headerSubtitleG: "Du skriver med en artificiell intelligens. Genom att använda denna chatbot accepterar du att fel kan uppstå och att konversationen kan sparas och behandlas. Läs mer i vår integritetspolicy.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
       titleG: "Viini Botti",
-      firstMessage: "Hei 😊 Kysy minulta mitä tahansa – tuotteista, yleisistä kysymyksistä, tilauksesi tilasta tai juomiin ja varusteisiin liittyvistä vinkeistä 🍾🍷",
+      firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från produkter till allmänna frågor, orderstatus eller tips & tricks om drycker och utrustning 🍾🍷",
       purchaseTrackingEnabled: true,
       
       isTabletView: false,
