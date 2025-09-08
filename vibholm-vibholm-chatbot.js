@@ -673,7 +673,7 @@ function initWithDebug() {
       //trackingRequiredFields: ["email", "phone", "order_number"],
           
         titleG: "Vibe - AI chatbot",
-        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \\\\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
+        firstMessage: "Hej, mit navn er Vibe, jeg er Vibholms AI chatbot 😊 \\\\\\\\nSpørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 👋",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
