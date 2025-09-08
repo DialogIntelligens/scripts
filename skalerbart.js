@@ -589,11 +589,12 @@ function initWithDebug() {
   
         var messageData = {
         action: 'integrationOptions',
-        chatbotID: "humac",
+        chatbotID: "test",
         pagePath: window.location.href,
         flow2Key: "",
         flow3Key: "product",
         flow4Key: "",
+        apiFlowKey: "",
           
         leadGen: "%%",
         leadMail: "Team@dialogintelligens.dk",
@@ -659,13 +660,13 @@ function initWithDebug() {
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
-        fontFamily: "Inter, sans-serif",
+        fontFamily: "",
   
         enableLivechat: true,
           
         titleG: "Humac assistent",
         firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
-        purchaseTrackingEnabled: true,
+        purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
       };
