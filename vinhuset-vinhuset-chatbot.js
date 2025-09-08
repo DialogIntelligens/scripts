@@ -580,16 +580,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
       purchaseTrackingEnabled: true,
       
-      // Shopify Order Tracking Configuration
-      shopifyEnabled: true,
-      shopifyApiVersion: "2025-01",
-      
-      // Order tracking via proxy (recommended for security)
-      orderTrackingUseProxy: true,
-      orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
-      orderTrackingRequestMethod: "POST",
-      trackingRequiredFields: ["email", "phone", "order_number"],
-      
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
     };
