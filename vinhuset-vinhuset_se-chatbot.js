@@ -552,7 +552,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
       freshdeskFormErrorText: "Ret venligst fejlene i formularen",
       freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskSubmitErrorText: "Ett fel uppstod vid sändning av förfrågan. Försök igen.",
         
       // Set confirmation messages
       contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
@@ -560,8 +560,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       freshdeskSubjectText: 'Din henvendelse',
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
+      inputPlaceholder: "Skriv din fråga här...",
+      ratingMessage: "Fick du svar på din fråga?",
 
       productButtonText: "SE PRODUKT",
       productImageHeightMultiplier: 1,
