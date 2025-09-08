@@ -669,7 +669,7 @@ function initWithDebug() {
       // Order tracking via proxy (recommended for security)
       orderTrackingUseProxy: true,
       orderTrackingProxyUrl: "https://egendatabasebackend.onrender.com/api/shopify/orders",
-      orderTrackingRequestMethod: "POST",
+      //orderTrackingRequestMethod: "POST",
       trackingRequiredFields: ["email", "phone", "order_number"],
           
         titleG: "Vibe - AI chatbot",
