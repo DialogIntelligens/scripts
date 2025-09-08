@@ -590,16 +590,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       orderTrackingRequestMethod: "POST",
       trackingRequiredFields: ["email", "phone", "order_number"],
       
-      // Request body template for Shopify tracking
-      orderTrackingRequestBody: JSON.stringify({
-        shopifyStore: "vinhuset",
-        shopifyAccessToken: "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",
-        shopifyApiVersion: "2025-01",
-        email: "",
-        phone: "", 
-        order_number: ""
-      }),
-      
       isTabletView: false,
       isPhoneView: window.innerWidth < 1000
     };
