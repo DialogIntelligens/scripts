@@ -611,7 +611,7 @@ function initWithDebug() {
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "purepower-pro",
         flow4KnowledgebaseIndex: "",
-        apiFlowKnowledgebaseIndex: "",
+        apiFlowKnowledgebaseIndex: "purepower-alt",
         websiteOverride: "",
         languageOverride: "",
         valutaOverride: "",
