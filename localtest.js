@@ -155,7 +155,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'dktrimmer',
+      chatbot_id:'test',
       amount:    totalPrice
     })
   })
@@ -462,7 +462,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "dktrimmer",
+      chatbotID: "test",
       pagePath: window.location.href,
       flow2Key: "product",
       flow3Key: "models",
