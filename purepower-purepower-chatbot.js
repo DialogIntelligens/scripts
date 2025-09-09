@@ -871,8 +871,7 @@ function initWithDebug() {
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
-        const popupText = "Har du brug for hjælp? ";
-        messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;     
+messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;     
         
         // Determine popup width based on character count (excluding any HTML tags)
         var charCount = messageBox.textContent.trim().length;
