@@ -602,7 +602,7 @@ function initWithDebug() {
         leadField2: "Tlf nummer",
   
         metaDataKey: "",
-  
+        apiFlowKey: "",
         useThumbsRating: false,
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
