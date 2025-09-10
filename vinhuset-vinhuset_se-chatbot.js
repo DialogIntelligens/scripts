@@ -577,7 +577,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "Vin Bot",
-      firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från produkter till allmänna frågor, orderstatus eller tips & tricks om drycker och utrustning 🍾🍷",
+      firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från våra viner och orderstatus till allmänna frågor eller tips & tricks för en ännu bättre vinupplevelse🍾🍷",
       purchaseTrackingEnabled: true,
       
       isTabletView: false,
