@@ -576,7 +576,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Viini Botti",
+      titleG: "Vin Bot",
       firstMessage: "Hej 😊 Fråga mig om vad som helst – allt från produkter till allmänna frågor, orderstatus eller tips & tricks om drycker och utrustning 🍾🍷",
       purchaseTrackingEnabled: true,
       
