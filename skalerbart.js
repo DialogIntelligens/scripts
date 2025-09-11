@@ -595,14 +595,13 @@ function initWithDebug() {
         flow3Key: "product",
         flow4Key: "",
         apiFlowKey: "",
+        metaDataKey: "",
           
         leadGen: "%%",
         leadMail: "Team@dialogintelligens.dk",
         leadField1: "Navn",
         leadField2: "Tlf nummer",
   
-        metaDataKey: "",
-        apiFlowKey: "",
         useThumbsRating: false,
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
