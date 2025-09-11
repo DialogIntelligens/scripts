@@ -422,7 +422,7 @@ function initChatbot() {
       headerTitleG: " ",
       headerSubtitleG: "You are chatting with a chatbot. By doing so, you accept that the conversation may be stored and processed to improve your experience. Read more in our privacy policy. Note: the chatbot may occasionally provide incorrect information.",
       titleG: "DILLING chat",
-      firstMessage: "Hi there 😊 I'm DILLING's chatbot. How can I help you?",
+      firstMessage: "Hi there 😊 \nI'm DILLING's chatbot. How can I help you?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -550,7 +550,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     
-    const popupText = "Do you need help?";
+    const popupText = "Do you need\n help?";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
