@@ -527,7 +527,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "ditur-pro",
       flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "ditur-alt",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
@@ -797,12 +797,12 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;    \n      \n      // Determine popup width based on character count (excluding any HTML tags)\n      var charCount = messageBox.textContent.trim().length;\n      var popupElem = document.getElementById(Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;
+      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;    \n      \n      // Determine popup width based on character count (excluding any HTML tags)\n      var charCount = messageBox.textContent.trim().length;\n      var popupElem = document.getElementById(Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;    \n      \n      // Determine popup width based on character count (excluding any HTML tags)\n      var charCount = messageBox.textContent.trim().length;\n      var popupElem = document.getElementById(Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;\n      messageBox.innerHTML = `${popupText} <span id=Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;
       messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
-      var popupElem = document.getElementById(;chatbase-message-bubbles");
+      var popupElem = document.getElementById(;chatbase-message-bubbles;);
       
       // Remove any existing long-message class
       popupElem.classList.remove('long-message');
