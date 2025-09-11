@@ -800,7 +800,7 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      const popupText = "Voin suositella viinejä, vastata kysymyksiin ja etsiä tilauksia 🍷";
+      const popupText = "Voin suositella viinejä, vastata kysymyksiin ja etsiä tilauksia 🍷Voin suositella viinejä, vastata kysymyksiin ja etsiä tilauksia 🍷;;
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
       
       // Determine popup width based on character count (excluding any HTML tags)
