@@ -522,7 +522,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "ditur-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "ditur-pro",
