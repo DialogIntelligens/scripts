@@ -462,7 +462,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="http://localhost:3000/"
+        src="http://localhost:3002/"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -509,6 +509,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2Key: "",
       flow3Key: "product",
       flow4Key: "",
+      apiFlowKey: "order",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
@@ -521,7 +522,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
       knowledgebaseIndexApiEndpoint: "ditur-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "ditur-pro",
@@ -583,7 +584,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "http://localhost:3000/");
+          iframeWindow.postMessage(messageData, "http://localhost:3002/");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -591,7 +592,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "http://localhost:3000/");
+            iframeWindow.postMessage(messageData, "http://localhost:3002/");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -601,7 +602,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "http://localhost:3000/") return;
+      if (event.origin !== "http://localhost:3002/") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
