@@ -593,7 +593,7 @@ function initWithDebug() {
         pagePath: window.location.href,
         flow2Key: "",
         flow3Key: "product",
-        flow4Key: "",
+        flow4Key: "productfilter",
         apiFlowKey: "order",
           
         leadGen: "%%",
@@ -601,7 +601,7 @@ function initWithDebug() {
         leadField1: "Navn",
         leadField2: "Tlf nummer",
   
-        metaDataKey: "",
+        metaDataKey: "productfilter",
   
         useThumbsRating: false,
         ratingTimerDuration: 15000,
