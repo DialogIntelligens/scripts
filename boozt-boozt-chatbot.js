@@ -649,7 +649,7 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757762432478.png",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757763871083.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1757762860624.png",
         themeColor: "#5640ff",
         aiMessageColor: "#ece9fb",
@@ -870,7 +870,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter og besvare spørgsmål"
+        const popupText = "Jeg kan anbefale produkter og besvare spørgsmålJeg kan anbefale produkter og besvare spørgsmål;
         messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;   
           
         
