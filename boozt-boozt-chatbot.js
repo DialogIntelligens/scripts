@@ -652,7 +652,7 @@ function initWithDebug() {
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757763871083.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1757762860624.png",
         themeColor: "#5640ff",
-        aiMessageColor: "#ece9fb",
+        aiMessageColor: "#eae8f8",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
