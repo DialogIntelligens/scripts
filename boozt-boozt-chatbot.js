@@ -870,8 +870,8 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;
-        messageBox.innerHTML = `${popupText} <span id=;funny-smiley">😊</span>`;   
+        const popupText = "Jeg kan anbefale produkter og besvare spørgsmålJeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål Jeg kan anbefale produkter og besvare spørgsmål ;;
+        messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;   
           
         
         // Determine popup width based on character count (excluding any HTML tags)
