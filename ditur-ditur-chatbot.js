@@ -526,7 +526,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       knowledgebaseIndexApiEndpoint: "ditur-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "ditur-pro",
-      flow4KnowledgebaseIndex: "",
+      flow4KnowledgebaseIndex: "ditur-pro",
       apiFlowKnowledgebaseIndex: "ditur-alt",
       websiteOverride: "",
       languageOverride: "",
