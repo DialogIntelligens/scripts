@@ -716,85 +716,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     if (isCheckoutPage()) {
       setTimeout(checkForPurchase, 1000);
     }
-    } else if (event.data.action === 'openFullscreenVideo') {
-        // Handle fullscreen video request from chatbot
-        openFullscreenVideo(event.data.videoUrl);
-      }
+    }
     });
-
-    /**
-     * FULLSCREEN VIDEO FUNCTIONALITY
-     */
-    function openFullscreenVideo(videoUrl) {
-      // Create fullscreen video overlay
-      var fullscreenOverlay = document.createElement('div');
-      fullscreenOverlay.id = 'chatbot-fullscreen-video';
-      fullscreenOverlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.95);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 999999;
-        cursor: pointer;
-      `;
-      
-      // Create video element
-      var video = document.createElement('video');
-      video.src = videoUrl;
-      video.controls = true;
-      video.autoplay = true;
-      video.style.cssText = `
-        max-width: 95vw;
-        max-height: 95vh;
-        object-fit: contain;
-        box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
-        border-radius: 8px;
-      `;
-      
-      // Prevent video clicks from closing the overlay
-      video.addEventListener('click', function(e) {
-        e.stopPropagation();
-      });
-      
-      // Close overlay when clicking outside video
-      fullscreenOverlay.addEventListener('click', function() {
-        closeFullscreenVideo();
-      });
-      
-      // Close with Escape key
-      function handleEscapeKey(e) {
-        if (e.key === 'Escape') {
-          closeFullscreenVideo();
-        }
-      }
-      
-      document.addEventListener('keydown', handleEscapeKey);
-      
-      // Store the escape handler for cleanup
-      fullscreenOverlay._escapeHandler = handleEscapeKey;
-      
-      fullscreenOverlay.appendChild(video);
-      document.body.appendChild(fullscreenOverlay);
-      
-      // Focus the video for keyboard controls
-      video.focus();
-    }
-    
-    function closeFullscreenVideo() {
-      var overlay = document.getElementById('chatbot-fullscreen-video');
-      if (overlay) {
-        // Remove escape key listener
-        if (overlay._escapeHandler) {
-          document.removeEventListener('keydown', overlay._escapeHandler);
-        }
-        document.body.removeChild(overlay);
-      }
-    }
 
     /**
      * 6. BADGE MANAGEMENT
