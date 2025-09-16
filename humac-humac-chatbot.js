@@ -313,8 +313,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       border: none;
       position: fixed !important;
       z-index: 2147483647 !important;
-      right: 10px !important;
-      bottom: 57px !important;
+      right: 20px !important;
+      bottom: 20px !important;
     }
     #chat-button svg {
       width: 65px;
@@ -341,8 +341,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /* Popup container - positioned relative to button */
     #chatbase-message-bubbles {
       position: fixed !important;
-        bottom: calc(57px + 17px) !important; /* button bottom + offset */
-        right: calc(10px + 55px) !important; /* button right + offset */
+        bottom: calc(20px + 17px) !important; /* button bottom + offset */
+        right: calc(20px + 55px) !important; /* button right + offset */
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
       font-size: 20px;
@@ -365,8 +365,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: calc(57px + 12px) !important; /* button bottom + offset */
-      right: calc(10px + 36px) !important; /* button right + offset */
+      bottom: calc(20px + 12px) !important; /* button bottom + offset */
+      right: calc(20px + 36px) !important; /* button right + offset */
       scale: 0.52;
     }
     
@@ -418,13 +418,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
    
           @media (max-width: 600px) {
     #chatbase-message-bubbles {
-        bottom: 75px !important;
-        right: 70px !important;
+        bottom: calc(20px + 18px) !important; /* button bottom + mobile offset */
+        right: calc(20px + 60px) !important; /* button right + mobile offset */
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: 70px !important;
-        right: 42px !important;
+        bottom: calc(20px + 13px) !important; /* button bottom + mobile offset */
+        right: calc(20px + 32px) !important; /* button right + mobile offset */
         scale: 0.50;
       }
       
