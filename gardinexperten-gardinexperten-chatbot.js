@@ -778,10 +778,53 @@ function trackChatbotOpen() {
     }
 
 
-    /**
+   /**
      * 7. SHOW/HIDE POPUP
      */
-    function showPopup() {
+    function generateVisitorKey() {
+      const storageKey = `visitorKey_${chatbotID}`;
+      let visitorKey = localStorage.getItem(storageKey);
+      if (!visitorKey) {
+        visitorKey = `visitor-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+        localStorage.setItem(storageKey, visitorKey);
+      }
+      return visitorKey;
+    }
+
+
+
+    async function logSplitImpression(variantId) {
+      try {
+        const visitorKey = generateVisitorKey();
+        await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chatbot_id: chatbotID,
+            variant_id: variantId,
+            visitor_key: visitorKey,
+            user_id: chatbotUserId || null
+          })
+        });
+      } catch (e) {
+        console.warn('Failed to log split impression:', e);
+      }
+    }
+
+    async function fetchPopupFromBackend() {
+      try {
+        const visitorKey = generateVisitorKey();
+        const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        return (data && data.popup_text) ? String(data.popup_text) : null;
+      } catch (e) {
+        console.warn('Popup fetch failed, will use default if any:', e);
+        return null;
+      }
+    }
+
+    async function showPopup() {
       var iframe = document.getElementById("chat-iframe");
         // If the iframe is visible, do not show the popup
         if (iframe.style.display !== "none") {
@@ -795,8 +838,27 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      const popupText = "Jeg kan besvare spørgsmål og anbefale gardiner";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      
+      // Backwards compatibility: if popupText is defined and non-empty in script, use it; otherwise fetch from backend
+      let finalPopupText = (typeof popupText !== 'undefined' && popupText && String(popupText).trim().length > 0)
+        ? String(popupText)
+        : await fetchPopupFromBackend() || "Har du brug for hjælp?";
+
+      // Check for split test assignment and log impression if applicable
+      let splitAssignment = null;
+      if (typeof popupText === 'undefined' || !popupText || String(popupText).trim().length === 0) {
+        splitAssignment = await getSplitAssignmentOnce();
+        if (splitAssignment && splitAssignment.variant && splitAssignment.variant.config && splitAssignment.variant.config.popup_text) {
+          finalPopupText = splitAssignment.variant.config.popup_text;
+        }
+      }
+      
+      messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
+      
+      // Log impression if this is a split test
+      if (splitAssignment && splitAssignment.variant_id) {
+        logSplitImpression(splitAssignment.variant_id);
+      }    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -813,7 +875,7 @@ function trackChatbotOpen() {
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "405px";
+        popupElem.style.width = "460px";
       } else {
         popupElem.style.width = "460px";
       }
