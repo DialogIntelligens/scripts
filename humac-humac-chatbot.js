@@ -338,15 +338,15 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       }
     }
   
-    /* Popup container */
+    /* Popup container - positioned relative to button */
     #chatbase-message-bubbles {
-      position: absolute;
-        bottom: 17px;
-        right: 55px;
+      position: fixed !important;
+        bottom: calc(57px + 17px) !important; /* button bottom + offset */
+        right: calc(10px + 55px) !important; /* button right + offset */
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
       font-size: 20px;
-      z-index: 18;
+      z-index: 2147483646 !important;
         scale: 0.60;
       cursor: pointer;
       display: none; /* hidden by default */
@@ -365,8 +365,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: 12px;
-      right: 36px;
+      bottom: calc(57px + 12px) !important; /* button bottom + offset */
+      right: calc(10px + 36px) !important; /* button right + offset */
       scale: 0.52;
     }
     
@@ -418,13 +418,13 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
    
           @media (max-width: 600px) {
     #chatbase-message-bubbles {
-        bottom: 18px;
-        right: 60px;
+        bottom: 75px !important;
+        right: 70px !important;
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: 13px;
-        right: 32px;
+        bottom: 70px !important;
+        right: 42px !important;
         scale: 0.50;
       }
       
