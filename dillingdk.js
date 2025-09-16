@@ -418,7 +418,7 @@ function initChatbot() {
       headerTitleG: "Jeg er DILLINGs chatbot",
       headerSubtitleG: "Du skriver med en chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 \nJeg er DILLINGs chatbot. Hvordan kan jeg hjælpe dig?",
+      firstMessage: "Hej med dig 🙂 Jeg er DILLINGs chatbot. Hvordan kan jeg hjælpe dig?",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -545,7 +545,7 @@ function initChatbot() {
           
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-    const popupText = "Har du brug for hjælp?";
+    const popupText = "Har du brug for hjælp?\n";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
