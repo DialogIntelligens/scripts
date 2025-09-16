@@ -512,7 +512,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow4Key: "productfilter",
 
       
-      apiFlowKey: "order",
+      apiFlowKey: "",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
