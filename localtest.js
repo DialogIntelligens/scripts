@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'ditur',
+      chatbot_id:'skadedyrshop',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "ditur";
+    var chatbotID = "skadedyrshop";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -290,8 +290,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     
     /* Longer message styling */
     #chatbase-message-bubbles.long-message {
-      bottom: 9px;
-      right: 40px;
+      bottom: 4px;
+      right: 35px;
       scale: 0.55;
     }
     
@@ -348,8 +348,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       }
       
       #chatbase-message-bubbles.long-message {
-        bottom: 12px;
-        right: 55px;
+        bottom: 7px;
+        right: 35px;
         scale: 0.50;
       }
       
@@ -369,7 +369,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
   
     :root {
-      --icon-color: #212e48;
+      --icon-color: #2b3528;
       --badge-color: #CC2B20;
     }
     
@@ -462,7 +462,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="http://localhost:3002/"
+        src=""
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -497,94 +497,44 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     /**
      * 5. CHAT IFRAME LOGIC
      */
+
+    
     function sendMessageToIframe() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
 
-
       var messageData = {
       action: 'integrationOptions',
-      chatbotID: "ditur",
-      pagePath: window.location.href,
-      flow2Key: "",
+      chatbotID: "skadedyrshop",
+      flow2Key: "category",
       flow3Key: "product",
-      flow4Key: "",
-      apiFlowKey: "order",
-        
-      leadGen: "%%",
-      leadMail: "Team@dialogintelligens.dk",
-      leadField1: "Navn",
-      leadField2: "Tlf nummer",
-
-      metaDataKey: "",
-
-      useThumbsRating: false,
-      ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
-
-      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
-      knowledgebaseIndexApiEndpoint: "ditur-alt",
-      flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "ditur-pro",
+      pineconeApiKey: "pcsk_61ikwk_TrrPrpagck8PLsqoc2aeTdhBZoMzRwPXP2Y1pTuw4zw7ewskEyC74Vh7yhcrFEN",   
+      imageAPI: 'https://den-utrolige-snebold.onrender.com/api/v1/prediction/f8e3b40d-65b3-4888-8b0e-bae757411f1b', // Ensure this is true in your integrationOptions data
+      knowledgebaseIndexApiEndpoint: "hhs-alt1",
+      flow2KnowledgebaseIndex: "hhs-links",
+      flow3KnowledgebaseIndex: "hhs-produkter",
       flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "ditur-alt",
-      websiteOverride: "",
-      languageOverride: "",
-      valutaOverride: "",
-      customVar1: "",
-      
-      privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
-
-      // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
-        
-      // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
-        
-      // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-
-      freshdeskSubjectText: 'Din henvendelse',
-
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgsmål?",
-
-      productButtonText: "SE PRODUKT",
-      productImageHeightMultiplier: 1,
-        
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755856456554.png",
-      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755359826156.png",
-      themeColor: "#212e48",
-      aiMessageColor: "#d8d8d8",
-      aiMessageTextColor: "#161f2e",
+      apiFlowKnowledgebaseIndex: "",
+      messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1756823594293.png",
+      privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_Skadedyrshop.pdf",
+      titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
+      themeColor: "#2b3528",
+            aiMessageColor: "#e9ecef",
+          aiMessageTextColor: "#000000",
       headerTitleG: "",
       headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
-      subtitleLinkText: "",
-      subtitleLinkUrl: "",
-        
-      titleG: "Ditur's Virtuelle Assistent",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+      titleG: "SkadedyrShop AI ",
+      firstMessage: "Hej😊 Hvad kan jeg hjælpe dig med?🐝 (Du kan stille et spørgsmål, få anbefalet et produkt eller uploade et billede📷)",
       purchaseTrackingEnabled: true,
-      isTabletView: false,
-      isPhoneView: window.innerWidth < 1000
-    };
-
+      isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
+    isPhoneView: window.innerWidth < 800
+      };
   
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "http://localhost:3002/");
+          iframeWindow.postMessage(messageData, "localhost:3002");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -592,7 +542,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "http://localhost:3002/");
+            iframeWindow.postMessage(messageData, "localhost:3002");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -602,7 +552,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "http://localhost:3002/") return;
+      if (event.origin !== "localhost:3002") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
@@ -796,9 +746,7 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      
-      const popupText = "Jeg kan anbefale produkter og besvare spørgsmål";
-      messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;    
+messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
