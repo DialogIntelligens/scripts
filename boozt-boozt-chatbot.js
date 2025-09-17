@@ -593,9 +593,9 @@ function initWithDebug() {
         pagePath: window.location.href,
         flow2Key: "",
         flow3Key: "product",
-        flow4Key: "",
+        flow4Key: "productfilter",
         apiFlowKey: "",
-        metaDataKey: "",
+        metaDataKey: "productfilter",
         metaData2Key: "",
             
         leadGen: "%%",
