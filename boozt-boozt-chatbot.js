@@ -611,7 +611,7 @@ function initWithDebug() {
         knowledgebaseIndexApiEndpoint: "boozt-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "boozt-pro",
-        flow4KnowledgebaseIndex: "",
+        flow4KnowledgebaseIndex: "boozt-pro",
         apiFlowKnowledgebaseIndex: "",
         websiteOverride: "",
         languageOverride: "",
