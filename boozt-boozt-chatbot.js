@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #5640ff;
+        --icon-color: #d4cca7;
         --badge-color: #CC2B20;
       }
    
@@ -652,9 +652,9 @@ function initWithDebug() {
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1757763871083.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1757762860624.png",
-        themeColor: "#5640ff",
-        aiMessageColor: "#eae8f8",
-        aiMessageTextColor: "#000000",
+        themeColor: "#d4cca7",
+        aiMessageColor: "#f5f5f5",
+        aiMessageTextColor: "#212121",
         headerTitleG: "",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
