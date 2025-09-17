@@ -596,6 +596,7 @@ function initWithDebug() {
         flow4Key: "",
         apiFlowKey: "",
         metaDataKey: "",
+        metaData2Key: "",
           
         leadGen: "%%",
         leadMail: "Team@dialogintelligens.dk",
