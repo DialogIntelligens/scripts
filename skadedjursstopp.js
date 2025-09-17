@@ -525,7 +525,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       firstMessage: "Hej 😊 Vad kan jag hjälpa dig med? 🐝 (Du kan ställa en fråga eller ladda upp en bild 📷)",
 
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1758093074017.png",
       themeColor: "#2b3528",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
@@ -1377,7 +1377,7 @@ function purchaseKey(userId) {
       
       privacyLink: "http://dialogintelligens.dk/wp-content/uploads/2024/10/Privatlivspolitik_skadedjursstopp.pdf",
       titleLogoG: "https://dialogintelligens.dk/wp-content/uploads/2024/09/WhiteMessageIcon.png",
-      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756821140274.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1758093074017.png",
       themeColor: "#2b3528",
             aiMessageColor: "#e9ecef",
           aiMessageTextColor: "#000000",
