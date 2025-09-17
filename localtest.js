@@ -534,7 +534,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "localhost:3002");
+          iframeWindow.postMessage(messageData, "http://localhost:3002/");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -542,7 +542,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "localhost:3002");
+            iframeWindow.postMessage(messageData, "http://localhost:3002/");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -552,7 +552,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "localhost:3002") return;
+      if (event.origin !== "http://localhost:3002/") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
