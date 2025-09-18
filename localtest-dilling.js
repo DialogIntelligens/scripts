@@ -1,4 +1,3 @@
-
 function initChatbot() {
 
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
@@ -312,7 +311,7 @@ function initChatbot() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "dillingdk",
+      chatbotID: "dillingde",
       pagePath: window.location.href,
       statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -323,7 +322,8 @@ function initChatbot() {
       flow3Key: "productnofilter",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
       flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
-      flow4Key: "",
+      flow4Key: "category",
+      productButtonText: "PRODUKT ANSEHEN",
       
       imageAPI: "",
   
@@ -334,7 +334,7 @@ function initChatbot() {
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
       
-   // Order tracking URL with placeholders
+      // Order tracking URL with placeholders
   orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="EMAIL_PLACEHOLDER")',
   
   // Authentication settings remain the same
@@ -359,66 +359,69 @@ function initChatbot() {
   // Auth is required
   trackingNeedsAuth: true,
 
-      
+  
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
-      pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "dilling-pro",
-      flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "dilling-kat",
-      apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
-      customVar1: "+45 97 12 05 88",
-      dillingProductsKatOverride: "Whenever a category link matches the user’s request, add it at the end as a hyperlink. Use only links from the context (format: https://dk.dilling.com/kategori/...). Never invent links.  Top-level categories: /dame, /herre, /born, /baby, /merinould, /nyheder, /udsalg  Shared subcategories: Any of these work under /dame, /herre, /born, /baby (and /merinould where noted):  /nyheder  /sale  /activewear (also under /merinould)  /trojer  /skjorter (not in /baby)  /kjoler (not in /herre)  /accessories  /stop-tojspild  /reparation-og-pleje  /undertoj (special cases: /herre/undertrojer, /herre/tights-og-underbukser, /herre/lange-underbukser, /merinould/undertoj)  /bukser & /leggings (/bukser-og-shorts, /leggings-og-bukser, /shorts)  /bluser-og-t-shirts  Specific subcategories:  Baby only: /bodyer, /heldragter, /babypakker  Børn only: /toppe-og-undertrojer, /trusser, /tights  Dame only: /toppe, /trusser, /nattoj, /plus-size  Herre only: /plus-size  Merinould: /glatstrik, /bred-rib, /multirib, /smal-rib, /merinouldfrotte, /merinouldfleece, /loop-back, /merinouldsilke, /merinouldalpaka  Hyperlink text = natural language version of the URL ending.  Example: /kategori/dame → kategori dame; /kategori/born/kjoler → børne kjoler.  If only a broad category fits, explain the user can use the product filter on the page to refine.",
-      dillingColors: "\"Abrikos\", \"Abrikos/natur\", \"Allium lilla\", \"Aqua blå\", \"Arktisk blå\", \"Arktisk blå/natur\", \"Aubergine\", \"Avocadogrøn\", \"Azurblå\", \"Bark\", \"Beige\", \"Beige melange\", \"Beigemelange\", \"Beigemeleret\", \"Beige/navy\", \"Blomme\", \"Blå\", \"Blå marehalm\", \"Blå med brunmelange prikker\", \"Blågråmelange\", \"Blåmelange\", \"Blush\", \"Bonderose\", \"Bordeaux\", \"Bourgogne\", \"Brun\", \"Brunmelange\", \"Brunternet\", \"Brunmelange med striber\", \"Brændt orange\", \"Bubblegum\", \"Candyfloss\", \"Chokoladebrun\", \"Citrongræs\", \"Cortenrød\", \"Cremefarvet\", \"Croissant\", \"Dybhavsblå\", \"Elfenben\", \"Eventyrlig lilla\", \"Figen\", \"Fløde\", \"Frappé\", \"Frosthimmel\", \"Fudge\", \"Gammelrosa\", \"Granatæble\", \"Granatæble/jordbærmilkshake\", \"Granatæble/nordisk blå/natur\", \"Grå\", \"Gråbrun\", \"Grågrøn\", \"Gråmelange\", \"Gråmelange med striber\", \"Gråstribet\", \"Grøn\", \"Grønmelange\", \"Grønternet\", \"Hasselnød\", \"Havbund\", \"Havgus\", \"Havre\", \"Hindbær\", \"Hindbærskum\", \"Honning\", \"Hvid\", \"Hvid/navy\", \"Hyldebær\", \"Isblå\", \"Jadegrøn\", \"Jadegrøn/natur\", \"Jordbærmilkshake\", \"Jordbærrød\", \"Julehjerterød\", \"Julerød\", \"Junglegrøn\", \"Kakao\", \"Kaffe/sort\", \"Karamel\", \"Karamelmelange\", \"Kastanjebrun\", \"Kobberbrun\", \"Koboltblå\", \"Kongeblå\", \"Kongeblå med striber\", \"Koral\", \"Lavendel\", \"Lavendelgrå\", \"Lilla blomme\", \"Lilla orkide\", \"Lilla orkide/natur\", \"Lys figen\", \"Lysegul/natur\", \"Lyseblå melange\", \"Lysebrunmelange\", \"Lysegråmelange\", \"Lysegråmelange/natur\", \"Lysegråmelange/navy\", \"Lysegråmelange/rosa\", \"Lysegråmelange/tordenblå\", \"Lysegråmeleret\", \"Mahognirose\", \"Mahognirose/natur\", \"Mat pink\", \"Merlot\", \"Midnatsblå\", \"Mokka\", \"Mosgrøn\", \"Mørk chokoladebrun\", \"Mørk kirsebærrød\", \"Mørk muskat\", \"Mørk navy\", \"Mørk petroleumsgrøn\", \"Mørkeblå\", \"Mørkebrun\", \"Mørkebrun/gråbrun\", \"Mørkegråmelange\", \"Mørkegrøn\", \"Mørkegrønmelange\", \"Månesten\", \"Natur\", \"Natur/Sort\", \"Navy\", \"Navy-ternet\", \"Nordisk blå\", \"Nordisk blå/natur\", \"Nordisk jord\", \"Nordisk navy\", \"Nordisk syren-melange\", \"Nålegrøn\", \"Olivegrøn\", \"Pastelblå\", \"Perlehvid\", \"Petroleumsblå\", \"Pink\", \"Pink blush\", \"Pudder\", \"Puddermelange\", \"Pudderrosa\", \"Rosa\", \"Rosa nellike\", \"Rosakvarts\", \"Rouge\", \"Rå bomuld\", \"Råhvid\", \"Rød\", \"Rød melange\", \"Safirblå\", \"Salvie\", \"Sandfarvet\", \"Skarp blå\", \"Skovbund\", \"Skovgrøn\", \"Sort\", \"Sort/natur\", \"Sortmelange\", \"Stål\", \"Støvet blå/stormblå\", \"Støvet lavendel\", \"Støvet rosa\", \"Støvet sort\", \"Sølv salvie\", \"Syren\", \"Syren-melange\", \"Tordenblå\", \"Valnød\", \"Valnød/natur\", \"Varm grå\", \"Vintage ballerina\", \"Ørkengræs\",",      
-      productImageHeightMultiplier: 1.1,
+      pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
+      knowledgebaseIndexApiEndpoint: "dillingde-faq",
+      flow2KnowledgebaseIndex: "dillingde-pro",
+      flow3KnowledgebaseIndex: "dillingde-pro",
+      flow4KnowledgebaseIndex: "dillingde-kat",
+      apiFlowKnowledgebaseIndex: "dillingde-faq",
+      websiteOverride: "dilling.de",
+      languageOverride: "German",
+      valutaOverride: "EUR",
+      customVar1: "0049 (0)800 18 33 572",
+      dillingProductsKatOverride: "Whenever there is a category link in the context, and if it matches the user's request, add it in the end as a hyperlink to the category. Do this often. They look like this: https://www.dilling.de/kategorie/example, but never create your own links, you must find them in the content, and if there is none, add the matching broad category from here and always say that they can use the productfilter to try to find their product: https://www.dilling.de/kategorie/baby, https://www.dilling.de/kategorie/damen, https://www.dilling.de/kategorie/herren and https://www.dilling.de/kategorie/kinder, https://www.dilling.de/kategorie/neuheiten (if no gender or age is provided). The hyperlink name should match the URL end, e.g. category/lady hyperlink name should be category lady. It's fine to send a broad link and always explain that they can try use the product filter on the category page you sent.",
+      dillingColors: "Aqua blue, Aprikot, Arktik Blau, Arktik Blau/ natur, Aubergine, Azurblau, Baumrinde, Beige, Beige meliert, Beige/navy, Bestäubtes Schwarz, Birne, Birne/ natur, Blau, Blau meliert, Blaugrau meliert, Blush, Bordeaux, Braun, Braun meliert, Braunes Karomuster, Bubblegum, Burgunderrot, Cappuccino/Beige, Carreaux bleu marine, Croissant , Donnerblau, Dschungelgrün, Dunkelblau, Dunkelbraun, Dunkle Kirsche, Dunkelgrau meliert, Dunkelgrün, Dunkelgrün meliert, Dunkelmuskat, Dunkelnavy, Dunklerot , Dunkles Lavendel, Dunkelrosa, Eierlikör, Eisblau, Elfenbein, Erdbeer-Milchshake, Erdbeerrot, Feige, Flieder, Frappé, Frostblau, Fuchsia, Gedecktes rosa, Grau, Grau gestreift, Grau meliert, Grau meliert mit Streifen, Graugrün, Grün, Grün kariert, Hafer, Haselnuss, Haselnussbraun, Hellblau, Hellbraun meliert, Hellgelb/Natur, Hellgrau meliert, Hellgrau meliert/natur, Helle Himbeere, Himbeere, Himbeerschaum, Holunder, Jadegrün, Jadegrün/ natur gestreift, Kakao, Karamell, Karamell meliert, Kastanienbraun, Kobaltblau, Kortenrot, Kupfer, Königsblau, Königsblau mit Streifen, Kühles Grün, Lavendel, Lichtblau Melange, Lila, Mahagoni-Rose, Mahagoni-Rose/ natur, Marineblaues Karomuster, Melierter Flieder, Merlot, Mitternachtsblau, Mokka, Mondstein, Moos, Natur, Navy, Navy , Nelkenrosa, Nordic Lila-Melange, Nordische Marine, Nordischer Boden, Nordisches Blau/natur, Olivgrün, Orange, Orchidee, Pastellgrün, Perlweiß, Petrol, Pfingstrose, Pflaume, Piniengrün, Pink, Puder, Puderrosa, Rauchblau, Rauchblau/Sturmblau, Rosa, Rosenquarz, Rot, Rot Melange, Rouge, Rubinrot, Sand, Schokobraun, Schwarz, Schwarz meliert , Schwarz/Natur, Seenebel, Senf, Siberner Salbei, Stahl, Strandroggen, Taupe, Tiefseeblau, Türkis, Ungefärbte Baumwolle, Vintage Ballerina, Vintage Grau, Violette Orchidee, Waldboden, Waldgrün, Walnuss, Walnuss/ natur, Warmes Grau, Weihnachtsrot, Weiß, Weiss/navy, Wüstengras, Zitronengras, Zuckerwatte, nordisches Blau,",
+      
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
-      
+      productImageHeightMultiplier: 1.1,
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Deine E-Mail-Adresse:",
+      freshdeskMessageLabel: "Nachricht an den Kundenservice:",
+      freshdeskImageLabel: "Bild hochladen (optional):",
+      freshdeskChooseFileText: "Datei auswählen",
+      freshdeskNoFileText: "Keine Datei ausgewählt",
+      freshdeskSendingText: "Senden...",
+      freshdeskSubmitText: "Anfrage absenden",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: " E-Mail ist erforderlich",
+      freshdeskEmailInvalidError: "Bitte eine gültige E-Mail-Adresse eingeben",
+      freshdeskFormErrorText: "Bitte korrigiere die Fehler im Formular",
+      freshdeskMessageRequiredError: "Nachricht ist erforderlich",
+      freshdeskSubmitErrorText: "Beim Senden der Anfrage ist ein Fehler aufgetreten. Bitte versuche es erneut.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
+      freshdeskConfirmationText: "Vielen Dank für deine Anfrage, wir melden uns so schnell wie möglich.",
 
-      freshdeskNameRequiredError: "Navn er påkrævet",
-      freshdeskNameLabel: "Navn:",
+      freshdeskNameRequiredError: "Name ist erforderlich",
+      freshdeskNameLabel: "Name:",
+      
+      freshdeskSubjectText: 'Ihre Anfrage an DILLING',
 
-      freshdeskSubjectText: 'Din henvendelse til DILLING',
+            
+      freshdeskGroupId: 22000157431,
+      freshdeskProductId: 22000001491,
 
-      freshdeskGroupId: 22000157402,
-
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
-      privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
+      inputPlaceholder: "Schreibe hier deine Frage...",
+      ratingMessage: "Wurde deine Frage beantwortet?",
+      
+      privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
-          aiMessageColor: "#e9ecef",
-          aiMessageTextColor: "#000000",
-      headerTitleG: "Jeg er DILLINGs chatbot",
-      headerSubtitleG: "Du skriver med en chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
+        aiMessageColor: "#e9ecef",
+  aiMessageTextColor: "#000000",
+      headerTitleG: "Ich bin DILLINGs chatbot",
+      headerSubtitleG: "Du schreibst mit einem chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet werden kann, um deine Erfahrung zu verbessern. Lies mehr in unserer Datenschutzrichtlinie. Hinweis: Der Chatbot kann in manchen Fällen falsche Informationen liefern.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er DILLINGs chatbot.\\nHvordan kan jeg hjælpe dig?",
+      firstMessage: "Hallo 😊 Ich bin der Chatbot von DILLING. \nWie kann ich Ihnen helfen?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -442,7 +445,7 @@ function initChatbot() {
     }
   }
 
-    // Listen for messages from the iframe
+  // Listen for messages from the iframe
   window.addEventListener('message', function(event) {
     if (event.origin !== "http://localhost:3002/") return;
     if (event.data.action === 'toggleSize') {
@@ -545,7 +548,9 @@ function initChatbot() {
           
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
+    
+    const popupText = "Brauchst du Hilfe?";
+    messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
     var charCount = messageBox.textContent.trim().length;
