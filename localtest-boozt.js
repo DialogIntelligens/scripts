@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #5640ff;
+        --icon-color: #aaa688;
         --badge-color: #CC2B20;
       }
    
@@ -593,9 +593,9 @@ function initWithDebug() {
         pagePath: window.location.href,
         flow2Key: "",
         flow3Key: "product",
-        flow4Key: "",
+        flow4Key: "productfilter",
         apiFlowKey: "",
-        metaDataKey: "",
+        metaDataKey: "productfilter",
         metaData2Key: "",
             
         leadGen: "%%",
@@ -611,7 +611,7 @@ function initWithDebug() {
         knowledgebaseIndexApiEndpoint: "boozt-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "boozt-pro",
-        flow4KnowledgebaseIndex: "",
+        flow4KnowledgebaseIndex: "boozt-pro",
         apiFlowKnowledgebaseIndex: "",
         websiteOverride: "",
         languageOverride: "",
