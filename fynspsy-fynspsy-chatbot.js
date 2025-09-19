@@ -511,7 +511,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/083e3b92-0328-4ba0-8367-71c632f58a02",
       flow2Key: "",
       flow2API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11a42c30-c988-4e76-9f6d-283055358f91",
-      flow3Key: "product",
+      flow3Key: "",
       flow3API: "",
       flow4API: "",
       flow4Key: "",
