@@ -429,7 +429,7 @@ document.addEventListener('DOMContentLoaded', function() {
       pagePath: window.location.href,
       fordelingsflowAPI: "",
       flow2Key: "",
-      flow3Key: "product",
+      flow3Key: "",
       flow4Key: "",
 
       pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
