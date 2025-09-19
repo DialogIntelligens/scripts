@@ -448,7 +448,7 @@ document.addEventListener('DOMContentLoaded', function() {
       fordelingsflowAPI: "",
       flow2Key: "",
       flow2API: "",
-      flow3Key: "product",
+      flow3Key: "",
       flow3API: "",
       flow4API: "",
       flow4Key: "",
