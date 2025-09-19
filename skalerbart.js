@@ -592,7 +592,7 @@ function initWithDebug() {
         chatbotID: "test",
         pagePath: window.location.href,
         flow2Key: "",
-        flow3Key: "product",
+        flow3Key: "",
         flow4Key: "",
         apiFlowKey: "",
         metaDataKey: "",
