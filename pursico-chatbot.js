@@ -453,7 +453,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     pagePath: window.location.href,
     statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6cf299db-3b64-440f-9113-09bf9e1427a1",
     apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/6454e28c-6a2f-4cce-b0ef-e76e338031ee",
-    fordelingsflowAPI: "",
     flow2Key: "",
     flow2API: "",
     flow3Key: "",
