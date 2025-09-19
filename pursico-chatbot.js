@@ -456,7 +456,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     fordelingsflowAPI: "",
     flow2Key: "",
     flow2API: "",
-    flow3Key: "product",
+    flow3Key: "",
     flow3API: "",
     flow4API: "",
     flow4Key: "",
