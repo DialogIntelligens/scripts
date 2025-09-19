@@ -522,7 +522,7 @@ function sendMessageToIframe() {
   fordelingsflowAPI: "",
   flow2Key: "",
   flow2API: "",
-  flow3Key: "product",
+  flow3Key: "skolenfri",
   flow3API: "",
   flow4API: "",
   flow4Key: "",
