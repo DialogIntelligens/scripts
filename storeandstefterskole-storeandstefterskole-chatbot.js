@@ -580,7 +580,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       chatbotID: "storeandstefterskole",
       pagePath: window.location.href,
       flow2Key: "",
-      flow3Key: "product",
+      flow3Key: "",
       flow4Key: "",
         
       leadGen: "%%",
