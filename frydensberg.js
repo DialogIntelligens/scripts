@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chatbotID: "frydensberg",
       pagePath: window.location.href,
       flow2Key: "",
-      flow3Key: "product",
+      flow3Key: "",
         
       pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
       knowledgebaseIndexApiEndpoint: "frydensberg-alt",
