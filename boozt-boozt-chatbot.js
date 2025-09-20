@@ -609,7 +609,7 @@ function initWithDebug() {
   
         pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "boozt-alt",
-        flow2KnowledgebaseIndex: "",
+        flow2KnowledgebaseIndex: "beauty-pro",
         flow3KnowledgebaseIndex: "boozt-pro",
         flow4KnowledgebaseIndex: "boozt-pro",
         apiFlowKnowledgebaseIndex: "",
