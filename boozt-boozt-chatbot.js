@@ -591,7 +591,7 @@ function initWithDebug() {
         action: 'integrationOptions',
         chatbotID: "boozt",
         pagePath: window.location.href,
-        flow2Key: "",
+        flow2Key: "beauty",
         flow3Key: "product",
         flow4Key: "productfilter",
         apiFlowKey: "",
