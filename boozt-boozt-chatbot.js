@@ -596,7 +596,7 @@ function initWithDebug() {
         flow4Key: "productfilter",
         apiFlowKey: "",
         metaDataKey: "productfilter",
-        metaData2Key: "",
+        metaData2Key: "beauty",
             
         leadGen: "%%",
         leadMail: "Team@dialogintelligens.dk",
