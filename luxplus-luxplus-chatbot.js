@@ -381,7 +381,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="https://skalerbartprodukt.onrender.com"
+        src="http://localhost:3002/"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // If the iframe is already visible, post the message immediately.
       if (iframe.style.display !== 'none') {
         try {
-          iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+          iframeWindow.postMessage(messageData, "http://localhost:3002/");
         } catch (e) {
           console.error("Error posting message to iframe:", e);
         }
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // If not visible, assign onload to post the message when it appears.
         iframe.onload = function() {
           try {
-            iframeWindow.postMessage(messageData, "https://skalerbartprodukt.onrender.com");
+            iframeWindow.postMessage(messageData, "http://localhost:3002/");
           } catch (e) {
             console.error("Error posting message on iframe load:", e);
           }
@@ -557,7 +557,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
+      if (event.origin !== "http://localhost:3002/") return;
       
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
