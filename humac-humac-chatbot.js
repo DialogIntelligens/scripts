@@ -114,7 +114,7 @@ let hasReportedPurchase = false;  // <-- add this line
          window.location.href.includes('/order-complete/') ||
          window.location.href.includes('/thank-you/') ||
          window.location.href.includes('/order-received/') ||
-         window.location.href.includes('/checkout/') || 
+         window.location.href.includes('/payment_gateways') || 
          document.querySelector('.order-complete') ||
          document.querySelector('.thank-you') ||
          document.querySelector('.order-confirmation');
