@@ -132,7 +132,7 @@ let hasReportedPurchase = false;  // <-- add this line
       '.total-price', '.order-total', '.cart-total', '.grand-total',
       '[data-testid="order-summary-total"]', '.order-summary-total',
       '.checkout-total', '.woocommerce-Price-amount', '.amount',
-      '.product-subtotal', '.order-summary__price', '[data-price-value]'
+      '.product-subtotal', '.order-summary__price', '[data-price-value]', '.price-container'
     ];
     
     
