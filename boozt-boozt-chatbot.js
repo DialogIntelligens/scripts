@@ -607,7 +607,7 @@ function initWithDebug() {
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
   
-        pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
+        pineconeApiKey: "pcsk_5DhXSe_3TDYCHkg8bdNL2PBgprKCbm1XeewQMnr84fsm18eMH7dgDxxrHKQhxntJduLELJ",
         knowledgebaseIndexApiEndpoint: "boozt-alt",
         flow2KnowledgebaseIndex: "beauty-pro",
         flow3KnowledgebaseIndex: "boozt-pro",
