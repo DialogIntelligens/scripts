@@ -335,28 +335,7 @@ function initChatbot() {
       
    // Order tracking URL with placeholders
   orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="EMAIL_PLACEHOLDER")',
-  
-  // Authentication settings remain the same
-  trackingAuthUrl: 'https://auth.europe-west1.gcp.commercetools.com/oauth/token',
-  trackingClientId: 'PpRchVoadh-EOZVSM93udjN2',
-  trackingClientSecret: 'oF43LNYPaAgJkg-qqabTaDIQge1uIyfA',
-  trackingAuthGrantType: 'client_credentials',
-  trackingAuthScope: 'view_orders:dilling--production view_published_products:dilling--production view_states:dilling--production',
-  trackingAuthMethod: 'basic',
-  
-  // Request configuration
-  trackingRequestMethod: 'GET',
-  trackingCustomHeaders: {},
-  
-  // Required fields
-  trackingRequiredFields: ['order_number', 'email'],
-  
-  // State configuration
-  trackingStateUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/states/STATE_ID_PLACEHOLDER',
-  trackingStateNameLocale: 'da-DK',
-  
-  // Auth is required
-  trackingNeedsAuth: true,
+
 
       productButtonText: "SE PRODUKT",
       useThumbsRating: true,
