@@ -1,4 +1,3 @@
-
 function initChatbot() {
 
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
