@@ -314,6 +314,7 @@ function initChatbot() {
       action: 'integrationOptions',
       chatbotID: "dillingdk",
       pagePath: window.location.href,
+      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/75ae5c08-459e-4a2e-915c-a6df55b5dcd6",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/61d3da9c-fea8-41b8-ae9e-bed791666cf2",
@@ -335,8 +336,8 @@ function initChatbot() {
       
        // Order tracking configuration - now handled by backend
       orderTrackingEnabled: true,
-      orderTrackingBackendUrl: 'https://egendatabasebackend.onrender.com/track-order',
-
+      orderTrackingBackendUrl: 'https://den-utrolige-snebold.onrender.com/track-order',
+      
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
