@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function purchaseKey(userId) {
   return `purchaseReported_${userId}`;
 }
-
 function initChatbot() {
 
     const urlFlag = new URLSearchParams(window.location.search).get('chat');
