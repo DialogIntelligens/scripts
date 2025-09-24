@@ -591,7 +591,7 @@ function initWithDebug() {
         action: 'integrationOptions',
         chatbotID: "masai",
         pagePath: window.location.href,
-        flow2Key: "product",
+        flow2Key: "$3,
         flow3Key: "",
         flow4Key: "",
         apiFlowKey: "",
