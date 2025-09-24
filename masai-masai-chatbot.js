@@ -609,7 +609,7 @@ function initWithDebug() {
   
         pineconeApiKey: "pcsk_3UjrPD_31C2RmtD3gCJT257xMaBWDWfxQeCjSC3TFHJiU2hxzDu8uDVkjeSKRKDYDuwVS1",
         knowledgebaseIndexApiEndpoint: "masai-alt",
-        flow2KnowledgebaseIndex: "",
+        flow2KnowledgebaseIndex: "masai-pro",
         flow3KnowledgebaseIndex: "humac-pro",
         flow4KnowledgebaseIndex: "",
         apiFlowKnowledgebaseIndex: "",
