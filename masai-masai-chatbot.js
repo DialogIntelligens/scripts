@@ -625,15 +625,15 @@ function initWithDebug() {
         freshdeskImageLabel: "Upload billede (valgfrit):",
         freshdeskChooseFileText: "Vælg fil",
         freshdeskNoFileText: "Ingen fil valgt",
-        freshdeskSendingText: "Sender...",
+        freshdeskSendingText: "Sending...",
         freshdeskSubmitText: "Send henvendelse",
           
         // Set FreshdeskForm validation error messages
         freshdeskEmailRequiredError: "Email er påkrævet",
         freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
         freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-        freshdeskMessageRequiredError: "Besked er påkrævet",
-        freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+        freshdeskMessageRequiredError: "Message is required.",
+        freshdeskSubmitErrorText: "An error occurred while sending your request. Please try again.",
           
         // Set confirmation messages
         contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
@@ -641,8 +641,8 @@ function initWithDebug() {
   
         freshdeskSubjectText: 'Din henvendelse',
   
-        inputPlaceholder: "Skriv dit spørgsmål her...",
-        ratingMessage: "Fik du besvaret dit spørgsmål?",
+        inputPlaceholder: "Type your question here...",
+        ratingMessage: "Did you get your question answered?",
   
         productButtonText: "SE PRODUKT",
         productButtonColor: "",
