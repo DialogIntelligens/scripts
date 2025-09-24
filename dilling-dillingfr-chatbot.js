@@ -332,9 +332,9 @@ function initChatbot() {
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
       
-      // Order tracking URL with placeholders
-  orderTrackingUrl: 'https://api.europe-west1.gcp.commercetools.com/dilling--production/orders?where=orderNumber="ORDER_NUMBER_PLACEHOLDER" and shippingAddress(email="EMAIL_PLACEHOLDER")',
-
+      orderTrackingEnabled: true,
+      orderTrackingBackendUrl: 'https://egendatabasebackend.onrender.com/track-order',
+      
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
