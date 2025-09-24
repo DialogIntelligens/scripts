@@ -655,7 +655,7 @@ function initWithDebug() {
         aiMessageColor: "#f6f4ee",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+        headerSubtitleG: "You are chatting with an artificial intelligence. By using this chatbot, you accept that errors may occur, and that the conversation may be stored and processed. Read more in our privacy policy.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
@@ -663,8 +663,8 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Masai AI",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+        titleG: "MASAI Chatbot",
+        firstMessage: "Hi 😊 Ask me anything – from products to general questions, or get personal recommendations 🤖",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
@@ -870,7 +870,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+        const popupText = "I can recommend products and answer questions";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
