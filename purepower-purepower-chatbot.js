@@ -668,7 +668,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "PurePower AI Bot 🤖",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål om træning, eller få personlige anbefalinger 🤖",
+        firstMessage: "Hej 😎\nSpørg mig om alt – produkter, din ordre, levering, træning eller personlige anbefalinger 🤖",
         purchaseTrackingEnabled: true,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
