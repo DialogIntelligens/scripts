@@ -608,7 +608,7 @@ function initWithDebug() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "pcsk_3UjrPD_31C2RmtD3gCJT257xMaBWDWfxQeCjSC3TFHJiU2hxzDu8uDVkjeSKRKDYDuwVS1",
-        knowledgebaseIndexApiEndpoint: "masai-alt",
+        knowledgebaseIndexApiEndpoint: "damask-alt",
         flow2KnowledgebaseIndex: "damask-pro",
         flow3KnowledgebaseIndex: "humac-pro",
         flow4KnowledgebaseIndex: "",
