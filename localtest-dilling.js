@@ -1,4 +1,3 @@
-
 function initChatbot() {
 
   const urlFlag = new URLSearchParams(window.location.search).get('chat');
@@ -312,9 +311,8 @@ function initChatbot() {
 
     var messageData = {
       action: 'integrationOptions',
-      chatbotID: "dillingdk",
+      chatbotID: "dillingch",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
       SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
       apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/75ae5c08-459e-4a2e-915c-a6df55b5dcd6",
       fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/61d3da9c-fea8-41b8-ae9e-bed791666cf2",
@@ -323,7 +321,7 @@ function initChatbot() {
       flow3Key: "productnofilter",
       flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
       flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
-      flow4Key: "",
+      flow4Key: "category",
       
       imageAPI: "",
   
@@ -333,70 +331,71 @@ function initChatbot() {
       apiFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4becf9f7-6eca-4ec7-a793-595b2cadb90e",
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
-      
-       // Order tracking configuration - now handled by backend
-      orderTrackingEnabled: true,
-      orderTrackingBackendUrl: 'https://den-utrolige-snebold.onrender.com/track-order',
+
+  orderTrackingEnabled: true,
+  orderTrackingBackendUrl: 'https://egendatabasebackend.onrender.com/track-order',
+
       
       useThumbsRating: true,
       ratingTimerDuration: 10000,
 
-      pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "dilling-faq",
-      flow2KnowledgebaseIndex: "dilling-pro",
-      flow3KnowledgebaseIndex: "dilling-pro",
-      flow4KnowledgebaseIndex: "dilling-kat",
-      apiFlowKnowledgebaseIndex: "dilling-faq",
-      websiteOverride: "dilling.dk",
-      languageOverride: "Danish",
-      valutaOverride: "KR",
-      customVar1: "+45 97 12 05 88",
-      dillingProductsKatOverride: "Whenever a category link matches the user’s request, add it at the end as a hyperlink. Use only links from the context (format: https://dk.dilling.com/kategori/...). Never invent links.  Top-level categories: /dame, /herre, /born, /baby, /merinould, /nyheder, /udsalg  Shared subcategories: Any of these work under /dame, /herre, /born, /baby (and /merinould where noted):  /nyheder  /sale  /activewear (also under /merinould)  /trojer  /skjorter (not in /baby)  /kjoler (not in /herre)  /accessories  /stop-tojspild  /reparation-og-pleje  /undertoj (special cases: /herre/undertrojer, /herre/tights-og-underbukser, /herre/lange-underbukser, /merinould/undertoj)  /bukser & /leggings (/bukser-og-shorts, /leggings-og-bukser, /shorts)  /bluser-og-t-shirts  Specific subcategories:  Baby only: /bodyer, /heldragter, /babypakker  Børn only: /toppe-og-undertrojer, /trusser, /tights  Dame only: /toppe, /trusser, /nattoj, /plus-size  Herre only: /plus-size  Merinould: /glatstrik, /bred-rib, /multirib, /smal-rib, /merinouldfrotte, /merinouldfleece, /loop-back, /merinouldsilke, /merinouldalpaka  Hyperlink text = natural language version of the URL ending.  Example: /kategori/dame → kategori dame; /kategori/born/kjoler → børne kjoler.  If only a broad category fits, explain the user can use the product filter on the page to refine.",
-      dillingColors: "\"Abrikos\", \"Abrikos/natur\", \"Allium lilla\", \"Aqua blå\", \"Arktisk blå\", \"Arktisk blå/natur\", \"Aubergine\", \"Avocadogrøn\", \"Azurblå\", \"Bark\", \"Beige\", \"Beige melange\", \"Beigemelange\", \"Beigemeleret\", \"Beige/navy\", \"Blomme\", \"Blå\", \"Blå marehalm\", \"Blå med brunmelange prikker\", \"Blågråmelange\", \"Blåmelange\", \"Blush\", \"Bonderose\", \"Bordeaux\", \"Bourgogne\", \"Brun\", \"Brunmelange\", \"Brunternet\", \"Brunmelange med striber\", \"Brændt orange\", \"Bubblegum\", \"Candyfloss\", \"Chokoladebrun\", \"Citrongræs\", \"Cortenrød\", \"Cremefarvet\", \"Croissant\", \"Dybhavsblå\", \"Elfenben\", \"Eventyrlig lilla\", \"Figen\", \"Fløde\", \"Frappé\", \"Frosthimmel\", \"Fudge\", \"Gammelrosa\", \"Granatæble\", \"Granatæble/jordbærmilkshake\", \"Granatæble/nordisk blå/natur\", \"Grå\", \"Gråbrun\", \"Grågrøn\", \"Gråmelange\", \"Gråmelange med striber\", \"Gråstribet\", \"Grøn\", \"Grønmelange\", \"Grønternet\", \"Hasselnød\", \"Havbund\", \"Havgus\", \"Havre\", \"Hindbær\", \"Hindbærskum\", \"Honning\", \"Hvid\", \"Hvid/navy\", \"Hyldebær\", \"Isblå\", \"Jadegrøn\", \"Jadegrøn/natur\", \"Jordbærmilkshake\", \"Jordbærrød\", \"Julehjerterød\", \"Julerød\", \"Junglegrøn\", \"Kakao\", \"Kaffe/sort\", \"Karamel\", \"Karamelmelange\", \"Kastanjebrun\", \"Kobberbrun\", \"Koboltblå\", \"Kongeblå\", \"Kongeblå med striber\", \"Koral\", \"Lavendel\", \"Lavendelgrå\", \"Lilla blomme\", \"Lilla orkide\", \"Lilla orkide/natur\", \"Lys figen\", \"Lysegul/natur\", \"Lyseblå melange\", \"Lysebrunmelange\", \"Lysegråmelange\", \"Lysegråmelange/natur\", \"Lysegråmelange/navy\", \"Lysegråmelange/rosa\", \"Lysegråmelange/tordenblå\", \"Lysegråmeleret\", \"Mahognirose\", \"Mahognirose/natur\", \"Mat pink\", \"Merlot\", \"Midnatsblå\", \"Mokka\", \"Mosgrøn\", \"Mørk chokoladebrun\", \"Mørk kirsebærrød\", \"Mørk muskat\", \"Mørk navy\", \"Mørk petroleumsgrøn\", \"Mørkeblå\", \"Mørkebrun\", \"Mørkebrun/gråbrun\", \"Mørkegråmelange\", \"Mørkegrøn\", \"Mørkegrønmelange\", \"Månesten\", \"Natur\", \"Natur/Sort\", \"Navy\", \"Navy-ternet\", \"Nordisk blå\", \"Nordisk blå/natur\", \"Nordisk jord\", \"Nordisk navy\", \"Nordisk syren-melange\", \"Nålegrøn\", \"Olivegrøn\", \"Pastelblå\", \"Perlehvid\", \"Petroleumsblå\", \"Pink\", \"Pink blush\", \"Pudder\", \"Puddermelange\", \"Pudderrosa\", \"Rosa\", \"Rosa nellike\", \"Rosakvarts\", \"Rouge\", \"Rå bomuld\", \"Råhvid\", \"Rød\", \"Rød melange\", \"Safirblå\", \"Salvie\", \"Sandfarvet\", \"Skarp blå\", \"Skovbund\", \"Skovgrøn\", \"Sort\", \"Sort/natur\", \"Sortmelange\", \"Stål\", \"Støvet blå/stormblå\", \"Støvet lavendel\", \"Støvet rosa\", \"Støvet sort\", \"Sølv salvie\", \"Syren\", \"Syren-melange\", \"Tordenblå\", \"Valnød\", \"Valnød/natur\", \"Varm grå\", \"Vintage ballerina\", \"Ørkengræs\",",      
+      pineconeApiKey: "pcsk_2Pv6s6_B2XcjJmDsi7ZCYXqwph4wo18vsGQMTR7ThkWhQ36M5JuMWoKh4kAGG57KHnfXge",
+      knowledgebaseIndexApiEndpoint: "dillingch-faq",
+      flow2KnowledgebaseIndex: "dillingch-pro",
+      flow3KnowledgebaseIndex: "dillingch-pro",
+      flow4KnowledgebaseIndex: "dillingch-kat",
+      apiFlowKnowledgebaseIndex: "dillingch-faq",
+      websiteOverride: "dilling.ch",
+      languageOverride: "Deutsch",
+      valutaOverride: "CHF",
+      customVar1: "+49 800 18 33 572",
+      dillingProductsKatOverride: "Whenever a category link matches the user’s request, add it at the end as a hyperlink. Use only links from the context (format: https://www.dilling.ch/kategorie/ ...). Never invent links.  Top-level categories: /kategorie/damen, /kategorie/herren, /kategorie/kinder, /kategorie/baby, /kategorie/merinowolle, /kategorie/neuheiten, /kategorie/sale  Shared subcategories: Any of these work under /damen, /herren, /kinder, /baby (and /merinowolle where noted): /kategorie/neuheiten /kategorie/sale /kategorie/activewear (also under /merinowolle) /kategorie/pullover-jacken, /kategorie/pullover, /kategorie/outerwear /kategorie/hemden (not in /baby) /kategorie/kleider (not in /herren) /kategorie/accessoires /kategorie/textilabfalle-vermeiden /kategorie/reparieren-und-pflegen /kategorie/unterwasche (special cases: /herren/boxershorts-slips, /herren/lange-unterhosen, /baby/unterwasche, /merinowolle/unterwasche) /kategorie/hosen-shorts, /kategorie/leggings, /kategorie/leggings-und-hosen /kategorie/shirts, /kategorie/langarmshirts-t-shirts, /kategorie/tank-tops  Specific subcategories: Baby only: /bodys, /einteiler, /babypaket, /tops, /pullover Kinder only: /unterhosen, /boxershorts, /leggings-und-hosen Damen only: /briefs, /kleider, /nachtwasche, /plus-size Herren only: /boxershorts-slips, /lange-unterhosen, /plus-size  Merino wool qualities: /kategorie/merinowolle/damen, /herren, /kinder, /baby /kategorie/glatter-strick /kategorie/breites-ripp /kategorie/multi-ripp /kategorie/schmales-ripp /kategorie/woolfrottee /kategorie/wollfleece /kategorie/loop-back /kategorie/merinowolleseide /kategorie/merinowollealpaka  Other materials: /kategorie/baumwolle/damen, /baumwolle/herren, /baumwolle/kinder, /baumwolle/baby /kategorie/recyceltes-polyester /kategorie/regeneriertes-nylon  Hyperlink text = natural language version of the URL ending. Example: /kategorie/damen → kategorie damen; /kategorie/kinder/kleider → kinder kleider.  If only a broad category fits, explain the user can use the product filter on the page to refine.",
+      dillingColors: "   \"Aprikot\",   \"Aqua blue\",   \"Arktik Blau\",   \"Aubergine\",   \"Azurblau\",   \"Beige\",   \"Beige meliert\",   \"Bestäubtes Schwarz\",   \"Birne\",   \"Blau\",   \"Blau meliert\",   \"Blaugrau meliert\",   \"Blush\",   \"Bordeaux\",   \"Braun\",   \"Braun meliert\",   \"Braunes Karomuster\",   \"Bubblegum\",   \"Burgunderrot\",   \"Cappuccino\",   \"Carreaux bleu marine\",   \"Croissant\",   \"Donnerblau\",   \"Dschungelgrün\",   \"Dunkelblau\",   \"Dunkelbraun\",   \"Dunkelgrau meliert\",   \"Dunkelgrün\",   \"Dunkelgrün meliert\",   \"Dunkle Kirsche\",   \"Dunkelmuskat\",   \"Dunkelnavy\",   \"Dunklerot\",   \"Dunkles Lavendel\",   \"Eierlikör\",   \"Eisblau\",   \"Elfenbein\",   \"Erdbeer-Milchshake\",   \"Erdbeerrot\",   \"Feige\",   \"Frappé\",   \"Frostblau\",   \"Fuchsia\",   \"Gedecktes rosa\",   \"Grau\",   \"Grau gestreift\",   \"Grau meliert\",   \"Graugrün\",   \"Grün\",   \"Hafer\",   \"Haselnuss\",   \"Haselnussbraun\",   \"Hellblau\",   \"Hellbraun meliert\",   \"Helle Feige\",   \"Helle Himbeere\",   \"Hellgelb\",   \"Hellgrau meliert\",   \"Himbeere\",   \"Himbeerschaum\",   \"Holunder\",   \"Honig\",   \"Jadegrün\",   \"Kakao\",   \"Karamell\",   \"Karamell meliert\",   \"Kastanienbraun\",   \"Kobaltblau\",   \"Kortenrot\",   \"Kupfer\",   \"Königsblau\",   \"Kühles Grün\",   \"Lavendel\",   \"Lavendelgrau\",   \"Lichtblau Melange\",   \"Lila\",   \"Mahagoni-Rose\",   \"Marineblaues Karomuster\",   \"Merlot\",   \"Mitternachtsblau\",   \"Mokka\",   \"Mondstein\",   \"Moos\",   \"Natur\",   \"Navy\",   \"Nelkenrosa\",   \"Nordic Lila-Melange\",   \"Nordische Marine\",   \"Nordischer Boden\",   \"Nordisches Blau\",   \"Olivgrün\",   \"Orange\",   \"Orchidee\",   \"Perlweiß\",   \"Petrol\",   \"Pfingstrose\",   \"Pflaume\",   \"Piniengrün\",   \"Pink\",   \"Puder\",   \"Puderrosa\",   \"Rauchblau\",   \"Rosa\",   \"Rosenquarz\",   \"Rot\",   \"Rot Melange\",   \"Rouge\",   \"Rubinrot\",   \"Sand\",   \"Schokobraun\",   \"Schwarz\",   \"Schwarz meliert\",   \"Seenebel\",   \"Senf\",   \"Siberner Salbei\",   \"Stahl\",   \"Strandroggen\",   \"Sturmblau\",   \"Taupe\",   \"Tiefseeblau\",   \"Türkis\",   \"Ungefärbte Baumwolle\",   \"Vintage Ballerina\",   \"Vintage Grau\",   \"Violette Orchidee\",   \"Waldboden\",   \"Waldgrün\",   \"Walnuss\",   \"Warmes Grau\",   \"Weihnachtsrot\",   \"Weiß\",   \"Wüstengras\",   \"Zitronengras\",   \"Zuckerwatte\" ",      
       productImageHeightMultiplier: 1.1,
       replaceExclamationWithPeriod: true,
       fontFamily: "Montserrat, sans-serif",
       
       // Set FreshdeskForm text
-      freshdeskEmailLabel: "Din email:",
-      freshdeskMessageLabel: "Besked til kundeservice:",
-      freshdeskImageLabel: "Upload billede (valgfrit):",
-      freshdeskChooseFileText: "Vælg fil",
-      freshdeskNoFileText: "Ingen fil valgt",
-      freshdeskSendingText: "Sender...",
-      freshdeskSubmitText: "Send henvendelse",
+      freshdeskEmailLabel: "Ihre E-Mail:",
+      freshdeskMessageLabel: "Nachricht an den Kundenservice:",
+      freshdeskImageLabel: "Bild hochladen (optional):",
+      freshdeskChooseFileText: "Datei auswählen",
+      freshdeskNoFileText: "Keine Datei ausgewählt",
+      freshdeskSendingText: "Wird gesendet...",
+      freshdeskSubmitText: "Anfrage absenden",
         
       // Set FreshdeskForm validation error messages
-      freshdeskEmailRequiredError: "Email er påkrævet",
-      freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-      freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-      freshdeskMessageRequiredError: "Besked er påkrævet",
-      freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+      freshdeskEmailRequiredError: "E-Mail ist erforderlich",
+      freshdeskEmailInvalidError: "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+      freshdeskFormErrorText: "Bitte korrigieren Sie die Fehler im Formular",
+      freshdeskMessageRequiredError: "Nachricht ist erforderlich",
+      freshdeskSubmitErrorText: "Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.",
         
       // Set confirmation messages
-      contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
-      freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+      contactConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
+      freshdeskConfirmationText: "Vielen Dank für Ihre Anfrage. Wir melden uns schnellstmöglich bei Ihnen.",
 
-      freshdeskNameRequiredError: "Navn er påkrævet",
-      freshdeskNameLabel: "Navn:",
+      freshdeskNameRequiredError: "Name wird benötigt",
+      freshdeskNameLabel: "Name:",
 
-      freshdeskSubjectText: 'Din henvendelse til DILLING',
+      freshdeskSubjectText: 'Ihre Anfrage an DILLING',
 
-      freshdeskGroupId: 22000157402,
+      freshdeskProductId: 22000001491,
 
-      inputPlaceholder: "Skriv dit spørgsmål her...",
-      ratingMessage: "Fik du besvaret dit spørgmål?",
+
+      inputPlaceholder: "Stellen Sie Ihre Frage hier...",
+      ratingMessage: "Wurde Ihre Frage beantwortet?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
       messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
       themeColor: "#000000",
-          aiMessageColor: "#e9ecef",
-          aiMessageTextColor: "#000000",
-      headerTitleG: "Jeg er DILLINGs chatbot",
-      headerSubtitleG: "Du skriver med en chatbot. Samtidig accepterer du, at samtalen kan gemmes og behandles for at forbedre din oplevelse. Læs mere i vores privatlivspolitik. Bemærk: chatbotten kan i nogle tilfælde give fejlagtige oplysninger.",
+        aiMessageColor: "#e9ecef",
+  aiMessageTextColor: "#000000",
+      headerTitleG: "Ich bin DILLINGs chatbot",
+      headerSubtitleG: "Du schreibst mit einem chatbot. Gleichzeitig erklärst du dich damit einverstanden, dass das Gespräch gespeichert und verarbeitet wird, um dein Erlebnis zu verbessern. Mehr dazu findest du in unserer Datenschutzerklärung. Hinweis: Der Chatbot kann in einigen Fällen fehlerhafte Informationen liefern.",
       titleG: "DILLINGs chat ",
-      firstMessage: "Hej med dig 🙂 Jeg er DILLINGs chatbot. Hvordan kan jeg hjælpe dig?",
+      firstMessage: "Hallo 😊 Ich bin der Chatbot von DILLING. \nWie kann ich Ihnen helfen?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -420,7 +419,7 @@ function initChatbot() {
     }
   }
 
-    // Listen for messages from the iframe
+  // Listen for messages from the iframe
   window.addEventListener('message', function(event) {
     if (event.origin !== "http://localhost:3002/") return;
     if (event.data.action === 'toggleSize') {
@@ -523,7 +522,8 @@ function initChatbot() {
           
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
-    const popupText = "Har du brug for hjælp?";
+    
+    const popupText = "Brauchst du Hilfe?";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
