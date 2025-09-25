@@ -333,6 +333,7 @@ function initChatbot() {
       apiFlowKey: "order",
       
       orderTrackingEnabled: true,
+      orderTrackingBackendUrl: 'https://den-utrolige-snebold.onrender.com/track-order',
       
       useThumbsRating: true,
       ratingTimerDuration: 10000,
