@@ -322,7 +322,7 @@ function initChatbot() {
         flow3Key: "productnofilter",
         flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
         flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
-        flow4Key: "category",
+        flow4Key: "",
         productImageHeightMultiplier: 1.1,
         imageAPI: "",
     
@@ -339,7 +339,7 @@ function initChatbot() {
         useThumbsRating: true,
         ratingTimerDuration: 10000,
   
-        pineconeApiKey: "pcsk_GNBAU_9Y2fpBkz3mhEpx6EYLZjov7rJd4DuMNg76vpm8fZqsvPK6rkFCdEPTwRh5YuRUh",
+        pineconeApiKey: "",
         knowledgebaseIndexApiEndpoint: "dillingfr-faq",
         flow2KnowledgebaseIndex: "dillingfr-pro",
         flow3KnowledgebaseIndex: "dillingfr-pro",
