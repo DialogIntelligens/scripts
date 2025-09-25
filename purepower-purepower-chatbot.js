@@ -890,9 +890,9 @@ messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
         if (charCount < 25) {
           popupElem.style.width = "40px";
         } else if (charCount < 60) {
-          popupElem.style.width = "460px";
+          popupElem.style.width = "475px";
         } else {
-          popupElem.style.width = "460px";
+          popupElem.style.width = "475px";
         }
   
        
