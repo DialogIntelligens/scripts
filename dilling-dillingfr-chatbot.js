@@ -1,3 +1,4 @@
+
 function initChatbot() {
 
     const urlFlag = new URLSearchParams(window.location.search).get('chat');
@@ -309,12 +310,12 @@ function initChatbot() {
       var iframe = document.getElementById("chat-iframe");
       var iframeWindow = iframe.contentWindow;
   
-    var messageData = {
-      action: 'integrationOptions',
-      chatbotID: "dillingfr",
-      pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
-      SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
+      var messageData = {
+        action: 'integrationOptions',
+        chatbotID: "dillingfr",
+        pagePath: window.location.href,
+        statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
+        SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
         apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/75ae5c08-459e-4a2e-915c-a6df55b5dcd6",
         fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/61d3da9c-fea8-41b8-ae9e-bed791666cf2",
         flow2Key: "product",
@@ -323,7 +324,7 @@ function initChatbot() {
         flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
         flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
         flow4Key: "",
-        productImageHeightMultiplier: 1.1,
+        
         imageAPI: "",
     
         metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11751a16-1c96-4710-8d18-2987f8b4e21c",
@@ -333,6 +334,7 @@ function initChatbot() {
         apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
         apiFlowKey: "order",
         
+         // Order tracking configuration - now handled by backend
         orderTrackingEnabled: true,
         orderTrackingBackendUrl: 'https://den-utrolige-snebold.onrender.com/track-order',
         
@@ -340,65 +342,65 @@ function initChatbot() {
         ratingTimerDuration: 10000,
   
         pineconeApiKey: "",
-        knowledgebaseIndexApiEndpoint: "dillingfr-faq",
-        flow2KnowledgebaseIndex: "dillingfr-pro",
-        flow3KnowledgebaseIndex: "dillingfr-pro",
-        flow4KnowledgebaseIndex: "dillingfr-kat",
-        apiFlowKnowledgebaseIndex: "dillingfr-faq",
-        websiteOverride: "dilling.fr",
-        languageOverride: "French",
-        valutaOverride: "EUR",
-        customVar1: "04 58 21 20 04",
-        dillingProductsKatOverride: "Whenever a category link matches the user’s request, add it at the end as a hyperlink. Use only links from the context (format: https://www.dilling.fr/categorie/ ...). Never invent links.  Top-level categories: /categorie/femme, /categorie/homme, /categorie/enfant, /categorie/bebe, /categorie/laine-merinos, /categorie/nouveautes, /categorie/soldes  Shared subcategories: Any of these work under /femme, /homme, /enfant, /bebe (and /laine-merinos where noted): /categorie/nouveautes /categorie/soldes /categorie/activewear (also under /laine-merinos) /categorie/pulls-et-gilets /categorie/chemises (not in /bebe) /categorie/robes (not in /homme) /categorie/accessoires /categorie/halte-aux-dechets-textiles /categorie/reparation-et-entretien /categorie/sous-vetement (special cases: /homme/slips-et-boxers, /enfant/culottes-et-hipsters, /bebe/sous-vetements, /laine-merinos/sous-vetement) /categorie/pantalons-et-shorts, /categorie/leggings, /categorie/pantalons-et-leggings /categorie/hauts-et-t-shirts, /categorie/debardeurs  Specific subcategories: Bébé only: /categorie/bebe/bodies, /categorie/bebe/combinaisons, /categorie/bebe/kit-naissance Enfant only: /categorie/enfant/culottes-et-hipsters, /categorie/enfant/slips-et-boxers, /categorie/enfant/pantalons-et-leggings Femme only: /categorie/femme/culottes, /categorie/femme/robes-de-nuit, /categorie/femme/plus-size Homme only: /categorie/homme/slips-et-boxers, /categorie/homme/plus-size  Merino wool qualities: /categorie/laine-merinos/femme, /categorie/laine-merinos/homme, /categorie/laine-merinos/enfant, /categorie/laine-merinos/bebe /categorie/femme/point-jersey, /categorie/femme/large-cote, /categorie/femme/multi-cotes, /categorie/femme/cote-mince /categorie/femme/tissu-eponge-de-laine, /categorie/femme/polaire-de-laine, /categorie/femme/loop-back /categorie/femme/laine-merinos-et-soie, /categorie/femme/laine-merinos-et-alpaga (corresponding versions exist under /homme, /enfant, /bebe)  Other materials: /categorie/femme/coton-biologique /categorie/femme/polyester-recycle /categorie/femme/nylon-recycle  Hyperlink text = natural language version of the URL ending. Example: /categorie/femme → catégorie femme; /categorie/enfant/robes → enfant robes.  If only a broad category fits, explain the user can use the product filter on the page to refine.",
-        dillingColors: "Abricot, Acier, Aubergine, Avoine, Ballerine vintage, barbé à papa, Beige, Beige chiné, Beige/Bleu marine, Beurre, Blanc, Blanc nacré, Blanc/navy, Bleu, Bleu aqua, Bleu arctique, Bleu arctique/ naturel, Bleu azure, Bleu canard, Bleu canard profond, Bleu cendré, Bleu cendré / Bleu orage, Bleu chiné, Bleu cobalt, Bleu foncé, Bleu glacier, Bleu marine, Bleu marine foncé, Bleu marine nordique, Bleu nordique, Bleu nordique/naturel, Bleu nuit, Bleu océan profond, Bleu orage, Bleu pétrole, Bleu roi, Bleu royal avec stries, Bleu tonnere, Bleu vif, Blush, Bordeaux, Cacao, Café frappé, Cappuccino / Beige, Caramel, Caramel chiné, Carreaux bleu marine, Carreaux marrons, Carreaux verts, Cerise noire, Champ de brume, Chocolat noir, Ciel d'Hiver, Citronelle, Coton non teint, Crème, Croissant, Cuivre, Écorce, Figue, Fraise, Framboise, Fudge, Granit bleu chiné, Grenade, Grenade/bleu nordique/naturel, Grenade/milkshake à la fraise, Gris, Gris à rayures, Gris chaud, Gris chiné, Gris clair, Gris clair/nature, Gris foncé chiné, Gris vintage, Herbe du désert, Ivoire, Jaune clair / Nature, Lavande, Lavande cendré, Lilas, Lollipop, Marron, Marron châtaigne, Marron chiné, Marron clair chiné, Marron foncé, Mélange beige, Mélange bleu clair, Mélange gris avec stries, Mélange lilas, Mélange lilas nordique, Mélange rouge, Merlot, Milkshake à la fraise, Moka, Mousse de framboise, Moutarde, Nature, Navy, Noir, Noir chiné, Noir poussiéreux, Noir/naturel, Noisette, Noix, Noix de muscade foncée, Noix/ naturel, Oeillet rose, Orange brûlé, Orchidée claire, Orchidée mauve, Oyat, Pierre de lune, Poudré, Prune pourpre, Quartz rose, Raisin, Rose, Rose acajou, Rose acajou/ naturel, Rose brumeux, Rose cendré, Rose pivoine, Rose poudré, Rose profond, Rose vif, Rouge, Rouge corten, Rouge foncé, Rouge Noël, Sable, Sauge argentée, Sol forestier, Sol nordique, Sureau, Taupe, Turquoise, Vert, Vert cendré, Vert foncé, Vert foncé chiné, Vert forêt, Vert givré, Vert grisâtre, Vert jade, Vert jade / Nature, Vert jungle, Vert mousse, Vert olive, Vert poire, Vert poire/ naturel, Vert sapin,",      
-        
-        replaceExclamationWithPeriod: true,
-        fontFamily: "Montserrat, sans-serif",
-        productButtonText: "VOIR LE PRODUIT",
-        
-        // Set FreshdeskForm text
-        freshdeskEmailLabel: "Votre e-mail :",
-        freshdeskMessageLabel: "Message au service client :",
-        freshdeskImageLabel: "Télécharger une image (facultatif) :",
-        freshdeskChooseFileText: "Choisir un fichier",
-        freshdeskNoFileText: "Aucun fichier sélectionné",
-        freshdeskSendingText: "Envoi en cours...",
-        freshdeskSubmitText: "Envoyer la demande",
-          
-        // Set FreshdeskForm validation error messages
-        freshdeskEmailRequiredError: "L'e-mail est requis",
-        freshdeskEmailInvalidError: "Veuillez saisir une adresse e-mail valide",
-        freshdeskFormErrorText: "Veuillez corriger les erreurs dans le formulaire",
-        freshdeskMessageRequiredError: "Le message est requis",
-        freshdeskSubmitErrorText: "Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer.",
-          
-        // Set confirmation messages
-        contactConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
-        freshdeskConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
-  
-        freshdeskNameRequiredError: "Le nom est obligatoire",
-        freshdeskNameLabel: "Nom :",
-  
-        freshdeskSubjectText: 'Votre demande à DILLING',
-              
-        freshdeskGroupId: 22000163683,
-        freshdeskProductId: 22000002330,
-  
-        inputPlaceholder: "Écrivez votre question ici...",
-        ratingMessage: "Votre question a-t-elle été répondue ?",
-        privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
-        titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
-        messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
-        themeColor: "#000000",
+      knowledgebaseIndexApiEndpoint: "dillingfr-faq",
+      flow2KnowledgebaseIndex: "dillingfr-pro",
+      flow3KnowledgebaseIndex: "dillingfr-pro",
+      flow4KnowledgebaseIndex: "dillingfr-kat",
+      apiFlowKnowledgebaseIndex: "dillingfr-faq",
+      websiteOverride: "dilling.fr",
+      languageOverride: "French",
+      valutaOverride: "EUR",
+      customVar1: "04 58 21 20 04",
+      dillingProductsKatOverride: "Whenever a category link matches the user's request, add it at the end as a hyperlink. Use only links from the context (format: https://www.dilling.fr/categorie/ ...). Never invent links.  Top-level categories: /categorie/femme, /categorie/homme, /categorie/enfant, /categorie/bebe, /categorie/laine-merinos, /categorie/nouveautes, /categorie/soldes  Shared subcategories: Any of these work under /femme, /homme, /enfant, /bebe (and /laine-merinos where noted): /categorie/nouveautes /categorie/soldes /categorie/activewear (also under /laine-merinos) /categorie/pulls-et-gilets /categorie/chemises (not in /bebe) /categorie/robes (not in /homme) /categorie/accessoires /categorie/halte-aux-dechets-textiles /categorie/reparation-et-entretien /categorie/sous-vetement (special cases: /homme/slips-et-boxers, /enfant/culottes-et-hipsters, /bebe/sous-vetements, /laine-merinos/sous-vetement) /categorie/pantalons-et-shorts, /categorie/leggings, /categorie/pantalons-et-leggings /categorie/hauts-et-t-shirts, /categorie/debardeurs  Specific subcategories: Bébé only: /categorie/bebe/bodies, /categorie/bebe/combinaisons, /categorie/bebe/kit-naissance Enfant only: /categorie/enfant/culottes-et-hipsters, /categorie/enfant/slips-et-boxers, /categorie/enfant/pantalons-et-leggings Femme only: /categorie/femme/culottes, /categorie/femme/robes-de-nuit, /categorie/femme/plus-size Homme only: /categorie/homme/slips-et-boxers, /categorie/homme/plus-size  Merino wool qualities: /categorie/laine-merinos/femme, /categorie/laine-merinos/homme, /categorie/laine-merinos/enfant, /categorie/laine-merinos/bebe /categorie/femme/point-jersey, /categorie/femme/large-cote, /categorie/femme/multi-cotes, /categorie/femme/cote-mince /categorie/femme/tissu-eponge-de-laine, /categorie/femme/polare-de-laine, /categorie/femme/loop-back /categorie/femme/laine-merinos-et-soie, /categorie/femme/laine-merinos-et-alpaga (corresponding versions exist under /homme, /enfant, /bebe)  Other materials: /categorie/femme/coton-biologique /categorie/femme/polyester-recycle /categorie/femme/nylon-recycle  Hyperlink text = natural language version of the URL ending. Example: /categorie/femme → catégorie femme; /categorie/enfant/robes → enfant robes.  If only a broad category fits, explain the user can use the product filter on the page to refine.",
+      dillingColors: "\"Abricot\", \"Acier\", \"Aubergine\", \"Avoine\", \"Ballerine vintage\", \"barbé à papa\", \"Beige\", \"Beige chiné\", \"Beige/Bleu marine\", \"Beurre\", \"Blanc\", \"Blanc nacré\", \"Blanc/navy\", \"Bleu\", \"Bleu aqua\", \"Bleu arctique\", \"Bleu arctique/ naturel\", \"Bleu azure\", \"Bleu canard\", \"Bleu canard profond\", \"Bleu cendré\", \"Bleu cendré / Bleu orage\", \"Bleu chiné\", \"Bleu cobalt\", \"Bleu foncé\", \"Bleu glacier\", \"Bleu marine\", \"Bleu marine foncé\", \"Bleu marine nordique\", \"Bleu nordique\", \"Bleu nordique/naturel\", \"Bleu nuit\", \"Bleu océan profond\", \"Bleu orage\", \"Bleu pétrole\", \"Bleu roi\", \"Bleu royal avec stries\", \"Bleu tonnere\", \"Bleu vif\", \"Blush\", \"Bordeaux\", \"Cacao\", \"Café frappé\", \"Cappuccino / Beige\", \"Caramel\", \"Caramel chiné\", \"Carreaux bleu marine\", \"Carreaux marrons\", \"Carreaux verts\", \"Cerise noire\", \"Champ de brume\", \"Chocolat noir\", \"Ciel d'Hiver\", \"Citronelle\", \"Coton non teint\", \"Crème\", \"Croissant\", \"Cuivre\", \"Écorce\", \"Figue\", \"Fraise\", \"Framboise\", \"Fudge\", \"Granit bleu chiné\", \"Grenade\", \"Grenade/bleu nordique/naturel\", \"Grenade/milkshake à la fraise\", \"Gris\", \"Gris à rayures\", \"Gris chaud\", \"Gris chiné\", \"Gris clair\", \"Gris clair/nature\", \"Gris foncé chiné\", \"Gris vintage\", \"Herbe du désert\", \"Ivoire\", \"Jaune clair / Nature\", \"Lavande\", \"Lavande cendré\", \"Lilas\", \"Lollipop\", \"Marron\", \"Marron châtaigne\", \"Marron chiné\", \"Marron clair chiné\", \"Marron foncé\", \"Mélange beige\", \"Mélange bleu clair\", \"Mélange gris avec stries\", \"Mélange lilas\", \"Mélange lilas nordique\", \"Mélange rouge\", \"Merlot\", \"Milkshake à la fraise\", \"Moka\", \"Mousse de framboise\", \"Moutarde\", \"Nature\", \"Navy\", \"Noir\", \"Noir chiné\", \"Noir poussiéreux\", \"Noir/naturel\", \"Noisette\", \"Noix\", \"Noix de muscade foncée\", \"Noix/ naturel\", \"Oeillet rose\", \"Orange brûlé\", \"Orchidée claire\", \"Orchidée mauve\", \"Oyat\", \"Pierre de lune\", \"Poudré\", \"Prune pourpre\", \"Quartz rose\", \"Raisin\", \"Rose\", \"Rose acajou\", \"Rose acajou/ naturel\", \"Rose brumeux\", \"Rose cendré\", \"Rose pivoine\", \"Rose poudré\", \"Rose profond\", \"Rose vif\", \"Rouge\", \"Rouge corten\", \"Rouge foncé\", \"Rouge Noël\", \"Sable\", \"Sauge argentée\", \"Sol forestier\", \"Sol nordique\", \"Sureau\", \"Taupe\", \"Turquoise\", \"Vert\", \"Vert cendré\", \"Vert foncé\", \"Vert foncé chiné\", \"Vert forêt\", \"Vert givré\", \"Vert grisâtre\", \"Vert jade\", \"Vert jade / Nature\", \"Vert jungle\", \"Vert mousse\", \"Vert olive\", \"Vert poire\", \"Vert poire/ naturel\", \"Vert sapin\",",
+      productImageHeightMultiplier: 1.1,
+      replaceExclamationWithPeriod: true,
+      fontFamily: "Montserrat, sans-serif",
+      productButtonText: "VOIR LE PRODUIT",
+
+      // Set FreshdeskForm text
+      freshdeskEmailLabel: "Votre e-mail :",
+      freshdeskMessageLabel: "Message au service client :",
+      freshdeskImageLabel: "Télécharger une image (facultatif) :",
+      freshdeskChooseFileText: "Choisir un fichier",
+      freshdeskNoFileText: "Aucun fichier sélectionné",
+      freshdeskSendingText: "Envoi en cours...",
+      freshdeskSubmitText: "Envoyer la demande",
+
+      // Set FreshdeskForm validation error messages
+      freshdeskEmailRequiredError: "L'e-mail est requis",
+      freshdeskEmailInvalidError: "Veuillez saisir une adresse e-mail valide",
+      freshdeskFormErrorText: "Veuillez corriger les erreurs dans le formulaire",
+      freshdeskMessageRequiredError: "Le message est requis",
+      freshdeskSubmitErrorText: "Une erreur est survenue lors de l'envoi de la demande. Veuillez réessayer.",
+
+      // Set confirmation messages
+      contactConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
+      freshdeskConfirmationText: "Merci pour votre demande, nous reviendrons vers vous dès que possible.",
+
+      freshdeskNameRequiredError: "Le nom est obligatoire",
+      freshdeskNameLabel: "Nom :",
+
+      freshdeskSubjectText: 'Votre demande à DILLING',
+
+      freshdeskGroupId: 22000163683,
+      freshdeskProductId: 22000002330,
+
+      inputPlaceholder: "Écrivez votre question ici...",
+      ratingMessage: "Votre question a-t-elle été répondue ?",
+      privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
+      titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
+      messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
+      themeColor: "#000000",
           aiMessageColor: "#e9ecef",
-    aiMessageTextColor: "#000000",
-        headerTitleG: "Je suis le chatbot de DILLING",
-        headerSubtitleG: "Vous échangez avec un chatbot. En même temps, vous acceptez que la conversation puisse être enregistrée et traitée afin d'améliorer votre expérience. Lisez-en plus dans notre politique de confidentialité. Remarque : le chatbot peut parfois fournir des informations erronées.",
-        titleG: "Chat de DILLING",
-        firstMessage: "Bonjour 😊 Je suis le chatbot de DILLING. \nComment puis-je vous aider?\n",
-        isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
-        isPhoneView: (window.innerWidth < 800)
+          aiMessageTextColor: "#000000",
+      headerTitleG: "Je suis le chatbot de DILLING",
+      headerSubtitleG: "Vous échangez avec un chatbot. En même temps, vous acceptez que la conversation puisse être enregistrée et traitée afin d'améliorer votre expérience. Lisez-en plus dans notre politique de confidentialité. Remarque : le chatbot peut parfois fournir des informations erronées.",
+      titleG: "Chat de DILLING",
+      firstMessage: "Bonjour 😊 Je suis le chatbot de DILLING. \nComment puis-je vous aider?\n",
+      isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
+      isPhoneView: (window.innerWidth < 800)
       };
   
       // If the iframe is already visible, post the message immediately.
@@ -420,7 +422,7 @@ function initChatbot() {
       }
     }
   
-    // Listen for messages from the iframe
+      // Listen for messages from the iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== "https://skalerbartprodukt.onrender.com") return;
       if (event.data.action === 'toggleSize') {
@@ -523,8 +525,7 @@ function initChatbot() {
             
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-      
-      const popupText = "Avez-vous besoin d'aide? ";
+      const popupText = "Har du brug for hjælp?";
       messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       
       // Determine popup width based on character count (excluding any HTML tags)
@@ -668,4 +669,3 @@ function initChatbot() {
       initChatbot();
     }
   }, 5000);
-  
