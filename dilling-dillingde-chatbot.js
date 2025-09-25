@@ -334,9 +334,8 @@ function initChatbot() {
       apiVarFlowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/a4a1f49f-2060-4030-8b50-53ad3a1e4d6f",
       apiFlowKey: "order",
       
-  orderTrackingEnabled: true,
-  orderTrackingBackendUrl: 'https://egendatabasebackend.onrender.com/track-order',
-
+      orderTrackingEnabled: true,
+      orderTrackingBackendUrl: 'https://den-utrolige-snebold.onrender.com/track-order',
   
       useThumbsRating: true,
       ratingTimerDuration: 10000,
