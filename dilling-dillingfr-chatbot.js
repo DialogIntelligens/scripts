@@ -311,7 +311,7 @@ function initChatbot() {
   
       var messageData = {
         action: 'integrationOptions',
-        chatbotID: "dillingdk",
+        chatbotID: "dillingfr",
         pagePath: window.location.href,
         statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/740370a9-f01d-493e-bbe4-ec374aa9e5d8",
         SOCKET_SERVER_URL: "https://den-utrolige-snebold.onrender.com/",
@@ -323,6 +323,7 @@ function initChatbot() {
         flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/7a6747f1-7aa4-489f-b0a9-79aa5d1f0c98",
         flow4API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/eebcb827-cf5b-4ee2-8279-71b8639c3d06",
         flow4Key: "",
+
     
         metaDataAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/11751a16-1c96-4710-8d18-2987f8b4e21c",
         metaDataKey: "product",
