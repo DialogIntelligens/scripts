@@ -659,7 +659,7 @@ function initWithDebug() {
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
         headerTitleG: "PurePower AI Bot",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+        headerSubtitleG: "Chatten drives af AI. Samtalen kan gemmes og behandles. Se privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
