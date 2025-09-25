@@ -185,7 +185,7 @@ function initChatbot() {
     }
   
     :root {
-      --icon-color: ;
+      --icon-color: #000000;
       --badge-color: #CC2B20;
     }
   
@@ -389,15 +389,15 @@ function initChatbot() {
       ratingMessage: "Is je vraag beantwoord?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privacy_Policy_Dilling_English.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
-      headerLogoG: "",
-      messageIcon: "",
-      themeColor: "",
-        aiMessageColor: "",
-  aiMessageTextColor: "",
-      headerTitleG: "",
-      headerSubtitleG: "",
-      titleG: "",
-      firstMessage: "",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
+      messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
+      themeColor: "#000000",
+        aiMessageColor: "#e9ecef",
+  aiMessageTextColor: "#000000",
+      headerTitleG: "Ik ben DILLINGs chatbot",
+      headerSubtitleG: "Je chat met een chatbot. Tegelijkertijd accepteer je dat het gesprek kan worden opgeslagen en verwerkt om je ervaring te verbeteren. Lees meer in ons privacybeleid. Let op: de chatbot kan soms onjuiste informatie geven.",
+      titleG: "DILLINGs chat ",
+      firstMessage: "Hoi 😊 Ik ben de chatbot van DILLING. \nHoe kan ik je helpen?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -525,7 +525,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     
-    const popupText = "Har du brug for hjælp?";
+    const popupText = "Heb je hulp nodig?";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
