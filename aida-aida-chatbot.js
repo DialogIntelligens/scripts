@@ -526,7 +526,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "aida-pro",
       flow4KnowledgebaseIndex: "",
-      apiFlowKnowledgebaseIndex: "",
+      apiFlowKnowledgebaseIndex: "aida",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
