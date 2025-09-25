@@ -32,7 +32,7 @@ function initWithDebug() {
   }
   
   function initChatbotSafely() {
-    var popupText = "Jeg kan anbefale prdukter, besvare spørgsmål og se ordrer🍷";
+    var popupText = "Har du spørgsmål til din ordre, produkter eller  andet?";
 
     // Prevent multiple initializations
     if (window.chatbotInitialized) {
@@ -655,10 +655,10 @@ function initWithDebug() {
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1756991185563.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1756991258771.png",
-        themeColor: "#020202",
+        themeColor: "#9acf07",
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
-        headerTitleG: "",
+        headerTitleG: "PurePower AI Bot",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
@@ -667,7 +667,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "PURE AI POWER",
+        titleG: "PurePower AI Bot 🤖",
         firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål om træning, eller få personlige anbefalinger 🤖",
         purchaseTrackingEnabled: true,
         isTabletView: false,
