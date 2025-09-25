@@ -644,7 +644,7 @@ function initWithDebug() {
         inputPlaceholder: "Type your question here...",
         ratingMessage: "Did you get your question answered?",
   
-        productButtonText: "SE PRODUKT",
+        productButtonText: "SEE PRODUCT",
         productButtonColor: "",
         productButtonPadding: "",
         productImageHeightMultiplier: 1.2,
