@@ -185,7 +185,7 @@ function initChatbot() {
     }
   
     :root {
-      --icon-color: ;
+      --icon-color: #000000;
       --badge-color: #CC2B20;
     }
   
@@ -386,15 +386,15 @@ function initChatbot() {
       ratingMessage: "Fick du svar på din fråga?",
       privacyLink: "https://image-hosting-pi.vercel.app/Privatlivspolitik_dilling.pdf",
       titleLogoG: "http://dialogintelligens.dk/wp-content/uploads/2025/01/Dilling_whitemessagelogo-1.png",
-      headerLogoG: "",
-      messageIcon: "",
-      themeColor: "",
-        aiMessageColor: "",
-  aiMessageTextColor: "",
-      headerTitleG: "",
-      headerSubtitleG: "",
-      titleG: "",
-      firstMessage: "",
+      headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1741613117737.png",
+      messageIcon: "https://image-hosting-pi.vercel.app/messageicon.png",
+      themeColor: "#000000",
+        aiMessageColor: "#e9ecef",
+  aiMessageTextColor: "#000000",
+      headerTitleG: "Jag är DILLINGs chattbot",
+      headerSubtitleG: "Du skriver med en chattbot. Genom att använda den godkänner du att samtalet kan sparas och behandlas för att förbättra din upplevelse. Läs mer i vår integritetspolicy. Observera: chattboten kan i vissa fall ge felaktig information.",
+      titleG: "DILLINGs chatt",
+      firstMessage: "Hej 😊 Jag är DILLING:s chattbot. \nHur kan jag hjälpa dig?\n",
       isTabletView: (window.innerWidth < 1000 && window.innerWidth > 800),
       isPhoneView: (window.innerWidth < 800)
     };
@@ -522,7 +522,7 @@ function initChatbot() {
     var popup = document.getElementById("chatbase-message-bubbles");
     var messageBox = document.getElementById("popup-message-box");
     
-    const popupText = "Har du brug for hjælp?";
+    const popupText = "Behöver du hjälp?";
     messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     
     // Determine popup width based on character count (excluding any HTML tags)
