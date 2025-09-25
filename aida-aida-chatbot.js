@@ -570,7 +570,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "AIDA AI",
+      titleG: "AIDA AI ",
       firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖 \nDu er også altid velkommen til at kontakte vores menneskelige kundeservice, hvor vi bestræber os efter at svare indenfor 24 timer.",
       purchaseTrackingEnabled: true,
       isTabletView: false,
