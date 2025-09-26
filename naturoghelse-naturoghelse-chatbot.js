@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #6cadf8;
         --badge-color: #CC2B20;
       }
    
@@ -650,10 +650,10 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
-        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#224e9a",
-        aiMessageColor: "#e9ecef",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1758872200437.png",
+        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1758872181661.png",
+        themeColor: "#6cadf8",
+        aiMessageColor: "#f4f2ed",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
@@ -664,7 +664,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
+        titleG: "AI Chatbot hjælp",
         firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
         purchaseTrackingEnabled: false,
         isTabletView: false,
