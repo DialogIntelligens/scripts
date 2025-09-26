@@ -152,7 +152,7 @@ function reportPurchase(totalPrice) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       user_id:   chatbotUserId,
-      chatbot_id:'ditur',
+      chatbot_id:'skadedyrshop',
       amount:    totalPrice
     })
   })
@@ -193,7 +193,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
      * 1. GLOBAL & FONT SETUP
      */
     var isIframeEnlarged = false;
-    var chatbotID = "ditur";
+    var chatbotID = "skadedyrshop";
     var fontLink = document.createElement('link');
     fontLink.rel = 'stylesheet';
     fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
