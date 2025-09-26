@@ -608,7 +608,7 @@ function initWithDebug() {
         replaceExclamationWithPeriod: false,
   
         pineconeApiKey: "pcsk_3UjrPD_31C2RmtD3gCJT257xMaBWDWfxQeCjSC3TFHJiU2hxzDu8uDVkjeSKRKDYDuwVS1",
-        knowledgebaseIndexApiEndpoint: "humac-alt",
+        knowledgebaseIndexApiEndpoint: "naturoghelse-alt",
         flow2KnowledgebaseIndex: "",
         flow3KnowledgebaseIndex: "humac-pro",
         flow4KnowledgebaseIndex: "",
