@@ -665,7 +665,7 @@ function initWithDebug() {
         enableLivechat: true,
           
         titleG: "Georg Jensen Damask Chatbot",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger ",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
