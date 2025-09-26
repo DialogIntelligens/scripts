@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #212023;
         --badge-color: #CC2B20;
       }
    
@@ -650,9 +650,9 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1758895722619.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#224e9a",
+        themeColor: "#212023",
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
@@ -664,8 +664,8 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
-        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger 🤖",
+        titleG: "Nordic Clarity AI",
+        firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, eller få personlige anbefalinger til opskrifter 🤖",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
@@ -871,7 +871,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+        const popupText = "Jeg kan anbefale opskrifter og besvare spørgsmål ";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
