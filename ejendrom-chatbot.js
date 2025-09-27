@@ -510,7 +510,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow3Key: "product",
       flow4API: "",
       flow4Key: "",
-      pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",  
+      pineconeApiKey: "pcsk_5jmBcT_PypcxuLpuC6aGqQtgLXeaM8Nt9GzPtqyBLtpeDATfZgMiDmVinhCJeLGV1zoPSK",  
       leadGen: "%%",
       leadMail: "hej@ejendroem.dk",
       leadField1: "Navn",
