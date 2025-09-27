@@ -507,30 +507,17 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       action: 'integrationOptions',
       chatbotID: "vinhuset",
       pagePath: window.location.href,
-      flow2Key: "",
-      flow3Key: "product",
-      flow4Key: "productfilter",
-
-      
-      apiFlowKey: "order",
         
       leadGen: "%%",
       leadMail: "Team@dialogintelligens.dk",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
 
-      metaDataKey: "productfilter",
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      pineconeApiKey: "pcsk_6DGzau_SeHjbfsoGMME27Xm9PLKbuQoTMZpA6LHbbYih45v3ybkKeHcxm2fQEzuN3XWMgf",
-      knowledgebaseIndexApiEndpoint: "vinhuset-alt",
-      flow2KnowledgebaseIndex: "vinhuset-alt",
-      flow3KnowledgebaseIndex: "vinhuset-pro",
-      flow4KnowledgebaseIndex: "vinhuset-pro",
-      apiFlowKnowledgebaseIndex: "vinhuset-alt",
       websiteOverride: "",
       languageOverride: "",
       valutaOverride: "",
@@ -577,7 +564,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkUrl: "",
         
       titleG: "Vin Bot",
-      firstMessage: "Hej 😊 Spørg mig om alt – lige fra produkter til generelle spørgsmål, ordrestatus, eller tips & tricks til drikkevarer og grej 🍾🍷",
       purchaseTrackingEnabled: true,
       
       isTabletView: false,
