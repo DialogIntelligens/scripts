@@ -340,7 +340,7 @@ function initWithDebug() {
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: 10.5px;
+        bottom: 40.5px;
         right: 36px;
         scale: 0.52;
       }
@@ -872,7 +872,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan besvare spørgsmål om kompatibilitet, ordrer og produkter";
+        const popupText = "Jeg kan besvare spørgsmål om kompatibilitet, ordrer & produkter";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
@@ -893,7 +893,7 @@ function initWithDebug() {
         } else if (charCount < 60) {
           popupElem.style.width = "460px";
         } else {
-          popupElem.style.width = "490px";
+          popupElem.style.width = "495px";
         }
   
        
