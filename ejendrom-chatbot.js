@@ -510,7 +510,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       flow3Key: "product",
       flow4API: "",
       flow4Key: "",
-        
+      pineconeApiKey: "",  
       leadGen: "%%",
       leadMail: "hej@ejendroem.dk",
       leadField1: "Navn",
