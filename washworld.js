@@ -225,7 +225,7 @@ function initChatbot() {
       flow2APIBackup: "",
       flow3APIBackup: "",
       pineconeApiKey: "",
-      knowledgebaseIndexApiEndpoint: "",
+      knowledgebaseIndexApiEndpoint: "washworld1",
       imageAPI: '',
 
       toHumanMail: true,
