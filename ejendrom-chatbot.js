@@ -526,7 +526,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       ratingTimerDuration: 15000,
       replaceExclamationWithPeriod: false,
 
-      knowledgebaseIndexApiEndpoint: "ejendrom",
+      knowledgebaseIndexApiEndpoint: "ejendrom-alt",
       flow2KnowledgebaseIndex: "",
       flow3KnowledgebaseIndex: "ejendrom-alt",
       flow4KnowledgebaseIndex: "",
