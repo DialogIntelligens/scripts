@@ -224,7 +224,8 @@ function initChatbot() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-
+      pineconeApiKey: "",
+      knowledgebaseIndexApiEndpoint: "",
       imageAPI: '',
 
       toHumanMail: true,
