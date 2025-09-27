@@ -532,7 +532,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       knowledgebaseIndexApiEndpoint: "ejendrom",
       flow2KnowledgebaseIndex: "",
-      flow3KnowledgebaseIndex: "",
+      flow3KnowledgebaseIndex: "ejendrom",
       flow4KnowledgebaseIndex: "",
       apiFlowKnowledgebaseIndex: "",
       websiteOverride: "",
