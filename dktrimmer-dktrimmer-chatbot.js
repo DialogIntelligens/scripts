@@ -340,7 +340,7 @@ function initWithDebug() {
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: 40.5px;
+        bottom: 43px;
         right: 36px;
         scale: 0.52;
       }
@@ -398,8 +398,8 @@ function initWithDebug() {
         }
         
         #chatbase-message-bubbles.long-message {
-          bottom: 13px;
-          right: 32px;
+          bottom: 43px;
+          right: 35px;
           scale: 0.50;
         }
         
