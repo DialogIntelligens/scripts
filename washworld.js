@@ -224,7 +224,7 @@ function initChatbot() {
       fordelingsflowAPIBackup: "",
       flow2APIBackup: "",
       flow3APIBackup: "",
-      pineconeApiKey: "",
+      pineconeApiKey: "pcsk_t4xAk_H8wDYbReN7o4WUTjziM8q5L9hX1dDkactXPfN7XxrYpRj7VNS4jXRgo32GeyiPM",
       knowledgebaseIndexApiEndpoint: "washworld1",
       imageAPI: '',
 
