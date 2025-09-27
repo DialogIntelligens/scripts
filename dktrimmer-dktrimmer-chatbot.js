@@ -873,7 +873,7 @@ function initWithDebug() {
               // Popup message text - modify this as needed
 
         const popupText = "Jeg kan besvare spørgsmål om kompatibilitet, ordrer & produkter";
-        messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
+        messageBox.innerHTML = `${popupText}<span id="funny-smiley">😊</span>`;   
           
         
         // Determine popup width based on character count (excluding any HTML tags)
@@ -893,7 +893,7 @@ function initWithDebug() {
         } else if (charCount < 60) {
           popupElem.style.width = "460px";
         } else {
-          popupElem.style.width = "495px";
+          popupElem.style.width = "505px";
         }
   
        
