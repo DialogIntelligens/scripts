@@ -505,13 +505,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       action: 'integrationOptions',
       chatbotID: "ejendrom",
       pagePath: window.location.href,
-      statestikAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/23e87692-fca1-4f4c-8b79-1a49150a07f3",
-      apiEndpoint: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/4d1a5893-dbf3-4869-a4a9-0ebc5cb70ba6",
-      fordelingsflowAPI: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3b9a625a-8ff5-49a6-adfd-169c43f23f97",
       flow2Key: "",
       flow2API: "",
       flow3Key: "product",
-      flow3API: "https://den-utrolige-snebold.onrender.com/api/v1/prediction/3b98cf55-81fa-4727-8c60-83b283dea4fd",
       flow4API: "",
       flow4Key: "",
         
