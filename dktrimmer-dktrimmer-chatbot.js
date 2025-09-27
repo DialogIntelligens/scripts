@@ -289,7 +289,7 @@ function initWithDebug() {
         position: fixed;
         z-index: 20;
         right: 10px;
-        bottom: 20px;
+        bottom: 50px;
       }
       #chat-button svg {
         width: 65px;
@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #8ebe56;
         --badge-color: #CC2B20;
       }
    
