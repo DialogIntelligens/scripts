@@ -647,7 +647,8 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      const popupText = "Jeg kan besvare spørgsmål om kompatibilitet, ordrer og produkter";
+      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -657,7 +658,7 @@ messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       } else if (charCount < 60) {
         popupElem.style.width = "405px";
       } else {
-        popupElem.style.width = "460px";
+        popupElem.style.width = "480px";
       }
 
      
