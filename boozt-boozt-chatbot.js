@@ -598,7 +598,7 @@ function initWithDebug() {
         leadField2: "Tlf nummer",
   
         useThumbsRating: false,
-        ratingTimerDuration: 45000,
+        ratingTimerDuration: 45000000000,
         replaceExclamationWithPeriod: false,
         
         privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
