@@ -9,7 +9,7 @@ function initWithDebug() {
       setTimeout(initChatbotSafely, 100);
     }
   }
-  
+
   // Try multiple initialization strategies for GTM
   if (document.readyState === 'complete') {
     initWithDebug();
@@ -18,14 +18,14 @@ function initWithDebug() {
   } else {
     document.addEventListener('DOMContentLoaded', initWithDebug);
   }
-  
+
   // Fallback for GTM context
   setTimeout(function() {
     if (!window.chatbotInitialized) {
       initWithDebug();
     }
   }, 2000);
-  
+
   // Build a unique local-storage key for the current chatbot user
   function purchaseKey(userId) {
     return `purchaseReported_${userId}`;
@@ -854,7 +854,7 @@ function initWithDebug() {
               // Popup message text - modify this as needed
 
         const popupText = "Jeg kan anbefale produkter og besvare spørgsmål"
-        messageBox.innerHTML = `${popupText} <span id=;funny-smiley;>😊</span>`;   
+        messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
         // Determine popup width based on character count (excluding any HTML tags)
