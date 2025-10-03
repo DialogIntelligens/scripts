@@ -647,7 +647,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Nordic Clarity AI",
+        titleG: "Souschef",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
