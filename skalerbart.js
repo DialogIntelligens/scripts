@@ -303,18 +303,18 @@ function initWithDebug() {
         transform: scale(1.1);
       }
       
-      /* Minimize button */
+      /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 28px;
-        height: 28px;
+        top: 5px;
+        right: 5px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
-        background: var(--icon-color, #1a1d56);
+        background: rgba(0, 0, 0, 0.6);
         color: white;
         border: 2px solid white;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         display: none;
         align-items: center;
@@ -323,55 +323,53 @@ function initWithDebug() {
         z-index: 25;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
+        line-height: 1;
       }
       
       #minimize-button:hover {
-        transform: scale(1.15);
-        background: var(--badge-color, #CC2B20);
+        transform: scale(1.1);
+        background: rgba(0, 0, 0, 0.8);
       }
       
-      /* Minimized state */
+      /* Minimized state - shrink the entire chat button */
       #chat-container.minimized #chat-button {
-        transform: scale(0.25);
-        opacity: 0.7;
-      }
-      
-      #chat-container.minimized #chat-button:hover {
-        opacity: 0.9;
+        transform: scale(0.3);
+        transform-origin: bottom right;
       }
       
       #chat-container.minimized #minimize-button {
         display: none;
       }
       
-      /* Plus overlay when minimized */
+      /* Plus overlay when minimized - greyed out and hovering over small icon */
       #plus-overlay {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 40px;
+        bottom: 15px;
+        right: 5px;
+        font-size: 35px;
         font-weight: bold;
         color: white;
-        background: rgba(26, 29, 86, 0.8);
-        width: 60px;
-        height: 60px;
+        background: rgba(100, 100, 100, 0.7);
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         display: none;
         align-items: center;
         justify-content: center;
-        pointer-events: none;
+        cursor: pointer;
         z-index: 30;
-        animation: pulse 2s infinite;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        transition: all 0.3s ease;
+        line-height: 1;
+      }
+      
+      #plus-overlay:hover {
+        background: rgba(80, 80, 80, 0.85);
+        transform: scale(1.1);
       }
       
       #chat-container.minimized #plus-overlay {
         display: flex;
-      }
-      
-      @keyframes pulse {
-        0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
-        50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
       }
       
       /* Show minimize button only on mobile */
@@ -1086,7 +1084,7 @@ function initWithDebug() {
     
       // Attach event listener to chat-button
       document.getElementById('chat-button').addEventListener('click', function(e) {
-        // If minimized, clicking the button (or overlay) should maximize it
+        // If minimized, clicking the button should maximize it
         var container = document.getElementById('chat-container');
         if (container.classList.contains('minimized')) {
           toggleMinimize();
@@ -1124,6 +1122,15 @@ function initWithDebug() {
         minimizeBtn.addEventListener('click', function(e) {
           e.stopPropagation(); // Prevent triggering chat button click
           toggleMinimize();
+        });
+      }
+      
+      // Attach event listener to plus overlay (to maximize when clicked)
+      var plusOverlay = document.getElementById('plus-overlay');
+      if (plusOverlay) {
+        plusOverlay.addEventListener('click', function(e) {
+          e.stopPropagation(); // Prevent bubbling
+          toggleMinimize(); // This will maximize since it's only visible when minimized
         });
       }
       
