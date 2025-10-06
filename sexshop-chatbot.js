@@ -230,9 +230,9 @@ function initWithDebug() {
        * 1. GLOBAL & FONT SETUP
        */
       var isIframeEnlarged = false;
-      var chatbotID = "humac";
+      var chatbotID = "sexshop";
       var enableMinimizeButton = true; // EASY CONFIG: Set to false to disable minimize feature on mobile
-      var enablePopupMessage = true; // EASY CONFIG: Set to false to disable popup message bubble on mobile
+      var enablePopupMessage = false; // EASY CONFIG: Set to false to disable popup message bubble on mobile
       var fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
       fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -291,7 +291,7 @@ function initWithDebug() {
         border: none;
         position: fixed;
         z-index: 20;
-        right: 10px;
+        right: 0px;
         bottom: 20px;
         transition: all 0.3s ease;
       }
