@@ -310,7 +310,7 @@ function initWithDebug() {
         position: absolute;
         top: -25px;
         right: 0px;
-        width: 24px;
+        width: 0px;
         border-radius: 50%;
         background: rgba(0, 0, 0, 0.6);
         color: white;
