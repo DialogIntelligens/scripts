@@ -231,7 +231,8 @@ function initWithDebug() {
        */
       var isIframeEnlarged = false;
       var chatbotID = "humac";
-      var enableMinimizeButton = true; // EASY CONFIG: Set to false to disable minimize feature
+      var enableMinimizeButton = true; // EASY CONFIG: Set to false to disable minimize feature on mobile
+      var enablePopupMessage = true; // EASY CONFIG: Set to false to disable popup message bubble on mobile
       var fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
       fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -955,6 +956,12 @@ function initWithDebug() {
        * 7. SHOW/HIDE POPUP
        */
       function showPopup() {
+        // Check if popup is disabled via config (only on mobile)
+        var isMobile = window.innerWidth < 1000;
+        if (isMobile && !enablePopupMessage) {
+          return;
+        }
+        
         var iframe = document.getElementById("chat-iframe");
           // If the iframe is visible, do not show the popup
           if (iframe.style.display !== "none") {
@@ -1031,14 +1038,16 @@ function initWithDebug() {
   
       // Add event listener to popup so clicking on it (except the close button) toggles the chat window
       var popupContainer = document.getElementById("chatbase-message-bubbles");
-      popupContainer.addEventListener("click", function(e) {
-        // Ensure that clicking on the close button does not trigger toggling the chat
-        if (e.target.closest(".close-popup") === null) {
-          toggleChatWindow();
-        }
-      });
+      if (popupContainer) {
+        popupContainer.addEventListener("click", function(e) {
+          // Ensure that clicking on the close button does not trigger toggling the chat
+          if (e.target.closest(".close-popup") === null) {
+            toggleChatWindow();
+          }
+        });
+      }
       
-      // Show popup after 1 second (matching function initChatbot() {.js timing)
+      // Show popup after 1 second - showPopup function handles mobile-only disable logic
       setTimeout(showPopup, 1000);
   
   
