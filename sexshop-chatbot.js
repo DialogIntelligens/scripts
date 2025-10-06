@@ -231,7 +231,7 @@ function initWithDebug() {
        */
       var isIframeEnlarged = false;
       var chatbotID = "humac";
-      var enableMinimizeButton = false; // EASY CONFIG: Set to false to disable minimize feature on mobile
+      var enableMinimizeButton = true; // EASY CONFIG: Set to false to disable minimize feature on mobile
       var enablePopupMessage = true; // EASY CONFIG: Set to false to disable popup message bubble on mobile
       var fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
