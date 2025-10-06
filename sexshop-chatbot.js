@@ -311,7 +311,6 @@ function initWithDebug() {
         top: -25px;
         right: 0px;
         width: 24px;
-        height: 24px;
         border-radius: 50%;
         background: rgba(0, 0, 0, 0.6);
         color: white;
@@ -323,6 +322,7 @@ function initWithDebug() {
         justify-content: center;
         cursor: pointer;
         z-index: 25;
+        scale: 0.65;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
         line-height: 1;
