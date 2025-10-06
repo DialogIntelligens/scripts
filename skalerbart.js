@@ -306,7 +306,7 @@ function initWithDebug() {
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute;
-        top: 5px;
+        top: -50px;
         right: 5px;
         width: 24px;
         height: 24px;
@@ -333,7 +333,7 @@ function initWithDebug() {
       
       /* Minimized state - shrink the entire chat button */
       #chat-container.minimized #chat-button {
-        transform: scale(0.3);
+        transform: scale(0.45);
         transform-origin: bottom right;
       }
       
@@ -346,12 +346,12 @@ function initWithDebug() {
         position: absolute;
         bottom: 15px;
         right: 5px;
-        font-size: 35px;
+        font-size: 15px;
         font-weight: bold;
         color: white;
         background: rgba(100, 100, 100, 0.7);
-        width: 50px;
-        height: 50px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         display: none;
         align-items: center;
