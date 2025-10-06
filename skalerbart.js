@@ -231,6 +231,7 @@ function initWithDebug() {
        */
       var isIframeEnlarged = false;
       var chatbotID = "humac";
+      var enableMinimizeButton = true; // EASY CONFIG: Set to false to disable minimize feature
       var fontLink = document.createElement('link');
       fontLink.rel = 'stylesheet';
       fontLink.href = 'https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200;300;400;600;900&display=swap';
@@ -382,6 +383,12 @@ function initWithDebug() {
       /* Hide minimize elements when chat is open */
       #chat-iframe:not([style*="display: none"]) ~ #chat-container #minimize-button,
       #chat-iframe:not([style*="display: none"]) ~ #chat-container #plus-overlay {
+        display: none !important;
+      }
+      
+      /* Hide minimize feature when disabled */
+      #chat-container.minimize-disabled #minimize-button,
+      #chat-container.minimize-disabled #plus-overlay {
         display: none !important;
       }
     
@@ -610,11 +617,16 @@ function initWithDebug() {
         try {
           document.body.insertAdjacentHTML('beforeend', chatbotHTML);
           
-          // Verify elements were created
+          // Verify elements were created and apply minimize button settings
           setTimeout(function() {
             var chatContainer = document.getElementById('chat-container');
             var chatButton = document.getElementById('chat-button');
             var chatIframe = document.getElementById('chat-iframe');
+            
+            // Apply minimize button setting
+            if (!enableMinimizeButton && chatContainer) {
+              chatContainer.classList.add('minimize-disabled');
+            }
             
             // Silent verification - no logging needed
           }, 100);
@@ -677,7 +689,7 @@ function initWithDebug() {
         var iframeWindow = iframe.contentWindow;
   
   
-        var messageData = {
+      var messageData = {
         action: 'integrationOptions',
         chatbotID: "test",
         pagePath: window.location.href,
@@ -686,7 +698,7 @@ function initWithDebug() {
         leadMail: "Team@dialogintelligens.dk",
         leadField1: "Navn",
         leadField2: "Tlf nummer",
-  
+
         useThumbsRating: false,
         ratingTimerDuration: 15000,
         replaceExclamationWithPeriod: false,
@@ -1116,28 +1128,30 @@ function initWithDebug() {
         }
       }
       
-      // Attach event listener to minimize button
-      var minimizeBtn = document.getElementById('minimize-button');
-      if (minimizeBtn) {
-        minimizeBtn.addEventListener('click', function(e) {
-          e.stopPropagation(); // Prevent triggering chat button click
-          toggleMinimize();
-        });
-      }
-      
-      // Attach event listener to plus overlay (to maximize when clicked)
-      var plusOverlay = document.getElementById('plus-overlay');
-      if (plusOverlay) {
-        plusOverlay.addEventListener('click', function(e) {
-          e.stopPropagation(); // Prevent bubbling
-          toggleMinimize(); // This will maximize since it's only visible when minimized
-        });
-      }
-      
-      // Check if chatbot was previously minimized
-      var wasMinimized = localStorage.getItem('chatbotMinimized');
-      if (wasMinimized === 'true') {
-        document.getElementById('chat-container').classList.add('minimized');
+      // Attach event listener to minimize button (only if feature is enabled)
+      if (enableMinimizeButton) {
+        var minimizeBtn = document.getElementById('minimize-button');
+        if (minimizeBtn) {
+          minimizeBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent triggering chat button click
+            toggleMinimize();
+          });
+        }
+        
+        // Attach event listener to plus overlay (to maximize when clicked)
+        var plusOverlay = document.getElementById('plus-overlay');
+        if (plusOverlay) {
+          plusOverlay.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent bubbling
+            toggleMinimize(); // This will maximize since it's only visible when minimized
+          });
+        }
+        
+        // Check if chatbot was previously minimized
+        var wasMinimized = localStorage.getItem('chatbotMinimized');
+        if (wasMinimized === 'true') {
+          document.getElementById('chat-container').classList.add('minimized');
+        }
       }
   
     const isPhoneView = window.innerWidth < 800;
