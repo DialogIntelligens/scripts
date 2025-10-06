@@ -306,7 +306,7 @@ function initWithDebug() {
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute;
-        top: -50px;
+        top: -75px;
         right: 5px;
         width: 24px;
         height: 24px;
@@ -344,8 +344,8 @@ function initWithDebug() {
       /* Plus overlay when minimized - greyed out and hovering over small icon */
       #plus-overlay {
         position: absolute;
-        bottom: 15px;
-        right: 5px;
+        bottom: 7px;
+        right: 8.5px;
         font-size: 15px;
         font-weight: bold;
         color: white;
