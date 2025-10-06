@@ -307,8 +307,8 @@ function initWithDebug() {
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute;
-        top: -75px;
-        right: 5px;
+        top: -25px;
+        right: 0px;
         width: 24px;
         height: 24px;
         border-radius: 50%;
@@ -380,15 +380,15 @@ function initWithDebug() {
         }
       }
       
-      /* Hide minimize elements when chat is open */
-      #chat-iframe:not([style*="display: none"]) ~ #chat-container #minimize-button,
-      #chat-iframe:not([style*="display: none"]) ~ #chat-container #plus-overlay {
-        display: none !important;
-      }
-      
       /* Hide minimize feature when disabled */
       #chat-container.minimize-disabled #minimize-button,
       #chat-container.minimize-disabled #plus-overlay {
+        display: none !important;
+      }
+      
+      /* Hide minimize elements when chat is open */
+      #chat-container.chat-open #minimize-button,
+      #chat-container.chat-open #plus-overlay {
         display: none !important;
       }
     
@@ -785,10 +785,14 @@ function initWithDebug() {
         } else if (event.data.action === 'closeChat') {
           document.getElementById('chat-iframe').style.display = 'none';
           document.getElementById('chat-button').style.display = 'block';
+          var container = document.getElementById('chat-container');
+          if (container) container.classList.remove('chat-open'); // Show minimize buttons when closing
           localStorage.setItem('chatWindowState', 'closed');
         } else if (event.data.action === 'navigate') {
           document.getElementById('chat-iframe').style.display = 'none';
           document.getElementById('chat-button').style.display = 'block';
+          var container = document.getElementById('chat-container');
+          if (container) container.classList.remove('chat-open'); // Show minimize buttons when closing
           localStorage.setItem('chatWindowState', 'closed');
           window.location.href = event.data.url;
         } else if (event.data.action === 'setChatbotUserId') {
@@ -919,8 +923,14 @@ function initWithDebug() {
           container.classList.remove('minimized');
           localStorage.setItem('chatbotMinimized', 'false');
           
+          // Add chat-open class to hide minimize buttons
+          container.classList.add('chat-open');
+          
           // Track chatbot open for greeting rate statistics
           trackChatbotOpen();
+        } else {
+          // Remove chat-open class when closing chat
+          container.classList.remove('chat-open');
         }
       
         // Adjust the iframe size
@@ -1159,15 +1169,18 @@ function initWithDebug() {
       var savedState = localStorage.getItem('chatWindowState');
       var iframe = document.getElementById('chat-iframe');
       var button = document.getElementById('chat-button');
+      var container = document.getElementById('chat-container');
     
     if (savedState === 'open' && !isPhoneView) {
       iframe.style.display = 'block';
       button.style.display = 'none';
+      if (container) container.classList.add('chat-open'); // Hide minimize buttons
       sendMessageToIframe();
       trackChatbotOpen();          // keep your analytics
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
+      if (container) container.classList.remove('chat-open'); // Show minimize buttons
     
       /* clear any stale "open" flag so page-to-page nav on phone never re-opens */
       if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
