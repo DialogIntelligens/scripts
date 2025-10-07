@@ -636,10 +636,10 @@ function initWithDebug() {
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1759395574370.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1759395567922.png",
         themeColor: "#000000",
-        aiMessageColor: "#e9ecef",
+        aiMessageColor: "#e2e1ca",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+        headerSubtitleG: "Dette er demo prototype til Vahle A/S",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
