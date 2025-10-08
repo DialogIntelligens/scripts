@@ -441,7 +441,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       <div id="chat-container">
         <!-- Chat Button -->
         <button id="chat-button">
-          <img src="https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/cropped_circle_image.png" alt="Support agent" />
+          <img src="https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/danmark.png" alt="Support agent" />
         </button>
   
         <!-- Popup -->
