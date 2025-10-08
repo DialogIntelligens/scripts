@@ -1090,8 +1090,8 @@ function trackChatbotOpen() {
       }
     });
     
-    // Show popup after 1 second (matching function initChatbot() {.js timing)
-    setTimeout(showPopup, 1000);
+    // Show popup after 2 second (matching function initChatbot() {.js timing)
+    setTimeout(showPopup, 2000);
 
 
     /**
