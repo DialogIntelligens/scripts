@@ -1090,8 +1090,7 @@ function trackChatbotOpen() {
       }
     });
     
-    // Show popup after 2 second (matching function initChatbot() {.js timing)
-    setTimeout(showPopup, 2000);
+
 
 
     /**
@@ -1204,6 +1203,9 @@ function trackChatbotOpen() {
     if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
   }
 
+        // Show popup after 2 second (matching function initChatbot() {.js timing)
+    setTimeout(showPopup, 2000);
+
    
     // Chat button click (remove duplicate - already handled above)
     
@@ -1211,6 +1213,8 @@ function trackChatbotOpen() {
     checkBadgeVisibility();
 
   } // end of initChatbot
+
+
   
   // Wait for DOM to be fully loaded before initializing
   function initializeWhenReady() {
