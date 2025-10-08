@@ -240,11 +240,11 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       position: fixed;
       z-index: 20;
       right: 10px;
-      bottom: 20px;
+      bottom: 21px;
     }
     #chat-button img {
-      width: 65px;             /* same size as old SVG */
-      height: 65px;
+      width: 70px;             /* same size as old SVG */
+      height: 70px;
       border-radius: 50%;      /* makes it round */
       object-fit: cover;       /* ensures correct crop */
       transition: transform 0.3s ease, opacity 0.3s ease;
