@@ -419,7 +419,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #928c7b;
+        --icon-color: #000000;
         --badge-color: #CC2B20;
       }
    
