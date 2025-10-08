@@ -1048,6 +1048,7 @@ function trackChatbotOpen() {
 
      
       popup.style.display = "flex";
+      popup.classList.add('show');
   
       // Blink after 2s
       setTimeout(function() {
