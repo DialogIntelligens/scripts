@@ -897,7 +897,6 @@ function trackChatbotOpen() {
     
       // Close the popup when the chat is opened
       if (!isCurrentlyOpen) {
-        popup.classList.remove("show");
         popup.style.display = "none";
         // Hide the badge when user first opens the chat
         hideBadge();
@@ -913,11 +912,7 @@ function trackChatbotOpen() {
       // When opening, let the iframe know after a short delay
       if (!isCurrentlyOpen) {
         setTimeout(function() {
-          try {
-            iframe.contentWindow.postMessage({ action: 'chatOpened' }, 'https://skalerbartprodukt.onrender.com');
-          } catch (e) {
-            console.warn('Could not send chatOpened message:', e);
-          }
+          iframe.contentWindow.postMessage({ action: 'chatOpened' }, '*');
         }, 100);
       }
     }
@@ -932,7 +927,50 @@ function trackChatbotOpen() {
     /**
      * 7. SHOW/HIDE POPUP
      */
-    function showPopup() {
+    function generateVisitorKey() {
+      const storageKey = `visitorKey_${chatbotID}`;
+      let visitorKey = localStorage.getItem(storageKey);
+      if (!visitorKey) {
+        visitorKey = `visitor-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+        localStorage.setItem(storageKey, visitorKey);
+      }
+      return visitorKey;
+    }
+
+
+
+    async function logSplitImpression(variantId) {
+      try {
+        const visitorKey = generateVisitorKey();
+        await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chatbot_id: chatbotID,
+            variant_id: variantId,
+            visitor_key: visitorKey,
+            user_id: chatbotUserId || null
+          })
+        });
+      } catch (e) {
+        console.warn('Failed to log split impression:', e);
+      }
+    }
+
+    async function fetchPopupFromBackend() {
+      try {
+        const visitorKey = generateVisitorKey();
+        const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        if (!resp.ok) return null;
+        const data = await resp.json();
+        return (data && data.popup_text) ? String(data.popup_text) : null;
+      } catch (e) {
+        console.warn('Popup fetch failed, will use default if any:', e);
+        return null;
+      }
+    }
+
+    async function showPopup() {
       var iframe = document.getElementById("chat-iframe");
         // If the iframe is visible, do not show the popup
         if (iframe.style.display !== "none") {
@@ -946,7 +984,27 @@ function trackChatbotOpen() {
         
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
-messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+      
+      // Backwards compatibility: if popupText is defined and non-empty in script, use it; otherwise fetch from backend
+      let finalPopupText = (typeof popupText !== 'undefined' && popupText && String(popupText).trim().length > 0)
+        ? String(popupText)
+        : await fetchPopupFromBackend() || "Har du brug for hjælp?";
+
+      // Check for split test assignment and log impression if applicable
+      let splitAssignment = null;
+      if (typeof popupText === 'undefined' || !popupText || String(popupText).trim().length === 0) {
+        splitAssignment = await getSplitAssignmentOnce();
+        if (splitAssignment && splitAssignment.variant && splitAssignment.variant.config && splitAssignment.variant.config.popup_text) {
+          finalPopupText = splitAssignment.variant.config.popup_text;
+        }
+      }
+      
+      messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
+      
+      // Log impression if this is a split test
+      if (splitAssignment && splitAssignment.variant_id) {
+        logSplitImpression(splitAssignment.variant_id);
+      }    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
@@ -955,51 +1013,21 @@ messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
       // Remove any existing long-message class
       popupElem.classList.remove('long-message');
       
-      // Determine if it's mobile
-      var isMobile = window.innerWidth < 600;
-      
-      // Apply long-message class and set initial transform if more than 26 characters
+      // Apply long-message class if more than 26 characters
       if (charCount > 26) {
         popupElem.classList.add('long-message');
-        if (isMobile) {
-          popupElem.style.transform = "scale(0.50) translateY(50px)";
-          popupElem.style.bottom = "-2px";
-          popupElem.style.right = "55px";
-        } else {
-          popupElem.style.transform = "scale(0.55) translateY(50px)";
-          popupElem.style.bottom = "9px";
-          popupElem.style.right = "40px";
-        }
-      } else {
-        // Regular message - keep default scale
-        popupElem.style.transform = "scale(0.60) translateY(50px)";
-        if (isMobile) {
-          popupElem.style.bottom = "18px";
-          popupElem.style.right = "60px";
-        } else {
-          popupElem.style.bottom = "17px";
-          popupElem.style.right = "55px";
-        }
       }
       
       if (charCount < 25) {
         popupElem.style.width = "40px";
       } else if (charCount < 60) {
-        popupElem.style.width = "405px";
+        popupElem.style.width = "460px";
       } else {
         popupElem.style.width = "460px";
       }
 
      
       popup.style.display = "flex";
-      
-      // Force a reflow to ensure the initial styles are applied
-      popup.offsetHeight;
-      
-      // Add the show class to trigger animation
-      setTimeout(function() {
-        popup.classList.add('show');
-      }, 10);
   
       // Blink after 2s
       setTimeout(function() {
@@ -1028,34 +1056,14 @@ messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;
     var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
     if (closePopupButton) {
       closePopupButton.addEventListener("click", function() {
-        var popup = document.getElementById("chatbase-message-bubbles");
-        popup.classList.remove("show");
-        popup.style.display = "none";
+        document.getElementById("chatbase-message-bubbles").style.display = "none";
         localStorage.setItem("popupClosed", "true");  // Save popup closed state permanently
       });
     }
 
     // Add event listener to popup so clicking on it (except the close button) toggles the chat window
     var popupContainer = document.getElementById("chatbase-message-bubbles");
-    
-    // Click handler
     popupContainer.addEventListener("click", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      // Ensure that clicking on the close button does not trigger toggling the chat
-      if (e.target.closest(".close-popup") === null) {
-        toggleChatWindow();
-      }
-    });
-    
-    // Touch handlers for mobile Safari
-    popupContainer.addEventListener("touchstart", function(e) {
-      e.preventDefault();
-    });
-    
-    popupContainer.addEventListener("touchend", function(e) {
-      e.preventDefault();
-      e.stopPropagation();
       // Ensure that clicking on the close button does not trigger toggling the chat
       if (e.target.closest(".close-popup") === null) {
         toggleChatWindow();
