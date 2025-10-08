@@ -242,14 +242,17 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       right: 10px;
       bottom: 20px;
     }
-    #chat-button svg {
-      width: 65px;
+    #chat-button img {
+      width: 65px;             /* same size as old SVG */
       height: 65px;
-      transition: opacity 0.3s;
+      border-radius: 50%;      /* makes it round */
+      object-fit: cover;       /* ensures correct crop */
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      display: block;
     }
-    #chat-button:hover svg {
+    #chat-button:hover img {
+      transform: scale(1.1);   /* same hover zoom */
       opacity: 1;
-      transform: scale(1.1);
     }
   
     /* Popup rise animation */
@@ -435,7 +438,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     var chatbotHTML = `
       <div id="chat-container">
         <!-- Chat Button -->
-
+        <button id="chat-button">
+          <img src="https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/cropped_circle_image.png" alt="Support agent" />
+        </button>
   
         <!-- Popup -->
         <div id="chatbase-message-bubbles">
