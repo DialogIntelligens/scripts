@@ -998,8 +998,7 @@ function trackChatbotOpen() {
         return;
       }
       
-      // Check if popup was previously closed/minimized
-      if (localStorage.getItem("popupClosed") === "true") {
+      if (sessionStorage.getItem("popupClosed") === "true") {
         return;
       }
         
