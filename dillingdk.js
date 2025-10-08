@@ -566,7 +566,7 @@ popupContainer.addEventListener("click", function(e) {
     } else {
       if (window.innerWidth < 1000) {
         iframe.style.width = '95vw';
-        iframe.style.height = (window.innerHeight < 720) ? '87vh' : '90vh';
+        iframe.style.height = (window.innerHeight < 720) ? '85vh' : '85vh';
       } else {
         iframe.style.width = 'calc(47vh + 7vw)';
         iframe.style.height = (window.innerHeight < 720) ? '87vh' : '88vh';
