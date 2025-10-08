@@ -636,25 +636,46 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
     }
   
   
-    /**
+ /**
      * 5. CHAT IFRAME LOGIC
      */
-    function sendMessageToIframe() {
-      var iframe = document.getElementById("chat-iframe");
+    // Cache split test assignment to avoid repeated API calls
+    let cachedSplitAssignment = null;
+    let splitAssignmentFetched = false;
+
+    async function getSplitAssignmentOnce() {
+      if (splitAssignmentFetched) return cachedSplitAssignment;
       
-      // Check if iframe exists and is loaded
-      if (!iframe) {
-        console.warn('Iframe not found');
-        return;
-      }
-      
-      var iframeWindow;
       try {
-        iframeWindow = iframe.contentWindow;
+        const visitorKey = generateVisitorKey();
+        console.log('Fetching split assignment for chatbot:', chatbotID, 'visitor:', visitorKey);
+        const splitResp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+        console.log('Split assign response status:', splitResp.status);
+        if (splitResp.ok) {
+          const splitData = await splitResp.json();
+          console.log('Split assignment data:', splitData);
+          if (splitData.enabled && splitData.variant_id) {
+            cachedSplitAssignment = splitData;
+            console.log('Split test assignment cached:', cachedSplitAssignment);
+          } else {
+            console.log('Split test not enabled or no variant assigned');
+          }
+        }
       } catch (e) {
-        console.warn('Cannot access iframe contentWindow:', e);
-        return;
+        console.warn('Failed to get split assignment:', e);
       }
+      
+      splitAssignmentFetched = true;
+      return cachedSplitAssignment;
+    }
+
+    async function sendMessageToIframe() {
+      var iframe = document.getElementById("chat-iframe");
+      var iframeWindow = iframe.contentWindow;
+
+      // Get split test assignment for this visitor (cached)
+      const splitTestAssignment = await getSplitAssignmentOnce();
+      console.log('Split test assignment for iframe:', splitTestAssignment);
 
       var messageData = {
       action: 'integrationOptions',
