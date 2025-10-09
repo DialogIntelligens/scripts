@@ -298,7 +298,7 @@ function initWithDebug() {
         height: 70px;
         border-radius: 50%;      /* makes it round */
         object-fit: cover;       /* ensures correct crop */
-        transition: width 1s ease-in-out, height 1s ease-in-out;
+        transition: width 1.2s ease-in-out, height 1.2s ease-in-out;
         display: block;
       }
       #chat-button:hover img {
@@ -367,25 +367,22 @@ function initWithDebug() {
         scale: 0.57 !important;
         z-index: 99999;
         opacity: 1;
-        transition: bottom 1s ease-in-out, right 1s ease-in-out, scale 1s ease-in-out, opacity 0.5s ease-in-out;
+        transition: bottom 1.2s ease-in-out, right 1.2s ease-in-out, scale 1.2s ease-in-out, opacity 0.5s ease-in-out;
       }
 
-      /* Greeting backdrop overlay */
+      /* Greeting backdrop overlay - Hidden by default */
       #greeting-backdrop {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0);
         z-index: 50000;
         opacity: 0;
-        transition: opacity 0.5s ease;
+        transition: opacity 0.6s ease;
         pointer-events: none;
-      }
-
-      #greeting-backdrop.show {
-        opacity: 1;
+        display: none;
       }
 
       /* Mobile adjustments for greeting */
@@ -980,13 +977,8 @@ function initWithDebug() {
         popup.style.width = "460px";
         popup.classList.add("long-message");
 
-        // Start the greeting sequence
+        // Start the greeting sequence after 2 seconds
         setTimeout(function() {
-          // Show backdrop
-          if (backdrop) {
-            backdrop.classList.add("show");
-          }
-
           // Scale up the chat button (guy) to 300px
           chatButton.classList.add("first-visit-greeting");
 
@@ -994,7 +986,7 @@ function initWithDebug() {
           setTimeout(function() {
             popup.style.display = "flex";
             popup.classList.add("first-visit-greeting");
-          }, 1000);
+          }, 1200);
 
           // After 7 seconds total, hide message and scale everything back down
           setTimeout(function() {
@@ -1006,11 +998,6 @@ function initWithDebug() {
             // Then scale the button back to normal
             chatButton.classList.remove("first-visit-greeting");
 
-            // Hide backdrop
-            if (backdrop) {
-              backdrop.classList.remove("show");
-            }
-
             // After button transition completes, show normal popup
             setTimeout(function() {
               // Mark that we've shown the greeting
@@ -1018,9 +1005,9 @@ function initWithDebug() {
 
               // Show the normal popup
               showPopup();
-            }, 1000);
+            }, 1200);
           }, 7000);
-        }, 500);
+        }, 2000);
       }
     
       // Close the popup and save the state in LocalStorage
