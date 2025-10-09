@@ -730,6 +730,9 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       headerSubtitleG: "Jeg er din AI assistent. Når du skriver til mig, accepterer du samtidig, at vores samtale bliver behandlet og gemt. 🤖 Husk, jeg er kun en robot - så hvis noget er uklart eller ikke giver mening, kan du altid tage fat i vores kundeservice 💬",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
+
+      // Pass split test info to chatbot
+      splitTestId: splitTestAssignment ? splitTestAssignment.variant_id : null,
         
       titleG: "SKORINGENs Chat 👟",
       purchaseTrackingEnabled: true,
