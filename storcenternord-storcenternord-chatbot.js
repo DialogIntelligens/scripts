@@ -996,29 +996,30 @@ function initWithDebug() {
             popup.classList.add("first-visit-greeting");
           }, 1000);
 
-          // After 10 seconds total, scale everything back down
+          // After 7 seconds total, hide message and scale everything back down
           setTimeout(function() {
-            // Remove greeting classes to scale back to normal
-            chatButton.classList.remove("first-visit-greeting");
+            // First hide the popup message
+            popup.style.display = "none";
             popup.classList.remove("first-visit-greeting");
+            popup.classList.remove("long-message");
+
+            // Then scale the button back to normal
+            chatButton.classList.remove("first-visit-greeting");
 
             // Hide backdrop
             if (backdrop) {
               backdrop.classList.remove("show");
             }
 
-            // After transition completes, hide popup and show normal one
+            // After button transition completes, show normal popup
             setTimeout(function() {
-              popup.style.display = "none";
-              popup.classList.remove("long-message");
-              
               // Mark that we've shown the greeting
               localStorage.setItem("hasSeenChatbotGreeting", "true");
 
               // Show the normal popup
               showPopup();
             }, 1000);
-          }, 10000);
+          }, 7000);
         }, 500);
       }
     
