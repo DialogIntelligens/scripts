@@ -273,54 +273,7 @@ function initWithDebug() {
         animation: jump 0.5s ease-in-out 2;
       }
 
-      /* First Visit Greeting Animations */
-      @keyframes greet-scale-in {
-        0% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(6);
-          opacity: 1;
-        }
-      }
-
-      @keyframes greet-scale-out {
-        0% {
-          transform: scale(6);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      @keyframes bubble-pop-in {
-        0% {
-          transform: scale(0);
-          opacity: 0;
-        }
-        60% {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      @keyframes bubble-pop-out {
-        0% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        100% {
-          transform: scale(0.8);
-          opacity: 0;
-        }
-      }
+      /* First Visit Greeting Animations - Simplified */
     
       /* ----------------------------------------
          C) CHAT BUTTON + POPUP STYLES
@@ -345,7 +298,7 @@ function initWithDebug() {
         height: 70px;
         border-radius: 50%;      /* makes it round */
         object-fit: cover;       /* ensures correct crop */
-        transition: transform 0.3s ease, opacity 0.3s ease;
+        transition: width 1s ease-in-out, height 1s ease-in-out;
         display: block;
       }
       #chat-button:hover img {
@@ -353,19 +306,14 @@ function initWithDebug() {
         opacity: 1;
       }
 
-      /* First Visit Greeting State */
+      /* First Visit Greeting State - Simple scale to 300px */
       #chat-button.first-visit-greeting {
-        animation: greet-scale-in 1s ease-out forwards;
         z-index: 100000;
       }
 
       #chat-button.first-visit-greeting img {
-        width: 70px;
-        height: 70px;
-      }
-
-      #chat-button.greeting-exit {
-        animation: greet-scale-out 0.8s ease-in-out forwards;
+        width: 300px;
+        height: 300px;
       }
     
       /* Popup rise animation */
@@ -418,13 +366,8 @@ function initWithDebug() {
         right: 190px !important;
         scale: 0.57 !important;
         z-index: 99999;
-        animation: bubble-pop-in 0.8s ease-out 1.2s forwards;
-        opacity: 0;
-        transform: scale(0);
-      }
-
-      #chatbase-message-bubbles.greeting-exit {
-        animation: bubble-pop-out 0.6s ease-in forwards;
+        opacity: 1;
+        transition: bottom 1s ease-in-out, right 1s ease-in-out, scale 1s ease-in-out, opacity 0.5s ease-in-out;
       }
 
       /* Greeting backdrop overlay */
@@ -447,25 +390,16 @@ function initWithDebug() {
 
       /* Mobile adjustments for greeting */
       @media (max-width: 600px) {
-        #chat-button.first-visit-greeting {
-          animation: greet-scale-in 1s ease-out forwards;
+        #chat-button.first-visit-greeting img {
+          width: 200px;
+          height: 200px;
         }
 
         #chatbase-message-bubbles.first-visit-greeting {
           bottom: 140px !important;
-          right: 50% !important;
-          transform: translateX(50%) scale(0);
-          scale: 1 !important;
+          right: 50px !important;
+          scale: 0.5 !important;
           max-width: 80vw;
-        }
-
-        @keyframes greet-scale-in {
-          0% {
-            transform: scale(1);
-          }
-          100% {
-            transform: scale(4);
-          }
         }
       }
       
@@ -1021,7 +955,7 @@ function initWithDebug() {
       }
 
       /**
-       * FIRST VISIT GREETING - Big entrance animation
+       * FIRST VISIT GREETING - Big entrance animation (Simplified)
        */
       function showFirstVisitGreeting() {
         // Check if this is the first visit
@@ -1044,6 +978,7 @@ function initWithDebug() {
 
         // Set popup width for long message
         popup.style.width = "460px";
+        popup.classList.add("long-message");
 
         // Start the greeting sequence
         setTimeout(function() {
@@ -1052,42 +987,38 @@ function initWithDebug() {
             backdrop.classList.add("show");
           }
 
-          // Scale up the chat button
+          // Scale up the chat button (guy) to 300px
           chatButton.classList.add("first-visit-greeting");
 
-          // Show and scale up the popup after button starts growing
+          // After button scales up, show the popup at the specified position
           setTimeout(function() {
             popup.style.display = "flex";
             popup.classList.add("first-visit-greeting");
-            popup.classList.add("long-message");
-          }, 1200);
+          }, 1000);
 
-          // After 5 seconds, scale everything back down
+          // After 10 seconds total, scale everything back down
           setTimeout(function() {
-            // Add exit animations
+            // Remove greeting classes to scale back to normal
             chatButton.classList.remove("first-visit-greeting");
-            chatButton.classList.add("greeting-exit");
             popup.classList.remove("first-visit-greeting");
-            popup.classList.add("greeting-exit");
 
             // Hide backdrop
             if (backdrop) {
               backdrop.classList.remove("show");
             }
 
-            // After exit animation completes, reset to normal state
+            // After transition completes, hide popup and show normal one
             setTimeout(function() {
-              chatButton.classList.remove("greeting-exit");
-              popup.classList.remove("greeting-exit");
               popup.style.display = "none";
+              popup.classList.remove("long-message");
               
               // Mark that we've shown the greeting
               localStorage.setItem("hasSeenChatbotGreeting", "true");
 
               // Show the normal popup
               showPopup();
-            }, 800);
-          }, 5000);
+            }, 1000);
+          }, 10000);
         }, 500);
       }
     
