@@ -272,6 +272,55 @@ function initWithDebug() {
         display: inline-block;
         animation: jump 0.5s ease-in-out 2;
       }
+
+      /* First Visit Greeting Animations */
+      @keyframes greet-scale-in {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(6);
+          opacity: 1;
+        }
+      }
+
+      @keyframes greet-scale-out {
+        0% {
+          transform: scale(6);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes bubble-pop-in {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        60% {
+          transform: scale(1.1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes bubble-pop-out {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+      }
     
       /* ----------------------------------------
          C) CHAT BUTTON + POPUP STYLES
@@ -302,6 +351,21 @@ function initWithDebug() {
       #chat-button:hover img {
         transform: scale(1.1);   /* same hover zoom */
         opacity: 1;
+      }
+
+      /* First Visit Greeting State */
+      #chat-button.first-visit-greeting {
+        animation: greet-scale-in 1s ease-out forwards;
+        z-index: 100000;
+      }
+
+      #chat-button.first-visit-greeting img {
+        width: 70px;
+        height: 70px;
+      }
+
+      #chat-button.greeting-exit {
+        animation: greet-scale-out 0.8s ease-in-out forwards;
       }
     
       /* Popup rise animation */
@@ -346,6 +410,63 @@ function initWithDebug() {
         bottom: 10.5px;
         right: 36px;
         scale: 0.52;
+      }
+
+      /* First Visit Greeting - Message Bubble */
+      #chatbase-message-bubbles.first-visit-greeting {
+        bottom: 180.5px !important;
+        right: 190px !important;
+        scale: 0.57 !important;
+        z-index: 99999;
+        animation: bubble-pop-in 0.8s ease-out 1.2s forwards;
+        opacity: 0;
+        transform: scale(0);
+      }
+
+      #chatbase-message-bubbles.greeting-exit {
+        animation: bubble-pop-out 0.6s ease-in forwards;
+      }
+
+      /* Greeting backdrop overlay */
+      #greeting-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        z-index: 50000;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+
+      #greeting-backdrop.show {
+        opacity: 1;
+      }
+
+      /* Mobile adjustments for greeting */
+      @media (max-width: 600px) {
+        #chat-button.first-visit-greeting {
+          animation: greet-scale-in 1s ease-out forwards;
+        }
+
+        #chatbase-message-bubbles.first-visit-greeting {
+          bottom: 140px !important;
+          right: 50% !important;
+          transform: translateX(50%) scale(0);
+          scale: 1 !important;
+          max-width: 80vw;
+        }
+
+        @keyframes greet-scale-in {
+          0% {
+            transform: scale(1);
+          }
+          100% {
+            transform: scale(4);
+          }
+        }
       }
       
       #chatbase-message-bubbles::after {
@@ -484,6 +605,9 @@ function initWithDebug() {
        * 3. INJECT HTML
        */
       var chatbotHTML = `
+        <!-- Greeting Backdrop -->
+        <div id="greeting-backdrop"></div>
+
         <div id="chat-container">
           <!-- Chat Button -->
           <button id="chat-button">
@@ -869,7 +993,7 @@ function initWithDebug() {
         } else {
           popupElem.style.width = "460px";
         }
-  
+
        
         popup.style.display = "flex";
     
@@ -895,6 +1019,77 @@ function initWithDebug() {
           }
         }, 12000);
       }
+
+      /**
+       * FIRST VISIT GREETING - Big entrance animation
+       */
+      function showFirstVisitGreeting() {
+        // Check if this is the first visit
+        var hasSeenGreeting = localStorage.getItem("hasSeenChatbotGreeting");
+        if (hasSeenGreeting === "true") {
+          // Not first visit, show normal popup
+          setTimeout(showPopup, 1000);
+          return;
+        }
+
+        // This is the first visit! Show the big greeting
+        var chatButton = document.getElementById("chat-button");
+        var popup = document.getElementById("chatbase-message-bubbles");
+        var messageBox = document.getElementById("popup-message-box");
+        var backdrop = document.getElementById("greeting-backdrop");
+
+        // Set up the welcome message
+        const welcomeText = "Velkommen! Jeg kan hjælpe med butikker & åbningstid ";
+        messageBox.innerHTML = `${welcomeText} <span id="funny-smiley">😊</span>`;
+
+        // Set popup width for long message
+        popup.style.width = "460px";
+
+        // Start the greeting sequence
+        setTimeout(function() {
+          // Show backdrop
+          if (backdrop) {
+            backdrop.classList.add("show");
+          }
+
+          // Scale up the chat button
+          chatButton.classList.add("first-visit-greeting");
+
+          // Show and scale up the popup after button starts growing
+          setTimeout(function() {
+            popup.style.display = "flex";
+            popup.classList.add("first-visit-greeting");
+            popup.classList.add("long-message");
+          }, 1200);
+
+          // After 5 seconds, scale everything back down
+          setTimeout(function() {
+            // Add exit animations
+            chatButton.classList.remove("first-visit-greeting");
+            chatButton.classList.add("greeting-exit");
+            popup.classList.remove("first-visit-greeting");
+            popup.classList.add("greeting-exit");
+
+            // Hide backdrop
+            if (backdrop) {
+              backdrop.classList.remove("show");
+            }
+
+            // After exit animation completes, reset to normal state
+            setTimeout(function() {
+              chatButton.classList.remove("greeting-exit");
+              popup.classList.remove("greeting-exit");
+              popup.style.display = "none";
+              
+              // Mark that we've shown the greeting
+              localStorage.setItem("hasSeenChatbotGreeting", "true");
+
+              // Show the normal popup
+              showPopup();
+            }, 800);
+          }, 5000);
+        }, 500);
+      }
     
       // Close the popup and save the state in LocalStorage
       var closePopupButton = document.querySelector("#chatbase-message-bubbles .close-popup");
@@ -914,8 +1109,8 @@ function initWithDebug() {
         }
       });
       
-      // Show popup after 1 second (matching function initChatbot() {.js timing)
-      setTimeout(showPopup, 1000);
+      // Show first visit greeting or normal popup
+      showFirstVisitGreeting();
   
   
       /**
