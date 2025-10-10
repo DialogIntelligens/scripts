@@ -193,7 +193,7 @@ function initWithDebug() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         user_id:   chatbotUserId,
-        chatbot_id:'humac',
+        chatbot_id:'sexshop',
         amount:    totalPrice
       })
     })
