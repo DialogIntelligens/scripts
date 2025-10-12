@@ -286,9 +286,6 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Track chatbot open
-    trackChatbotOpen();
-
     // Handle purchase tracking
     if (config.purchaseTrackingEnabled) {
       initializePurchaseTracking();
@@ -690,37 +687,6 @@
         setTimeout(() => smiley.classList.remove('jump'), 1000);
       }
     }, 12000);
-  }
-
-  /**
-   * Track chatbot open event
-   */
-  function trackChatbotOpen() {
-    const sessionKey = `chatbotOpened_${chatbotID}`;
-    if (sessionStorage.getItem(sessionKey)) {
-      return; // Already tracked in this session
-    }
-
-    if (!chatbotUserId || !chatbotID) {
-      return;
-    }
-
-    fetch('http://localhost:3000/track-chatbot-open', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: chatbotUserId,
-        chatbot_id: chatbotID
-      })
-    })
-    .then(resp => {
-      if (resp.ok) {
-        sessionStorage.setItem(sessionKey, 'true');
-      }
-    })
-    .catch(err => {
-      console.warn('Failed to track chatbot open:', err);
-    });
   }
 
   /**
