@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', function() {
       chatbotID: "slagteralibaba",
       pagePath: window.location.href,
         
-      leadGen: "%%",
+      leadGen: "%%",et
       leadMail: "",
       leadField1: "Navn",
       leadField2: "Tlf nummer",
