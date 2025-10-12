@@ -251,18 +251,6 @@
       localStorage.setItem(userIdKey, chatbotUserId);
     }
 
-    // Create widget container
-    const widgetContainer = document.createElement('div');
-    widgetContainer.id = 'my-chat-widget';
-    
-    requestAnimationFrame(function() {
-      try {
-        document.body.appendChild(widgetContainer);
-      } catch (error) {
-        console.error('Failed to append widget container:', error);
-      }
-    });
-
     // Load font if specified
     if (config.fontFamily) {
       const fontLink = document.createElement('link');
@@ -271,11 +259,41 @@
       document.head.appendChild(fontLink);
     }
 
-    // Generate and inject HTML
+    // Generate HTML with config
     const chatbotHTML = generateChatbotHTML();
-    widgetContainer.innerHTML = chatbotHTML;
+    
+    // GTM-safe DOM insertion - insert HTML directly into body
+    function insertChatbotHTML() {
+      try {
+        document.body.insertAdjacentHTML('beforeend', chatbotHTML);
+        
+        // Apply minimize button setting after DOM ready
+        setTimeout(function() {
+          const chatContainer = document.getElementById('chat-container');
+          if (!config.enableMinimizeButton && chatContainer) {
+            chatContainer.classList.add('minimize-disabled');
+          }
+        }, 100);
+      } catch (error) {
+        console.error('Failed to insert chatbot HTML:', error);
+      }
+    }
+    
+    // Try immediate insertion for GTM context
+    if (document.body) {
+      insertChatbotHTML();
+    } else {
+      // Fallback to requestAnimationFrame if body not ready
+      requestAnimationFrame(function() {
+        if (document.body) {
+          insertChatbotHTML();
+        } else {
+          setTimeout(insertChatbotHTML, 100);
+        }
+      });
+    }
 
-    // Inject CSS
+    // Inject CSS AFTER HTML
     injectStyles();
 
     // Initialize event handlers
@@ -794,29 +812,45 @@
   function adjustIframeSize() {
     const iframe = document.getElementById('chat-iframe');
     if (!iframe) return;
-
-    const isMobile = window.innerWidth < 1000;
-
-    if (isMobile) {
-      iframe.style.width = '100vw';
-      iframe.style.height = '100vh';
-      iframe.style.position = 'fixed';
-      iframe.style.top = '0';
-      iframe.style.left = '0';
-      iframe.style.borderRadius = '0';
+  
+    // Keep 'isIframeEnlarged' logic if toggled from the iframe
+    if (isIframeEnlarged) {
+      // A bigger version if user toggles enlarge
+      iframe.style.width = 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = '90vh';
     } else {
-      if (isIframeEnlarged) {
-        iframe.style.width = '500px';
-        iframe.style.height = '700px';
+      // Default sizing:
+      // For phone/tablet (< 1000px), use 95vw
+      // For larger screens, use 50vh x 90vh
+      if (window.innerWidth < 1000) {
+        iframe.style.width = '95vw';
+        iframe.style.height = '90vh';
       } else {
-        iframe.style.width = '400px';
-        iframe.style.height = '600px';
+        iframe.style.width = 'calc(50vh + 8vw)';
+        iframe.style.height = '90vh';
       }
-      iframe.style.position = 'relative';
-      iframe.style.top = 'auto';
-      iframe.style.left = 'auto';
-      iframe.style.borderRadius = '12px';
     }
+  
+    // Always position fixed
+    iframe.style.position = 'fixed';
+  
+    // Center if mobile, else bottom-right
+    if (window.innerWidth < 1000) {
+      iframe.style.left = '50%';
+      iframe.style.top = '50%';
+      iframe.style.transform = 'translate(-50%, -50%)';
+      iframe.style.bottom = '';
+      iframe.style.right = '';
+    } else {
+      iframe.style.left = 'auto';
+      iframe.style.top = 'auto';
+      iframe.style.transform = 'none';
+      iframe.style.bottom = '3vh';
+      iframe.style.right = '2vw';
+    }
+  
+    // Re-send data to iframe in case layout changes
+    sendMessageToIframe();
   }
 
   /**
