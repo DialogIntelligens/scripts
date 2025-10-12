@@ -66,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `http://localhost:3000/api/integration-config/${chatbotID}`
+        `https://backend-development-k1o9.onrender.com/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -82,7 +82,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'http://localhost:3002/',
+        iframeUrl: 'https://skalerbartprodukt.onrender.com',
         themeColor: '#1a1d56',
         headerTitleG: '',
         headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
@@ -99,7 +99,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'http://localhost:3002/',
+      iframeUrl: 'https://skalerbartprodukt.onrender.com',
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -165,7 +165,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://backend-development-k1o9.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -178,7 +178,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('http://localhost:3000/api/split-impression', {
+      await fetch('https://backend-development-k1o9.onrender.com/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -196,7 +196,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://backend-development-k1o9.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -353,7 +353,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'http://localhost:3002/'}"
+        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -933,11 +933,21 @@
       logSplitImpression(splitAssignment.variant_id);
     }
 
-    // Adjust popup width based on text length
+    // Adjust popup width based on text length (match legacy exactly)
     const charCount = messageBox.textContent.trim().length;
     popup.classList.remove('long-message');
+    
     if (charCount > 26) {
       popup.classList.add('long-message');
+    }
+    
+    // Set explicit width based on character count (legacy behavior)
+    if (charCount < 25) {
+      popup.style.width = '40px';
+    } else if (charCount < 60) {
+      popup.style.width = '460px';
+    } else {
+      popup.style.width = '460px';
     }
 
     popup.style.display = 'flex';
@@ -1033,7 +1043,7 @@
       return;
     }
 
-    fetch('http://localhost:3000/purchases', {
+    fetch('https://backend-development-k1o9.onrender.com/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
