@@ -741,7 +741,7 @@ function initWithDebug() {
         themeColor: "#4e69f5",
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
-        headerTitleG: "LØBESHOP AI",
+        headerTitleG: "LØBESHOP SHOPPING ASSISTENT",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
@@ -750,7 +750,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "LØBESHOP SHOPPING ASSISTENT",
+        titleG: "LØBESHOP AI",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
