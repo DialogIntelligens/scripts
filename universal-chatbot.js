@@ -144,7 +144,7 @@
       titleG: 'Chat Assistent',
       purchaseTrackingEnabled: false,
       splitTestId: null,
-      isTabletView: false,
+      isTabletView: false,  // Always false to match legacy behavior
       isPhoneView: window.innerWidth < 1000
     };
   }
@@ -873,7 +873,7 @@
         ...config,
         splitTestId: splitTestId,
         pagePath: window.location.href,
-        isTabletView: window.innerWidth >= 1000 && window.innerWidth < 1400,
+        isTabletView: false,  // Always false to match legacy behavior
         isPhoneView: window.innerWidth < 1000,
         gptInterface: false
       };
