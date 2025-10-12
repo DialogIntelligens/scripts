@@ -675,12 +675,28 @@ function trackChatbotOpen() {
       popup.style.display = "none";
     }
 
+          async function fetchPopupFromBackend() {
+            try {
+              const visitorKey = generateVisitorKey();
+              const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+              if (!resp.ok) return null;
+              const data = await resp.json();
+              return (data && data.popup_text) ? String(data.popup_text) : null;
+            } catch (e) {
+              console.warn('Popup fetch failed, will use default if any:', e);
+              return null;
+            }
+          }
+
+
+
+
 
     
     /**
      * 7. SHOW/HIDE POPUP
      */
-    function showPopup() {
+    async function showPopup() {
       var iframe = document.getElementById("chat-iframe");
       // If the iframe is visible or the popup has been closed, do not show the popup
       if (iframe.style.display !== "none" || localStorage.getItem("popupClosed") === "true") {
@@ -690,8 +706,20 @@ function trackChatbotOpen() {
       var popup = document.getElementById("chatbase-message-bubbles");
       var messageBox = document.getElementById("popup-message-box");
       
-      const popupText = "Jeg svarer på dine spørgsmål, rapper på kommando og hjælper dig som din AI-sidekick 🔥";
-      messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;    
+            // Backwards compatibility: if popupText is defined and non-empty in script, use it; otherwise fetch from backend
+
+      
+            let finalPopupText = (typeof popupText !== 'undefined' && popupText && String(popupText).trim().length > 0)
+
+      
+              ? String(popupText)
+
+      
+              : await fetchPopupFromBackend() || "Har du brug for hjælp?";
+
+
+      
+            messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;    
       
       // Determine popup width based on character count (excluding any HTML tags)
       var charCount = messageBox.textContent.trim().length;
