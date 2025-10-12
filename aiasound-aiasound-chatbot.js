@@ -677,7 +677,11 @@ function trackChatbotOpen() {
 
           async function fetchPopupFromBackend() {
             try {
-              const visitorKey = generateVisitorKey();
+              // Generate a simple visitor key (fallback if generateVisitorKey doesn't exist)
+        let visitorKey = 'visitor-' + Date.now();
+        if (typeof generateVisitorKey === 'function') {
+          visitorKey = generateVisitorKey();
+        }
               const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
               if (!resp.ok) return null;
               const data = await resp.json();
