@@ -511,7 +511,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #87bbd7;
         --badge-color: #CC2B20;
       }
    
@@ -736,12 +736,12 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1760262295793.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#000000",
-        aiMessageColor: "#e9ecef",
+        themeColor: "#87bbd7",
+        aiMessageColor: "#f9fafc",
         aiMessageTextColor: "#000000",
-        headerTitleG: "",
+        headerTitleG: "AI Buddy",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
@@ -750,7 +750,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
+        titleG: "AI Buddy",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
@@ -977,7 +977,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+        const popupText = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 😊";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
