@@ -451,6 +451,13 @@
     const closePopupBtn = document.querySelector('.close-popup');
     const minimizeBtn = document.getElementById('minimize-button');
 
+    // Safety check - ensure critical elements exist
+    if (!chatButton || !chatIframe) {
+      console.error('❌ Critical chatbot elements not found. Retrying in 100ms...');
+      setTimeout(initializeEventHandlers, 100);
+      return;
+    }
+
     // Chat button click
     if (chatButton) {
       chatButton.addEventListener('click', toggleChatWindow);
