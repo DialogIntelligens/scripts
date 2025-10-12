@@ -18,13 +18,32 @@
   // Extract chatbot ID from script URL parameter
   let chatbotID = null;
   try {
-    const scripts = document.getElementsByTagName('script');
-    const currentScript = scripts[scripts.length - 1];
+    // Use document.currentScript for reliable script reference
+    // Fallback to scanning all script tags if currentScript is not available
+    let currentScript = document.currentScript;
+    
+    if (!currentScript) {
+      // Fallback: find script with 'universal-chatbot.js' in its src
+      const scripts = document.getElementsByTagName('script');
+      for (let i = 0; i < scripts.length; i++) {
+        if (scripts[i].src && scripts[i].src.includes('universal-chatbot.js')) {
+          currentScript = scripts[i];
+          break;
+        }
+      }
+    }
+    
+    if (!currentScript || !currentScript.src) {
+      console.error('❌ Could not find script reference. Make sure script is loaded correctly.');
+      return;
+    }
+    
     const url = new URL(currentScript.src);
     chatbotID = url.searchParams.get('id');
     
     if (!chatbotID) {
       console.error('❌ Chatbot ID not provided in script URL. Usage: <script src="universal-chatbot.js?id=YOUR_CHATBOT_ID"></script>');
+      console.error('Script URL:', currentScript.src);
       return;
     }
   } catch (error) {
@@ -47,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `http://localhost:3000/api/integration-config/${chatbotID}`
+        `https://egendatabasebackend.onrender.com/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -63,7 +82,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'http://localhost:3002/',
+        iframeUrl: 'https://skalerbartprodukt.onrender.com',
         themeColor: '#1a1d56',
         headerTitleG: '',
         headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
@@ -80,7 +99,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'http://localhost:3002/',
+      iframeUrl: 'https://skalerbartprodukt.onrender.com',
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -146,7 +165,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -159,7 +178,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('http://localhost:3000/api/split-impression', {
+      await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -177,7 +196,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -679,7 +698,7 @@
       return;
     }
 
-    fetch('http://localhost:3000/track-chatbot-open', {
+    fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -770,7 +789,7 @@
       return;
     }
 
-    fetch('http://localhost:3000/purchases', {
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
