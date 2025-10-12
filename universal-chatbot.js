@@ -66,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `http://localhost:3002/api/integration-config/${chatbotID}`
+        `http://localhost:3000/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -165,7 +165,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3002/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -178,7 +178,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('http://localhost:3002/api/split-impression', {
+      await fetch('http://localhost:3000/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -196,7 +196,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`http://localhost:3002/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -354,7 +354,7 @@
       <iframe
         id="chat-iframe"
         src="${config.iframeUrl || 'http://localhost:3002/'}"
-        style="display: none; border: none; z-index: 40000;">
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
   }
@@ -1033,7 +1033,7 @@
       return;
     }
 
-    fetch('http://localhost:3002/purchases', {
+    fetch('http://localhost:3000/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
