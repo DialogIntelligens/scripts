@@ -742,7 +742,7 @@ function initWithDebug() {
         aiMessageColor: "#f9fafc",
         aiMessageTextColor: "#000000",
         headerTitleG: "AI Buddy",
-        headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+        headerSubtitleG: "Du chatter med AI Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores kundeservice",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
