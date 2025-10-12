@@ -607,11 +607,20 @@
       }
 
       const messageData = {
+        action: 'integrationOptions', // CRITICAL: App.js requires this field to recognize the message
         ...config,
         splitTestId: splitTestId,
         pagePath: window.location.href,
-        isPhoneView: window.innerWidth < 1000
+        isTabletView: window.innerWidth >= 1000 && window.innerWidth < 1400,
+        isPhoneView: window.innerWidth < 1000,
+        gptInterface: false
       };
+
+      console.log('📤 Sending configuration to iframe:', { 
+        chatbotID: messageData.chatbotID,
+        action: messageData.action,
+        themeColor: messageData.themeColor 
+      });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
     } catch (e) {
