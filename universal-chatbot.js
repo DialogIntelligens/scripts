@@ -66,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `https://egendatabasebackend.onrender.com/api/integration-config/${chatbotID}`
+        `http://localhost:3000/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -82,7 +82,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'https://skalerbartprodukt.onrender.com',
+        iframeUrl: 'http://localhost:3002/',
         themeColor: '#1a1d56',
         headerTitleG: '',
         headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
@@ -99,7 +99,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'https://skalerbartprodukt.onrender.com',
+      iframeUrl: 'http://localhost:3002/',
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -165,7 +165,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -178,7 +178,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
+      await fetch('http://localhost:3000/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -196,7 +196,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -698,7 +698,7 @@
       return;
     }
 
-    fetch('https://egendatabasebackend.onrender.com/track-chatbot-open', {
+    fetch('http://localhost:3000/track-chatbot-open', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -789,7 +789,7 @@
       return;
     }
 
-    fetch('https://egendatabasebackend.onrender.com/purchases', {
+    fetch('http://localhost:3000/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
