@@ -292,7 +292,7 @@ function initWithDebug() {
         z-index: 20;
         right: 10px;
         bottom: 20px;
-      }
+      } syntax error
       #chat-button svg {
         width: 65px;
         height: 65px;
