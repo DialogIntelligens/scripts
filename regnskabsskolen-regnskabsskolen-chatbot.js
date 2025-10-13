@@ -511,7 +511,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #486a95;
         --badge-color: #CC2B20;
       }
    
@@ -736,9 +736,9 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1760351838168.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#224e9a",
+        themeColor: "#486a95",
         aiMessageColor: "#e9ecef",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
@@ -750,7 +750,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
+        titleG: "Regnskabsskolen Assistant",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
