@@ -399,7 +399,7 @@ function initWithDebug() {
         
         #chatbase-message-bubbles.long-message {
           bottom: 13px;
-          right: 32px;
+          right: 36px;
           scale: 0.50;
         }
         
