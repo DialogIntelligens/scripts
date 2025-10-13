@@ -546,7 +546,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
           aiMessageColor: "#e9ecef",
   aiMessageTextColor: "#000000",
       headerTitleG: "Fyns Psykologpraksis",
-      headerSubtitleG: "Vores 24/7 support er understøttes af kunstig intelligens, som kan besvare de mest generelle spørgsmål uden for vores åbningstid. Ved brug accepteres, at der kan ske fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
+      headerSubtitleG: "Vores 24/7 support understøttes af kunstig intelligens, som kan besvare de mest generelle spørgsmål uden for vores åbningstid. Ved brug accepteres, at der kan ske fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
