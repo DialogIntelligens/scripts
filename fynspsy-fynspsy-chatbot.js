@@ -550,7 +550,7 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
       subtitleLinkText: "",
       subtitleLinkUrl: "",
         
-      titleG: "Find en Psykolog og FAQ",
+      titleG: "Stil dine spørgsmål her!",
       isTabletView: window.innerWidth < 1000 && window.innerWidth > 800,
       isPhoneView: window.innerWidth < 800
     };
