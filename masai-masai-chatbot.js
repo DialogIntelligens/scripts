@@ -853,7 +853,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "I can recommend products and answer questions";
+        const popupText = "I can recommend new styles and answer your questions";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
