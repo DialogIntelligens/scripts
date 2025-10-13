@@ -66,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `localhost:3000/api/integration-config/${chatbotID}`
+        `https://egendatabasebackend.onrender.com/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -82,7 +82,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'http://localhost:3002/',
+        iframeUrl: 'https://skalerbartprodukt.onrender.com',
         themeColor: '#1a1d56',
         headerTitleG: '',
         headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
@@ -99,7 +99,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'http://localhost:3002/',
+      iframeUrl: 'https://skalerbartprodukt.onrender.com',
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -145,7 +145,10 @@
       purchaseTrackingEnabled: false,
       splitTestId: null,
       isTabletView: false,  // Always false to match legacy behavior
-      isPhoneView: window.innerWidth < 1000
+      isPhoneView: window.innerWidth < 1000,
+      // CSS Positioning defaults (popup uses button positioning)
+      buttonBottom: '20px',
+      buttonRight: '10px'
     };
   }
 
@@ -165,7 +168,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -178,7 +181,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('localhost:3000/api/split-impression', {
+      await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -196,7 +199,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -353,7 +356,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'http://localhost:3002/'}"
+        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -402,8 +405,8 @@
         border: none;
         position: fixed;
         z-index: 20;
-        right: 10px;
-        bottom: 20px;
+        right: ${config.buttonRight || '10px'};
+        bottom: ${config.buttonBottom || '20px'};
         transition: all 0.3s ease;
       }
       #chat-button svg {
@@ -519,8 +522,8 @@
       /* Popup container */
       #chatbase-message-bubbles {
         position: absolute;
-          bottom: 17px;
-          right: 55px;
+          bottom: ${config.buttonBottom || '20px'};
+          right: calc(${config.buttonRight || '10px'} + 65px);
           border-radius: 20px;
           font-family: 'Montserrat', sans-serif;
         font-size: 20px;
@@ -543,8 +546,8 @@
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: 10.5px;
-        right: 36px;
+        bottom: ${config.buttonBottom || '20px'};
+        right: calc(${config.buttonRight || '10px'} + 45px);
         scale: 0.52;
       }
       
@@ -1043,7 +1046,7 @@
       return;
     }
 
-    fetch('localhost:3000/purchases', {
+    fetch('https://egendatabasebackend.onrender.com/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
