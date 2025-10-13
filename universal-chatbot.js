@@ -146,11 +146,7 @@
       splitTestId: null,
       isTabletView: false,  // Always false to match legacy behavior
       isPhoneView: window.innerWidth < 1000,
-      // CSS Positioning defaults
-      popupBottomDefault: '17px',
-      popupRightDefault: '55px',
-      popupBottomLongMessage: '10.5px',
-      popupRightLongMessage: '36px',
+      // CSS Positioning defaults (popup uses button positioning)
       buttonBottom: '20px',
       buttonRight: '10px'
     };
@@ -526,8 +522,8 @@
       /* Popup container */
       #chatbase-message-bubbles {
         position: absolute;
-          bottom: ${config.popupBottomDefault || '17px'};
-          right: ${config.popupRightDefault || '55px'};
+          bottom: ${config.buttonBottom || '20px'};
+          right: calc(${config.buttonRight || '10px'} + 65px);
           border-radius: 20px;
           font-family: 'Montserrat', sans-serif;
         font-size: 20px;
@@ -550,8 +546,8 @@
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: ${config.popupBottomLongMessage || '10.5px'};
-        right: ${config.popupRightLongMessage || '36px'};
+        bottom: ${config.buttonBottom || '20px'};
+        right: calc(${config.buttonRight || '10px'} + 45px);
         scale: 0.52;
       }
       
