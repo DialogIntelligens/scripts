@@ -307,9 +307,11 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking
+    // Handle purchase tracking - wait for userId from iframe
     if (config.purchaseTrackingEnabled) {
-      initializePurchaseTracking();
+      console.log('🛒 Purchase tracking enabled, waiting for userId from chatbot...');
+      // Don't initialize immediately - wait for userId from iframe
+      // Initialization will happen when chatbot sends userId via postMessage
     }
 
     console.log('✅ Chatbot initialized successfully');
@@ -749,8 +751,16 @@
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
+        // Handle userId from iframe (sent when user starts conversation)
         chatbotUserId = event.data.userId;
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
+        console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
+        
+        // If purchase tracking is enabled and we're on a checkout page, check for purchase
+        if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+          console.log('🛒 User is on checkout page, starting purchase tracking...');
+          setTimeout(checkForPurchase, 1000);
+        }
       }
     });
 
@@ -989,7 +999,31 @@
   }
 
   function isCheckoutPage() {
-    return window.location.href.includes('/ordre') ||
+    // Use custom patterns from config if available
+    if (config.checkoutPagePatterns) {
+      try {
+        const patterns = JSON.parse(config.checkoutPagePatterns);
+        if (Array.isArray(patterns)) {
+          return patterns.some(pattern => {
+            // Support both URL substring matching and path matching
+            if (pattern.startsWith('/') && pattern.endsWith('/')) {
+              // Exact path match
+              const path = window.location.pathname.replace(/\/$/, '');
+              return path === pattern.replace(/\/$/, '');
+            } else {
+              // Substring match in URL
+              return window.location.href.includes(pattern);
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('Invalid checkout page patterns, using defaults:', e);
+      }
+    }
+    
+    // Default fallback patterns
+    return window.location.href.includes('/checkout') ||
+           window.location.href.includes('/ordre') ||
            window.location.href.includes('/order-complete/') ||
            window.location.href.includes('/thank-you/') ||
            window.location.href.includes('/order-received/') ||
@@ -999,45 +1033,83 @@
   }
 
   function extractTotalPrice() {
+    let totalPrice = null;
     let highestValue = 0;
-
+    const locale = config.priceExtractionLocale || 'en';
+    
+    console.log('🛒 Starting price extraction with locale:', locale);
+    
     const priceSelectors = [
       '.total-price', '.order-total', '.cart-total', '.grand-total',
       '[data-testid="order-summary-total"]', '.order-summary-total',
       '.checkout-total', '.woocommerce-Price-amount', '.amount',
       '.product-subtotal', '.order-summary__price', '[data-price-value]'
     ];
-
+    
     for (const selector of priceSelectors) {
       const elements = document.querySelectorAll(selector);
+      
       for (const element of elements) {
         const priceText = element.textContent.trim();
-        const matches = priceText.match(/\d[\d.,]*/g);
         
-        if (matches) {
-          for (let match of matches) {
-            match = match.replace(/[^\d.,]/g, '');
-            if (match.includes(',') && match.includes('.')) {
-              match = match.replace(/,/g, '');
-            } else if (match.includes(',')) {
-              const parts = match.split(',');
-              if (parts.length === 2 && parts[1].length <= 2) {
-                match = match.replace(',', '.');
-              } else {
-                match = match.replace(/,/g, '');
+        // Handle Danish/European format (1.148,00 kr)
+        const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
+        const regularMatches = priceText.match(/\d[\d.,]*/g);
+        
+        let allMatches = [];
+        if (danishMatches) allMatches = allMatches.concat(danishMatches);
+        if (regularMatches) allMatches = allMatches.concat(regularMatches);
+        
+        if (allMatches && allMatches.length > 0) {
+          for (const match of allMatches) {
+            let cleanedMatch = match;
+            
+            // Handle "kr" suffix (Danish currency)
+            if (match.includes('kr')) {
+              cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+              
+              if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+                cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+              } else if (cleanedMatch.includes(',')) {
+                cleanedMatch = cleanedMatch.replace(',', '.');
+              }
+            } else {
+              // Locale-aware parsing
+              cleanedMatch = match.replace(/[^\d.,]/g, '');
+              
+              if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+                const lastCommaIndex = cleanedMatch.lastIndexOf(',');
+                const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
+                
+                if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
+                  // Danish format: 1.148,00
+                  cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+                } else {
+                  // US format: 1,148.00
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                }
+              } else if (cleanedMatch.includes(',')) {
+                const parts = cleanedMatch.split(',');
+                if (parts.length === 2 && parts[1].length <= 2) {
+                  cleanedMatch = cleanedMatch.replace(',', '.');
+                } else {
+                  cleanedMatch = cleanedMatch.replace(/,/g, '');
+                }
               }
             }
             
-            const numValue = parseFloat(match);
+            const numValue = parseFloat(cleanedMatch);
             if (!isNaN(numValue) && numValue > highestValue) {
               highestValue = numValue;
+              totalPrice = numValue;
             }
           }
         }
       }
     }
-
-    return highestValue > 0 ? highestValue : null;
+    
+    console.log(`🛒 Final extracted price: ${totalPrice}`);
+    return totalPrice;
   }
 
   function reportPurchase(totalPrice) {
@@ -1107,4 +1179,3 @@
   }, 2000);
 
 })();
-
