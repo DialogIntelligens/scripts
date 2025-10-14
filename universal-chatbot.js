@@ -315,7 +315,10 @@
     });
     if (config.purchaseTrackingEnabled && isCheckoutPage()) {
       console.log('🛒 Starting purchase tracking immediately (on checkout page)...');
+      // Check multiple times with increasing delays to catch dynamically loaded prices
       setTimeout(checkForPurchase, 1000);
+      setTimeout(checkForPurchase, 3000);
+      setTimeout(checkForPurchase, 5000);
     } else if (config.purchaseTrackingEnabled) {
       console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
       // Will be triggered by postMessage listener when user starts conversation
@@ -1067,25 +1070,35 @@
       '.total-price', '.order-total', '.cart-total', '.grand-total',
       '[data-testid="order-summary-total"]', '.order-summary-total',
       '.checkout-total', '.woocommerce-Price-amount', '.amount',
-      '.product-subtotal', '.order-summary__price', '[data-price-value]'
+      '.product-subtotal', '.order-summary__price', '[data-price-value]',
+      // Danish e-commerce specific selectors
+      '.price', '.total', '.sum', '.order-sum', '.checkout-price',
+      '[data-price]', '.price-total', '.final-price', '.order-price'
     ];
     
     for (const selector of priceSelectors) {
       const elements = document.querySelectorAll(selector);
-      
+      console.log(`🛒 Checking selector "${selector}": found ${elements.length} elements`);
+
       for (const element of elements) {
         const priceText = element.textContent.trim();
+        console.log(`🛒 Element text: "${priceText}"`);
         
         // Handle Danish/European format (1.148,00 kr)
         const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
         const regularMatches = priceText.match(/\d[\d.,]*/g);
-        
+
+        console.log(`🛒 Danish matches for "${priceText}":`, danishMatches);
+        console.log(`🛒 Regular matches for "${priceText}":`, regularMatches);
+
         let allMatches = [];
         if (danishMatches) allMatches = allMatches.concat(danishMatches);
         if (regularMatches) allMatches = allMatches.concat(regularMatches);
+        console.log(`🛒 All matches:`, allMatches);
         
         if (allMatches && allMatches.length > 0) {
           for (const match of allMatches) {
+            console.log(`🛒 Processing match: "${match}"`);
             let cleanedMatch = match;
             
             // Handle "kr" suffix (Danish currency)
@@ -1121,11 +1134,14 @@
                 }
               }
             }
-            
+
+            console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
             const numValue = parseFloat(cleanedMatch);
+            console.log(`🛒 Parsed number: ${numValue}, isNaN: ${isNaN(numValue)}, highestValue: ${highestValue}`);
             if (!isNaN(numValue) && numValue > highestValue) {
               highestValue = numValue;
               totalPrice = numValue;
+              console.log(`🛒 New highest value: ${totalPrice}`);
             }
           }
         }
