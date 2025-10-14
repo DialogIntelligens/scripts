@@ -368,7 +368,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'http://localhost:3002/'}"
+        src="http://localhost:3002/"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
