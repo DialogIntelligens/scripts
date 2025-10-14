@@ -902,7 +902,7 @@
         gptInterface: false
       };
 
-      console.log('📤 Sending configuration to iframe:', { 
+      console.log('📤 Sending configuration to iframe:', {
         chatbotID: messageData.chatbotID,
         action: messageData.action,
         themeColor: messageData.themeColor,
