@@ -1262,10 +1262,20 @@
   }
 
   function checkForPurchase() {
-    // If no chatbotUserId exists (user hasn't started conversation), generate one for purchase tracking
+    // Check if we have a userId from a previous conversation (stored in localStorage)
+    const storedUserId = localStorage.getItem(`userId_${chatbotID}`);
+
+    // Use existing userId from conversation, or generate one if none exists
     if (!chatbotUserId) {
-      chatbotUserId = `purchase-user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-      console.log('🛒 Generated userId for purchase tracking:', chatbotUserId);
+      if (storedUserId) {
+        // Use the same userId from the conversation
+        chatbotUserId = storedUserId;
+        console.log('🛒 Using existing userId from conversation:', chatbotUserId);
+      } else {
+        // Generate new userId if no conversation happened
+        chatbotUserId = `purchase-user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+        console.log('🛒 Generated new userId for purchase tracking:', chatbotUserId);
+      }
     }
 
     if (hasReportedPurchase) return;
