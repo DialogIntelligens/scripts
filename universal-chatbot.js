@@ -246,13 +246,12 @@
     config.pagePath = window.location.href;
     config.isPhoneView = window.innerWidth < 1000;
 
-    // Get user ID
+    // Get user ID from localStorage (will be set by iframe or purchase tracking)
     const userIdKey = `userId_${chatbotID}`;
     chatbotUserId = localStorage.getItem(userIdKey);
-    if (!chatbotUserId) {
-      chatbotUserId = `user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-      localStorage.setItem(userIdKey, chatbotUserId);
-    }
+    // Don't generate a new userId here - let the iframe handle it
+    // Purchase tracking will use the existing userId or generate one if needed
+    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none yet');
 
     // Load font if specified
     if (config.fontFamily) {
@@ -1322,4 +1321,3 @@
   }, 2000);
 
 })();
-
