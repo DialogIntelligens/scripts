@@ -66,7 +66,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `https://egendatabasebackend.onrender.com/api/integration-config/${chatbotID}`
+        `http://localhost:3000/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -82,7 +82,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'https://skalerbartprodukt.onrender.com',
+        iframeUrl: 'http://localhost:3002/',
         themeColor: '#1a1d56',
         headerTitleG: '',
         headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
@@ -99,7 +99,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'https://skalerbartprodukt.onrender.com',
+      iframeUrl: 'http://localhost:3002/',
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -168,7 +168,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -181,7 +181,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
+      await fetch('http://localhost:3000/api/split-impression', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -199,7 +199,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`http://localhost:3000/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -246,13 +246,10 @@
     config.pagePath = window.location.href;
     config.isPhoneView = window.innerWidth < 1000;
 
-    // Get user ID
+    // Get user ID from localStorage (will be set by postMessage from iframe)
     const userIdKey = `userId_${chatbotID}`;
-    chatbotUserId = localStorage.getItem(userIdKey);
-    if (!chatbotUserId) {
-      chatbotUserId = `user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-      localStorage.setItem(userIdKey, chatbotUserId);
-    }
+    chatbotUserId = localStorage.getItem(userIdKey) || null;
+    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
 
     // Load font if specified
     if (config.fontFamily) {
@@ -307,9 +304,24 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking
-    if (config.purchaseTrackingEnabled) {
-      initializePurchaseTracking();
+    // Handle purchase tracking - wait for userId from iframe on checkout pages
+    console.log('🛒 Purchase tracking check:', {
+      enabled: config.purchaseTrackingEnabled,
+      isCheckoutPage: isCheckoutPage(),
+      userId: chatbotUserId || 'waiting for iframe...'
+    });
+    if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
+      // Give iframe time to load and send userId (2-6 seconds with retries)
+      // The postMessage listener will update chatbotUserId when received
+      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
+      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
+      setTimeout(checkForPurchase, 6000); // Final retry
+    } else if (config.purchaseTrackingEnabled) {
+      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
+      // Will be triggered by postMessage listener when user starts conversation
+    } else {
+      console.log('🛒 Purchase tracking disabled');
     }
 
     console.log('✅ Chatbot initialized successfully');
@@ -356,7 +368,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
+        src="${config.iframeUrl || 'http://localhost:3002/'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
       </iframe>
     `;
@@ -749,8 +761,17 @@
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
+        // Handle userId from iframe (sent when user starts conversation)
         chatbotUserId = event.data.userId;
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
+        console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
+        
+        // If purchase tracking is enabled and we're NOT on a checkout page, check for purchase after conversation starts
+        // (Checkout pages are handled immediately on page load)
+        if (config.purchaseTrackingEnabled && !isCheckoutPage()) {
+          console.log('🛒 User started conversation on non-checkout page, checking for purchase tracking...');
+          setTimeout(checkForPurchase, 1000);
+        }
       }
     });
 
@@ -881,10 +902,11 @@
         gptInterface: false
       };
 
-      console.log('📤 Sending configuration to iframe:', { 
+      console.log('📤 Sending configuration to iframe:', {
         chatbotID: messageData.chatbotID,
         action: messageData.action,
-        themeColor: messageData.themeColor 
+        themeColor: messageData.themeColor,
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
@@ -989,64 +1011,233 @@
   }
 
   function isCheckoutPage() {
-    return window.location.href.includes('/ordre') ||
-           window.location.href.includes('/order-complete/') ||
-           window.location.href.includes('/thank-you/') ||
-           window.location.href.includes('/order-received/') ||
-           document.querySelector('.order-complete') ||
-           document.querySelector('.thank-you') ||
-           document.querySelector('.order-confirmation');
-  }
+    console.log('🔍 Checking if current page is checkout:', window.location.href);
 
-  function extractTotalPrice() {
-    let highestValue = 0;
+    // Use custom patterns from config if available
+    if (config.checkoutPagePatterns) {
+      try {
+        const patterns = JSON.parse(config.checkoutPagePatterns);
+        console.log('🔍 Using custom checkout patterns:', patterns);
+        if (Array.isArray(patterns)) {
+          return patterns.some(pattern => {
+            // Support both URL substring matching and path matching
+            if (pattern.startsWith('/') && pattern.endsWith('/')) {
+              // Exact path match
+              const path = window.location.pathname.replace(/\/$/, '');
+              const result = path === pattern.replace(/\/$/, '');
+              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
+              return result;
+            } else {
+              // Substring match in URL
+              const result = window.location.href.includes(pattern);
+              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
+              return result;
+            }
+          });
+        }
+      } catch (e) {
+        console.warn('Invalid checkout page patterns, using defaults:', e);
+      }
+    }
 
-    const priceSelectors = [
-      '.total-price', '.order-total', '.cart-total', '.grand-total',
-      '[data-testid="order-summary-total"]', '.order-summary-total',
-      '.checkout-total', '.woocommerce-Price-amount', '.amount',
-      '.product-subtotal', '.order-summary__price', '[data-price-value]'
+    // Default fallback patterns
+    const defaultChecks = [
+      window.location.href.includes('/checkout'),
+      window.location.href.includes('/ordre'),
+      window.location.href.includes('/order-complete/'),
+      window.location.href.includes('/thank-you/'),
+      window.location.href.includes('/order-received/'),
+      !!document.querySelector('.order-complete'),
+      !!document.querySelector('.thank-you'),
+      !!document.querySelector('.order-confirmation')
     ];
 
-    for (const selector of priceSelectors) {
-      const elements = document.querySelectorAll(selector);
-      for (const element of elements) {
-        const priceText = element.textContent.trim();
-        const matches = priceText.match(/\d[\d.,]*/g);
-        
-        if (matches) {
-          for (let match of matches) {
-            match = match.replace(/[^\d.,]/g, '');
-            if (match.includes(',') && match.includes('.')) {
-              match = match.replace(/,/g, '');
-            } else if (match.includes(',')) {
-              const parts = match.split(',');
-              if (parts.length === 2 && parts[1].length <= 2) {
-                match = match.replace(',', '.');
-              } else {
-                match = match.replace(/,/g, '');
-              }
+    console.log('🔍 Default checkout checks:', defaultChecks);
+    const result = defaultChecks.some(check => check);
+    console.log('🔍 isCheckoutPage result:', result);
+    return result;
+  }
+
+  // Helper function to parse price from text
+  function parsePriceFromText(priceText, locale) {
+    console.log(`🛒 Parsing price text: "${priceText}"`);
+
+    // Handle Danish/European format (1.148,00 kr)
+    const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
+    const regularMatches = priceText.match(/\d[\d.,]*/g);
+
+    console.log(`🛒 Danish matches:`, danishMatches);
+    console.log(`🛒 Regular matches:`, regularMatches);
+
+    let allMatches = [];
+    if (danishMatches) allMatches = allMatches.concat(danishMatches);
+    if (regularMatches) allMatches = allMatches.concat(regularMatches);
+
+    let highestPrice = 0;
+
+    if (allMatches && allMatches.length > 0) {
+      for (const match of allMatches) {
+        console.log(`🛒 Processing match: "${match}"`);
+        let cleanedMatch = match;
+
+        // Handle "kr" suffix (Danish currency)
+        if (match.includes('kr')) {
+          cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+
+          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+            cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+          } else if (cleanedMatch.includes(',')) {
+            cleanedMatch = cleanedMatch.replace(',', '.');
+          }
+        } else {
+          // Locale-aware parsing
+          cleanedMatch = match.replace(/[^\d.,]/g, '');
+
+          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+            const lastCommaIndex = cleanedMatch.lastIndexOf(',');
+            const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
+
+            if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
+              // Danish format: 1.148,00
+              cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+            } else {
+              // US format: 1,148.00
+              cleanedMatch = cleanedMatch.replace(/,/g, '');
             }
-            
-            const numValue = parseFloat(match);
-            if (!isNaN(numValue) && numValue > highestValue) {
-              highestValue = numValue;
+          } else if (cleanedMatch.includes(',')) {
+            const parts = cleanedMatch.split(',');
+            if (parts.length === 2 && parts[1].length <= 2) {
+              cleanedMatch = cleanedMatch.replace(',', '.');
+            } else {
+              cleanedMatch = cleanedMatch.replace(/,/g, '');
             }
           }
+        }
+
+        console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
+        const numValue = parseFloat(cleanedMatch);
+        console.log(`🛒 Parsed number: ${numValue}`);
+        if (!isNaN(numValue) && numValue > highestPrice) {
+          highestPrice = numValue;
         }
       }
     }
 
-    return highestValue > 0 ? highestValue : null;
+    return highestPrice > 0 ? highestPrice : null;
+  }
+
+  function extractTotalPrice() {
+    let totalPrice = null;
+    const locale = config.priceExtractionLocale || 'en';
+
+    console.log('🛒 Starting price extraction with locale:', locale);
+
+    // Priority selectors for final totals (checked first)
+    const prioritySelectors = [
+      // Elements with bold font-weight in the same container as "Total" text
+      'p[class*="font-bold"] [data-price-value]',
+      'strong [data-price-value]',
+      'b [data-price-value]',
+      // Elements in final total sections
+      '.checkout-section-right [data-price-value]:last-of-type',
+      // Simple approach: just look for the highest non-crossed-out price
+      '[data-price-value]'
+    ];
+
+    // Check priority selectors first (likely final totals)
+    for (const selector of prioritySelectors) {
+      try {
+        const elements = document.querySelectorAll(selector);
+        console.log(`🛒 Checking priority selector "${selector}": found ${elements.length} elements`);
+
+        for (const element of elements) {
+          // Skip crossed-out prices (discounts)
+          const isCrossedOut = element.closest('[class*="line-through"]') ||
+                              element.parentElement?.classList.contains('line-through') ||
+                              element.style.textDecoration?.includes('line-through') ||
+                              element.parentElement?.style.textDecoration?.includes('line-through');
+
+          if (isCrossedOut) {
+            console.log('🛒 Skipping crossed-out price element');
+            continue;
+          }
+
+          const priceText = element.textContent.trim();
+          console.log(`🛒 Priority element text: "${priceText}"`);
+
+          const parsedPrice = parsePriceFromText(priceText, locale);
+          if (parsedPrice) {
+            // For priority selectors, take the first valid price found (should be the total)
+            console.log(`🛒 Found priority total: ${parsedPrice}`);
+            return parsedPrice;
+          }
+        }
+      } catch (e) {
+        // Some CSS selectors might not be supported, skip them
+        console.log(`🛒 Priority selector "${selector}" not supported, skipping`);
+      }
+    }
+
+    // Fallback to general selectors if no priority match found
+    const generalSelectors = [
+      '.total-price', '.order-total', '.cart-total', '.grand-total',
+      '[data-testid="order-summary-total"]', '.order-summary-total',
+      '.checkout-total', '.woocommerce-Price-amount', '.amount',
+      '.product-subtotal', '.order-summary__price', '[data-price-value]',
+      // Danish e-commerce specific selectors
+      '.price', '.total', '.sum', '.order-sum', '.checkout-price',
+      '[data-price]', '.price-total', '.final-price', '.order-price'
+    ];
+
+    let highestValue = 0;
+
+    for (const selector of generalSelectors) {
+      const elements = document.querySelectorAll(selector);
+      console.log(`🛒 Checking general selector "${selector}": found ${elements.length} elements`);
+
+      for (const element of elements) {
+        // Skip crossed-out prices
+        const isCrossedOut = element.closest('[class*="line-through"]') ||
+                            element.parentElement?.classList.contains('line-through') ||
+                            element.style.textDecoration?.includes('line-through') ||
+                            element.parentElement?.style.textDecoration?.includes('line-through');
+
+        if (isCrossedOut) {
+          console.log('🛒 Skipping crossed-out price element');
+          continue;
+        }
+
+        const priceText = element.textContent.trim();
+        console.log(`🛒 General element text: "${priceText}"`);
+
+        const parsedPrice = parsePriceFromText(priceText, locale);
+        if (parsedPrice && parsedPrice > highestValue) {
+          highestValue = parsedPrice;
+          totalPrice = parsedPrice;
+          console.log(`🛒 New highest value: ${totalPrice}`);
+        }
+      }
+    }
+
+    console.log(`🛒 Final extracted price: ${totalPrice}`);
+    return totalPrice;
   }
 
   function reportPurchase(totalPrice) {
     if (localStorage.getItem(purchaseKey(chatbotUserId))) {
       hasReportedPurchase = true;
+      console.log('🛒 Purchase already reported for user:', chatbotUserId);
       return;
     }
 
-    fetch('https://egendatabasebackend.onrender.com/purchases', {
+    console.log('🛒 Reporting purchase to backend:', {
+      userId: chatbotUserId,
+      chatbotId: chatbotID,
+      amount: totalPrice,
+      endpoint: 'http://localhost:3000/purchases'
+    });
+
+    fetch('http://localhost:3000/purchases', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1059,20 +1250,36 @@
       if (res.ok) {
         hasReportedPurchase = true;
         localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+        console.log('✅ Purchase reported successfully to backend');
+      } else {
+        console.error('❌ Failed to report purchase - HTTP status:', res.status, res.statusText);
       }
     })
     .catch(err => {
-      console.warn('Failed to report purchase:', err);
+      console.error('❌ Failed to report purchase:', err);
     });
   }
 
   function checkForPurchase() {
-    if (!chatbotUserId || hasReportedPurchase) return;
+    // Wait for userId from iframe (set by postMessage listener)
+    if (!chatbotUserId) {
+      console.log('🛒 No userId yet, waiting for iframe to send it...');
+      return;
+    }
+
+    if (hasReportedPurchase) {
+      console.log('🛒 Purchase already reported for user:', chatbotUserId);
+      return;
+    }
 
     if (isCheckoutPage()) {
       const totalPrice = extractTotalPrice();
+      console.log('🛒 Checking for purchase - extracted price:', totalPrice);
       if (totalPrice && totalPrice > 0) {
+        console.log('🛒 Purchase detected! Reporting purchase for user:', chatbotUserId);
         reportPurchase(totalPrice);
+      } else {
+        console.log('🛒 No purchase detected (price:', totalPrice, ')');
       }
     }
   }
