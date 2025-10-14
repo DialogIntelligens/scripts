@@ -1059,14 +1059,128 @@
     return result;
   }
 
+  // Helper function to parse price from text
+  function parsePriceFromText(priceText, locale) {
+    console.log(`🛒 Parsing price text: "${priceText}"`);
+
+    // Handle Danish/European format (1.148,00 kr)
+    const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
+    const regularMatches = priceText.match(/\d[\d.,]*/g);
+
+    console.log(`🛒 Danish matches:`, danishMatches);
+    console.log(`🛒 Regular matches:`, regularMatches);
+
+    let allMatches = [];
+    if (danishMatches) allMatches = allMatches.concat(danishMatches);
+    if (regularMatches) allMatches = allMatches.concat(regularMatches);
+
+    let highestPrice = 0;
+
+    if (allMatches && allMatches.length > 0) {
+      for (const match of allMatches) {
+        console.log(`🛒 Processing match: "${match}"`);
+        let cleanedMatch = match;
+
+        // Handle "kr" suffix (Danish currency)
+        if (match.includes('kr')) {
+          cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+
+          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+            cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+          } else if (cleanedMatch.includes(',')) {
+            cleanedMatch = cleanedMatch.replace(',', '.');
+          }
+        } else {
+          // Locale-aware parsing
+          cleanedMatch = match.replace(/[^\d.,]/g, '');
+
+          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
+            const lastCommaIndex = cleanedMatch.lastIndexOf(',');
+            const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
+
+            if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
+              // Danish format: 1.148,00
+              cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+            } else {
+              // US format: 1,148.00
+              cleanedMatch = cleanedMatch.replace(/,/g, '');
+            }
+          } else if (cleanedMatch.includes(',')) {
+            const parts = cleanedMatch.split(',');
+            if (parts.length === 2 && parts[1].length <= 2) {
+              cleanedMatch = cleanedMatch.replace(',', '.');
+            } else {
+              cleanedMatch = cleanedMatch.replace(/,/g, '');
+            }
+          }
+        }
+
+        console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
+        const numValue = parseFloat(cleanedMatch);
+        console.log(`🛒 Parsed number: ${numValue}`);
+        if (!isNaN(numValue) && numValue > highestPrice) {
+          highestPrice = numValue;
+        }
+      }
+    }
+
+    return highestPrice > 0 ? highestPrice : null;
+  }
+
   function extractTotalPrice() {
     let totalPrice = null;
-    let highestValue = 0;
     const locale = config.priceExtractionLocale || 'en';
-    
+
     console.log('🛒 Starting price extraction with locale:', locale);
-    
-    const priceSelectors = [
+
+    // Priority selectors for final totals (checked first)
+    const prioritySelectors = [
+      // Elements with bold font-weight in the same container as "Total" text
+      'p[class*="font-bold"] [data-price-value]',
+      'strong [data-price-value]',
+      'b [data-price-value]',
+      // Elements in final total sections
+      '.checkout-section-right [data-price-value]:last-of-type',
+      // Simple approach: just look for the highest non-crossed-out price
+      '[data-price-value]'
+    ];
+
+    // Check priority selectors first (likely final totals)
+    for (const selector of prioritySelectors) {
+      try {
+        const elements = document.querySelectorAll(selector);
+        console.log(`🛒 Checking priority selector "${selector}": found ${elements.length} elements`);
+
+        for (const element of elements) {
+          // Skip crossed-out prices (discounts)
+          const isCrossedOut = element.closest('[class*="line-through"]') ||
+                              element.parentElement?.classList.contains('line-through') ||
+                              element.style.textDecoration?.includes('line-through') ||
+                              element.parentElement?.style.textDecoration?.includes('line-through');
+
+          if (isCrossedOut) {
+            console.log('🛒 Skipping crossed-out price element');
+            continue;
+          }
+
+          const priceText = element.textContent.trim();
+          console.log(`🛒 Priority element text: "${priceText}"`);
+
+          const parsedPrice = parsePriceFromText(priceText, locale);
+          if (parsedPrice) {
+            // For priority selectors, take the first valid price found (should be the total)
+            console.log(`🛒 Found priority total: ${parsedPrice}`);
+            return parsedPrice;
+          }
+        }
+      } catch (e) {
+        // Some CSS selectors might not be supported, skip them
+        console.log(`🛒 Priority selector "${selector}" not supported, skipping`);
+      }
+    }
+
+    // Fallback to general selectors if no priority match found
+    const generalSelectors = [
       '.total-price', '.order-total', '.cart-total', '.grand-total',
       '[data-testid="order-summary-total"]', '.order-summary-total',
       '.checkout-total', '.woocommerce-Price-amount', '.amount',
@@ -1075,79 +1189,37 @@
       '.price', '.total', '.sum', '.order-sum', '.checkout-price',
       '[data-price]', '.price-total', '.final-price', '.order-price'
     ];
-    
-    for (const selector of priceSelectors) {
+
+    let highestValue = 0;
+
+    for (const selector of generalSelectors) {
       const elements = document.querySelectorAll(selector);
-      console.log(`🛒 Checking selector "${selector}": found ${elements.length} elements`);
+      console.log(`🛒 Checking general selector "${selector}": found ${elements.length} elements`);
 
       for (const element of elements) {
+        // Skip crossed-out prices
+        const isCrossedOut = element.closest('[class*="line-through"]') ||
+                            element.parentElement?.classList.contains('line-through') ||
+                            element.style.textDecoration?.includes('line-through') ||
+                            element.parentElement?.style.textDecoration?.includes('line-through');
+
+        if (isCrossedOut) {
+          console.log('🛒 Skipping crossed-out price element');
+          continue;
+        }
+
         const priceText = element.textContent.trim();
-        console.log(`🛒 Element text: "${priceText}"`);
-        
-        // Handle Danish/European format (1.148,00 kr)
-        const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr/gi);
-        const regularMatches = priceText.match(/\d[\d.,]*/g);
+        console.log(`🛒 General element text: "${priceText}"`);
 
-        console.log(`🛒 Danish matches for "${priceText}":`, danishMatches);
-        console.log(`🛒 Regular matches for "${priceText}":`, regularMatches);
-
-        let allMatches = [];
-        if (danishMatches) allMatches = allMatches.concat(danishMatches);
-        if (regularMatches) allMatches = allMatches.concat(regularMatches);
-        console.log(`🛒 All matches:`, allMatches);
-        
-        if (allMatches && allMatches.length > 0) {
-          for (const match of allMatches) {
-            console.log(`🛒 Processing match: "${match}"`);
-            let cleanedMatch = match;
-            
-            // Handle "kr" suffix (Danish currency)
-            if (match.includes('kr')) {
-              cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
-              
-              if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
-                cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
-              } else if (cleanedMatch.includes(',')) {
-                cleanedMatch = cleanedMatch.replace(',', '.');
-              }
-            } else {
-              // Locale-aware parsing
-              cleanedMatch = match.replace(/[^\d.,]/g, '');
-              
-              if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
-                const lastCommaIndex = cleanedMatch.lastIndexOf(',');
-                const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
-                
-                if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
-                  // Danish format: 1.148,00
-                  cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
-                } else {
-                  // US format: 1,148.00
-                  cleanedMatch = cleanedMatch.replace(/,/g, '');
-                }
-              } else if (cleanedMatch.includes(',')) {
-                const parts = cleanedMatch.split(',');
-                if (parts.length === 2 && parts[1].length <= 2) {
-                  cleanedMatch = cleanedMatch.replace(',', '.');
-                } else {
-                  cleanedMatch = cleanedMatch.replace(/,/g, '');
-                }
-              }
-            }
-
-            console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
-            const numValue = parseFloat(cleanedMatch);
-            console.log(`🛒 Parsed number: ${numValue}, isNaN: ${isNaN(numValue)}, highestValue: ${highestValue}`);
-            if (!isNaN(numValue) && numValue > highestValue) {
-              highestValue = numValue;
-              totalPrice = numValue;
-              console.log(`🛒 New highest value: ${totalPrice}`);
-            }
-          }
+        const parsedPrice = parsePriceFromText(priceText, locale);
+        if (parsedPrice && parsedPrice > highestValue) {
+          highestValue = parsedPrice;
+          totalPrice = parsedPrice;
+          console.log(`🛒 New highest value: ${totalPrice}`);
         }
       }
     }
-    
+
     console.log(`🛒 Final extracted price: ${totalPrice}`);
     return totalPrice;
   }
