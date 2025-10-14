@@ -307,16 +307,18 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking - wait for userId from iframe
+    // Handle purchase tracking - start immediately on checkout pages
     console.log('🛒 Purchase tracking check:', {
       enabled: config.purchaseTrackingEnabled,
       isCheckoutPage: isCheckoutPage(),
       userId: chatbotUserId
     });
-    if (config.purchaseTrackingEnabled) {
-      console.log('🛒 Purchase tracking enabled, waiting for userId from chatbot...');
-      // Don't initialize immediately - wait for userId from iframe
-      // Initialization will happen when chatbot sends userId via postMessage
+    if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+      console.log('🛒 Starting purchase tracking immediately (on checkout page)...');
+      setTimeout(checkForPurchase, 1000);
+    } else if (config.purchaseTrackingEnabled) {
+      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
+      // Will be triggered by postMessage listener when user starts conversation
     } else {
       console.log('🛒 Purchase tracking disabled');
     }
@@ -763,17 +765,11 @@
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
         console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
         
-        // If purchase tracking is enabled and we're on a checkout page, check for purchase
-        console.log('🛒 PostMessage userId received, checking purchase tracking:', {
-          enabled: config.purchaseTrackingEnabled,
-          isCheckoutPage: isCheckoutPage(),
-          currentUrl: window.location.href
-        });
-        if (config.purchaseTrackingEnabled && isCheckoutPage()) {
-          console.log('🛒 User is on checkout page, starting purchase tracking...');
+        // If purchase tracking is enabled and we're NOT on a checkout page, check for purchase after conversation starts
+        // (Checkout pages are handled immediately on page load)
+        if (config.purchaseTrackingEnabled && !isCheckoutPage()) {
+          console.log('🛒 User started conversation on non-checkout page, checking for purchase tracking...');
           setTimeout(checkForPurchase, 1000);
-        } else {
-          console.log('🛒 Purchase tracking not triggered - either disabled or not on checkout page');
         }
       }
     });
@@ -1143,8 +1139,16 @@
   function reportPurchase(totalPrice) {
     if (localStorage.getItem(purchaseKey(chatbotUserId))) {
       hasReportedPurchase = true;
+      console.log('🛒 Purchase already reported for user:', chatbotUserId);
       return;
     }
+
+    console.log('🛒 Reporting purchase to backend:', {
+      userId: chatbotUserId,
+      chatbotId: chatbotID,
+      amount: totalPrice,
+      endpoint: 'https://egendatabasebackend.onrender.com/purchases'
+    });
 
     fetch('https://egendatabasebackend.onrender.com/purchases', {
       method: 'POST',
@@ -1159,20 +1163,33 @@
       if (res.ok) {
         hasReportedPurchase = true;
         localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+        console.log('✅ Purchase reported successfully to backend');
+      } else {
+        console.error('❌ Failed to report purchase - HTTP status:', res.status, res.statusText);
       }
     })
     .catch(err => {
-      console.warn('Failed to report purchase:', err);
+      console.error('❌ Failed to report purchase:', err);
     });
   }
 
   function checkForPurchase() {
-    if (!chatbotUserId || hasReportedPurchase) return;
+    // If no chatbotUserId exists (user hasn't started conversation), generate one for purchase tracking
+    if (!chatbotUserId) {
+      chatbotUserId = `purchase-user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+      console.log('🛒 Generated userId for purchase tracking:', chatbotUserId);
+    }
+
+    if (hasReportedPurchase) return;
 
     if (isCheckoutPage()) {
       const totalPrice = extractTotalPrice();
+      console.log('🛒 Checking for purchase - extracted price:', totalPrice);
       if (totalPrice && totalPrice > 0) {
+        console.log('🛒 Purchase detected! Reporting purchase for user:', chatbotUserId);
         reportPurchase(totalPrice);
+      } else {
+        console.log('🛒 No purchase detected (price:', totalPrice, ')');
       }
     }
   }
