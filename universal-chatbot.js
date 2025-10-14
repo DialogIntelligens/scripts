@@ -905,7 +905,8 @@
       console.log('📤 Sending configuration to iframe:', { 
         chatbotID: messageData.chatbotID,
         action: messageData.action,
-        themeColor: messageData.themeColor 
+        themeColor: messageData.themeColor,
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
