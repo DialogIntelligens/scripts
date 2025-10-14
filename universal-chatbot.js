@@ -246,12 +246,10 @@
     config.pagePath = window.location.href;
     config.isPhoneView = window.innerWidth < 1000;
 
-    // Get user ID from localStorage (will be set by iframe or purchase tracking)
+    // Get user ID from localStorage (will be set by postMessage from iframe)
     const userIdKey = `userId_${chatbotID}`;
-    chatbotUserId = localStorage.getItem(userIdKey);
-    // Don't generate a new userId here - let the iframe handle it
-    // Purchase tracking will use the existing userId or generate one if needed
-    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none yet');
+    chatbotUserId = localStorage.getItem(userIdKey) || null;
+    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
 
     // Load font if specified
     if (config.fontFamily) {
@@ -306,18 +304,19 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking - start immediately on checkout pages
+    // Handle purchase tracking - wait for userId from iframe on checkout pages
     console.log('🛒 Purchase tracking check:', {
       enabled: config.purchaseTrackingEnabled,
       isCheckoutPage: isCheckoutPage(),
-      userId: chatbotUserId
+      userId: chatbotUserId || 'waiting for iframe...'
     });
     if (config.purchaseTrackingEnabled && isCheckoutPage()) {
-      console.log('🛒 Starting purchase tracking immediately (on checkout page)...');
-      // Check multiple times with increasing delays to catch dynamically loaded prices
-      setTimeout(checkForPurchase, 1000);
-      setTimeout(checkForPurchase, 3000);
-      setTimeout(checkForPurchase, 5000);
+      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
+      // Give iframe time to load and send userId (2-6 seconds with retries)
+      // The postMessage listener will update chatbotUserId when received
+      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
+      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
+      setTimeout(checkForPurchase, 6000); // Final retry
     } else if (config.purchaseTrackingEnabled) {
       console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
       // Will be triggered by postMessage listener when user starts conversation
@@ -1261,23 +1260,16 @@
   }
 
   function checkForPurchase() {
-    // Check if we have a userId from a previous conversation (stored in localStorage)
-    const storedUserId = localStorage.getItem(`userId_${chatbotID}`);
-
-    // Use existing userId from conversation, or generate one if none exists
+    // Wait for userId from iframe (set by postMessage listener)
     if (!chatbotUserId) {
-      if (storedUserId) {
-        // Use the same userId from the conversation
-        chatbotUserId = storedUserId;
-        console.log('🛒 Using existing userId from conversation:', chatbotUserId);
-      } else {
-        // Generate new userId if no conversation happened
-        chatbotUserId = `purchase-user-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-        console.log('🛒 Generated new userId for purchase tracking:', chatbotUserId);
-      }
+      console.log('🛒 No userId yet, waiting for iframe to send it...');
+      return;
     }
 
-    if (hasReportedPurchase) return;
+    if (hasReportedPurchase) {
+      console.log('🛒 Purchase already reported for user:', chatbotUserId);
+      return;
+    }
 
     if (isCheckoutPage()) {
       const totalPrice = extractTotalPrice();
@@ -1321,3 +1313,4 @@
   }, 2000);
 
 })();
+
