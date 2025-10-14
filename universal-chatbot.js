@@ -308,10 +308,17 @@
     }
 
     // Handle purchase tracking - wait for userId from iframe
+    console.log('🛒 Purchase tracking check:', {
+      enabled: config.purchaseTrackingEnabled,
+      isCheckoutPage: isCheckoutPage(),
+      userId: chatbotUserId
+    });
     if (config.purchaseTrackingEnabled) {
       console.log('🛒 Purchase tracking enabled, waiting for userId from chatbot...');
       // Don't initialize immediately - wait for userId from iframe
       // Initialization will happen when chatbot sends userId via postMessage
+    } else {
+      console.log('🛒 Purchase tracking disabled');
     }
 
     console.log('✅ Chatbot initialized successfully');
@@ -757,9 +764,16 @@
         console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
         
         // If purchase tracking is enabled and we're on a checkout page, check for purchase
+        console.log('🛒 PostMessage userId received, checking purchase tracking:', {
+          enabled: config.purchaseTrackingEnabled,
+          isCheckoutPage: isCheckoutPage(),
+          currentUrl: window.location.href
+        });
         if (config.purchaseTrackingEnabled && isCheckoutPage()) {
           console.log('🛒 User is on checkout page, starting purchase tracking...');
           setTimeout(checkForPurchase, 1000);
+        } else {
+          console.log('🛒 Purchase tracking not triggered - either disabled or not on checkout page');
         }
       }
     });
@@ -999,20 +1013,27 @@
   }
 
   function isCheckoutPage() {
+    console.log('🔍 Checking if current page is checkout:', window.location.href);
+
     // Use custom patterns from config if available
     if (config.checkoutPagePatterns) {
       try {
         const patterns = JSON.parse(config.checkoutPagePatterns);
+        console.log('🔍 Using custom checkout patterns:', patterns);
         if (Array.isArray(patterns)) {
           return patterns.some(pattern => {
             // Support both URL substring matching and path matching
             if (pattern.startsWith('/') && pattern.endsWith('/')) {
               // Exact path match
               const path = window.location.pathname.replace(/\/$/, '');
-              return path === pattern.replace(/\/$/, '');
+              const result = path === pattern.replace(/\/$/, '');
+              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
+              return result;
             } else {
               // Substring match in URL
-              return window.location.href.includes(pattern);
+              const result = window.location.href.includes(pattern);
+              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
+              return result;
             }
           });
         }
@@ -1020,16 +1041,23 @@
         console.warn('Invalid checkout page patterns, using defaults:', e);
       }
     }
-    
+
     // Default fallback patterns
-    return window.location.href.includes('/checkout') ||
-           window.location.href.includes('/ordre') ||
-           window.location.href.includes('/order-complete/') ||
-           window.location.href.includes('/thank-you/') ||
-           window.location.href.includes('/order-received/') ||
-           document.querySelector('.order-complete') ||
-           document.querySelector('.thank-you') ||
-           document.querySelector('.order-confirmation');
+    const defaultChecks = [
+      window.location.href.includes('/checkout'),
+      window.location.href.includes('/ordre'),
+      window.location.href.includes('/order-complete/'),
+      window.location.href.includes('/thank-you/'),
+      window.location.href.includes('/order-received/'),
+      !!document.querySelector('.order-complete'),
+      !!document.querySelector('.thank-you'),
+      !!document.querySelector('.order-confirmation')
+    ];
+
+    console.log('🔍 Default checkout checks:', defaultChecks);
+    const result = defaultChecks.some(check => check);
+    console.log('🔍 isCheckoutPage result:', result);
+    return result;
   }
 
   function extractTotalPrice() {
@@ -1179,3 +1207,4 @@
   }, 2000);
 
 })();
+
