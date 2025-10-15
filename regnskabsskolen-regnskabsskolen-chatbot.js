@@ -750,7 +750,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Regnskabsskolen Assistant",
+        titleG: "Ri Regnskabsskolens assistent",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
@@ -977,7 +977,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale kurser og besvare spørgsmål ";
+        const popupText = "Jeg kan anbefale kurser og besvare spørgsmål.";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
