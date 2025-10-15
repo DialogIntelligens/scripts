@@ -742,7 +742,7 @@ function initWithDebug() {
         aiMessageColor: "#f9fafc",
         aiMessageTextColor: "#000000",
         headerTitleG: "AI Buddy",
-        headerSubtitleG: "Du chatter med AI Buddy. Jeg ved det meste om træning og Bodylab-produkter, hvis jeg selv skal sige det. Så hvis du har et spørgsmål, kan jeg med stor sandsynlighed hjælpe dig. Jeg er dog kun en robot, og ligesom mennesker kan jeg også fejle. Hvis du synes, jeg sludrer, tager du bare fat i vores kundeservice",
+        headerSubtitleG: "Keskustelet Buddy-nimisen kanssa. Tiedän melkein kaiken treenaamisesta ja Bodylab-tuotteista, jos saan itse sanoa niin. Joten jos sinulla on kysyttävää, voin todennäköisesti auttaa sinua. Olen kuitenkin vain robotti, ja aivan kuten ihmiset, voin myös tehdä virheitä. Jos mielestäsi puhun hölynpölyä, voit vain ottaa yhteyttä meidän asiakaspalvelu",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
   
@@ -977,7 +977,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Hej, jeg er AI Buddy! Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 😊";
+        const popupText = "Voin suositella tuotteita, vastata kysymyksiin ja laatia ruokavaliosuunnitelmia💪";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
