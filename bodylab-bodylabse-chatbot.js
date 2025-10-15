@@ -707,29 +707,29 @@ function initWithDebug() {
         privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_Policy_Skoringen.pdf",
   
         // Set FreshdeskForm text
-        freshdeskEmailLabel: "Din email:",
-        freshdeskMessageLabel: "Besked til kundeservice:",
-        freshdeskImageLabel: "Upload billede (valgfrit):",
-        freshdeskChooseFileText: "Vælg fil",
-        freshdeskNoFileText: "Ingen fil valgt",
-        freshdeskSendingText: "Sender...",
-        freshdeskSubmitText: "Send henvendelse",
+        freshdeskEmailLabel: "Din e-post:",
+        freshdeskMessageLabel: "Meddelande till kundservice:",
+        freshdeskImageLabel: "Ladda upp bild (valfritt):",
+        freshdeskChooseFileText: "Välj fil:",
+        freshdeskNoFileText: "Ingen fil vald:",
+        freshdeskSendingText: "Skickar...",
+        freshdeskSubmitText: "Skicka meddelande:",
           
         // Set FreshdeskForm validation error messages
-        freshdeskEmailRequiredError: "Email er påkrævet",
-        freshdeskEmailInvalidError: "Indtast venligst en gyldig email adresse",
-        freshdeskFormErrorText: "Ret venligst fejlene i formularen",
-        freshdeskMessageRequiredError: "Besked er påkrævet",
-        freshdeskSubmitErrorText: "Der opstod en fejl ved afsendelse af henvendelsen. Prøv venligst igen.",
+        freshdeskEmailRequiredError: "E-postadress krävs:",
+        freshdeskEmailInvalidError: "Ange en giltig e-postadress:",
+        freshdeskFormErrorText: "Rätta till felen i formuläret:",
+        freshdeskMessageRequiredError: "Meddelande krävs:",
+        freshdeskSubmitErrorText: "Ett fel uppstod när meddelandet skickades. Försök igen:",
           
         // Set confirmation messages
-        contactConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
+        contactConfirmationText: "Tack för ditt meddelande! Vi återkommer så snart som möjligt:",
         freshdeskConfirmationText: "Tak for din henvendelse, vi vender tilbage hurtigst muligt.",
   
         freshdeskSubjectText: 'Din henvendelse',
   
-        inputPlaceholder: "Skriv dit spørgsmål her...",
-        ratingMessage: "Fik du besvaret dit spørgsmål?",
+        inputPlaceholder: "Skriv din fråga här...",
+        ratingMessage: "Fick du svar på din fråga?:",
   
         productButtonText: "SE PRODUKT",
         productButtonColor: "",
