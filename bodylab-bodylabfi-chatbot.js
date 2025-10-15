@@ -511,7 +511,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #87bbd7;
+        --icon-color: #65bddb;
         --badge-color: #CC2B20;
       }
    
@@ -738,7 +738,7 @@ function initWithDebug() {
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1760262295793.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1760262389832.png",
-        themeColor: "#87bbd7",
+        themeColor: "#65bddb",
         aiMessageColor: "#f9fafc",
         aiMessageTextColor: "#000000",
         headerTitleG: "AI Buddy",
