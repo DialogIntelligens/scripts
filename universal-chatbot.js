@@ -84,8 +84,9 @@
         chatbotID: chatbotID,
         iframeUrl: 'https://skalerbartprodukt.onrender.com',
         themeColor: '#1a1d56',
+        borderRadiusMultiplier: 1.0,
         headerTitleG: '',
-        headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
+        headerSubtitleG: 'Vores virtuelle assistent er här for at hjælpe dig.',
         titleG: 'Chat Assistent',
         enableMinimizeButton: true,
         enablePopupMessage: true
@@ -135,6 +136,7 @@
       themeColor: '#1a1d56',
       aiMessageColor: '#e5eaf5',
       aiMessageTextColor: '#262641',
+      borderRadiusMultiplier: 1.0,
       headerTitleG: '',
       headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
       subtitleLinkText: '',
@@ -906,6 +908,7 @@
         chatbotID: messageData.chatbotID,
         action: messageData.action,
         themeColor: messageData.themeColor,
+        borderRadiusMultiplier: messageData.borderRadiusMultiplier,
         purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
       });
 
