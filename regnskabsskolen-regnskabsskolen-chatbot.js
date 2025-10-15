@@ -696,7 +696,7 @@ function initWithDebug() {
         pagePath: window.location.href,
           
         leadGen: "%%",
-        leadMail: "Team@dialogintelligens.dk",
+        leadMail: "post@ri.dk",
         leadField1: "Navn",
         leadField2: "Tlf nummer",
 
