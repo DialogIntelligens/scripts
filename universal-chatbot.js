@@ -1230,10 +1230,12 @@
       return;
     }
 
+    const currency = config.currency || 'DKK';
     console.log('🛒 Reporting purchase to backend:', {
       userId: chatbotUserId,
       chatbotId: chatbotID,
       amount: totalPrice,
+      currency: currency,
       endpoint: 'https://egendatabasebackend.onrender.com/purchases'
     });
 
@@ -1243,7 +1245,8 @@
       body: JSON.stringify({
         user_id: chatbotUserId,
         chatbot_id: chatbotID,
-        amount: totalPrice
+        amount: totalPrice,
+        currency: currency
       })
     })
     .then(res => {
