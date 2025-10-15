@@ -58,6 +58,7 @@
   let isIframeEnlarged = false;
   let chatbotUserId = null;
   let hasReportedPurchase = false;
+  let hasInteractedWithChatbot = false; // Only track purchases for users who opened the chatbot
 
   /**
    * Load chatbot configuration from backend
@@ -251,7 +252,14 @@
     // Get user ID from localStorage (will be set by postMessage from iframe)
     const userIdKey = `userId_${chatbotID}`;
     chatbotUserId = localStorage.getItem(userIdKey) || null;
+    
+    // Check if user has previously interacted with the chatbot (for purchase tracking)
+    const hasInteractedKey = `hasInteracted_${chatbotID}`;
+    const hasInteractedStored = localStorage.getItem(hasInteractedKey);
+    hasInteractedWithChatbot = hasInteractedStored === 'true';
+    
     console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
+    console.log('🆔 Has interacted with chatbot:', hasInteractedWithChatbot);
 
     // Load font if specified
     if (config.fontFamily) {
@@ -765,8 +773,11 @@
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
         // Handle userId from iframe (sent when user starts conversation)
         chatbotUserId = event.data.userId;
+        hasInteractedWithChatbot = true; // Mark that user has interacted with the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
+        localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
         console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
+        console.log("✅ User has interacted with chatbot, purchase tracking enabled");
         
         // If purchase tracking is enabled and we're NOT on a checkout page, check for purchase after conversation starts
         // (Checkout pages are handled immediately on page load)
@@ -1270,6 +1281,12 @@
     // Wait for userId from iframe (set by postMessage listener)
     if (!chatbotUserId) {
       console.log('🛒 No userId yet, waiting for iframe to send it...');
+      return;
+    }
+
+    // CRITICAL: Only track purchases for users who actually interacted with the chatbot
+    if (!hasInteractedWithChatbot) {
+      console.log('🛒 User has not interacted with chatbot, skipping purchase tracking');
       return;
     }
 
