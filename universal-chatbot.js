@@ -429,7 +429,7 @@
           z-index: 20 !important;
           right: ${config.buttonRight || '10px'} !important;
           bottom: ${config.buttonBottom || '27px'} !important;
-          padding: 5 !important;
+          padding: 5px !important;
           margin: 0 !important;
           min-height: unset !important;
           max-height: none !important;
