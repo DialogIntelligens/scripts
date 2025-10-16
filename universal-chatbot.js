@@ -867,10 +867,22 @@
   
       // Handle window resize
       window.addEventListener('resize', adjustIframeSize);
-  
+
       // Initial size adjustment
       adjustIframeSize();
-  
+      
+      // Force multiple resize events to ensure proper loading 100% of the time
+      function triggerResizeEvents() {
+        window.dispatchEvent(new Event('resize'));
+      }
+      
+      // Trigger resize events at different intervals to catch lazy-loading elements
+      setTimeout(triggerResizeEvents, 100);
+      setTimeout(triggerResizeEvents, 300);
+      setTimeout(triggerResizeEvents, 500);
+      setTimeout(triggerResizeEvents, 800);
+      setTimeout(triggerResizeEvents, 1200);
+
       // Send configuration to iframe after load
       chatIframe.onload = function() {
         sendMessageToIframe();
@@ -915,6 +927,11 @@
         
         adjustIframeSize();
         sendMessageToIframe();
+        
+        // Trigger resize events when opening chat to ensure proper rendering
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 50);
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 150);
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 300);
 
         // Notify iframe that chat was opened
         try {
