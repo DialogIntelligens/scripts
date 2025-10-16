@@ -550,8 +550,8 @@
         /* Popup container */
         #chatbase-message-bubbles {
           position: absolute;
-            bottom: ${config.buttonBottom || '20px'};
-            right: calc(${config.buttonRight || '10px'} + 65px);
+            bottom: calc(${config.buttonBottom || '10px'} + -7.5px);
+            right: calc(${config.buttonRight || '10px'} + 33px);
             border-radius: 20px;
             font-family: 'Montserrat', sans-serif;
           font-size: 20px;
