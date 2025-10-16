@@ -1082,6 +1082,18 @@ function initWithDebug() {
       adjustIframeSize();
       window.addEventListener('resize', adjustIframeSize);
       
+      // Force multiple resize events to ensure proper loading 100% of the time
+      function triggerResizeEvents() {
+        window.dispatchEvent(new Event('resize'));
+      }
+      
+      // Trigger resize events at different intervals to catch lazy-loading elements
+      setTimeout(triggerResizeEvents, 100);
+      setTimeout(triggerResizeEvents, 300);
+      setTimeout(triggerResizeEvents, 500);
+      setTimeout(triggerResizeEvents, 800);
+      setTimeout(triggerResizeEvents, 1200);
+      
       // GTM-friendly single retry mechanism
       function ensureChatbotLoads() {
         // Only retry if not already loaded and GTM has had time to initialize
@@ -1095,7 +1107,13 @@ function initWithDebug() {
       setTimeout(ensureChatbotLoads, 2000);  // Single retry after 2s
     
       // Attach event listener to chat-button
-      document.getElementById('chat-button').addEventListener('click', toggleChatWindow);
+      document.getElementById('chat-button').addEventListener('click', function() {
+        toggleChatWindow();
+        // Trigger resize events when opening chat to ensure proper rendering
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 50);
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 150);
+        setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 300);
+      });
   
     const isPhoneView = window.innerWidth < 800;
       // Modify the initial chat window state logic
@@ -1108,6 +1126,11 @@ function initWithDebug() {
       button.style.display = 'none';
       sendMessageToIframe();
       trackChatbotOpen();          // keep your analytics
+      
+      // Trigger resize events when chat is auto-opened to ensure proper rendering
+      setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 100);
+      setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 300);
+      setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 600);
     } else {
       iframe.style.display = 'none';
       button.style.display = 'block';
