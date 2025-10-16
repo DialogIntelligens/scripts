@@ -550,8 +550,8 @@
         /* Popup container */
         #chatbase-message-bubbles {
           position: absolute;
-            bottom: calc(${config.buttonBottom || '10px'} + -7.5px);
-            right: calc(${config.buttonRight || '10px'} + 33px);
+            bottom: ${config.buttonBottom || '20px'};
+            right: calc(${config.buttonRight || '10px'} + 65px);
             border-radius: 20px;
             font-family: 'Montserrat', sans-serif;
           font-size: 20px;
@@ -1133,21 +1133,19 @@
         logSplitImpression(splitAssignment.variant_id);
       }
 
-      // Adjust popup width based on text length (match legacy exactly)
+      // Set popup width dynamically to ensure text stays in 1-2 lines maximum
       const charCount = messageBox.textContent.trim().length;
       popup.classList.remove('long-message');
       
-      if (charCount > 26) {
-        popup.classList.add('long-message');
-      }
+      // Dynamic width formula based on reference points:
+      // 58 chars = 460px, 71 chars = 500px
+      // Formula: width = (charCount * 3.1) + 280
+      let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.1) + 280));
+      popup.style.width = calculatedWidth + 'px';
       
-      // Set explicit width based on character count (legacy behavior)
-      if (charCount < 25) {
-        popup.style.width = '400px';
-      } else if (charCount < 60) {
-        popup.style.width = '460px';
-      } else {
-        popup.style.width = '460px';
+      // Add long-message class for positioning adjustment if needed
+      if (charCount > 45) {
+        popup.classList.add('long-message');
       }
 
       // Add animation class for popup entrance
@@ -1196,21 +1194,19 @@
 
       messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
 
-      // Adjust popup width based on text length
+      // Set popup width dynamically to ensure text stays in 1-2 lines maximum
       const charCount = messageBox.textContent.trim().length;
       popup.classList.remove('long-message');
       
-      if (charCount > 26) {
-        popup.classList.add('long-message');
-      }
+      // Dynamic width formula based on reference points:
+      // 58 chars = 460px, 71 chars = 500px
+      // Formula: width = (charCount * 3.1) + 280
+      let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.1) + 280));
+      popup.style.width = calculatedWidth + 'px';
       
-      // Set explicit width based on character count
-      if (charCount < 25) {
-        popup.style.width = '40px';
-      } else if (charCount < 60) {
-        popup.style.width = '460px';
-      } else {
-        popup.style.width = '460px';
+      // Add long-message class for positioning adjustment if needed
+      if (charCount > 45) {
+        popup.classList.add('long-message');
       }
 
       popup.style.display = 'flex';
