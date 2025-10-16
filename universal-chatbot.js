@@ -422,23 +422,34 @@
           transition: all 0.3s ease;
         }
         #chat-button {
-          cursor: pointer;
-          background: none;
-          border: none;
-          position: fixed;
-          z-index: 20;
-          right: ${config.buttonRight || '10px'};
-          bottom: ${config.buttonBottom || '20px'};
-          transition: all 0.3s ease;
+          cursor: pointer !important;
+          background: none !important;
+          border: none !important;
+          position: fixed !important;
+          z-index: 20 !important;
+          right: ${config.buttonRight || '10px'} !important;
+          bottom: ${config.buttonBottom || '20px'} !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          min-height: unset !important;
+          max-height: none !important;
+          width: auto !important;
+          height: auto !important;
+          display: block !important;
+          transition: all 0.3s ease !important;
+          -webkit-appearance: none !important;
+          -moz-appearance: none !important;
+          appearance: none !important;
         }
         #chat-button svg {
-          width: 65px;
-          height: 65px;
-          transition: opacity 0.3s, transform 0.3s;
+          width: 65px !important;
+          height: 65px !important;
+          display: block !important;
+          transition: opacity 0.3s, transform 0.3s !important;
         }
         #chat-button:hover svg {
-          opacity: 1;
-          transform: scale(1.1);
+          opacity: 1 !important;
+          transform: scale(1.1) !important;
         }
         
         /* Minimize button - positioned at top right of the icon */
@@ -487,29 +498,36 @@
         
         /* Plus overlay when minimized - greyed out and hovering over small icon */
         #plus-overlay {
-          position: absolute;
-          bottom: 7px;
-          right: 8.5px;
-          font-size: 15px;
-          font-weight: bold;
-          color: white;
-          background: rgba(100, 100, 100, 0.7);
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
+          position: absolute !important;
+          bottom: 7px !important;
+          right: 8.5px !important;
+          font-size: 15px !important;
+          font-weight: bold !important;
+          color: white !important;
+          background: rgba(100, 100, 100, 0.7) !important;
+          width: 20px !important;
+          height: 20px !important;
+          min-width: 20px !important;
+          min-height: 20px !important;
+          max-width: 20px !important;
+          max-height: 20px !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          border-radius: 50% !important;
+          border: none !important;
           display: none;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
-          z-index: 30;
-          box-shadow: 0 2px 10px rgba(0,0,0,0.4);
-          transition: all 0.3s ease;
-          line-height: 1;
+          cursor: pointer !important;
+          z-index: 30 !important;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.4) !important;
+          transition: all 0.3s ease !important;
+          line-height: 1 !important;
         }
         
         #plus-overlay:hover {
-          background: rgba(80, 80, 80, 0.85);
-          transform: scale(1.1);
+          background: rgba(80, 80, 80, 0.85) !important;
+          transform: scale(1.1) !important;
         }
         
         #chat-container.minimized #plus-overlay {
