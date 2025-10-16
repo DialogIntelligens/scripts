@@ -1139,10 +1139,6 @@ function initWithDebug() {
       if (isPhoneView) localStorage.setItem('chatWindowState', 'closed');
     }
   
-     
-      // Chat button click
-      document.getElementById("chat-button").addEventListener("click", toggleChatWindow);
-      
       // Initialize badge visibility
       checkBadgeVisibility();
   
