@@ -443,25 +443,31 @@
         
         /* Minimize button - positioned at top right of the icon */
         #minimize-button {
-          position: absolute;
-          top: -25px;
-          right: 0px;
-          width: 24px;
-          height: 24px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.6);
-          color: white;
-          border: 2px solid white;
-          font-size: 18px;
-          font-weight: bold;
+          position: absolute !important;
+          top: -25px !important;
+          right: 0px !important;
+          width: 24px !important;
+          height: 24px !important;
+          min-width: 24px !important;
+          min-height: 24px !important;
+          max-width: 24px !important;
+          max-height: 24px !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          border-radius: 50% !important;
+          background: rgba(0, 0, 0, 0.6) !important;
+          color: white !important;
+          border: 2px solid white !important;
+          font-size: 18px !important;
+          font-weight: bold !important;
           display: none;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           z-index: 25;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-          transition: all 0.3s ease;
-          line-height: 1;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+          transition: all 0.3s ease !important;
+          line-height: 1 !important;
         }
         
         #minimize-button:hover {
@@ -763,11 +769,18 @@
         minimizeBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           const container = document.getElementById('chat-container');
+          const popup = document.getElementById('chatbase-message-bubbles');
+          
           chatIframe.style.display = 'none';
           chatButton.style.display = 'block';
           minimizeBtn.style.display = 'none';
           container.classList.remove('chat-open');
           container.classList.add('minimized');
+          
+          // Hide popup when minimizing
+          if (popup) {
+            popup.style.display = 'none';
+          }
           
           // Remember minimized state
           const minimizedStateKey = `chatMinimized_${chatbotID}`;
@@ -786,6 +799,13 @@
           // Clear minimized state
           const minimizedStateKey = `chatMinimized_${chatbotID}`;
           localStorage.removeItem(minimizedStateKey);
+          
+          // Show popup again when un-minimizing (if not permanently dismissed)
+          const popupStateKey = `popupState_${chatbotID}`;
+          const popupState = localStorage.getItem(popupStateKey);
+          if (popupState !== 'dismissed') {
+            setTimeout(showPopup, 500);
+          }
         });
       }
       
@@ -1028,6 +1048,16 @@
           return;
         }
         
+        // Track how many times popup has been shown on mobile
+        const popupShowCountKey = `popupShowCount_${chatbotID}`;
+        let popupShowCount = parseInt(localStorage.getItem(popupShowCountKey) || '0');
+        
+        // Maximum 2 popup appearances on mobile
+        if (popupShowCount >= 2) {
+          localStorage.setItem(popupStateKey, 'dismissed');
+          return;
+        }
+        
         // Track page visits
         let pageVisitCount = parseInt(localStorage.getItem(pageVisitCountKey) || '0');
         pageVisitCount++;
@@ -1042,16 +1072,30 @@
           setTimeout(async function() {
             // Check if user is still on the page (hasn't navigated away)
             const savedLoadTime = localStorage.getItem(lastPageTimeKey);
-            if (savedLoadTime === pageLoadTime.toString()) {
+            // Check if still not dismissed and not minimized
+            const currentPopupState = localStorage.getItem(popupStateKey);
+            const minimizedState = localStorage.getItem(`chatMinimized_${chatbotID}`);
+            
+            if (savedLoadTime === pageLoadTime.toString() && 
+                currentPopupState !== 'dismissed' && 
+                minimizedState !== 'true') {
+              
+              // Increment show count before showing
+              popupShowCount++;
+              localStorage.setItem(popupShowCountKey, popupShowCount.toString());
+              
               // Show popup and auto-dismiss after 15 seconds
               await displayPopupWithAnimation();
               
               // Auto-dismiss after 15 seconds on mobile
               setTimeout(function() {
                 const popup = document.getElementById('chatbase-message-bubbles');
-                if (popup) {
+                if (popup && popup.style.display === 'flex') {
                   popup.style.display = 'none';
-                  localStorage.setItem(popupStateKey, 'dismissed');
+                  // After showing 2 times, mark as permanently dismissed
+                  if (popupShowCount >= 2) {
+                    localStorage.setItem(popupStateKey, 'dismissed');
+                  }
                 }
               }, 15000);
             }
