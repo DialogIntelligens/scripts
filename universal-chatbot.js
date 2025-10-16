@@ -1056,7 +1056,7 @@
       
       // Set explicit width based on character count (legacy behavior)
       if (charCount < 25) {
-        popup.style.width = '40px';
+        popup.style.width = '400px';
       } else if (charCount < 60) {
         popup.style.width = '460px';
       } else {
