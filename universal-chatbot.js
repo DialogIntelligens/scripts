@@ -760,11 +760,24 @@
   
       // Minimize button
       if (minimizeBtn) {
-        minimizeBtn.addEventListener('click', function() {
+        minimizeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const container = document.getElementById('chat-container');
           chatIframe.style.display = 'none';
           chatButton.style.display = 'block';
           minimizeBtn.style.display = 'none';
-          document.getElementById('chat-container').classList.remove('chat-open');
+          container.classList.remove('chat-open');
+          container.classList.add('minimized');
+        });
+      }
+      
+      // Plus overlay (un-minimize)
+      const plusOverlay = document.getElementById('plus-overlay');
+      if (plusOverlay) {
+        plusOverlay.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const container = document.getElementById('chat-container');
+          container.classList.remove('minimized');
         });
       }
   
@@ -832,7 +845,10 @@
         chatButton.style.display = 'none';
         if (popup) popup.style.display = 'none';
         if (minimizeBtn) minimizeBtn.style.display = 'block';
-        if (container) container.classList.add('chat-open');
+        if (container) {
+          container.classList.add('chat-open');
+          container.classList.remove('minimized');
+        }
         
         // Permanently dismiss popup when chatbot is opened
         const popupStateKey = `popupState_${chatbotID}`;
