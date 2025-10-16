@@ -626,8 +626,8 @@
         }
         
         #chatbase-message-bubbles.long-message {
-          bottom: 13px;
-          right: 32px;
+          bottom: 14px;
+          right: 45px;
           scale: 0.50;
         }
         
