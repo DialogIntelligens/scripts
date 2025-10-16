@@ -428,7 +428,7 @@
           position: fixed !important;
           z-index: 20 !important;
           right: ${config.buttonRight || '10px'} !important;
-          bottom: ${config.buttonBottom || '20px'} !important;
+          bottom: ${config.buttonBottom || '27px'} !important;
           padding: 0 !important;
           margin: 0 !important;
           min-height: unset !important;
