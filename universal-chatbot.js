@@ -551,7 +551,7 @@
         #chatbase-message-bubbles {
           position: absolute;
             bottom: ${config.buttonBottom || '20px'};
-            right: calc(${config.buttonRight || '10px'} + 65px);
+            right: calc(${config.buttonRight || '10px'} + 45px);
             border-radius: 20px;
             font-family: 'Montserrat', sans-serif;
           font-size: 20px;
@@ -632,7 +632,7 @@
               @media (max-width: 600px) {
         #chatbase-message-bubbles {
             bottom: 18px;
-            right: 60px;
+            right: 50px;
           }
           
           #chatbase-message-bubbles.long-message {
