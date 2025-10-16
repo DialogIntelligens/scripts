@@ -568,7 +568,7 @@
       
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
-        bottom: ${config.buttonBottom || '13px'};
+        bottom: calc(${config.buttonBottom || '10px'} + 35px);
         right: calc(${config.buttonRight || '10px'} + 35px);
         scale: 0.52;
       }
