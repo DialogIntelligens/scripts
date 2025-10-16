@@ -768,6 +768,10 @@
           minimizeBtn.style.display = 'none';
           container.classList.remove('chat-open');
           container.classList.add('minimized');
+          
+          // Remember minimized state
+          const minimizedStateKey = `chatMinimized_${chatbotID}`;
+          localStorage.setItem(minimizedStateKey, 'true');
         });
       }
       
@@ -778,7 +782,20 @@
           e.stopPropagation();
           const container = document.getElementById('chat-container');
           container.classList.remove('minimized');
+          
+          // Clear minimized state
+          const minimizedStateKey = `chatMinimized_${chatbotID}`;
+          localStorage.removeItem(minimizedStateKey);
         });
+      }
+      
+      // Restore minimized state on page load
+      const minimizedStateKey = `chatMinimized_${chatbotID}`;
+      if (localStorage.getItem(minimizedStateKey) === 'true') {
+        const container = document.getElementById('chat-container');
+        if (container) {
+          container.classList.add('minimized');
+        }
       }
   
       // Listen for messages from iframe
@@ -849,6 +866,10 @@
           container.classList.add('chat-open');
           container.classList.remove('minimized');
         }
+        
+        // Clear minimized state when opening chat
+        const minimizedStateKey = `chatMinimized_${chatbotID}`;
+        localStorage.removeItem(minimizedStateKey);
         
         // Permanently dismiss popup when chatbot is opened
         const popupStateKey = `popupState_${chatbotID}`;
@@ -964,6 +985,12 @@
     async function showPopup() {
       const iframe = document.getElementById('chat-iframe');
       if (iframe && iframe.style.display !== 'none') {
+        return;
+      }
+
+      // Don't show popup if chat is minimized
+      const minimizedStateKey = `chatMinimized_${chatbotID}`;
+      if (localStorage.getItem(minimizedStateKey) === 'true') {
         return;
       }
 
