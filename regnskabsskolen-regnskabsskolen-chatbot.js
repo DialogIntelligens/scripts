@@ -731,7 +731,7 @@ function initWithDebug() {
         inputPlaceholder: "Skriv dit spørgsmål her...",
         ratingMessage: "Fik du besvaret dit spørgsmål?",
   
-        productButtonText: "SE PRODUKT",
+        productButtonText: "SE KURSUS",
         productButtonColor: "",
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
