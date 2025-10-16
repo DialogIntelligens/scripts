@@ -1201,7 +1201,7 @@
       // Dynamic width formula based on reference points:
       // 58 chars = 460px, 71 chars = 500px
       // Formula: width = (charCount * 3.1) + 280
-      let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.1) + 280));
+      let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 280));
       popup.style.width = calculatedWidth + 'px';
       
       // Add long-message class for positioning adjustment if needed
