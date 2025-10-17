@@ -848,6 +848,12 @@ function initWithDebug() {
         if (localStorage.getItem("popupClosed") === "true") {
           return;
         }
+        
+        // On phone devices, only show popup once ever
+        var isPhone = window.innerWidth < 1000;
+        if (isPhone && localStorage.getItem("popupShownOnPhone") === "true") {
+          return;
+        }
           
         var popup = document.getElementById("chatbase-message-bubbles");
         var messageBox = document.getElementById("popup-message-box");
@@ -879,6 +885,12 @@ function initWithDebug() {
   
        
         popup.style.display = "flex";
+        
+        // Mark popup as shown on phone (once per device)
+        var isPhone = window.innerWidth < 1000;
+        if (isPhone) {
+          localStorage.setItem("popupShownOnPhone", "true");
+        }
     
         // Blink after 2s
         setTimeout(function() {
