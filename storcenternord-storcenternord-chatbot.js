@@ -474,7 +474,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #000000;
+        --icon-color: #aa4141;
         --badge-color: #CC2B20;
       }
    
@@ -646,7 +646,7 @@ function initWithDebug() {
         leadField2: "Tlf nummer",
   
         useThumbsRating: false,
-        ratingTimerDuration: 15000,
+        ratingTimerDuration: 18000,
         replaceExclamationWithPeriod: false,
         
         privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
@@ -683,10 +683,10 @@ function initWithDebug() {
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1759740088236.png",
         messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1759740031411.png",
-        themeColor: "#000000",
+        themeColor: "#aa4141",
         aiMessageColor: "#f5f5f0",
         aiMessageTextColor: "#000000",
-        headerTitleG: "",
+        headerTitleG: "AI Assistent",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
         subtitleLinkText: "",
         subtitleLinkUrl: "",
