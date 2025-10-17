@@ -341,7 +341,7 @@ function initWithDebug() {
       /* Longer message styling */
       #chatbase-message-bubbles.long-message {
         bottom: 10.5px;
-        right: 36px;
+        right: 40px;
         scale: 0.52;
       }
       
