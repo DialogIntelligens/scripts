@@ -389,6 +389,7 @@
    */
   function injectStyles() {
     const themeColor = config.themeColor || '#1a1d56';
+    const buttonColor = config.productButtonColor || config.themeColor || '#1a1d56';
     
     const css = `
       /* ----------------------------------------
@@ -675,7 +676,7 @@
   
     
       :root {
-        --icon-color: ${themeColor};
+        --icon-color: ${buttonColor};
         --badge-color: #CC2B20;
       }
    
