@@ -15,9 +15,6 @@
 (async function() {
   'use strict';
 
-  // Check if running in preview mode
-  const isPreviewMode = window.CHATBOT_PREVIEW_MODE === true;
-  
   // Extract chatbot ID from script URL parameter
   let chatbotID = null;
   try {
@@ -54,11 +51,7 @@
     return;
   }
 
-  if (isPreviewMode) {
-    console.log(`🔍 Preview Mode: Initializing chatbot preview`);
-  } else {
-    console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
-  }
+  console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
 
   // Global variables
   let config = null;
@@ -71,12 +64,6 @@
    * Load chatbot configuration from backend
    */
   async function loadChatbotConfig() {
-    // In preview mode, use the config provided by the preview window
-    if (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG) {
-      console.log('🔍 Preview Mode: Using provided configuration');
-      return window.CHATBOT_PREVIEW_CONFIG;
-    }
-    
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
@@ -327,28 +314,24 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking - disabled in preview mode
-    if (isPreviewMode) {
-      console.log('🔍 Preview Mode: Purchase tracking disabled');
+    // Handle purchase tracking - wait for userId from iframe on checkout pages
+    console.log('🛒 Purchase tracking check:', {
+      enabled: config.purchaseTrackingEnabled,
+      isCheckoutPage: isCheckoutPage(),
+      userId: chatbotUserId || 'waiting for iframe...'
+    });
+    if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
+      // Give iframe time to load and send userId (2-6 seconds with retries)
+      // The postMessage listener will update chatbotUserId when received
+      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
+      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
+      setTimeout(checkForPurchase, 6000); // Final retry
+    } else if (config.purchaseTrackingEnabled) {
+      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
+      // Will be triggered by postMessage listener when user starts conversation
     } else {
-      console.log('🛒 Purchase tracking check:', {
-        enabled: config.purchaseTrackingEnabled,
-        isCheckoutPage: isCheckoutPage(),
-        userId: chatbotUserId || 'waiting for iframe...'
-      });
-      if (config.purchaseTrackingEnabled && isCheckoutPage()) {
-        console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
-        // Give iframe time to load and send userId (2-6 seconds with retries)
-        // The postMessage listener will update chatbotUserId when received
-        setTimeout(checkForPurchase, 2000); // Wait for iframe to load
-        setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
-        setTimeout(checkForPurchase, 6000); // Final retry
-      } else if (config.purchaseTrackingEnabled) {
-        console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
-        // Will be triggered by postMessage listener when user starts conversation
-      } else {
-        console.log('🛒 Purchase tracking disabled');
-      }
+      console.log('🛒 Purchase tracking disabled');
     }
 
     console.log('✅ Chatbot initialized successfully');
