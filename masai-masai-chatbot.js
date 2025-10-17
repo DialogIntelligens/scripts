@@ -280,7 +280,7 @@ function initWithDebug() {
         position: fixed;
         bottom: 20px;
         right: 10px;
-        z-index: 200;
+        z-index: 9;
       }
       #chat-button {
         cursor: pointer;
