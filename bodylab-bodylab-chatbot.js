@@ -977,7 +977,7 @@ function initWithDebug() {
         var messageBox = document.getElementById("popup-message-box");
               // Popup message text - modify this as needed
 
-        const popupText = "Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪 😊";
+        const popupText = "Jeg kan anbefale produkter, besvare spørgsmål og lave kostplaner💪";
         messageBox.innerHTML = `${popupText} <span id="funny-smiley">😊</span>`;   
           
         
