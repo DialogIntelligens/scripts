@@ -958,30 +958,51 @@
   function adjustIframeSize() {
     const iframe = document.getElementById('chat-iframe');
     if (!iframe) return;
-  
-    // Keep 'isIframeEnlarged' logic if toggled from the iframe
-    if (isIframeEnlarged) {
+
+    // Check if we're in preview mode
+    const isPreview = typeof window !== 'undefined' && window.CHATBOT_PREVIEW_MODE;
+
+    // Keep 'isIframeEnlarged' logic if toggled from the iframe (but not in preview)
+    if (isIframeEnlarged && !isPreview) {
       // A bigger version if user toggles enlarge
       iframe.style.width = 'calc(2 * 45vh + 6vw)';
       iframe.style.height = '90vh';
     } else {
-      // Default sizing:
-      // For phone/tablet (< 1000px), use 95vw
-      // For larger screens, use 50vh x 90vh
-      if (window.innerWidth < 1000) {
-        iframe.style.width = '95vw';
-        iframe.style.height = '90vh';
+      // In preview mode, use fixed sizes to represent desktop vs mobile
+      if (isPreview) {
+        // Determine if we're showing desktop or mobile preview based on config
+        const isDesktopPreview = !config.isPhoneView;
+
+        if (isDesktopPreview) {
+          // Desktop preview: fixed size representing desktop experience
+          iframe.style.width = '600px';
+          iframe.style.height = '500px';
+        } else {
+          // Mobile preview: fixed size representing mobile experience
+          iframe.style.width = '375px';
+          iframe.style.height = '600px';
+        }
       } else {
-        iframe.style.width = 'calc(50vh + 8vw)';
-        iframe.style.height = '90vh';
+        // Normal production behavior
+        // For phone/tablet (< 1000px), use 95vw
+        // For larger screens, use 50vh x 90vh
+        if (window.innerWidth < 1000) {
+          iframe.style.width = '95vw';
+          iframe.style.height = '90vh';
+        } else {
+          iframe.style.width = 'calc(50vh + 8vw)';
+          iframe.style.height = '90vh';
+        }
       }
     }
-  
+
     // Always position fixed
     iframe.style.position = 'fixed';
-  
-    // Center if mobile, else bottom-right
-    if (window.innerWidth < 1000) {
+
+    // Center if mobile (or mobile preview), else bottom-right
+    const shouldCenter = (window.innerWidth < 1000 && !isPreview) || (isPreview && config.isPhoneView);
+
+    if (shouldCenter) {
       iframe.style.left = '50%';
       iframe.style.top = '50%';
       iframe.style.transform = 'translate(-50%, -50%)';
@@ -994,7 +1015,7 @@
       iframe.style.bottom = '3vh';
       iframe.style.right = '2vw';
     }
-  
+
     // Re-send data to iframe in case layout changes
     sendMessageToIframe();
   }
