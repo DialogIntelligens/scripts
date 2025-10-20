@@ -548,8 +548,17 @@
         display: none !important;
       }
       
-      /* Hide minimize elements and chat button when chat is open */
-      #chat-container.chat-open #chat-button,
+      /* Show chat button when chat is NOT open */
+      #chat-container:not(.chat-open) #chat-button {
+        display: block !important;
+      }
+      
+      /* Hide chat button when chat is open */
+      #chat-container.chat-open #chat-button {
+        display: none !important;
+      }
+      
+      /* Hide minimize elements when chat is open */
       #chat-container.chat-open #minimize-button,
       #chat-container.chat-open #plus-overlay {
         display: none !important;
