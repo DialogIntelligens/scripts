@@ -855,9 +855,11 @@
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
       } else if (event.data.action === 'closeChat') {
+        const container = document.getElementById('chat-container');
         chatIframe.style.display = 'none';
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
+        if (container) container.classList.remove('chat-open');
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
