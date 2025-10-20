@@ -452,7 +452,18 @@
         opacity: 1 !important;
         transform: scale(1.1) !important;
       }
-      
+      #chat-button img {
+        width: 70px;             /* same size as old SVG */
+        height: 70px;
+        border-radius: 50%;      /* makes it round */
+        object-fit: cover;       /* ensures correct crop */
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        display: block;
+      }
+     #chat-button:hover img {
+        transform: scale(1.1);   /* same hover zoom */
+        opacity: 1;
+      }     
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute !important;
