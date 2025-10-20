@@ -844,9 +844,22 @@ function trackChatbotOpen() {
         return;
       }
       
+      // Check if it's a phone screen
+      var isPhoneScreen = window.innerWidth < 1000;
+      
+      // On phone screens, only show popup once ever
+      if (isPhoneScreen && localStorage.getItem("popupShownOnMobile") === "true") {
+        return;
+      }
+      
       // Check if popup was previously closed/minimized
       if (localStorage.getItem("popupClosed") === "true") {
         return;
+      }
+      
+      // If showing on phone, mark as shown
+      if (isPhoneScreen) {
+        localStorage.setItem("popupShownOnMobile", "true");
       }
         
       var popup = document.getElementById("chatbase-message-bubbles");
