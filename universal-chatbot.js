@@ -419,7 +419,7 @@
         position: fixed;
         bottom: 20px;
         right: 10px;
-        z-index: 200;
+        z-index: 190;
         transition: all 0.3s ease;
       }
       #chat-button {
