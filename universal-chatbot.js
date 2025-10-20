@@ -15,6 +15,9 @@
 (async function() {
   'use strict';
 
+  // Check if running in preview mode
+  const isPreviewMode = window.CHATBOT_PREVIEW_MODE === true;
+  
   // Extract chatbot ID from script URL parameter
   let chatbotID = null;
   try {
@@ -51,7 +54,11 @@
     return;
   }
 
-  console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
+  if (isPreviewMode) {
+    console.log(`🔍 Preview Mode: Initializing chatbot preview`);
+  } else {
+    console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
+  }
 
   // Global variables
   let config = null;
@@ -64,6 +71,12 @@
    * Load chatbot configuration from backend
    */
   async function loadChatbotConfig() {
+    // In preview mode, use the config provided by the preview window
+    if (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG) {
+      console.log('🔍 Preview Mode: Using provided configuration');
+      return window.CHATBOT_PREVIEW_CONFIG;
+    }
+    
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
@@ -314,24 +327,28 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking - wait for userId from iframe on checkout pages
-    console.log('🛒 Purchase tracking check:', {
-      enabled: config.purchaseTrackingEnabled,
-      isCheckoutPage: isCheckoutPage(),
-      userId: chatbotUserId || 'waiting for iframe...'
-    });
-    if (config.purchaseTrackingEnabled && isCheckoutPage()) {
-      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
-      // Give iframe time to load and send userId (2-6 seconds with retries)
-      // The postMessage listener will update chatbotUserId when received
-      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
-      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
-      setTimeout(checkForPurchase, 6000); // Final retry
-    } else if (config.purchaseTrackingEnabled) {
-      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
-      // Will be triggered by postMessage listener when user starts conversation
+    // Handle purchase tracking - disabled in preview mode
+    if (isPreviewMode) {
+      console.log('🔍 Preview Mode: Purchase tracking disabled');
     } else {
-      console.log('🛒 Purchase tracking disabled');
+      console.log('🛒 Purchase tracking check:', {
+        enabled: config.purchaseTrackingEnabled,
+        isCheckoutPage: isCheckoutPage(),
+        userId: chatbotUserId || 'waiting for iframe...'
+      });
+      if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+        console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
+        // Give iframe time to load and send userId (2-6 seconds with retries)
+        // The postMessage listener will update chatbotUserId when received
+        setTimeout(checkForPurchase, 2000); // Wait for iframe to load
+        setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
+        setTimeout(checkForPurchase, 6000); // Final retry
+      } else if (config.purchaseTrackingEnabled) {
+        console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
+        // Will be triggered by postMessage listener when user starts conversation
+      } else {
+        console.log('🛒 Purchase tracking disabled');
+      }
     }
 
     console.log('✅ Chatbot initialized successfully');
@@ -452,18 +469,7 @@
         opacity: 1 !important;
         transform: scale(1.1) !important;
       }
-      #chat-button img {
-        width: 70px;             /* same size as old SVG */
-        height: 70px;
-        border-radius: 50%;      /* makes it round */
-        object-fit: cover;       /* ensures correct crop */
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        display: block;
-      }
-     #chat-button:hover img {
-        transform: scale(1.1);   /* same hover zoom */
-        opacity: 1;
-      }     
+      
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute !important;
@@ -559,16 +565,6 @@
         display: none !important;
       }
       
-      /* Show chat button when chat is NOT open */
-      #chat-container:not(.chat-open) #chat-button {
-        display: block !important;
-      }
-      
-      /* Hide chat button when chat is open */
-      #chat-container.chat-open #chat-button {
-        display: none !important;
-      }
-      
       /* Hide minimize elements when chat is open */
       #chat-container.chat-open #minimize-button,
       #chat-container.chat-open #plus-overlay {
@@ -590,19 +586,21 @@
       /* Popup container */
       #chatbase-message-bubbles {
         position: absolute;
-          bottom: ${config.buttonBottom || '20px'};
-          right: calc(${config.buttonRight || '10px'} + 45px);
-          border-radius: 20px;
-          font-family: 'Montserrat', sans-serif;
+        bottom: calc(${config.buttonBottom || '20px'} + 5px);
+        right: calc(${config.buttonRight || '10px'} + 45px);
+        border-radius: 20px;
+        font-family: 'Montserrat', sans-serif;
         font-size: 20px;
         z-index: 18;
-          scale: 0.60;
+        scale: 0.58;
         cursor: pointer;
         display: none; /* hidden by default */
         flex-direction: column;
         gap: 50px;
         background-color: white;
         transform-origin: bottom right;
+        max-width: 700px;
+        min-width: 380px;
         box-shadow:
           0px 0.6px 0.54px -1.33px rgba(0, 0, 0, 0.15),
           0px 2.29px 2.06px -2.67px rgba(0, 0, 0, 0.13),
@@ -614,13 +612,6 @@
       /* Apply animation only when animate class is present */
       #chatbase-message-bubbles.animate {
         animation: rise-from-bottom 0.6s ease-out;
-      }
-      
-      /* Longer message styling */
-      #chatbase-message-bubbles.long-message {
-        bottom: calc(${config.buttonBottom || '10px'} + -9.5px);
-        right: calc(${config.buttonRight || '10px'} + 35px);
-        scale: 0.52;
       }
       
       #chatbase-message-bubbles::after {
@@ -669,16 +660,11 @@
         color: white;
       }
      
-            @media (max-width: 600px) {
-      #chatbase-message-bubbles {
+      @media (max-width: 600px) {
+        #chatbase-message-bubbles {
           bottom: 18px;
           right: 50px;
-        }
-        
-        #chatbase-message-bubbles.long-message {
-          bottom: 14px;
-          right: 45px;
-          scale: 0.50;
+          scale: 0.52;
         }
         
         /* Always show close button on mobile as simple X */
@@ -727,7 +713,7 @@
         background-color: white;
         color: black;
         border-radius: 10px;
-        padding: 12px 12px 12px 20px;
+        padding: 12px 20px;
         margin: 8px;
         font-size: 25px;
         font-family: 'Montserrat', sans-serif;
@@ -741,16 +727,6 @@
         word-wrap: break-word;
         max-width: 100%;
         text-align: center;
-      }
-      
-      /* Short message padding */
-      #chatbase-message-bubbles:not(.long-message) .message-box {
-        padding: 12px 12px 12px 20px;
-      }
-      
-      /* Long message padding */
-      #chatbase-message-bubbles.long-message .message-box {
-        padding: 12px 55px 12px 20px;
       }
     `;
 
@@ -858,6 +834,17 @@
       }
     }
 
+    // In preview mode, listen for config updates
+    if (window.CHATBOT_PREVIEW_MODE) {
+      window.addEventListener('previewConfigUpdate', function(event) {
+        console.log('🔄 Preview: Received config update event', event.detail);
+        // Update the global config
+        config = { ...config, ...event.detail };
+        // Re-adjust iframe size with new config
+        adjustIframeSize();
+      });
+    }
+
     // Listen for messages from iframe
     window.addEventListener('message', function(event) {
       if (event.origin !== config.iframeUrl.replace(/\/$/, '')) return;
@@ -866,11 +853,9 @@
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
       } else if (event.data.action === 'closeChat') {
-        const container = document.getElementById('chat-container');
         chatIframe.style.display = 'none';
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
-        if (container) container.classList.remove('chat-open');
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
@@ -986,15 +971,30 @@
     const isPreview = window.CHATBOT_PREVIEW_MODE === true;
     
     if (isPreview) {
-      // Fixed size for preview - doesn't respond to preview window size
-      iframe.style.width = '450px';
-      iframe.style.height = '600px';
-      iframe.style.position = 'fixed';
-      iframe.style.left = 'auto';
-      iframe.style.top = 'auto';
-      iframe.style.transform = 'none';
-      iframe.style.bottom = '3vh';
-      iframe.style.right = '2vw';
+      // Check if this is mobile preview mode (passed from parent)
+      const isMobilePreview = config && config.previewMode === 'mobile';
+      
+      if (isMobilePreview) {
+        // Mobile preview: use 95% of preview window (responsive)
+        iframe.style.width = '95vw';
+        iframe.style.height = '90vh';
+        iframe.style.position = 'fixed';
+        iframe.style.left = '50%';
+        iframe.style.top = '50%';
+        iframe.style.transform = 'translate(-50%, -50%)';
+        iframe.style.bottom = '';
+        iframe.style.right = '';
+      } else {
+        // Desktop preview: fixed size (doesn't respond to preview window size)
+        iframe.style.width = '375px';
+        iframe.style.height = '500px';
+        iframe.style.position = 'fixed';
+        iframe.style.left = 'auto';
+        iframe.style.top = 'auto';
+        iframe.style.transform = 'none';
+        iframe.style.bottom = '3vh';
+        iframe.style.right = '2vw';
+      }
       return;
     }
   
@@ -1211,20 +1211,11 @@
       logSplitImpression(splitAssignment.variant_id);
     }
 
-    // Set popup width dynamically to ensure text stays in 1-2 lines maximum
+    // Set popup width dynamically based on character count
+    // Formula ensures text stays readable in 1-2 lines
     const charCount = messageBox.textContent.trim().length;
-    popup.classList.remove('long-message');
-    
-    // Dynamic width formula based on reference points:
-    // 58 chars = 460px, 71 chars = 500px
-    // Formula: width = (charCount * 3.1) + 280
-    let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.1) + 280));
+    const calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 260));
     popup.style.width = calculatedWidth + 'px';
-    
-    // Add long-message class for positioning adjustment if needed
-    if (charCount > 45) {
-      popup.classList.add('long-message');
-    }
 
     // Add animation class for popup entrance
     popup.classList.add('animate');
@@ -1272,20 +1263,11 @@
 
     messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
 
-    // Set popup width dynamically to ensure text stays in 1-2 lines maximum
+    // Set popup width dynamically based on character count
+    // Formula ensures text stays readable in 1-2 lines
     const charCount = messageBox.textContent.trim().length;
-    popup.classList.remove('long-message');
-    
-    // Dynamic width formula based on reference points:
-    // 58 chars = 460px, 71 chars = 500px
-    // Formula: width = (charCount * 3.1) + 280
-    let calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 280));
+    const calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 260));
     popup.style.width = calculatedWidth + 'px';
-    
-    // Add long-message class for positioning adjustment if needed
-    if (charCount > 45) {
-      popup.classList.add('long-message');
-    }
 
     popup.style.display = 'flex';
     // No animations on subsequent loads
