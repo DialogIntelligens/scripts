@@ -33,7 +33,7 @@ function purchaseKey(userId) {
 
 function initChatbotSafely() {
 
-  var popupText = "Jeg kan anbefale produkter og besvare spørgsmål ";
+  var popupText = "";
 
   // Prevent multiple initializations
   if (window.chatbotInitialized) {
