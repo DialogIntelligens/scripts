@@ -511,7 +511,7 @@ function initWithDebug() {
   
     
       :root {
-        --icon-color: #1a1d56;
+        --icon-color: #c3bb7c;
         --badge-color: #CC2B20;
       }
    
@@ -736,10 +736,10 @@ function initWithDebug() {
         productButtonPadding: "",
         productImageHeightMultiplier: 1,
           
-        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1755154685835.png",
-        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1755696262145.png",
-        themeColor: "#224e9a",
-        aiMessageColor: "#e9ecef",
+        headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1761033965818.png",
+        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1761034176373.png",
+        themeColor: "#c3bb7c",
+        aiMessageColor: "#f9f8f2",
         aiMessageTextColor: "#000000",
         headerTitleG: "",
         headerSubtitleG: "Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.",
@@ -750,7 +750,7 @@ function initWithDebug() {
   
         enableLivechat: true,
           
-        titleG: "Humac assistent",
+        titleG: "LAMPEGURU AI Assistent",
         purchaseTrackingEnabled: false,
         isTabletView: false,
         isPhoneView: window.innerWidth < 1000
