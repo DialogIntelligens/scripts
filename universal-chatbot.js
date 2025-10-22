@@ -396,7 +396,7 @@
       <iframe
         id="chat-iframe"
         src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: 40000;">
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
   }
@@ -436,7 +436,7 @@
         position: fixed;
         bottom: 20px;
         right: 10px;
-        z-index: 190;
+        z-index: ${config.zIndex || 190};
         transition: all 0.3s ease;
       }
       #chat-button {
@@ -444,7 +444,7 @@
         background: none !important;
         border: none !important;
         position: fixed !important;
-        z-index: 20 !important;
+        z-index: calc(${config.zIndex || 190} + 10) !important;
         right: ${config.buttonRight || '10px'} !important;
         bottom: ${config.buttonBottom || '27px'} !important;
         padding: 5px !important;
@@ -504,7 +504,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        z-index: 25;
+        z-index: config.zIndex || 190;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
         transition: all 0.3s ease !important;
         line-height: 1 !important;
@@ -548,7 +548,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer !important;
-        z-index: 30 !important;
+        z-index: calc(${config.zIndex || 190} + 20) !important;
         box-shadow: 0 2px 10px rgba(0,0,0,0.4) !important;
         transition: all 0.3s ease !important;
         line-height: 1 !important;
@@ -612,7 +612,7 @@
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
-        z-index: 18;
+        z-index: calc(${config.zIndex || 190} + 8);
         scale: 0.58;
         cursor: pointer;
         display: none; /* hidden by default */
@@ -668,7 +668,7 @@
         opacity: 0;
         transform: scale(0.7);
         transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-        z-index: 1000000;
+        z-index: calc(${config.zIndex || 190} + 999810);
         pointer-events: none;
       }
       #chatbase-message-bubbles:hover .close-popup {
