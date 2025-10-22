@@ -504,7 +504,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        z-index: config.zIndex || 190;
+        z-index: ${config.zIndex || 190};
         box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
         transition: all 0.3s ease !important;
         line-height: 1 !important;
@@ -1023,19 +1023,19 @@
   
     // Keep 'isIframeEnlarged' logic if toggled from the iframe
     if (isIframeEnlarged) {
-      // A bigger version if user toggles enlarge
-      iframe.style.width = 'calc(2 * 45vh + 6vw)';
-      iframe.style.height = '90vh';
+      // Enlarged dimensions (configurable)
+      iframe.style.width = config.iframeWidthEnlarged || 'calc(2 * 45vh + 6vw)';
+      iframe.style.height = config.iframeHeightEnlarged || '90vh';
     } else {
       // Default sizing:
-      // For phone/tablet (< 1000px), use 95vw
-      // For larger screens, use 50vh x 90vh
+      // For phone/tablet (< 1000px), use mobile dimensions
+      // For larger screens, use desktop dimensions
       if (window.innerWidth < 1000) {
-        iframe.style.width = '95vw';
-        iframe.style.height = '90vh';
+        iframe.style.width = config.iframeWidthMobile || '95vw';
+        iframe.style.height = config.iframeHeightMobile || '90vh';
       } else {
-        iframe.style.width = 'calc(50vh + 8vw)';
-        iframe.style.height = '90vh';
+        iframe.style.width = config.iframeWidthDesktop || 'calc(50vh + 8vw)';
+        iframe.style.height = config.iframeHeightDesktop || '90vh';
       }
     }
   
@@ -1144,6 +1144,12 @@
     
     // Mobile behavior: Show once after 2 page visits + 6s stay, then dismiss after 15s
     if (isMobile) {
+      // Check if popup should be shown on mobile (configurable)
+      if (config.popupShowOnMobile === false) {
+        console.log('🔍 Popup disabled on mobile via config');
+        return;
+      }
+      
       // If popup was permanently dismissed on mobile, don't show
       if (popupState === 'dismissed') {
         return;
@@ -1153,8 +1159,9 @@
       const popupShowCountKey = `popupShowCount_${chatbotID}`;
       let popupShowCount = parseInt(localStorage.getItem(popupShowCountKey) || '0');
       
-      // Maximum 2 popup appearances on mobile
-      if (popupShowCount >= 2) {
+      // Maximum popup appearances on mobile (configurable, default 2)
+      const maxDisplays = config.popupMaxDisplays || 2;
+      if (popupShowCount >= maxDisplays) {
         localStorage.setItem(popupStateKey, 'dismissed');
         return;
       }
@@ -1193,8 +1200,9 @@
               const popup = document.getElementById('chatbase-message-bubbles');
               if (popup && popup.style.display === 'flex') {
                 popup.style.display = 'none';
-                // After showing 2 times, mark as permanently dismissed
-                if (popupShowCount >= 2) {
+                // After showing max times, mark as permanently dismissed
+                const maxDisplays = config.popupMaxDisplays || 2;
+                if (popupShowCount >= maxDisplays) {
                   localStorage.setItem(popupStateKey, 'dismissed');
                 }
               }
