@@ -469,7 +469,18 @@
         opacity: 1 !important;
         transform: scale(1.1) !important;
       }
-      
+      #chat-button img {
+        width: 70px;             /* same size as old SVG */
+        height: 70px;
+        border-radius: 50%;      /* makes it round */
+        object-fit: cover;       /* ensures correct crop */
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        display: block;
+      }
+     #chat-button:hover img {
+        transform: scale(1.1);   /* same hover zoom */
+        opacity: 1;
+      }     
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute !important;
@@ -562,6 +573,16 @@
       /* Hide minimize feature when disabled */
       #chat-container.minimize-disabled #minimize-button,
       #chat-container.minimize-disabled #plus-overlay {
+        display: none !important;
+      }
+      
+      /* Show chat button when chat is NOT open */
+      #chat-container:not(.chat-open) #chat-button {
+        display: block !important;
+      }
+      
+      /* Hide chat button when chat is open */
+      #chat-container.chat-open #chat-button {
         display: none !important;
       }
       
@@ -853,9 +874,11 @@
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
       } else if (event.data.action === 'closeChat') {
+        const container = document.getElementById('chat-container');
         chatIframe.style.display = 'none';
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
+        if (container) container.classList.remove('chat-open');
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
