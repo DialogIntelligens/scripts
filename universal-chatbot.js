@@ -550,6 +550,8 @@
       #chat-container.minimized #chat-button {
         transform: scale(0.45);
         transform-origin: bottom right;
+        right: calc(10px + -1.8px) !important;
+        bottom: calc(20px + -1px) !important;
       }
       
       #chat-container.minimized #minimize-button {
@@ -572,6 +574,7 @@
         max-width: 20px !important;
         max-height: 20px !important;
         padding: 0 !important;
+        scale: 1.15 !important;
         margin: 0 !important;
         border-radius: 50% !important;
         border: none !important;
