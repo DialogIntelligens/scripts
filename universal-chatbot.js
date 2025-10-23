@@ -491,8 +491,8 @@
         appearance: none !important;
       }
       #chat-button svg {
-        width: 65px !important;
-        height: 65px !important;
+        width: 74px !important;
+        height: 71px !important;
         display: block !important;
         transition: opacity 0.3s, transform 0.3s !important;
       }
@@ -765,7 +765,7 @@
         background-color: white;
         color: black;
         border-radius: 10px;
-        padding: 12px 20px;
+        padding: 12px 45px 12px 15px;
         margin: 8px;
         font-size: 25px;
         font-family: 'Montserrat', sans-serif;
