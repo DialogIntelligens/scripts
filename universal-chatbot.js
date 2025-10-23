@@ -476,8 +476,8 @@
         border: none !important;
         position: fixed !important;
         z-index: calc(${config.zIndex || 190} + 10) !important;
-        right: ${config.buttonRight || '10px'} !important;
-        bottom: ${config.buttonBottom || '27px'} !important;
+        right: calc(${config.buttonRight || '10px'} + 5) !important;
+        bottom: calc(${config.buttonBottom || '27px'} + 15) !important;
         padding: 5px !important;
         margin: 0 !important;
         min-height: unset !important;
@@ -501,8 +501,8 @@
         transform: scale(1.1) !important;
       }
       #chat-button img {
-        width: 70px;             /* same size as old SVG */
-        height: 70px;
+        width: 74px;             /* same size as old SVG */
+        height: 71px;
         border-radius: 50%;      /* makes it round */
         object-fit: cover;       /* ensures correct crop */
         transition: transform 0.3s ease, opacity 0.3s ease;
