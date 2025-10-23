@@ -737,7 +737,7 @@ function initWithDebug() {
         productImageHeightMultiplier: 1,
           
         headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1761035294817.png",
-        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1761035349980.png",
+        messageIcon: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_message_icon/logo-1761205038165.png",
         themeColor: "#020302",
         aiMessageColor: "#fefdf8",
         aiMessageTextColor: "#000000",
