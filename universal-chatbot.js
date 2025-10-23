@@ -715,7 +715,7 @@
         color: white;
       }
      
-      @media (max-width: 600px) {
+      @media (max-width: 1000px) {
         #chatbase-message-bubbles {
           bottom: 18px;
           right: 50px;
