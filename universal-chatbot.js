@@ -548,7 +548,7 @@
       
       /* Minimized state - shrink the entire chat button */
       #chat-container.minimized #chat-button {
-        transform: scale(0.45);
+        transform: scale(0.55);
         transform-origin: bottom right;
         right: calc(10px + -2px) !important;
         bottom: calc(20px + -15px) !important;
