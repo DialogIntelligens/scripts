@@ -476,8 +476,8 @@
         border: none !important;
         position: fixed !important;
         z-index: calc(${config.zIndex || 190} + 10) !important;
-        right: calc(${config.buttonRight || '10px'} + 5) !important;
-        bottom: calc(${config.buttonBottom || '27px'} + 15) !important;
+        right: calc(${config.buttonRight || '10px'} + 5px) !important;
+        bottom: calc(${config.buttonBottom || '27px'} + 15px) !important;
         padding: 5px !important;
         margin: 0 !important;
         min-height: unset !important;
