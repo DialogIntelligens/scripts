@@ -550,8 +550,8 @@
       #chat-container.minimized #chat-button {
         transform: scale(0.45);
         transform-origin: bottom right;
-        right: calc(10px + -1.8px) !important;
-        bottom: calc(20px + -1px) !important;
+        right: calc(10px + -2px) !important;
+        bottom: calc(20px + -15px) !important;
       }
       
       #chat-container.minimized #minimize-button {
@@ -561,8 +561,8 @@
       /* Plus overlay when minimized - greyed out and hovering over small icon */
       #plus-overlay {
         position: absolute !important;
-        bottom: 7px !important;
-        right: 8.5px !important;
+        bottom: -4.5px !important;
+        right: 10px !important;
         font-size: 15px !important;
         font-weight: bold !important;
         color: white !important;
