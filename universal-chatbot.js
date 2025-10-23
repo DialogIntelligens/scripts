@@ -515,8 +515,8 @@
       /* Minimize button - positioned at top right of the icon */
       #minimize-button {
         position: absolute !important;
-        top: -25px !important;
-        right: 0px !important;
+        top: -10px !important;
+        right: -5px !important;
         width: 24px !important;
         height: 24px !important;
         min-width: 24px !important;
@@ -535,7 +535,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        z-index: ${config.zIndex || 190};
+        z-index: calc(${config.zIndex || 190} + 6) !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
         transition: all 0.3s ease !important;
         line-height: 1 !important;
@@ -719,7 +719,20 @@
         #chatbase-message-bubbles {
           bottom: 18px;
           right: 50px;
+          bottom: calc(${config.buttonBottom || '20px'} + -20px);
+          right: calc(${config.buttonRight || '10px'} + 15px);
           scale: 0.52;
+        }
+        
+        #chat-button {
+          z-index: calc(${config.zIndex || 190} + 5) !important;
+          right: calc(${config.buttonRight || '10px'} + -8px) !important;
+          bottom: calc(${config.buttonBottom || '27px'} + -10px) !important;
+        }
+        
+        #chat-button svg {
+            width: 65px !important;
+            height: 65px !important;
         }
         
         /* Always show close button on mobile as simple X */
