@@ -494,8 +494,8 @@
         border: none !important;
         position: fixed !important;
         z-index: calc(${config.zIndex || 190} + 10) !important;
-        right: calc(${config.buttonRight || '10px'} + 5px) !important;
-        bottom: calc(${config.buttonBottom || '27px'} + 15px) !important;
+        right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 5px) !important;
+        bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + 15px) !important;
         padding: 5px !important;
         margin: 0 !important;
         min-height: unset !important;
@@ -659,8 +659,8 @@
       /* Popup container */
       #chatbase-message-bubbles {
         position: absolute;
-        bottom: calc(${config.buttonBottom || '20px'} + 5px);
-        right: calc(${config.buttonRight || '10px'} + 45px);
+        bottom: calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 5px);
+        right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 45px);
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
@@ -737,15 +737,15 @@
         #chatbase-message-bubbles {
           bottom: 18px;
           right: 50px;
-          bottom: calc(${config.buttonBottom || '20px'} + -20px);
-          right: calc(${config.buttonRight || '10px'} + 15px);
+          bottom: calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -20px);
+          right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 15px);
           scale: 0.52;
         }
 
         #chat-container #chat-button {
           z-index: calc(${config.zIndex || 190} + 5) !important;
-          right: calc(${config.buttonRight || '10px'} + -8px) !important;
-          bottom: calc(${config.buttonBottom || '27px'} + -10px) !important;
+          right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + -8px) !important;
+          bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + -10px) !important;
         }
         
         #chat-container #chat-button svg {
