@@ -322,8 +322,26 @@
     // Initialize event handlers
     initializeEventHandlers();
 
-    // Show popup after delay
-    if (config.enablePopupMessage !== false) {
+    // Restore chat window state on desktop (if it was open before)
+    const isDesktop = window.innerWidth >= 1000;
+    const savedChatState = localStorage.getItem('chatWindowState');
+    
+    if (isDesktop && savedChatState === 'open') {
+      // Auto-open chat on desktop if it was previously open
+      console.log('🔄 Restoring chat window state on desktop');
+      setTimeout(function() {
+        const chatButton = document.getElementById('chat-button');
+        if (chatButton) {
+          toggleChatWindow();
+        }
+      }, 500); // Small delay to ensure DOM is ready
+    } else if (!isDesktop) {
+      // Clear saved state on mobile/tablet to prevent auto-opening
+      localStorage.removeItem('chatWindowState');
+    }
+
+    // Show popup after delay (only if chat is not being auto-opened)
+    if (config.enablePopupMessage !== false && !(isDesktop && savedChatState === 'open')) {
       setTimeout(showPopup, 2000);
     }
 
@@ -932,6 +950,8 @@
         chatButton.style.display = 'block';
         if (minimizeBtn) minimizeBtn.style.display = 'none';
         if (container) container.classList.remove('chat-open');
+        // Clear chat window state when closed via iframe
+        localStorage.removeItem('chatWindowState');
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
@@ -1013,6 +1033,12 @@
       const popupStateKey = `popupState_${chatbotID}`;
       localStorage.setItem(popupStateKey, 'dismissed');
       
+      // Save chat window state (desktop only)
+      const isDesktop = window.innerWidth >= 1000;
+      if (isDesktop) {
+        localStorage.setItem('chatWindowState', 'open');
+      }
+      
       adjustIframeSize();
       sendMessageToIframe();
       
@@ -1033,6 +1059,9 @@
       chatButton.style.display = 'block';
       if (minimizeBtn) minimizeBtn.style.display = 'none';
       if (container) container.classList.remove('chat-open');
+      
+      // Clear chat window state when manually closed
+      localStorage.removeItem('chatWindowState');
     }
   }
 
