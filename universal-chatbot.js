@@ -738,7 +738,7 @@
           bottom: 18px;
           right: 50px;
           bottom: calc(${config.buttonBottom || '20px'} + -20px);
-          right: calc(${config.buttonRight || '10px'} + 15px);
+          right: calc(${config.buttonRight || '10px'} + 25px);
           scale: 0.52;
         }
         
