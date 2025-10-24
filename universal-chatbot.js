@@ -444,7 +444,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="https://skalerbartprodukt.onrender.com"
+        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -488,12 +488,12 @@
         z-index: ${config.zIndex || 190};
         transition: all 0.3s ease;
       }
-      #chat-button {
+      #chat-container #chat-button {
         cursor: pointer !important;
         background: none !important;
         border: none !important;
         position: fixed !important;
-        z-index: calc(${config.zIndex || 190} + 9) !important;
+        z-index: calc(${config.zIndex || 190} + 10) !important;
         right: calc(${config.buttonRight || '10px'} + 5px) !important;
         bottom: calc(${config.buttonBottom || '27px'} + 15px) !important;
         padding: 5px !important;
@@ -508,17 +508,17 @@
         -moz-appearance: none !important;
         appearance: none !important;
       }
-      #chat-button svg {
+      #chat-container #chat-button svg {
         width: 74px !important;
         height: 71px !important;
         display: block !important;
         transition: opacity 0.3s, transform 0.3s !important;
       }
-      #chat-button:hover svg {
+      #chat-container #chat-button:hover svg {
         opacity: 1 !important;
         transform: scale(1.1) !important;
       }
-      #chat-button img {
+      #chat-container #chat-button img {
         width: 74px;             /* same size as old SVG */
         height: 71px;
         border-radius: 50%;      /* makes it round */
@@ -526,7 +526,7 @@
         transition: transform 0.3s ease, opacity 0.3s ease;
         display: block;
       }
-     #chat-button:hover img {
+     #chat-container #chat-button:hover img {
         transform: scale(1.1);   /* same hover zoom */
         opacity: 1;
       }     
@@ -617,27 +617,27 @@
       
       /* Show minimize button only on mobile */
       @media (max-width: 1000px) {
-        #minimize-button {
+        #chat-container #minimize-button {
           display: flex;
         }
       }
-      
+
       /* Hide minimize feature when disabled */
       #chat-container.minimize-disabled #minimize-button,
       #chat-container.minimize-disabled #plus-overlay {
         display: none !important;
       }
-      
+
       /* Show chat button when chat is NOT open */
       #chat-container:not(.chat-open) #chat-button {
         display: block !important;
       }
-      
+
       /* Hide chat button when chat is open */
       #chat-container.chat-open #chat-button {
         display: none !important;
       }
-      
+
       /* Hide minimize elements when chat is open */
       #chat-container.chat-open #minimize-button,
       #chat-container.chat-open #plus-overlay {
@@ -664,7 +664,7 @@
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
-        z-index: calc(${config.zIndex || 190} + 4);
+        z-index: calc(${config.zIndex || 190} + 8);
         scale: 0.58;
         cursor: pointer;
         display: none; /* hidden by default */
@@ -738,17 +738,17 @@
           bottom: 18px;
           right: 50px;
           bottom: calc(${config.buttonBottom || '20px'} + -20px);
-          right: calc(${config.buttonRight || '10px'} + 25px);
+          right: calc(${config.buttonRight || '10px'} + 15px);
           scale: 0.52;
         }
-        
-        #chat-button {
+
+        #chat-container #chat-button {
           z-index: calc(${config.zIndex || 190} + 5) !important;
           right: calc(${config.buttonRight || '10px'} + -8px) !important;
           bottom: calc(${config.buttonBottom || '27px'} + -10px) !important;
         }
         
-        #chat-button svg {
+        #chat-container #chat-button svg {
             width: 65px !important;
             height: 65px !important;
         }
@@ -897,6 +897,11 @@
         e.stopPropagation();
         const container = document.getElementById('chat-container');
         container.classList.remove('minimized');
+        
+        // Restore minimize button visibility (remove inline style so CSS takes over)
+        if (minimizeBtn) {
+          minimizeBtn.style.display = '';
+        }
         
         // Clear minimized state
         const minimizedStateKey = `chatMinimized_${chatbotID}`;
