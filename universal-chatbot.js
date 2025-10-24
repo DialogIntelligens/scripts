@@ -493,7 +493,7 @@
         background: none !important;
         border: none !important;
         position: fixed !important;
-        z-index: calc(${config.zIndex || 190} + 9) !important;
+        z-index: calc(${config.zIndex || 190} + 10) !important;
         right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 5px) !important;
         bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + 15px) !important;
         padding: 5px !important;
@@ -743,7 +743,7 @@
         }
 
         #chat-container #chat-button {
-          z-index: calc(${config.zIndex || 190} + 9) !important;
+          z-index: calc(${config.zIndex || 190} + 5) !important;
           right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + -8px) !important;
           bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + -10px) !important;
         }
