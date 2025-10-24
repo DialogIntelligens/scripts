@@ -493,7 +493,7 @@
         background: none !important;
         border: none !important;
         position: fixed !important;
-        z-index: calc(${config.zIndex || 190} + 10) !important;
+        z-index: calc(${config.zIndex || 190} + 9) !important;
         right: calc(${config.buttonRight || '10px'} + 5px) !important;
         bottom: calc(${config.buttonBottom || '27px'} + 15px) !important;
         padding: 5px !important;
@@ -664,7 +664,7 @@
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
-        z-index: calc(${config.zIndex || 190} + 8);
+        z-index: calc(${config.zIndex || 190} + 4);
         scale: 0.58;
         cursor: pointer;
         display: none; /* hidden by default */
