@@ -740,7 +740,7 @@
           bottom: calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -20px);
           right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 25px);
           scale: 0.52;
-          z-index: calc(190 + 7);
+          z-index: calc(${config.zIndex} + 7);
 
         }
 
