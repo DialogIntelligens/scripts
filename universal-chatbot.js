@@ -1098,8 +1098,8 @@
         iframe.style.right = '';
       } else {
         // Desktop preview: fixed size (doesn't respond to preview window size)
-        iframe.style.width = '375px';
-        iframe.style.height = '500px';
+        iframe.style.width = 'calc(375px + 6vw)';
+        iframe.style.height = 'calc(450px + 20vh)';
         iframe.style.position = 'fixed';
         iframe.style.left = 'auto';
         iframe.style.top = 'auto';
