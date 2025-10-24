@@ -553,7 +553,7 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        z-index: calc(${config.zIndex || 190} + 6) !important;
+        z-index: calc(${config.zIndex || 190} + 9) !important;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
         transition: all 0.3s ease !important;
         line-height: 1 !important;
@@ -743,7 +743,7 @@
         }
 
         #chat-container #chat-button {
-          z-index: calc(${config.zIndex || 190} + 5) !important;
+          z-index: calc(${config.zIndex || 190} + 8) !important;
           right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + -8px) !important;
           bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + -10px) !important;
         }
