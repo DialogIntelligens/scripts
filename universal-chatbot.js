@@ -68,20 +68,6 @@
   let hasInteractedWithChatbot = false; // Only track purchases for users who opened the chatbot
 
   /**
-   * Get the appropriate base URL based on preview mode
-   */
-  function getBaseUrl() {
-    return isPreviewMode ? 'http://localhost:3000' : 'https://egendatabasebackend.onrender.com';
-  }
-
-  /**
-   * Get the appropriate iframe URL based on preview mode
-   */
-  function getIframeUrl() {
-    return isPreviewMode ? 'http://localhost:3002' : 'https://skalerbartprodukt.onrender.com';
-  }
-
-  /**
    * Load chatbot configuration from backend
    */
   async function loadChatbotConfig() {
@@ -91,10 +77,15 @@
       return window.CHATBOT_PREVIEW_CONFIG;
     }
     
+    // Get backend URL from preview config (for development dashboard) or use production URL
+    const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
+      ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
+      : 'https://egendatabasebackend.onrender.com';
+    
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `${getBaseUrl()}/api/integration-config/${chatbotID}`
+        `${backendUrl}/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -107,10 +98,15 @@
     } catch (error) {
       console.error('❌ Error loading chatbot config:', error);
       
+      // Get iframe URL from preview config (for development dashboard) or use production URL
+      const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
+        ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
+        : 'https://skalerbartprodukt.onrender.com';
+      
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: getIframeUrl(),
+        iframeUrl: iframeUrl,
         themeColor: '#1a1d56',
         borderRadiusMultiplier: 1.0,
         headerTitleG: '',
@@ -126,9 +122,14 @@
    * Get default configuration (used as fallback)
    */
   function getDefaultConfig() {
+    // Get iframe URL from preview config (for development dashboard) or use production URL
+    const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
+      ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
+      : 'https://skalerbartprodukt.onrender.com';
+    
     return {
       chatbotID: chatbotID,
-      iframeUrl: getIframeUrl(),
+      iframeUrl: iframeUrl,
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -195,10 +196,23 @@
     return visitorKey;
   }
 
+  /**
+   * Get backend URL for API calls (supports preview mode with local backend)
+   */
+  function getBackendUrl() {
+    // In preview mode, use the backend URL from preview config
+    if (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) {
+      return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
+    }
+    // Otherwise use production URL
+    return 'https://egendatabasebackend.onrender.com';
+  }
+
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`${getBaseUrl()}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const backendUrl = getBackendUrl();
+      const resp = await fetch(`${backendUrl}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -211,7 +225,8 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch(`${getBaseUrl()}/api/split-impression`, {
+      const backendUrl = getBackendUrl();
+      await fetch(`${backendUrl}/api/split-impression`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -229,7 +244,8 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`${getBaseUrl()}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const backendUrl = getBackendUrl();
+      const resp = await fetch(`${backendUrl}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -458,7 +474,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${getIframeUrl()}"
+        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -1642,16 +1658,17 @@
       return;
     }
 
+    const backendUrl = getBackendUrl();
     const currency = config.currency || 'DKK';
     console.log('🛒 Reporting purchase to backend:', {
       userId: chatbotUserId,
       chatbotId: chatbotID,
       amount: totalPrice,
       currency: currency,
-      endpoint: `${getBaseUrl()}/purchases`
+      endpoint: `${backendUrl}/purchases`
     });
 
-    fetch(`${getBaseUrl()}/purchases`, {
+    fetch(`${backendUrl}/purchases`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
