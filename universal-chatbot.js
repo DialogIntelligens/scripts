@@ -68,6 +68,20 @@
   let hasInteractedWithChatbot = false; // Only track purchases for users who opened the chatbot
 
   /**
+   * Get the appropriate base URL based on preview mode
+   */
+  function getBaseUrl() {
+    return isPreviewMode ? 'http://localhost:3000' : 'https://egendatabasebackend.onrender.com';
+  }
+
+  /**
+   * Get the appropriate iframe URL based on preview mode
+   */
+  function getIframeUrl() {
+    return isPreviewMode ? 'http://localhost:3002' : 'https://skalerbartprodukt.onrender.com';
+  }
+
+  /**
    * Load chatbot configuration from backend
    */
   async function loadChatbotConfig() {
@@ -80,7 +94,7 @@
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
-        `https://egendatabasebackend.onrender.com/api/integration-config/${chatbotID}`
+        `${getBaseUrl()}/api/integration-config/${chatbotID}`
       );
 
       if (!response.ok) {
@@ -96,7 +110,7 @@
       // Return minimal fallback configuration
       return {
         chatbotID: chatbotID,
-        iframeUrl: 'https://skalerbartprodukt.onrender.com',
+        iframeUrl: getIframeUrl(),
         themeColor: '#1a1d56',
         borderRadiusMultiplier: 1.0,
         headerTitleG: '',
@@ -114,7 +128,7 @@
   function getDefaultConfig() {
     return {
       chatbotID: chatbotID,
-      iframeUrl: 'https://skalerbartprodukt.onrender.com',
+      iframeUrl: getIframeUrl(),
       pagePath: window.location.href,
       leadGen: '%%',
       leadMail: '',
@@ -184,7 +198,7 @@
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`${getBaseUrl()}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -197,7 +211,7 @@
   async function logSplitImpression(variantId) {
     try {
       const visitorKey = generateVisitorKey();
-      await fetch('https://egendatabasebackend.onrender.com/api/split-impression', {
+      await fetch(`${getBaseUrl()}/api/split-impression`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -215,7 +229,7 @@
   async function fetchPopupFromBackend() {
     try {
       const visitorKey = generateVisitorKey();
-      const resp = await fetch(`https://egendatabasebackend.onrender.com/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`${getBaseUrl()}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -444,7 +458,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="https://skalerbartprodukt.onrender.com"
+        src="${getIframeUrl()}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -1634,10 +1648,10 @@
       chatbotId: chatbotID,
       amount: totalPrice,
       currency: currency,
-      endpoint: 'https://egendatabasebackend.onrender.com/purchases'
+      endpoint: `${getBaseUrl()}/purchases`
     });
 
-    fetch('https://egendatabasebackend.onrender.com/purchases', {
+    fetch(`${getBaseUrl()}/purchases`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
