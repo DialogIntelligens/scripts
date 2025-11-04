@@ -71,9 +71,29 @@
    * Load chatbot configuration from backend
    */
   async function loadChatbotConfig() {
-    // In preview mode, use the config provided by the preview window
+    // In preview mode, use the config provided by the preview window, but ensure leadFields are included
     if (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG) {
       console.log('🔍 Preview Mode: Using provided configuration');
+
+      // If preview config doesn't have leadFields, try to fetch from backend to get them
+      if (!window.CHATBOT_PREVIEW_CONFIG.leadFields) {
+        console.log('🔍 Preview Mode: Missing leadFields, fetching from backend...');
+        try {
+          const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
+            ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
+            : 'https://egendatabasebackend.onrender.com';
+
+          const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
+      if (response.ok) {
+        const backendConfig = await response.json();
+        // Merge backend config with preview config
+        return { ...window.CHATBOT_PREVIEW_CONFIG, ...backendConfig };
+      }
+        } catch (error) {
+          console.warn('🔍 Preview Mode: Failed to fetch leadFields from backend:', error);
+        }
+      }
+
       return window.CHATBOT_PREVIEW_CONFIG;
     }
     
@@ -167,7 +187,7 @@
       aiMessageTextColor: '#262641',
       borderRadiusMultiplier: 1.0,
       headerTitleG: '',
-      headerSubtitleG: 'Vores virtuelle assistent er her for at hjælpe dig.',
+      headerSubtitleG: 'Du skriver med en kunstig intelligens. Ved at bruge denne chatbot accepterer du at der kan opstå fejl, og at samtalen kan gemmes og behandles. Læs mere i vores privatlivspolitik.',
       subtitleLinkText: '',
       subtitleLinkUrl: '',
       fontFamily: '',
@@ -286,7 +306,7 @@
 
     // Load configuration from backend
     config = await loadChatbotConfig();
-    
+
     // Merge with defaults
     config = { ...getDefaultConfig(), ...config };
     config.pagePath = window.location.href;
@@ -1204,6 +1224,7 @@
         isPhoneView: window.innerWidth < 1000,
         gptInterface: false
       };
+
 
       console.log('📤 Sending configuration to iframe:', {
         chatbotID: messageData.chatbotID,
