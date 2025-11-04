@@ -1232,7 +1232,8 @@
         action: messageData.action,
         themeColor: messageData.themeColor,
         borderRadiusMultiplier: messageData.borderRadiusMultiplier,
-        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled,
+        require_email_before_conversation: messageData.require_email_before_conversation
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
