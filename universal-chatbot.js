@@ -194,6 +194,7 @@
       enableLivechat: false,
       titleG: 'Chat Assistent',
       purchaseTrackingEnabled: false,
+      require_email_before_conversation: false,
       splitTestId: null,
       isTabletView: false,  // Always false to match legacy behavior
       isPhoneView: window.innerWidth < 1000,
