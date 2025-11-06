@@ -396,31 +396,30 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Handle purchase tracking - disabled in preview mode
-    if (isPreviewMode) {
-      console.log('🔍 Preview Mode: Purchase tracking disabled');
-    } else {
-      console.log('🛒 Purchase tracking check:', {
-        enabled: config.purchaseTrackingEnabled,
-        isCheckoutPage: isCheckoutPage(),
-        userId: chatbotUserId || 'waiting for iframe...'
-      });
-      if (config.purchaseTrackingEnabled && isCheckoutPage()) {
-        console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
-        // Give iframe time to load and send userId (2-6 seconds with retries)
-        // The postMessage listener will update chatbotUserId when received
-        setTimeout(checkForPurchase, 2000); // Wait for iframe to load
-        setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
-        setTimeout(checkForPurchase, 6000); // Final retry
-      } else if (config.purchaseTrackingEnabled) {
-        console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
-        // Will be triggered by postMessage listener when user starts conversation
-      } else {
-        console.log('🛒 Purchase tracking disabled');
-      }
-    }
-
     console.log('✅ Chatbot initialized successfully');
+  }
+
+  function handlePurchaseTracking() {
+    // Handle purchase tracking
+    console.log('🛒 Purchase tracking check:', {
+      enabled: config.purchaseTrackingEnabled,
+      isCheckoutPage: isCheckoutPage(),
+      userId: chatbotUserId || 'waiting for iframe...'
+    });
+
+    if (config.purchaseTrackingEnabled && isCheckoutPage()) {
+      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
+      // Give iframe time to load and send userId (2-6 seconds with retries)
+      // The postMessage listener will update chatbotUserId when received
+      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
+      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
+      setTimeout(checkForPurchase, 6000); // Final retry
+    } else if (config.purchaseTrackingEnabled) {
+      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
+      // Will be triggered by postMessage listener when user starts conversation
+    } else {
+      console.log('🛒 Purchase tracking disabled');
+    }
   }
 
   /**
@@ -984,6 +983,7 @@
         console.log('🔄 Preview: Received config update event', event.detail);
         // Update the global config
         config = { ...config, ...event.detail };
+        chatbotID = event.detail.chatbotID;
 
         // Regenerate button HTML if button image changed
         if (event.detail.chatButtonImageUrl !== undefined) {
@@ -992,6 +992,9 @@
 
         // Re-adjust iframe size with new config
         adjustIframeSize();
+
+        // Handle purchase tracking with new config
+        handlePurchaseTracking();
       });
     }
 
@@ -1021,13 +1024,6 @@
         localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
         console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
         console.log("✅ User has interacted with chatbot, purchase tracking enabled");
-        
-        // If purchase tracking is enabled and we're NOT on a checkout page, check for purchase after conversation starts
-        // (Checkout pages are handled immediately on page load)
-        if (config.purchaseTrackingEnabled && !isCheckoutPage()) {
-          console.log('🛒 User started conversation on non-checkout page, checking for purchase tracking...');
-          setTimeout(checkForPurchase, 1000);
-        }
       }
     });
 
@@ -1232,8 +1228,7 @@
         action: messageData.action,
         themeColor: messageData.themeColor,
         borderRadiusMultiplier: messageData.borderRadiusMultiplier,
-        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled,
-        require_email_before_conversation: messageData.require_email_before_conversation
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
@@ -1446,23 +1441,17 @@
     // No animations on subsequent loads
   }
 
-  /**
-   * Purchase Tracking Functions
-   */
-  function initializePurchaseTracking() {
-    // Check immediately and periodically
-    setTimeout(checkForPurchase, 1000);
-    setTimeout(checkForPurchase, 3000);
-    setTimeout(checkForPurchase, 5000);
-    setInterval(checkForPurchase, 15000);
-  }
-
   function purchaseKey(userId) {
     return `purchaseReported_${userId}`;
   }
 
   function isCheckoutPage() {
     console.log('🔍 Checking if current page is checkout:', window.location.href);
+
+    if (isPreviewMode && config.purchaseTrackingEnabled) {
+      // In preview mode assume the checkout page is current page if purchase tracking is enabled
+      return true;
+    }
 
     // Use custom patterns from config if available
     if (config.checkoutPagePatterns) {
@@ -1577,101 +1566,76 @@
     return highestPrice > 0 ? highestPrice : null;
   }
 
-  function extractTotalPrice() {
-    let totalPrice = null;
-    const locale = config.priceExtractionLocale || 'en';
-
-    console.log('🛒 Starting price extraction with locale:', locale);
-
-    // Priority selectors for final totals (checked first)
-    const prioritySelectors = [
-      // Elements with bold font-weight in the same container as "Total" text
-      'p[class*="font-bold"] [data-price-value]',
-      'strong [data-price-value]',
-      'b [data-price-value]',
-      // Elements in final total sections
-      '.checkout-section-right [data-price-value]:last-of-type',
-      // Simple approach: just look for the highest non-crossed-out price
-      '[data-price-value]'
-    ];
-
-    // Check priority selectors first (likely final totals)
-    for (const selector of prioritySelectors) {
-      try {
-        const elements = document.querySelectorAll(selector);
-        console.log(`🛒 Checking priority selector "${selector}": found ${elements.length} elements`);
-
-        for (const element of elements) {
-          // Skip crossed-out prices (discounts)
-          const isCrossedOut = element.closest('[class*="line-through"]') ||
-                              element.parentElement?.classList.contains('line-through') ||
-                              element.style.textDecoration?.includes('line-through') ||
-                              element.parentElement?.style.textDecoration?.includes('line-through');
-
-          if (isCrossedOut) {
-            console.log('🛒 Skipping crossed-out price element');
-            continue;
-          }
-
-          const priceText = element.textContent.trim();
-          console.log(`🛒 Priority element text: "${priceText}"`);
-
-          const parsedPrice = parsePriceFromText(priceText, locale);
-          if (parsedPrice) {
-            // For priority selectors, take the first valid price found (should be the total)
-            console.log(`🛒 Found priority total: ${parsedPrice}`);
-            return parsedPrice;
-          }
-        }
-      } catch (e) {
-        // Some CSS selectors might not be supported, skip them
-        console.log(`🛒 Priority selector "${selector}" not supported, skipping`);
-      }
+  function checkForPurchase() {
+    // Wait for userId from iframe (set by postMessage listener)
+    if (!chatbotUserId) {
+      console.log('🛒 No userId yet, waiting for iframe to send it...');
+      return;
     }
 
-    // Fallback to general selectors if no priority match found
-    const generalSelectors = [
-      '.total-price', '.order-total', '.cart-total', '.grand-total',
-      '[data-testid="order-summary-total"]', '.order-summary-total',
-      '.checkout-total', '.woocommerce-Price-amount', '.amount',
-      '.product-subtotal', '.order-summary__price', '[data-price-value]',
-      // Danish e-commerce specific selectors
-      '.price', '.total', '.sum', '.order-sum', '.checkout-price',
-      '[data-price]', '.price-total', '.final-price', '.order-price'
-    ];
-
-    let highestValue = 0;
-
-    for (const selector of generalSelectors) {
-      const elements = document.querySelectorAll(selector);
-      console.log(`🛒 Checking general selector "${selector}": found ${elements.length} elements`);
-
-      for (const element of elements) {
-        // Skip crossed-out prices
-        const isCrossedOut = element.closest('[class*="line-through"]') ||
-                            element.parentElement?.classList.contains('line-through') ||
-                            element.style.textDecoration?.includes('line-through') ||
-                            element.parentElement?.style.textDecoration?.includes('line-through');
-
-        if (isCrossedOut) {
-          console.log('🛒 Skipping crossed-out price element');
-          continue;
-        }
-
-        const priceText = element.textContent.trim();
-        console.log(`🛒 General element text: "${priceText}"`);
-
-        const parsedPrice = parsePriceFromText(priceText, locale);
-        if (parsedPrice && parsedPrice > highestValue) {
-          highestValue = parsedPrice;
-          totalPrice = parsedPrice;
-          console.log(`🛒 New highest value: ${totalPrice}`);
-        }
-      }
+    // CRITICAL: Only track purchases for users who actually interacted with the chatbot
+    if (!hasInteractedWithChatbot) {
+      console.log('🛒 User has not interacted with chatbot, skipping purchase tracking');
+      return;
     }
 
-    console.log(`🛒 Final extracted price: ${totalPrice}`);
-    return totalPrice;
+    if (hasReportedPurchase) {
+      console.log('🛒 Purchase already reported for user:', chatbotUserId);
+      return;
+    }
+
+    if (isCheckoutPage()) {
+      trackPurchase();
+    }
+  }
+
+  function trackPurchase() {
+    const { checkoutPurchaseSelector: basePurchaseSelector, checkoutPriceSelector: basePriceSelector } = config;
+
+    // PREVIEW_MODE_ONLY: If checkout purchase selector is set then override it to element in preview.html with matching selector
+    const checkoutPurchaseSelector =
+      isPreviewMode && basePurchaseSelector
+        ? "#purchase-tracking-checkout-purchase"
+        : basePurchaseSelector;
+
+    // PREVIEW_MODE_ONLY: If checkout price selector is set then override it to target element in preview.html with matching selector
+    const checkoutPriceSelector =
+      isPreviewMode && basePriceSelector
+        ? "#purchase-tracking-checkout-price"
+        : basePriceSelector;
+
+    if (!checkoutPurchaseSelector) {
+      console.warn('⚠️ Missing purchase selector configuration');
+      return;
+    }
+
+    if (!checkoutPriceSelector) {
+      console.warn('⚠️ Missing price selector configuration');
+      return;
+    }
+
+    const purchaseButton = document.querySelector(checkoutPurchaseSelector);
+
+    if (!purchaseButton) {
+      console.warn('⚠️ Purchase button not found for selector:', checkoutPurchaseSelector);
+      return;
+    }
+
+    const priceElement = document.querySelector(checkoutPriceSelector);
+
+    if (!priceElement) {
+      console.warn('⚠️ Price element not found for selector:', checkoutPriceSelector);
+      return;
+    }
+
+    console.log(`✅ Tracking purchase button: ${checkoutPurchaseSelector}`);
+    console.log(`✅ Tracking price element: ${checkoutPriceSelector}`);
+
+    purchaseButton.addEventListener("click", async () => {
+        const amount = parsePriceFromText(priceElement.textContent.trim());
+        console.log(`✅ Tracked purchase amount: ${amount}`);
+        reportPurchase(amount);
+    });
   }
 
   function reportPurchase(totalPrice) {
@@ -1715,35 +1679,6 @@
     });
   }
 
-  function checkForPurchase() {
-    // Wait for userId from iframe (set by postMessage listener)
-    if (!chatbotUserId) {
-      console.log('🛒 No userId yet, waiting for iframe to send it...');
-      return;
-    }
-
-    // CRITICAL: Only track purchases for users who actually interacted with the chatbot
-    if (!hasInteractedWithChatbot) {
-      console.log('🛒 User has not interacted with chatbot, skipping purchase tracking');
-      return;
-    }
-
-    if (hasReportedPurchase) {
-      console.log('🛒 Purchase already reported for user:', chatbotUserId);
-      return;
-    }
-
-    if (isCheckoutPage()) {
-      const totalPrice = extractTotalPrice();
-      console.log('🛒 Checking for purchase - extracted price:', totalPrice);
-      if (totalPrice && totalPrice > 0) {
-        console.log('🛒 Purchase detected! Reporting purchase for user:', chatbotUserId);
-        reportPurchase(totalPrice);
-      } else {
-        console.log('🛒 No purchase detected (price:', totalPrice, ')');
-      }
-    }
-  }
 
   /**
    * Enhanced GTM-compatible initialization
