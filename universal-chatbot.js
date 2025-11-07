@@ -1228,7 +1228,10 @@
         action: messageData.action,
         themeColor: messageData.themeColor,
         borderRadiusMultiplier: messageData.borderRadiusMultiplier,
-        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled,
+        leadMail: messageData.leadMail,
+        toHumanMail: messageData.toHumanMail,
+        freshdeskGroupId: messageData.freshdeskGroupId
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
