@@ -1590,13 +1590,9 @@
   }
 
   function trackPurchase() {
-    const { checkoutPurchaseSelector: basePurchaseSelector, checkoutPriceSelector: basePriceSelector } = config;
+    const { checkoutPriceSelector: basePriceSelector } = config;
 
-    // PREVIEW_MODE_ONLY: If checkout purchase selector is set then override it to element in preview.html with matching selector
-    const checkoutPurchaseSelector =
-      isPreviewMode && basePurchaseSelector
-        ? "#purchase-tracking-checkout-purchase"
-        : basePurchaseSelector;
+    const checkoutPurchaseSelectors = getCheckoutPurchaseSelectors();
 
     // PREVIEW_MODE_ONLY: If checkout price selector is set then override it to target element in preview.html with matching selector
     const checkoutPriceSelector =
@@ -1604,7 +1600,7 @@
         ? "#purchase-tracking-checkout-price"
         : basePriceSelector;
 
-    if (!checkoutPurchaseSelector) {
+    if (checkoutPurchaseSelectors && !checkoutPurchaseSelectors.length) {
       console.warn('⚠️ Missing purchase selector configuration');
       return;
     }
@@ -1614,28 +1610,61 @@
       return;
     }
 
-    const purchaseButton = document.querySelector(checkoutPurchaseSelector);
+    const purchaseButtons = checkoutPurchaseSelectors
+      .map(getSelectorElement)
+      .filter(purchaseButton => !purchaseButton);
 
-    if (!purchaseButton) {
-      console.warn('⚠️ Purchase button not found for selector:', checkoutPurchaseSelector);
-      return;
+    if (checkoutPurchaseSelectors.length !== purchaseButtons.length) {
+        console.warn(`⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${checkoutPurchaseSelectors.length - purchaseButtons.length} selectors`);
+        return;
     }
 
-    const priceElement = document.querySelector(checkoutPriceSelector);
+    const priceElement = getSelectorElement(checkoutPriceSelector);
 
     if (!priceElement) {
       console.warn('⚠️ Price element not found for selector:', checkoutPriceSelector);
       return;
     }
 
-    console.log(`✅ Tracking purchase button: ${checkoutPurchaseSelector}`);
+    console.log(`✅ Tracking purchase button(s): ${checkoutPurchaseSelectors}`);
     console.log(`✅ Tracking price element: ${checkoutPriceSelector}`);
 
-    purchaseButton.addEventListener("click", async () => {
-        const amount = parsePriceFromText(priceElement.textContent.trim());
-        console.log(`✅ Tracked purchase amount: ${amount}`);
-        reportPurchase(amount);
+    purchaseButtons.forEach(purchaseButton => {
+      purchaseButton.addEventListener("click", async () => {
+          const amount = parsePriceFromText(priceElement.textContent.trim());
+          console.log(`✅ Tracked purchase amount: ${amount}`);
+          reportPurchase(amount);
+      });
     });
+  }
+
+  function getSelectorElement(selector) {
+    try {
+      return document.querySelector(selector);
+    } catch {
+      console.warn('⚠️ Found invalid selector:', selector);
+      return null;
+    }
+  }
+
+  function getCheckoutPurchaseSelectors() {
+    const { checkoutPurchaseSelector: basePurchaseSelector } = config;
+
+    if (isPreviewMode && basePurchaseSelector) {
+      return ["#purchase-tracking-checkout-purchase", "#purchase-tracking-checkout-purchase-alternative"];
+    }
+
+    try {
+      const checkoutPurchaseSelector = JSON.parse(basePurchaseSelector);
+
+      if (!Array.isArray(checkoutPurchaseSelector)) {
+        return [checkoutPurchaseSelector];
+      }
+
+      return checkoutPurchaseSelector;
+    } catch {
+      return [basePurchaseSelector];
+    }
   }
 
   function reportPurchase(totalPrice) {
@@ -1678,7 +1707,6 @@
       console.error('❌ Failed to report purchase:', err);
     });
   }
-
 
   /**
    * Enhanced GTM-compatible initialization
