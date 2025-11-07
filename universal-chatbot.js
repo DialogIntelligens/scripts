@@ -1619,10 +1619,10 @@
 
     const purchaseButtons = checkoutPurchaseSelectors
       .map(getSelectorElement)
-      .filter(purchaseButton => !purchaseButton);
+      .filter(purchaseButton => !!purchaseButton);
 
     if (checkoutPurchaseSelectors.length !== purchaseButtons.length) {
-        console.warn(`⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${checkoutPurchaseSelectors.length - purchaseButtons.length} selectors`);
+        console.warn(`⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${purchaseButtons.length} selectors`);
         return;
     }
 
@@ -1656,7 +1656,7 @@
 
   function getCheckoutPurchaseSelectors() {
     const { checkoutPurchaseSelector: basePurchaseSelector } = config;
-
+    
     if (isPreviewMode && basePurchaseSelector) {
       return ["#purchase-tracking-checkout-purchase", "#purchase-tracking-checkout-purchase-alternative"];
     }
