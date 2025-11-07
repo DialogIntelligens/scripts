@@ -396,6 +396,11 @@
       setTimeout(showPopup, 2000);
     }
 
+    // Preview mode handles tracking during config update.
+    if (!isPreviewMode) {
+      handlePurchaseTracking();
+    }
+
     console.log('✅ Chatbot initialized successfully');
   }
 
@@ -415,8 +420,7 @@
       setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
       setTimeout(checkForPurchase, 6000); // Final retry
     } else if (config.purchaseTrackingEnabled) {
-      console.log('🛒 Purchase tracking enabled, will start when userId received from chatbot...');
-      // Will be triggered by postMessage listener when user starts conversation
+      console.log('🛒 Not checkout page.');
     } else {
       console.log('🛒 Purchase tracking disabled');
     }
@@ -1228,7 +1232,10 @@
         action: messageData.action,
         themeColor: messageData.themeColor,
         borderRadiusMultiplier: messageData.borderRadiusMultiplier,
-        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled
+        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled,
+        leadMail: messageData.leadMail,
+        toHumanMail: messageData.toHumanMail,
+        freshdeskGroupId: messageData.freshdeskGroupId
       });
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
