@@ -1592,9 +1592,7 @@
     }
 
     if (isCheckoutPage()) {
-      document.addEventListener('DOMContentLoaded', () => {
-        trackPurchase();
-      });
+      trackPurchase();
     }
   }
 
