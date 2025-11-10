@@ -1452,6 +1452,18 @@
     return `purchaseReported_${userId}`;
   }
 
+  function purchaseTotalPriceKey(userId) {
+    return `purchaseTotalPriceKey_${userId}`;
+  }
+
+  function isConfirmationPage() {
+    if (!config.checkoutConfirmationPagePatterns) {
+      return false;
+    }
+
+    return matchesPagePattern(config.checkoutConfirmationPagePatterns)
+  }
+
   function isCheckoutPage() {
     console.log('🔍 Checking if current page is checkout:', window.location.href);
 
@@ -1461,30 +1473,8 @@
     }
 
     // Use custom patterns from config if available
-    if (config.checkoutPagePatterns) {
-      try {
-        const patterns = JSON.parse(config.checkoutPagePatterns);
-        console.log('🔍 Using custom checkout patterns:', patterns);
-        if (Array.isArray(patterns)) {
-          return patterns.some(pattern => {
-            // Support both URL substring matching and path matching
-            if (pattern.startsWith('/') && pattern.endsWith('/')) {
-              // Exact path match
-              const path = window.location.pathname.replace(/\/$/, '');
-              const result = path === pattern.replace(/\/$/, '');
-              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
-              return result;
-            } else {
-              // Substring match in URL
-              const result = window.location.href.includes(pattern);
-              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
-              return result;
-            }
-          });
-        }
-      } catch (e) {
-        console.warn('Invalid checkout page patterns, using defaults:', e);
-      }
+    if (matchesPagePattern(config.checkoutPagePatterns)) {
+      return true;
     }
 
     // Default fallback patterns
@@ -1503,6 +1493,34 @@
     const result = defaultChecks.some(check => check);
     console.log('🔍 isCheckoutPage result:', result);
     return result;
+  }
+
+  function matchesPagePattern(pagePatterns) {
+    if (pagePatterns) {
+      try {
+        const patterns = JSON.parse(pagePatterns);
+
+        if (Array.isArray(patterns)) {
+          return patterns.some(pattern => {
+            // Support both URL substring matching and path matching
+            if (pattern.startsWith('/') && pattern.endsWith('/')) {
+              // Exact path match
+              const path = window.location.pathname.replace(/\/$/, '');
+              const result = path === pattern.replace(/\/$/, '');
+              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
+              return result;
+            } else {
+              // Substring match in URL
+              const result = window.location.href.includes(pattern);
+              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
+              return result;
+            }
+          });
+        }
+      } catch (e) {
+        return false;
+      }
+    }
   }
 
   // Helper function to parse price from text
@@ -1592,7 +1610,42 @@
     }
 
     if (isCheckoutPage()) {
+      trackTotalPurchasePrice();
       trackPurchase();
+    }
+
+    if (isConfirmationPage()) {
+      const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
+
+      if (amount) {
+        reportPurchase(amount);
+      }
+    }
+  }
+
+  function trackTotalPurchasePrice() {
+    const { checkoutPriceSelector: basePriceSelector } = config;
+    
+    // PREVIEW_MODE_ONLY: If checkout price selector is set then override it to target element in preview.html with matching selector
+    const checkoutPriceSelector =
+      isPreviewMode && basePriceSelector
+        ? "#purchase-tracking-checkout-price"
+        : basePriceSelector;
+
+    if (!checkoutPriceSelector) {
+      return;
+    }
+
+    const priceElement = getSelectorElement(checkoutPriceSelector);
+
+    if (!priceElement) {
+      return;
+    }
+
+    const amount = parsePriceFromText(priceElement.textContent.trim());
+    if (amount) {
+      // Track amount in local storage incase confirmation page is used as tracking indicator (or any other page)
+      localStorage.setItem(purchaseTotalPriceKey(chatbotUserId), amount);
     }
   }
 
