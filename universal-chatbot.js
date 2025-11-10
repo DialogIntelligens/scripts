@@ -1694,28 +1694,26 @@
       endpoint: `${backendUrl}/purchases`
     });
 
-    fetch(`${backendUrl}/purchases`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    try {
+      const formData = new URLSearchParams({
         user_id: chatbotUserId,
         chatbot_id: chatbotID,
         amount: totalPrice,
         currency: currency
-      })
-    })
-    .then(res => {
-      if (res.ok) {
+      });
+
+      const success = navigator.sendBeacon(`${backendUrl}/purchases`, formData);
+
+      if (success) {
         hasReportedPurchase = true;
         localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-        console.log('✅ Purchase reported successfully to backend');
+        console.log('✅ Purchase reported successfully (queued via Beacon)');
       } else {
-        console.error('❌ Failed to report purchase - HTTP status:', res.status, res.statusText);
+        console.error('❌ Failed to queue purchase beacon');
       }
-    })
-    .catch(err => {
-      console.error('❌ Failed to report purchase:', err);
-    });
+    } catch (err) {
+      console.error('❌ Failed to send purchase beacon:', err);
+    }
   }
 
   /**
