@@ -1646,11 +1646,13 @@
   }
 
   function getSelectorElement(selector) {
+    const cleanedSelector = selector ? selector.trim() : "";
+
     try {
-      console.log("Searching for selector: ", selector);
-      return document.querySelector(selector);
+      console.log("Searching for selector: ", cleanedSelector);
+      return document.querySelector(cleanedSelector);
     } catch {
-      console.warn('⚠️ Found invalid selector:', selector);
+      console.warn('⚠️ Found invalid selector:', cleanedSelector);
       return null;
     }
   }
