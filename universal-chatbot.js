@@ -1592,7 +1592,9 @@
     }
 
     if (isCheckoutPage()) {
-      trackPurchase();
+      document.addEventListener('DOMContentLoaded', () => {
+        trackPurchase();
+      });
     }
   }
 
@@ -1647,6 +1649,7 @@
 
   function getSelectorElement(selector) {
     try {
+      console.log("Searching for selector: ", selector);
       return document.querySelector(selector);
     } catch {
       console.warn('⚠️ Found invalid selector:', selector);
