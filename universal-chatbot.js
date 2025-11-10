@@ -1628,7 +1628,7 @@
     }
 
     if (isCheckoutConfirmationPage()) {
-      console.log('Attempting to track purchase at checkout confirmation');
+      console.log('Track purchase at checkout confirmation');
       const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
 
       if (amount) {
@@ -1664,7 +1664,7 @@
   }
 
   function trackPurchase() {
-    console.log('Attempting to track purchase at checkout');
+    console.log('Track purchase at checkout');
 
     const checkoutPurchaseSelectors = getCheckoutPurchaseSelectors();
 
