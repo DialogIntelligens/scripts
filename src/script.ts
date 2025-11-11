@@ -12,18 +12,9 @@
  * - GTM compatible
  */
 
+import { handlePurchaseTracking } from "./handlers/purchase-tracking";
 import { Context } from "./types";
 import { Console } from "./utils";
-
-interface Window {
-  chatbotInitialized?: boolean,
-  CHATBOT_PREVIEW_MODE?: boolean;
-  CHATBOT_PREVIEW_CONFIG?: {
-    leadFields?: string,
-    backendUrl?: string,
-    iframeUrl?: string,
-  }
-}
 
 (async function() {
   'use strict';
@@ -32,8 +23,8 @@ interface Window {
 
 async function main() {
   const ctx: Context = {
-    isPreviewMode: false,
-    chatbotID: "",
+    isPreviewMode: !!window.CHATBOT_PREVIEW_MODE,
+    chatbotID: getChatbotIdFromScriptParams(),
     chatbotUserId: "",
     config: {
       purchaseTrackingEnabled: false,
@@ -44,7 +35,51 @@ async function main() {
     }
   }
 
+  if (ctx.isPreviewMode) {
+    Console.log({ ctx }, `🔍 Preview Mode: Initializing chatbot preview`);
+  } else {
+    Console.log({ ctx }, `🤖 Initializing universal chatbot: ${ctx.chatbotID}`);
+  }
+
   handlePurchaseTracking({ ctx });
+}
+
+function getChatbotIdFromScriptParams(): string {
+    try {
+      // Use document.currentScript for reliable script reference
+      // Fallback to scanning all script tags if currentScript is not available
+      let currentScript: HTMLScriptElement = document.currentScript as HTMLScriptElement;
+      
+      if (!currentScript) {
+        // Fallback: find script with 'universal-chatbot.js' in its src
+        const scripts = document.getElementsByTagName('script');
+        for (let i = 0; i < scripts.length; i++) {
+          if (scripts[i].src && scripts[i].src.includes('universal-chatbot.js')) {
+            currentScript = scripts[i];
+            break;
+          }
+        }
+      }
+      
+      if (!currentScript || !currentScript.src) {
+        console.error('❌ Could not find script reference. Make sure script is loaded correctly.');
+        return "";
+      }
+      
+      const url = new URL(currentScript.src);
+      const chatbotID = url.searchParams.get('id');
+      
+      if (!chatbotID) {
+        console.error('❌ Chatbot ID not provided in script URL. Usage: <script src="universal-chatbot.js?id=YOUR_CHATBOT_ID"></script>');
+        console.error('Script URL:', currentScript.src);
+        return "";
+      }
+
+      return chatbotID;
+  } catch (error) {
+    console.error('❌ Failed to extract chatbot ID from script URL:', error);
+    return "";
+  }
 }
 
 (async function() {

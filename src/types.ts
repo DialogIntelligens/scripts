@@ -1,14 +1,10 @@
-export type UpdateConfigEvent = {
-  detail: {
-    chatbotID: string,
-    chatButtonImageUrl: string,
-  }
-}
-
 export type Context = {
   readonly isPreviewMode: boolean,
   readonly chatbotID: string,
   readonly chatbotUserId: string,
+  readonly isIframeEnlarged: boolean,
+  readonly hasReportedPurchase: boolean,
+  readonly hasInteractedWithChatbot: boolean,
   readonly config: {
     readonly purchaseTrackingEnabled: boolean,
     readonly checkoutConfirmationPagePatterns?: string,
@@ -16,5 +12,21 @@ export type Context = {
     readonly checkoutPriceSelector?: string,
     readonly checkoutPurchaseSelector?: string,
     readonly currency?: string;
+    readonly themeColor?: string,
+    readonly productButtonColor?: string,
+    readonly zIndex?: number,
+    readonly buttonRight?: string,
+    readonly buttonBottom?: string,
+    readonly chatButtonImageUrl?: string,
+    readonly iframeUrl?: string,
+    readonly previewMode?: string,
+    readonly iframeWidthEnlarged?: string,
+    readonly iframeHeightEnlarged?: string,
+    readonly iframeWidthMobile?: string,
+    readonly iframeHeightMobile?: string,
+    readonly iframeWidthDesktop?: string,
+    readonly iframeHeightDesktop?: string,
+    readonly popupShowOnMobile?: boolean,
+    readonly popupMaxDisplays?: number,
   },
 }
