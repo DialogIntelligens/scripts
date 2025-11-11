@@ -1450,7 +1450,15 @@
   }
 
   function purchaseKey(userId) {
-    return `purchaseReported_${userId}`;
+    let today = new Date();
+
+    let year = today.getFullYear();
+    let month = String(today.getMonth() + 1).padStart(2, "0");
+    let day = String(today.getDate()).padStart(2, "0");
+
+    let date = `${year}-${month}-${day}`;
+
+    return `purchaseReported_${date}_${userId}`;
   }
 
   function purchaseTotalPriceKey(userId) {
