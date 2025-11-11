@@ -1,0 +1,6 @@
+{
+    "name": "@dialogintelligens/scripts",
+    "devDependencies": {
+        "typescript": "^5.0.0"
+    }
+}
