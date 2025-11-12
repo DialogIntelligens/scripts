@@ -1,32 +1,41 @@
 export type Context = {
-  readonly isPreviewMode: boolean,
-  readonly chatbotID: string,
-  readonly chatbotUserId: string,
-  readonly isIframeEnlarged: boolean,
-  readonly hasReportedPurchase: boolean,
-  readonly hasInteractedWithChatbot: boolean,
-  readonly config: {
-    readonly purchaseTrackingEnabled: boolean,
-    readonly checkoutConfirmationPagePatterns?: string,
-    readonly checkoutPagePatterns?: string,
-    readonly checkoutPriceSelector?: string,
-    readonly checkoutPurchaseSelector?: string,
-    readonly currency?: string;
-    readonly themeColor?: string,
-    readonly productButtonColor?: string,
-    readonly zIndex?: number,
-    readonly buttonRight?: string,
-    readonly buttonBottom?: string,
-    readonly chatButtonImageUrl?: string,
-    readonly iframeUrl?: string,
-    readonly previewMode?: string,
-    readonly iframeWidthEnlarged?: string,
-    readonly iframeHeightEnlarged?: string,
-    readonly iframeWidthMobile?: string,
-    readonly iframeHeightMobile?: string,
-    readonly iframeWidthDesktop?: string,
-    readonly iframeHeightDesktop?: string,
-    readonly popupShowOnMobile?: boolean,
-    readonly popupMaxDisplays?: number,
-  },
-}
+  readonly isPreviewMode: boolean;
+  readonly getChatbotId: () => string;
+  readonly getChatbotUserId: () => string;
+  readonly hasInteractedWithChatbot: () => boolean;
+  readonly getConfig: () => Config;
+};
+
+export type Config = {
+  readonly purchaseTrackingEnabled: boolean;
+  readonly checkoutConfirmationPagePatterns?: string;
+  readonly checkoutPagePatterns?: string;
+  readonly checkoutPriceSelector?: string;
+  readonly checkoutPurchaseSelector?: string;
+  readonly currency?: string;
+  readonly themeColor?: string;
+  readonly productButtonColor?: string;
+  readonly zIndex?: number;
+  readonly buttonRight?: string;
+  readonly buttonBottom?: string;
+  readonly chatButtonImageUrl?: string;
+  readonly iframeUrl?: string;
+  readonly previewMode?: string;
+  readonly iframeWidthEnlarged?: string;
+  readonly iframeHeightEnlarged?: string;
+  readonly iframeWidthMobile?: string;
+  readonly iframeHeightMobile?: string;
+  readonly iframeWidthDesktop?: string;
+  readonly iframeHeightDesktop?: string;
+  readonly popupShowOnMobile?: boolean;
+  readonly popupMaxDisplays?: number;
+  readonly borderRadiusMultiplier?: string;
+  readonly leadMail?: string;
+  readonly toHumanMail?: string;
+  readonly freshdeskGroupId?: string;
+  readonly enablePopupMessage: boolean;
+  readonly enableMinimizeButton: boolean;
+  readonly fontFamily?: string;
+  readonly pagePath?: string;
+  readonly isPhoneView: boolean;
+};

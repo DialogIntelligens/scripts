@@ -1,14 +1,16 @@
 import { Context } from "./types";
 
 export const ChatbotStyles = {
-    injectStyles
-}
+  inject: injectStyles,
+};
 
 function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
-    const { config } = ctx;
-    const buttonColor = config.productButtonColor || config.themeColor || '#1a1d56';
+  const config = ctx.getConfig();
 
-    const css = `
+  const buttonColor =
+    config.productButtonColor || config.themeColor || "#1a1d56";
+
+  const css = `
         /* ----------------------------------------
             A) ANIMATIONS
             ---------------------------------------- */
@@ -45,8 +47,8 @@ function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
         border: none !important;
         position: fixed !important;
         z-index: calc(${config.zIndex || 190} + 10) !important;
-        right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 5px) !important;
-        bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + 15px) !important;
+        right: calc(${(config.buttonRight || "10px").replace(/\s*!important/g, "")} + 5px) !important;
+        bottom: calc(${(config.buttonBottom || "27px").replace(/\s*!important/g, "")} + 15px) !important;
         padding: 5px !important;
         margin: 0 !important;
         min-height: unset !important;
@@ -210,8 +212,8 @@ function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
         /* Popup container */
         #chatbase-message-bubbles {
         position: absolute;
-        bottom: calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 5px);
-        right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 45px);
+        bottom: calc(${(config.buttonBottom || "20px").replace(/\s*!important/g, "")} + 5px);
+        right: calc(${(config.buttonRight || "10px").replace(/\s*!important/g, "")} + 45px);
         border-radius: 20px;
         font-family: 'Montserrat', sans-serif;
         font-size: 20px;
@@ -288,8 +290,8 @@ function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
         #chatbase-message-bubbles {
             bottom: 18px;
             right: 50px;
-            bottom: calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -20px);
-            right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + 25px);
+            bottom: calc(${(config.buttonBottom || "20px").replace(/\s*!important/g, "")} + -20px);
+            right: calc(${(config.buttonRight || "10px").replace(/\s*!important/g, "")} + 25px);
             scale: 0.52;
             z-index: calc(${config.zIndex} + 7);
 
@@ -297,8 +299,8 @@ function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
 
         #chat-container #chat-button {
             z-index: calc(${config.zIndex || 190} + 8) !important;
-            right: calc(${(config.buttonRight || '10px').replace(/\s*!important/g, '')} + -8px) !important;
-            bottom: calc(${(config.buttonBottom || '27px').replace(/\s*!important/g, '')} + -10px) !important;
+            right: calc(${(config.buttonRight || "10px").replace(/\s*!important/g, "")} + -8px) !important;
+            bottom: calc(${(config.buttonBottom || "27px").replace(/\s*!important/g, "")} + -10px) !important;
         }
         
         #chat-container #chat-button svg {
@@ -369,7 +371,7 @@ function injectStyles({ ctx }: { ctx: Readonly<Context> }) {
         }
     `;
 
-    const style = document.createElement('style');
-    style.appendChild(document.createTextNode(css));
-    document.head.appendChild(style);
+  const style = document.createElement("style");
+  style.appendChild(document.createTextNode(css));
+  document.head.appendChild(style);
 }
