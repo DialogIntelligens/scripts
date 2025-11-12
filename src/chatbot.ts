@@ -11,7 +11,6 @@ import { Logger } from "./utils";
 
 export const Chatbot = {
   init: initChatbot,
-  cleanup: cleanupChatbot,
 };
 
 /**
@@ -128,15 +127,4 @@ async function initChatbot({ ctx }: { ctx: Readonly<Context> }) {
   }
 
   Logger.log("✅ Chatbot initialized successfully");
-}
-
-function cleanupChatbot() {
-  const chatbotContainer = document.getElementById("chatbot-container");
-
-  if (chatbotContainer) {
-    chatbotContainer.innerHTML = "";
-    chatbotContainer.remove();
-  }
-
-  GlobalStateStore.chatbotInitialized = false;
 }

@@ -1,4 +1,3 @@
-import { GlobalStateStore } from "../state";
 import { Context } from "../types";
 import { Logger, Server } from "../utils";
 
