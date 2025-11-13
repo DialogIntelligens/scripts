@@ -2,6 +2,7 @@
     "name": "@dialogintelligens/scripts",
     "scripts": {
         "build": "esbuild src/main.ts --bundle --minify --outfile=dist/universal-chatbot.js --platform=browser --target=es2018",
+        "prerelease": "esbuild src/main.ts --bundle --minify --outfile=universal-chatbot-prerelease.js --platform=browser --target=es2018",
         "release": "esbuild src/main.ts --bundle --minify --outfile=universal-chatbot.js --platform=browser --target=es2018",
         "format": "prettier --write src"
     },
