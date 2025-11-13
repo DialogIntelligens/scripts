@@ -1514,6 +1514,10 @@
   }
 
   function matchesPagePattern(pagePatterns) {
+    if (!pagePatterns) {
+      return false;
+    }
+
     const patterns = pagePatterns.split(',').map(item => item.trim());
 
     if (patterns) {
