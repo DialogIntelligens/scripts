@@ -22,8 +22,11 @@ export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
     setTimeout(() => checkForPurchase({ ctx }), 2000); // Wait for iframe to load
     setTimeout(() => checkForPurchase({ ctx }), 4000); // Retry in case price loads dynamically
     setTimeout(() => checkForPurchase({ ctx }), 6000); // Final retry
-  } else if (ctx.getConfig().purchaseTrackingEnabled && ctx.hasInteractedWithChatbot()) {
-    Logger.log('🛒 Not checkout page. Tracking cart price every 5 seconds.');
+  } else if (
+    ctx.getConfig().purchaseTrackingEnabled &&
+    ctx.hasInteractedWithChatbot()
+  ) {
+    Logger.log("🛒 Not checkout page. Tracking cart price every 5 seconds.");
     setInterval(() => trackTotalPurchasePrice({ ctx }), 5000);
   } else {
     Logger.log("🛒 Purchase tracking disabled");
@@ -54,7 +57,7 @@ function isCheckoutConfirmationPage({ ctx }: { ctx: Readonly<Context> }) {
   }
 
   return matchesPagePattern({
-    pagePatterns: checkoutConfirmationPagePatterns
+    pagePatterns: checkoutConfirmationPagePatterns,
   });
 }
 
@@ -93,17 +96,13 @@ function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
   return result;
 }
 
-function matchesPagePattern({
-  pagePatterns,
-}: {
-  pagePatterns: string;
-}) {
+function matchesPagePattern({ pagePatterns }: { pagePatterns: string }) {
   if (!pagePatterns) {
     return false;
   }
 
   Logger.log("Checking for page patterns match: ", pagePatterns);
-  const patterns = pagePatterns.split(',').map(item => item.trim());
+  const patterns = pagePatterns.split(",").map((item) => item.trim());
 
   if (patterns) {
     try {
