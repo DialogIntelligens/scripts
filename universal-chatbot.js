@@ -1476,6 +1476,7 @@
 
 
     if (!config.checkoutConfirmationPagePatterns) {
+      console.log("confirmation page not set");
       return false;
     }
 
@@ -1514,6 +1515,8 @@
   }
 
   function matchesPagePattern(pagePatterns) {
+    console.log("Checking for page patterns match: ", pagePatterns);
+
     if (!pagePatterns) {
       return false;
     }
