@@ -17,8 +17,7 @@ export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
     Logger.log(
       "🛒 On checkout page - will check for purchase after iframe loads and sends userId...",
     );
-    // Give iframe time to load and send userId (2-6 seconds with retries)
-    // The postMessage listener will update chatbotUserId when received
+
     setTimeout(() => checkForPurchase({ ctx }), 2000); // Wait for iframe to load
     setTimeout(() => checkForPurchase({ ctx }), 4000); // Retry in case price loads dynamically
     setTimeout(() => checkForPurchase({ ctx }), 6000); // Final retry
@@ -197,6 +196,7 @@ function trackTotalPurchasePrice({ ctx }: { ctx: Readonly<Context> }) {
     priceText: priceElement.textContent.trim(),
     ctx,
   });
+
   if (amount) {
     // Track amount in local storage incase confirmation page is used as tracking indicator (or any other page)
     localStorage.setItem(
