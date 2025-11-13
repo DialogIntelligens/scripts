@@ -1514,10 +1514,10 @@
   }
 
   function matchesPagePattern(pagePatterns) {
-    if (pagePatterns) {
-      try {
-        const patterns = JSON.parse(pagePatterns);
+    const patterns = pagePatterns.split(',').map(item => item.trim());
 
+    if (patterns) {
+      try {
         if (Array.isArray(patterns)) {
           return patterns.some(pattern => {
             // Support both URL substring matching and path matching
