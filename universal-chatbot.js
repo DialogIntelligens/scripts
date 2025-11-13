@@ -421,10 +421,8 @@
       setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
       setTimeout(checkForPurchase, 6000); // Final retry
     } else if (config.purchaseTrackingEnabled) {
-      console.log('🛒 Not checkout page. Tracking cart price.');
-      setTimeout(trackTotalPurchasePrice, 2000);
-      setTimeout(trackTotalPurchasePrice, 4000);
-      setTimeout(trackTotalPurchasePrice, 6000); 
+      console.log('🛒 Not checkout page. Tracking cart price every 5 seconds.');
+      setInterval(trackTotalPurchasePrice, 5000);
     } else {
       console.log('🛒 Purchase tracking disabled');
     }
