@@ -22,8 +22,9 @@ export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
     setTimeout(() => checkForPurchase({ ctx }), 2000); // Wait for iframe to load
     setTimeout(() => checkForPurchase({ ctx }), 4000); // Retry in case price loads dynamically
     setTimeout(() => checkForPurchase({ ctx }), 6000); // Final retry
-  } else if (ctx.getConfig().purchaseTrackingEnabled) {
-    Logger.log("🛒 Not checkout page.");
+  } else if (ctx.getConfig().purchaseTrackingEnabled && ctx.hasInteractedWithChatbot()) {
+    Logger.log('🛒 Not checkout page. Tracking cart price every 5 seconds.');
+    setInterval(() => trackTotalPurchasePrice({ ctx }), 5000);
   } else {
     Logger.log("🛒 Purchase tracking disabled");
   }
@@ -46,13 +47,14 @@ function isCheckoutConfirmationPage({ ctx }: { ctx: Readonly<Context> }) {
 
   const checkoutConfirmationPagePatterns =
     ctx.getConfig().checkoutConfirmationPagePatterns;
+
   if (!checkoutConfirmationPagePatterns) {
+    Logger.log("Confirmation page not set: ", checkoutConfirmationPagePatterns);
     return false;
   }
 
   return matchesPagePattern({
-    pagePatterns: checkoutConfirmationPagePatterns,
-    ctx,
+    pagePatterns: checkoutConfirmationPagePatterns
   });
 }
 
@@ -68,7 +70,6 @@ function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
   if (
     matchesPagePattern({
       pagePatterns: ctx.getConfig().checkoutPagePatterns ?? "",
-      ctx,
     })
   ) {
     return true;
@@ -94,15 +95,18 @@ function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
 
 function matchesPagePattern({
   pagePatterns,
-  ctx,
 }: {
   pagePatterns: string;
-  ctx: Readonly<Context>;
 }) {
-  if (pagePatterns) {
-    try {
-      const patterns = JSON.parse(pagePatterns);
+  if (!pagePatterns) {
+    return false;
+  }
 
+  Logger.log("Checking for page patterns match: ", pagePatterns);
+  const patterns = pagePatterns.split(',').map(item => item.trim());
+
+  if (patterns) {
+    try {
       if (Array.isArray(patterns)) {
         return patterns.some((pattern) => {
           // Support both URL substring matching and path matching
