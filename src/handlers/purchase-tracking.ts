@@ -2,7 +2,6 @@ import { Context } from "../types";
 import { Logger, Server } from "../utils";
 
 export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
-  // Handle purchase tracking
   Logger.log("🛒 Purchase tracking check:", {
     enabled: ctx.getConfig().purchaseTrackingEnabled,
     isCheckoutPage: isCheckoutPage({ ctx }),
