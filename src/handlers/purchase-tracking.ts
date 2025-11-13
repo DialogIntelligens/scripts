@@ -69,31 +69,17 @@ function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
     return true;
   }
 
-  // Use custom patterns from config if available
   if (
     matchesPagePattern({
       pagePatterns: ctx.getConfig().checkoutPagePatterns ?? "",
     })
   ) {
+    Logger.log("Is checkout page check: true");
     return true;
   }
 
-  // Default fallback patterns
-  const defaultChecks = [
-    window.location.href.includes("/checkout"),
-    window.location.href.includes("/ordre"),
-    window.location.href.includes("/order-complete/"),
-    window.location.href.includes("/thank-you/"),
-    window.location.href.includes("/order-received/"),
-    !!document.querySelector(".order-complete"),
-    !!document.querySelector(".thank-you"),
-    !!document.querySelector(".order-confirmation"),
-  ];
-
-  Logger.log("🔍 Default checkout checks:", defaultChecks);
-  const result = defaultChecks.some((check) => check);
-  Logger.log("🔍 isCheckoutPage result:", result);
-  return result;
+  Logger.log("Is checkout page check: false");
+  return false;
 }
 
 function matchesPagePattern({ pagePatterns }: { pagePatterns: string }) {
@@ -102,35 +88,40 @@ function matchesPagePattern({ pagePatterns }: { pagePatterns: string }) {
   }
 
   Logger.log("Checking for page patterns match: ", pagePatterns);
-  const patterns = pagePatterns.split(",").map((item) => item.trim());
+  const patterns = pagePatterns
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
 
   if (patterns) {
     try {
-      if (Array.isArray(patterns)) {
-        return patterns.some((pattern) => {
-          // Support both URL substring matching and path matching
-          if (pattern.startsWith("/") && pattern.endsWith("/")) {
-            // Exact path match
-            const path = window.location.pathname.replace(/\/$/, "");
-            const result = path === pattern.replace(/\/$/, "");
-            Logger.log(
-              `🔍 Path match check: "${path}" === "${pattern}" ? ${result}`,
-            );
-            return result;
-          } else {
-            // Substring match in URL
-            const result = window.location.href.includes(pattern);
-            Logger.log(
-              `🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`,
-            );
-            return result;
-          }
-        });
-      }
-    } catch (e) {
-      return false;
+      return patterns.some((pattern) => {
+        // Support both URL substring matching and path matching
+        if (pattern.startsWith("/") && pattern.endsWith("/")) {
+          const path = window.location.pathname.replace(/\/$/, "");
+          const result = path === pattern.replace(/\/$/, "");
+
+          Logger.log(
+            `🔍 Path match check: "${path}" === "${pattern}" ? ${result}`,
+          );
+
+          return result;
+        } else {
+          const result = window.location.href.includes(pattern);
+
+          Logger.log(
+            `🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`,
+          );
+
+          return result;
+        }
+      });
+    } catch (error) {
+      Logger.error("Error checking page patterns: ", error);
     }
   }
+
+  return false;
 }
 
 function checkForPurchase({ ctx }: { ctx: Readonly<Context> }) {
