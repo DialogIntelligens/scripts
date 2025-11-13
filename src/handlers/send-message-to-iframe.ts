@@ -27,10 +27,11 @@ export async function sendMessageToIframe({ ctx }: { ctx: Readonly<Context> }) {
       splitTestId = splitAssignment.variant_id;
     }
 
+    const config = ctx.getConfig();
     const messageData: MessageData = {
       action: "integrationOptions", // CRITICAL: App.js requires this field to recognize the message
       chatbotID: ctx.getChatbotId(),
-      ...ctx.getConfig(),
+      ...config,
       splitTestId: splitTestId,
       pagePath: window.location.href,
       isTabletView: false, // Always false to match legacy behavior
@@ -49,7 +50,7 @@ export async function sendMessageToIframe({ ctx }: { ctx: Readonly<Context> }) {
       freshdeskGroupId: messageData.freshdeskGroupId,
     });
 
-    const iframeUrl = ctx.getConfig().iframeUrl;
+    const iframeUrl = config.iframeUrl;
     if (iframeUrl) {
       iframe.contentWindow?.postMessage(messageData, iframeUrl);
     }

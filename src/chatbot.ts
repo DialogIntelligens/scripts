@@ -1,7 +1,9 @@
 import { ChatbotHandlers } from "./chatbot-handlers";
 import { ChatbotHtml } from "./chatbot-html";
 import { ChatbotStyles } from "./chatbot-styles";
+import { Config } from "./config";
 import { removeNotificationBadgeOnClick } from "./handlers/notification-badge";
+import { setupPreviewEventListener } from "./handlers/preview-listener";
 import { handlePurchaseTracking } from "./handlers/purchase-tracking";
 import { showPopup } from "./handlers/show-popup";
 import { toggleChatWindow } from "./handlers/toggle-chat-window";
@@ -16,7 +18,7 @@ export const Chatbot = {
 /**
  * Initialize chatbot
  */
-async function initChatbot({ ctx }: { ctx: Readonly<Context> }) {
+async function initChatbot({ ctx: defaultCtx }: { ctx: Readonly<Context> }) {
   // Prevent multiple initializations
   if (GlobalStateStore.chatbotInitialized) {
     return;
@@ -40,6 +42,12 @@ async function initChatbot({ ctx }: { ctx: Readonly<Context> }) {
   }
 
   GlobalStateStore.setChatbotInitialized();
+
+  const ctx = await Config.get({ ctx: defaultCtx });
+
+  if (ctx.isPreviewMode) {
+    setupPreviewEventListener({ ctx });
+  }
 
   Logger.log(
     "🆔 Initial userId from localStorage:",

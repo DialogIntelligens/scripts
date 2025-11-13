@@ -1,9 +1,9 @@
 export const GlobalStateStore = {
   isIframeEnlarged: false,
-  chatbotInitialized: window.chatbotInitialized,
+  chatbotInitialized: Boolean(window.chatbotInitialized),
   setChatbotInitialized() {
-    this.chatbotInitialized = true;
     window.chatbotInitialized = true;
+    this.chatbotInitialized = true;
   },
   toggleIsIframeEnlarged() {
     this.isIframeEnlarged = !this.isIframeEnlarged;

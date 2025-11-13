@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Universal Chatbot Integration Script
  *
@@ -12,19 +13,16 @@
  * - GTM compatible
  */
 import { Chatbot } from "./chatbot";
-import { Config } from "./config";
-import { setupPreviewEventListener } from "./handlers/preview-listener";
 import { GlobalStateStore } from "./state";
 import { Config as ContextConfig, Context } from "./types";
 import { Logger } from "./utils";
 
 (async function () {
-  "use strict";
   await main();
 })();
 
 async function main() {
-  const config: ContextConfig = {
+  const defaultConfig: ContextConfig = {
     purchaseTrackingEnabled: false,
     enableMinimizeButton: false,
     enablePopupMessage: false,
@@ -82,10 +80,10 @@ async function main() {
     buttonRight: "10px",
   };
 
-  const defaultCtx: Context = {
+  const ctx: Context = {
     isPreviewMode: !!window.CHATBOT_PREVIEW_MODE,
-    getChatbotId: () => getChatbotIdFromScriptParams() ?? "",
-    getChatbotUserId: () => getChatbotUserId() ?? "",
+    getChatbotId,
+    getChatbotUserId,
     hasInteractedWithChatbot: () =>
       localStorage.getItem(
         `hasInteracted_${getChatbotIdFromScriptParams() ?? ""}`,
@@ -93,25 +91,19 @@ async function main() {
     getConfig: () =>
       window.CHATBOT_PREVIEW_MODE && window.CHATBOT_PREVIEW_CONFIG
         ? {
-            ...config,
+            ...defaultConfig,
             ...window.CHATBOT_PREVIEW_CONFIG,
             iframeUrl:
               window.CHATBOT_PREVIEW_CONFIG.iframeUrl ??
               "https://skalerbartprodukt.onrender.com",
           }
-        : config,
+        : defaultConfig,
   };
 
-  const ctx = await Config.get({ ctx: defaultCtx });
-
   if (ctx.isPreviewMode) {
-    Logger.log({ ctx }, `🔍 Preview Mode: Initializing chatbot preview`);
-    setupPreviewEventListener({ ctx });
+    Logger.log(`🔍 Preview Mode: Initializing chatbot preview`);
   } else {
-    Logger.log(
-      { ctx },
-      `🤖 Initializing universal chatbot: ${ctx.getChatbotId()}`,
-    );
+    Logger.log(`🤖 Initializing universal chatbot: ${ctx.getChatbotId()}`);
   }
 
   // Try multiple initialization strategies for GTM
@@ -131,9 +123,18 @@ async function main() {
   }, 2000);
 }
 
-function getChatbotUserId(): string | null {
-  const userIdKey = `userId_${getChatbotIdFromScriptParams()}`;
-  return localStorage.getItem(userIdKey) || null;
+function getChatbotUserId(): string {
+  const userIdKey = `userId_${getChatbotId()}`;
+  return localStorage.getItem(userIdKey) || "";
+}
+
+function getChatbotId(): string {
+  const chatbotId = getChatbotIdFromScriptParams() ?? "";
+  return window.CHATBOT_PREVIEW_MODE &&
+    window.CHATBOT_PREVIEW_CONFIG &&
+    window.CHATBOT_PREVIEW_CONFIG.chatbotID
+    ? window.CHATBOT_PREVIEW_CONFIG.chatbotID
+    : chatbotId;
 }
 
 function getChatbotIdFromScriptParams(): string | null {
@@ -177,7 +178,7 @@ function getChatbotIdFromScriptParams(): string | null {
 
 function initWithDebug({ ctx }: { ctx: Context }) {
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       setTimeout(async () => await Chatbot.init({ ctx }), 100);
     });
   } else {

@@ -3,7 +3,7 @@ import { Logger, Server } from "../utils";
 
 export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
   // Handle purchase tracking
-  Logger.log({ ctx }, { ctx }, "🛒 Purchase tracking check:", {
+  Logger.log("🛒 Purchase tracking check:", {
     enabled: ctx.getConfig().purchaseTrackingEnabled,
     isCheckoutPage: isCheckoutPage({ ctx }),
     isCheckoutConfirmationPage: isCheckoutConfirmationPage({ ctx }),
@@ -15,8 +15,6 @@ export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
     (isCheckoutPage({ ctx }) || isCheckoutConfirmationPage({ ctx }))
   ) {
     Logger.log(
-      { ctx },
-      { ctx },
       "🛒 On checkout page - will check for purchase after iframe loads and sends userId...",
     );
     // Give iframe time to load and send userId (2-6 seconds with retries)
@@ -25,16 +23,14 @@ export function handlePurchaseTracking({ ctx }: { ctx: Readonly<Context> }) {
     setTimeout(() => checkForPurchase({ ctx }), 4000); // Retry in case price loads dynamically
     setTimeout(() => checkForPurchase({ ctx }), 6000); // Final retry
   } else if (ctx.getConfig().purchaseTrackingEnabled) {
-    Logger.log({ ctx }, { ctx }, "🛒 Not checkout page.");
+    Logger.log("🛒 Not checkout page.");
   } else {
-    Logger.log({ ctx }, { ctx }, "🛒 Purchase tracking disabled");
+    Logger.log("🛒 Purchase tracking disabled");
   }
 }
 
 function isCheckoutConfirmationPage({ ctx }: { ctx: Readonly<Context> }) {
   Logger.log(
-    { ctx },
-    { ctx },
     "🔍 Checking if current page is confirmation page:",
     window.location.href,
   );
@@ -61,12 +57,7 @@ function isCheckoutConfirmationPage({ ctx }: { ctx: Readonly<Context> }) {
 }
 
 function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
-  Logger.log(
-    { ctx },
-    { ctx },
-    "🔍 Checking if current page is checkout:",
-    window.location.href,
-  );
+  Logger.log("🔍 Checking if current page is checkout:", window.location.href);
 
   if (ctx.isPreviewMode && ctx.getConfig().purchaseTrackingEnabled) {
     // In preview mode assume the checkout page is current page if purchase tracking is enabled
@@ -95,9 +86,9 @@ function isCheckoutPage({ ctx }: { ctx: Readonly<Context> }) {
     !!document.querySelector(".order-confirmation"),
   ];
 
-  Logger.log({ ctx }, { ctx }, "🔍 Default checkout checks:", defaultChecks);
+  Logger.log("🔍 Default checkout checks:", defaultChecks);
   const result = defaultChecks.some((check) => check);
-  Logger.log({ ctx }, { ctx }, "🔍 isCheckoutPage result:", result);
+  Logger.log("🔍 isCheckoutPage result:", result);
   return result;
 }
 
@@ -120,8 +111,6 @@ function matchesPagePattern({
             const path = window.location.pathname.replace(/\/$/, "");
             const result = path === pattern.replace(/\/$/, "");
             Logger.log(
-              { ctx },
-              { ctx },
               `🔍 Path match check: "${path}" === "${pattern}" ? ${result}`,
             );
             return result;
@@ -129,8 +118,6 @@ function matchesPagePattern({
             // Substring match in URL
             const result = window.location.href.includes(pattern);
             Logger.log(
-              { ctx },
-              { ctx },
               `🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`,
             );
             return result;
@@ -146,19 +133,13 @@ function matchesPagePattern({
 function checkForPurchase({ ctx }: { ctx: Readonly<Context> }) {
   // Wait for userId from iframe (set by postMessage listener)
   if (!ctx.getChatbotUserId()) {
-    Logger.log(
-      { ctx },
-      { ctx },
-      "🛒 No userId yet, waiting for iframe to send it...",
-    );
+    Logger.log("🛒 No userId yet, waiting for iframe to send it...");
     return;
   }
 
   // CRITICAL: Only track purchases for users who actually interacted with the chatbot
   if (!ctx.hasInteractedWithChatbot()) {
     Logger.log(
-      { ctx },
-      { ctx },
       "🛒 User has not interacted with chatbot, skipping purchase tracking",
     );
     return;
@@ -166,8 +147,6 @@ function checkForPurchase({ ctx }: { ctx: Readonly<Context> }) {
 
   if (hasReportedPuchase({ ctx })) {
     Logger.log(
-      { ctx },
-      { ctx },
       "🛒 Purchase already reported for user:",
       ctx.getChatbotUserId(),
     );
@@ -187,7 +166,7 @@ function checkForPurchase({ ctx }: { ctx: Readonly<Context> }) {
   }
 
   if (isCheckoutConfirmationPage({ ctx })) {
-    Logger.log({ ctx }, { ctx }, "Track purchase at checkout confirmation");
+    Logger.log("Track purchase at checkout confirmation");
     const amount = localStorage.getItem(
       purchaseTotalPriceKey(ctx.getChatbotUserId()),
     );
@@ -234,12 +213,12 @@ function trackTotalPurchasePrice({ ctx }: { ctx: Readonly<Context> }) {
 }
 
 function trackPurchase({ ctx }: { ctx: Readonly<Context> }) {
-  Logger.log({ ctx }, { ctx }, "Track purchase at checkout");
+  Logger.log("Track purchase at checkout");
 
   const checkoutPurchaseSelectors = getCheckoutPurchaseSelectors({ ctx });
 
   if (checkoutPurchaseSelectors && !checkoutPurchaseSelectors.length) {
-    Logger.warn({ ctx }, "⚠️ Missing purchase selector configuration");
+    Logger.warn("⚠️ Missing purchase selector configuration");
     return;
   }
 
@@ -249,24 +228,19 @@ function trackPurchase({ ctx }: { ctx: Readonly<Context> }) {
 
   if (checkoutPurchaseSelectors.length !== purchaseButtons.length) {
     Logger.warn(
-      { ctx },
       `⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${purchaseButtons.length} selectors`,
     );
     return;
   }
 
-  Logger.log(
-    { ctx },
-    { ctx },
-    `✅ Tracking purchase button(s): ${checkoutPurchaseSelectors}`,
-  );
+  Logger.log(`✅ Tracking purchase button(s): ${checkoutPurchaseSelectors}`);
 
   purchaseButtons.forEach((purchaseButton) => {
     purchaseButton.addEventListener("click", async () => {
       const amount = localStorage.getItem(
         purchaseTotalPriceKey(ctx.getChatbotUserId()),
       );
-      Logger.log({ ctx }, { ctx }, `✅ Tracked purchase amount: ${amount}`);
+      Logger.log(`✅ Tracked purchase amount: ${amount}`);
 
       if (amount) {
         reportPurchase({ amount, ctx });
@@ -285,10 +259,10 @@ function getSelectorElement({
   const cleanedSelector = selector ? selector.trim() : "";
 
   try {
-    Logger.log({ ctx }, { ctx }, "Searching for selector: ", cleanedSelector);
+    Logger.log("Searching for selector: ", cleanedSelector);
     return document.querySelector(cleanedSelector);
   } catch {
-    Logger.warn({ ctx }, "⚠️ Found invalid selector:", cleanedSelector);
+    Logger.warn("⚠️ Found invalid selector:", cleanedSelector);
     return null;
   }
 }
@@ -333,8 +307,6 @@ function reportPurchase({
 }) {
   if (hasReportedPuchase({ ctx })) {
     Logger.log(
-      { ctx },
-      { ctx },
       "🛒 Purchase already reported for user:",
       ctx.getChatbotUserId(),
     );
@@ -343,7 +315,7 @@ function reportPurchase({
 
   const backendUrl = Server.getUrl({ ctx });
   const currency = ctx.getConfig().currency || "DKK";
-  Logger.log({ ctx }, { ctx }, "🛒 Reporting purchase to backend:", {
+  Logger.log("🛒 Reporting purchase to backend:", {
     userId: ctx.getChatbotUserId(),
     chatbotId: ctx.getChatbotId(),
     amount: amount,
@@ -365,14 +337,13 @@ function reportPurchase({
       localStorage.setItem(purchaseKey(ctx.getChatbotUserId()), "true");
       Logger.log(
         { ctx },
-        { ctx },
         "✅ Purchase reported successfully (queued via Beacon)",
       );
     } else {
-      Logger.error({ ctx }, "❌ Failed to queue purchase beacon");
+      Logger.error("❌ Failed to queue purchase beacon");
     }
   } catch (err) {
-    Logger.error({ ctx }, "❌ Failed to send purchase beacon:", err);
+    Logger.error("❌ Failed to send purchase beacon:", err);
   }
 }
 
@@ -383,7 +354,7 @@ function parsePriceFromText({
   priceText: string;
   ctx: Readonly<Context>;
 }) {
-  Logger.log({ ctx }, `🛒 Parsing price text: "${priceText}"`);
+  Logger.log(`🛒 Parsing price text: "${priceText}"`);
 
   // Handle Danish/European format (1.148,00 kr)
   const danishMatches = priceText.match(
@@ -391,8 +362,8 @@ function parsePriceFromText({
   );
   const regularMatches = priceText.match(/\d[\d.,]*/g);
 
-  Logger.log({ ctx }, `🛒 Danish matches:`, danishMatches);
-  Logger.log({ ctx }, `🛒 Regular matches:`, regularMatches);
+  Logger.log(`🛒 Danish matches:`, danishMatches);
+  Logger.log(`🛒 Regular matches:`, regularMatches);
 
   let allMatches: string[] = [];
   if (danishMatches) allMatches = allMatches.concat(danishMatches);
@@ -402,7 +373,7 @@ function parsePriceFromText({
 
   if (allMatches && allMatches.length > 0) {
     for (const match of allMatches) {
-      Logger.log({ ctx }, `🛒 Processing match: "${match}"`);
+      Logger.log(`🛒 Processing match: "${match}"`);
       let cleanedMatch = match;
 
       // Handle "kr" suffix (Danish currency)
@@ -442,9 +413,9 @@ function parsePriceFromText({
         }
       }
 
-      Logger.log({ ctx }, `🛒 Cleaned match: "${cleanedMatch}"`);
+      Logger.log(`🛒 Cleaned match: "${cleanedMatch}"`);
       const numValue = parseFloat(cleanedMatch);
-      Logger.log({ ctx }, `🛒 Parsed number: ${numValue}`);
+      Logger.log(`🛒 Parsed number: ${numValue}`);
       if (!isNaN(numValue) && numValue > highestPrice) {
         highestPrice = numValue;
       }

@@ -5,7 +5,6 @@ export function removeNotificationBadgeOnClick() {
   if (!chatButton) return;
 
   chatButton.addEventListener("click", () => {
-    // Remove notification badge if present
     const badge = document.getElementById("notification-badge");
     if (badge) badge.remove();
 
