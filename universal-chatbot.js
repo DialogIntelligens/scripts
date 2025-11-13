@@ -420,7 +420,7 @@
       setTimeout(checkForPurchase, 2000); // Wait for iframe to load
       setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
       setTimeout(checkForPurchase, 6000); // Final retry
-    } else if (config.purchaseTrackingEnabled) {
+    } else if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
       console.log('🛒 Not checkout page. Tracking cart price every 5 seconds.');
       setInterval(trackTotalPurchasePrice, 5000);
     } else {
