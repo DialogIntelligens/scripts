@@ -1476,7 +1476,7 @@
 
 
     if (!config.checkoutConfirmationPagePatterns) {
-      console.log("confirmation page not set: ", config.checkoutConfirmationPagePatterns);
+      console.log("Confirmation page not set: ", config.checkoutConfirmationPagePatterns);
       return false;
     }
 
