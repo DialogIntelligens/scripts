@@ -1476,7 +1476,7 @@
 
 
     if (!config.checkoutConfirmationPagePatterns) {
-      console.log("confirmation page not set");
+      console.log("confirmation page not set: ", config.checkoutConfirmationPagePatterns);
       return false;
     }
 
@@ -1515,11 +1515,11 @@
   }
 
   function matchesPagePattern(pagePatterns) {
-    console.log("Checking for page patterns match: ", pagePatterns);
-
     if (!pagePatterns) {
       return false;
     }
+
+    console.log("Checking for page patterns match: ", pagePatterns);
 
     const patterns = pagePatterns.split(',').map(item => item.trim());
 
