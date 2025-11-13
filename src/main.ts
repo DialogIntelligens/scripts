@@ -93,9 +93,7 @@ async function main() {
         ? {
             ...defaultConfig,
             ...window.CHATBOT_PREVIEW_CONFIG,
-            iframeUrl:
-              window.CHATBOT_PREVIEW_CONFIG.iframeUrl ??
-              "https://skalerbartprodukt.onrender.com",
+            iframeUrl:"https:localhost:3002/",
           }
         : defaultConfig,
   };
