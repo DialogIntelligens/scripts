@@ -413,10 +413,9 @@
 
     if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
       console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
-      // Check for checkout buttons every 5 seconds
-      setInterval(checkForCheckoutButtons, 5000);
-      // Also track cart price every 5 seconds for pages with price selectors
+      // Check cart total and checkout buttons every 5 seconds
       setInterval(trackTotalPurchasePrice, 5000);
+      setInterval(checkForCheckoutButtons, 5000);
     } else {
       console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
     }
@@ -1610,42 +1609,6 @@
     return highestPrice > 0 ? highestPrice : null;
   }
 
-  function checkForPurchase() {
-    // Wait for userId from iframe (set by postMessage listener)
-    if (!chatbotUserId) {
-      console.log('🛒 No userId yet, waiting for iframe to send it...');
-      return;
-    }
-
-    // CRITICAL: Only track purchases for users who actually interacted with the chatbot
-    if (!hasInteractedWithChatbot) {
-      console.log('🛒 User has not interacted with chatbot, skipping purchase tracking');
-      return;
-    }
-
-    if (hasReportedPurchase) {
-      console.log('🛒 Purchase already reported for user:', chatbotUserId);
-      return;
-    }
-
-    if (isCheckoutPage()) {
-      trackTotalPurchasePrice();
-    }
-
-    // If checkout confirmation page patterns is set use that instead of checkout page patterns to track purchase
-    if (isCheckoutPage() && !config.checkoutConfirmationPagePatterns) {
-      trackPurchase();
-    }
-
-    if (isCheckoutConfirmationPage()) {
-      console.log('Track purchase at checkout confirmation');
-      const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
-
-      if (amount) {
-        reportPurchase(amount);
-      }
-    }
-  }
 
   function trackTotalPurchasePrice() {
     const { checkoutPriceSelector: basePriceSelector } = config;
@@ -1722,39 +1685,6 @@
     });
   }
 
-  function trackPurchase() {
-    console.log('Track purchase at checkout');
-
-    const checkoutPurchaseSelectors = getCheckoutPurchaseSelectors();
-
-    if (checkoutPurchaseSelectors && !checkoutPurchaseSelectors.length) {
-      console.warn('⚠️ Missing purchase selector configuration');
-      return;
-    }
-
-    const purchaseButtons = checkoutPurchaseSelectors
-      .map(getSelectorElement)
-      .filter(purchaseButton => !!purchaseButton);
-
-    if (checkoutPurchaseSelectors.length !== purchaseButtons.length) {
-        console.warn(`⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${purchaseButtons.length} selectors`);
-        return;
-    }
-
-    console.log(`✅ Tracking purchase button(s): ${checkoutPurchaseSelectors}`);
-
-    purchaseButtons.forEach(purchaseButton => {
-      purchaseButton.addEventListener("click", async () => {
-          const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
-          console.log(`✅ Tracked purchase amount: ${amount}`);
-
-          if (amount) {
-            reportPurchase(amount);
-          }
-      });
-    });
-  }
-
   function getSelectorElement(selector) {
     const cleanedSelector = selector ? selector.trim() : "";
 
@@ -1769,22 +1699,23 @@
 
   function getCheckoutPurchaseSelectors() {
     const { checkoutPurchaseSelector: basePurchaseSelector } = config;
-    
+
     if (isPreviewMode && basePurchaseSelector) {
       return ["#purchase-tracking-checkout-purchase", "#purchase-tracking-checkout-purchase-alternative"];
     }
 
-    try {
-      const checkoutPurchaseSelector = JSON.parse(basePurchaseSelector);
-
-      if (!Array.isArray(checkoutPurchaseSelector)) {
-        return [checkoutPurchaseSelector];
-      }
-
-      return checkoutPurchaseSelector;
-    } catch {
-      return [basePurchaseSelector];
+    // If basePurchaseSelector is already an array, return it
+    if (Array.isArray(basePurchaseSelector)) {
+      return basePurchaseSelector;
     }
+
+    // If it's a string, split by comma and trim whitespace
+    if (typeof basePurchaseSelector === 'string') {
+      return basePurchaseSelector.split(',').map(selector => selector.trim()).filter(selector => selector.length > 0);
+    }
+
+    // If it's neither array nor string, or undefined/null, return empty array
+    return [];
   }
 
   function reportPurchase(totalPrice) {
