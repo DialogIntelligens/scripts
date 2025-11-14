@@ -1704,14 +1704,10 @@
       return ["#purchase-tracking-checkout-purchase", "#purchase-tracking-checkout-purchase-alternative"];
     }
 
-    // If basePurchaseSelector is already an array, return it
-    if (Array.isArray(basePurchaseSelector)) {
-      return basePurchaseSelector;
-    }
 
     // If it's a string, split by comma and trim whitespace
     if (typeof basePurchaseSelector === 'string') {
-      return basePurchaseSelector.split(',').map(selector => selector.trim()).filter(selector => selector.length > 0);
+      return basePurchaseSelector.split(',').map(selector => selector.trim()).filter(Boolean);
     }
 
     // If it's neither array nor string, or undefined/null, return empty array
