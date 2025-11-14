@@ -408,23 +408,16 @@
     // Handle purchase tracking
     console.log('🛒 Purchase tracking check:', {
       enabled: config.purchaseTrackingEnabled,
-      isCheckoutPage: isCheckoutPage(),
-      isCheckoutConfirmationPage: isCheckoutConfirmationPage(),
       userId: chatbotUserId || 'waiting for iframe...'
     });
 
-    if (config.purchaseTrackingEnabled && (isCheckoutPage() || isCheckoutConfirmationPage())) {
-      console.log('🛒 On checkout page - will check for purchase after iframe loads and sends userId...');
-      // Give iframe time to load and send userId (2-6 seconds with retries)
-      // The postMessage listener will update chatbotUserId when received
-      setTimeout(checkForPurchase, 2000); // Wait for iframe to load
-      setTimeout(checkForPurchase, 4000); // Retry in case price loads dynamically
-      setTimeout(checkForPurchase, 6000); // Final retry
-    } else if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
-      console.log('🛒 Not checkout page. Tracking cart price every 5 seconds.');
+    if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
+      console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
+      // Check cart total and checkout buttons every 5 seconds
       setInterval(trackTotalPurchasePrice, 5000);
+      setInterval(checkForCheckoutButtons, 5000);
     } else {
-      console.log('🛒 Purchase tracking disabled');
+      console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
     }
   }
 
@@ -1616,42 +1609,6 @@
     return highestPrice > 0 ? highestPrice : null;
   }
 
-  function checkForPurchase() {
-    // Wait for userId from iframe (set by postMessage listener)
-    if (!chatbotUserId) {
-      console.log('🛒 No userId yet, waiting for iframe to send it...');
-      return;
-    }
-
-    // CRITICAL: Only track purchases for users who actually interacted with the chatbot
-    if (!hasInteractedWithChatbot) {
-      console.log('🛒 User has not interacted with chatbot, skipping purchase tracking');
-      return;
-    }
-
-    if (hasReportedPurchase) {
-      console.log('🛒 Purchase already reported for user:', chatbotUserId);
-      return;
-    }
-
-    if (isCheckoutPage()) {
-      trackTotalPurchasePrice();
-    }
-
-    // If checkout confirmation page patterns is set use that instead of checkout page patterns to track purchase
-    if (isCheckoutPage() && !config.checkoutConfirmationPagePatterns) {
-      trackPurchase();
-    }
-
-    if (isCheckoutConfirmationPage()) {
-      console.log('Track purchase at checkout confirmation');
-      const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
-
-      if (amount) {
-        reportPurchase(amount);
-      }
-    }
-  }
 
   function trackTotalPurchasePrice() {
     const { checkoutPriceSelector: basePriceSelector } = config;
@@ -1679,13 +1636,24 @@
     }
   }
 
-  function trackPurchase() {
-    console.log('Track purchase at checkout');
+  function checkForCheckoutButtons() {
+    // Wait for userId from iframe (set by postMessage listener)
+    if (!chatbotUserId) {
+      return;
+    }
+
+    // Only track purchases for users who actually interacted with the chatbot
+    if (!hasInteractedWithChatbot) {
+      return;
+    }
+
+    if (hasReportedPurchase) {
+      return;
+    }
 
     const checkoutPurchaseSelectors = getCheckoutPurchaseSelectors();
 
-    if (checkoutPurchaseSelectors && !checkoutPurchaseSelectors.length) {
-      console.warn('⚠️ Missing purchase selector configuration');
+    if (!checkoutPurchaseSelectors || !checkoutPurchaseSelectors.length) {
       return;
     }
 
@@ -1693,22 +1661,27 @@
       .map(getSelectorElement)
       .filter(purchaseButton => !!purchaseButton);
 
-    if (checkoutPurchaseSelectors.length !== purchaseButtons.length) {
-        console.warn(`⚠️ Expected ${checkoutPurchaseSelectors.length} selectors found ${purchaseButtons.length} selectors`);
-        return;
+    if (!purchaseButtons.length) {
+      return;
     }
 
-    console.log(`✅ Tracking purchase button(s): ${checkoutPurchaseSelectors}`);
+    console.log(`🛒 Found ${purchaseButtons.length} checkout button(s) on page`);
 
     purchaseButtons.forEach(purchaseButton => {
-      purchaseButton.addEventListener("click", async () => {
+      // Check if we've already added a listener to this button
+      if (!purchaseButton.hasAttribute('data-purchase-tracked')) {
+        console.log('🛒 Adding purchase tracking listener to checkout button');
+        purchaseButton.setAttribute('data-purchase-tracked', 'true');
+
+        purchaseButton.addEventListener("click", async () => {
           const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
           console.log(`✅ Tracked purchase amount: ${amount}`);
 
           if (amount) {
             reportPurchase(amount);
           }
-      });
+        });
+      }
     });
   }
 
@@ -1726,22 +1699,19 @@
 
   function getCheckoutPurchaseSelectors() {
     const { checkoutPurchaseSelector: basePurchaseSelector } = config;
-    
+
     if (isPreviewMode && basePurchaseSelector) {
       return ["#purchase-tracking-checkout-purchase", "#purchase-tracking-checkout-purchase-alternative"];
     }
 
-    try {
-      const checkoutPurchaseSelector = JSON.parse(basePurchaseSelector);
 
-      if (!Array.isArray(checkoutPurchaseSelector)) {
-        return [checkoutPurchaseSelector];
-      }
-
-      return checkoutPurchaseSelector;
-    } catch {
-      return [basePurchaseSelector];
+    // If it's a string, split by comma and trim whitespace
+    if (typeof basePurchaseSelector === 'string') {
+      return basePurchaseSelector.split(',').map(selector => selector.trim()).filter(Boolean);
     }
+
+    // If it's neither array nor string, or undefined/null, return empty array
+    return [];
   }
 
   function reportPurchase(totalPrice) {
