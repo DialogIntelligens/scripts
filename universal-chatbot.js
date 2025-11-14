@@ -1023,6 +1023,7 @@
         localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
         console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
         console.log("✅ User has interacted with chatbot, purchase tracking enabled");
+        handlePurchaseTracking();
       }
     });
 
