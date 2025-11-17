@@ -57,7 +57,7 @@
   if (isPreviewMode) {
     console.log(`🔍 Preview Mode: Initializing chatbot preview`);
   } else {
-    console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
+    // console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
   }
 
   // Global variables
@@ -103,7 +103,7 @@
       : 'https://egendatabasebackend.onrender.com';
     
     try {
-      console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
+      // console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
         `${backendUrl}/api/integration-config/${chatbotID}`
       );
@@ -113,7 +113,7 @@
       }
 
       const configData = await response.json();
-      console.log(`✅ Configuration loaded successfully`);
+      // console.log(`✅ Configuration loaded successfully`);
       return configData;
     } catch (error) {
       console.error('❌ Error loading chatbot config:', error);
@@ -322,8 +322,8 @@
     const hasInteractedStored = localStorage.getItem(hasInteractedKey);
     hasInteractedWithChatbot = hasInteractedStored === 'true';
     
-    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
-    console.log('🆔 Has interacted with chatbot:', hasInteractedWithChatbot);
+    // console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
+   // console.log('🆔 Has interacted with chatbot:', hasInteractedWithChatbot);
 
     // Load font if specified
     if (config.fontFamily) {
@@ -379,7 +379,7 @@
     
     if (isDesktop && savedChatState === 'open') {
       // Auto-open chat on desktop if it was previously open
-      console.log('🔄 Restoring chat window state on desktop');
+      // console.log('🔄 Restoring chat window state on desktop');
       setTimeout(function() {
         const chatButton = document.getElementById('chat-button');
         if (chatButton) {
@@ -406,18 +406,18 @@
 
   function handlePurchaseTracking() {
     // Handle purchase tracking
-    console.log('🛒 Purchase tracking check:', {
+    /* console.log('🛒 Purchase tracking check:', {
       enabled: config.purchaseTrackingEnabled,
       userId: chatbotUserId || 'waiting for iframe...'
-    });
+    }); */
 
     if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
-      console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
+      // console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
       // Check cart total and checkout buttons every 5 seconds
       setInterval(trackTotalPurchasePrice, 5000);
       setInterval(checkForCheckoutButtons, 5000);
     } else {
-      console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
+      // console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
     }
   }
 
@@ -1021,8 +1021,9 @@
         hasInteractedWithChatbot = true; // Mark that user has interacted with the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
         localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
-        console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
-        console.log("✅ User has interacted with chatbot, purchase tracking enabled");
+        // console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
+        // console.log("✅ User has interacted with chatbot, purchase tracking enabled");
+        handlePurchaseTracking();
       }
     });
 
@@ -1222,7 +1223,7 @@
       };
 
 
-      console.log('📤 Sending configuration to iframe:', {
+      /* console.log('📤 Sending configuration to iframe:', {
         chatbotID: messageData.chatbotID,
         action: messageData.action,
         themeColor: messageData.themeColor,
@@ -1231,7 +1232,7 @@
         leadMail: messageData.leadMail,
         toHumanMail: messageData.toHumanMail,
         freshdeskGroupId: messageData.freshdeskGroupId
-      });
+      }); */
 
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
     } catch (e) {
@@ -1285,7 +1286,7 @@
     if (isMobile) {
       // Check if popup should be shown on mobile (configurable)
       if (config.popupShowOnMobile === false) {
-        console.log('🔍 Popup disabled on mobile via config');
+        // console.log('🔍 Popup disabled on mobile via config');
         return;
       }
       
@@ -1459,98 +1460,16 @@
     return `purchaseTotalPriceKey_${userId}`;
   }
 
-  function isCheckoutConfirmationPage() {
-    console.log('🔍 Checking if current page is confirmation page:', window.location.href);
-
-    if (isPreviewMode && config.purchaseTrackingEnabled && config.checkoutConfirmationPagePatterns) {
-      // In preview mode assume the checkout confirmation page is current page if purchase tracking is enabled
-      return true;
-    }
-
-
-    if (!config.checkoutConfirmationPagePatterns) {
-      console.log("Confirmation page not set: ", config.checkoutConfirmationPagePatterns);
-      return false;
-    }
-
-    return matchesPagePattern(config.checkoutConfirmationPagePatterns)
-  }
-
-  function isCheckoutPage() {
-    console.log('🔍 Checking if current page is checkout:', window.location.href);
-
-    if (isPreviewMode && config.purchaseTrackingEnabled) {
-      // In preview mode assume the checkout page is current page if purchase tracking is enabled
-      return true;
-    }
-
-    // Use custom patterns from config if available
-    if (matchesPagePattern(config.checkoutPagePatterns)) {
-      return true;
-    }
-
-    // Default fallback patterns
-    const defaultChecks = [
-      window.location.href.includes('/checkout'),
-      window.location.href.includes('/ordre'),
-      window.location.href.includes('/order-complete/'),
-      window.location.href.includes('/thank-you/'),
-      window.location.href.includes('/order-received/'),
-      !!document.querySelector('.order-complete'),
-      !!document.querySelector('.thank-you'),
-      !!document.querySelector('.order-confirmation')
-    ];
-
-    console.log('🔍 Default checkout checks:', defaultChecks);
-    const result = defaultChecks.some(check => check);
-    console.log('🔍 isCheckoutPage result:', result);
-    return result;
-  }
-
-  function matchesPagePattern(pagePatterns) {
-    if (!pagePatterns) {
-      return false;
-    }
-
-    console.log("Checking for page patterns match: ", pagePatterns);
-
-    const patterns = pagePatterns.split(',').map(item => item.trim());
-
-    if (patterns) {
-      try {
-        if (Array.isArray(patterns)) {
-          return patterns.some(pattern => {
-            // Support both URL substring matching and path matching
-            if (pattern.startsWith('/') && pattern.endsWith('/')) {
-              // Exact path match
-              const path = window.location.pathname.replace(/\/$/, '');
-              const result = path === pattern.replace(/\/$/, '');
-              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
-              return result;
-            } else {
-              // Substring match in URL
-              const result = window.location.href.includes(pattern);
-              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
-              return result;
-            }
-          });
-        }
-      } catch (e) {
-        return false;
-      }
-    }
-  }
-
   // Helper function to parse price from text
   function parsePriceFromText(priceText, locale) {
-    console.log(`🛒 Parsing price text: "${priceText}"`);
+    // console.log(`🛒 Parsing price text: "${priceText}"`);
 
     // Handle Danish/European format (1.148,00 kr)
     const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
     const regularMatches = priceText.match(/\d[\d.,]*/g);
 
-    console.log(`🛒 Danish matches:`, danishMatches);
-    console.log(`🛒 Regular matches:`, regularMatches);
+    // console.log(`🛒 Danish matches:`, danishMatches);
+    // console.log(`🛒 Regular matches:`, regularMatches);
 
     let allMatches = [];
     if (danishMatches) allMatches = allMatches.concat(danishMatches);
@@ -1560,7 +1479,7 @@
 
     if (allMatches && allMatches.length > 0) {
       for (const match of allMatches) {
-        console.log(`🛒 Processing match: "${match}"`);
+        // console.log(`🛒 Processing match: "${match}"`);
         let cleanedMatch = match;
 
         // Handle "kr" suffix (Danish currency)
@@ -1597,9 +1516,9 @@
           }
         }
 
-        console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
+        // console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
         const numValue = parseFloat(cleanedMatch);
-        console.log(`🛒 Parsed number: ${numValue}`);
+        // console.log(`🛒 Parsed number: ${numValue}`);
         if (!isNaN(numValue) && numValue > highestPrice) {
           highestPrice = numValue;
         }
@@ -1665,17 +1584,17 @@
       return;
     }
 
-    console.log(`🛒 Found ${purchaseButtons.length} checkout button(s) on page`);
+    // console.log(`🛒 Found ${purchaseButtons.length} checkout button(s) on page`);
 
     purchaseButtons.forEach(purchaseButton => {
       // Check if we've already added a listener to this button
       if (!purchaseButton.hasAttribute('data-purchase-tracked')) {
-        console.log('🛒 Adding purchase tracking listener to checkout button');
+        // console.log('🛒 Adding purchase tracking listener to checkout button');
         purchaseButton.setAttribute('data-purchase-tracked', 'true');
 
         purchaseButton.addEventListener("click", async () => {
           const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
-          console.log(`✅ Tracked purchase amount: ${amount}`);
+          // console.log(`✅ Tracked purchase amount: ${amount}`);
 
           if (amount) {
             reportPurchase(amount);
@@ -1689,7 +1608,7 @@
     const cleanedSelector = selector ? selector.trim() : "";
 
     try {
-      console.log("Searching for selector: ", cleanedSelector);
+      // console.log("Searching for selector: ", cleanedSelector);
       return document.querySelector(cleanedSelector);
     } catch {
       console.warn('⚠️ Found invalid selector:', cleanedSelector);
@@ -1717,19 +1636,19 @@
   function reportPurchase(totalPrice) {
     if (localStorage.getItem(purchaseKey(chatbotUserId))) {
       hasReportedPurchase = true;
-      console.log('🛒 Purchase already reported for user:', chatbotUserId);
+      // console.log('🛒 Purchase already reported for user:', chatbotUserId);
       return;
     }
 
     const backendUrl = getBackendUrl();
     const currency = config.currency || 'DKK';
-    console.log('🛒 Reporting purchase to backend:', {
+    /* console.log('🛒 Reporting purchase to backend:', {
       userId: chatbotUserId,
       chatbotId: chatbotID,
       amount: totalPrice,
       currency: currency,
       endpoint: `${backendUrl}/purchases`
-    });
+    }); */
 
     try {
       const formData = new URLSearchParams({
@@ -1744,7 +1663,7 @@
       if (success) {
         hasReportedPurchase = true;
         localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-        console.log('✅ Purchase reported successfully (queued via Beacon)');
+        // console.log('✅ Purchase reported successfully (queued via Beacon)');
       } else {
         console.error('❌ Failed to queue purchase beacon');
       }
