@@ -14,11 +14,12 @@
 
   // Configuration
   const CONFIG = {
-    placeholder: "Ask me anything...",
-    sendIconColor: "#007bff",
+    placeholder: "Stil et spørgsmål...",
+    sendIconColor: "#636a8b",
     backgroundColor: "rgba(255, 255, 255, 0.95)",
-    borderColor: "#e0e0e0",
-    shadowColor: "rgba(0, 0, 0, 0.1)",
+    borderColor: "#d0d4e0",
+    shadowColor: "rgba(99, 106, 139, 0.15)",
+    focusShadowColor: "rgba(99, 106, 139, 0.25)",
     borderRadius: "25px",
     width: "400px",
     maxWidth: "90vw",
@@ -89,7 +90,7 @@
 
     // Add hover effect to send button
     sendButton.onmouseover = function() {
-      this.style.backgroundColor = 'rgba(0, 123, 255, 0.1)';
+      this.style.backgroundColor = 'rgba(99, 106, 139, 0.1)';
       this.style.transform = 'scale(1.1)';
     };
     sendButton.onmouseout = function() {
@@ -141,7 +142,7 @@
 
     // Add focus/blur effects
     input.onfocus = function() {
-      searchContainer.style.boxShadow = '0 6px 20px rgba(0, 123, 255, 0.15)';
+      searchContainer.style.boxShadow = `0 6px 20px ${CONFIG.focusShadowColor}`;
       searchContainer.style.borderColor = CONFIG.sendIconColor;
     };
 
@@ -179,92 +180,20 @@
         }
       }
 
-      // Wait for the chat to open, then try to inject the message
+      // Wait for the chat to open, then send message via postMessage
       setTimeout(() => {
-        try {
-          if (chatIframe && chatIframe.contentDocument) {
-            // Try to access the iframe's input field and send button
-            const iframeDoc = chatIframe.contentDocument;
-
-            // Find the input field (it might have different selectors, try common ones)
-            const inputSelectors = [
-              'textarea[placeholder*="spørgsmål"]',
-              'textarea',
-              'input[type="text"]',
-              '[contenteditable="true"]',
-              '.chat-input',
-              '#message-input'
-            ];
-
-            let inputField = null;
-            for (const selector of inputSelectors) {
-              inputField = iframeDoc.querySelector(selector);
-              if (inputField) break;
-            }
-
-            // Find the send button
-            const sendButtonSelectors = [
-              'button:has(svg)',
-              '.send-button',
-              'button[type="submit"]',
-              '[aria-label*="Send"]'
-            ];
-
-            let sendButton = null;
-            for (const selector of sendButtonSelectors) {
-              sendButton = iframeDoc.querySelector(selector);
-              if (sendButton) break;
-            }
-
-            if (inputField && sendButton) {
-              // Set the message in the input field
-              if (inputField.tagName === 'TEXTAREA' || inputField.tagName === 'INPUT') {
-                inputField.value = message;
-                // Trigger input event to notify React
-                inputField.dispatchEvent(new Event('input', { bubbles: true }));
-              } else if (inputField.contentEditable === 'true') {
-                inputField.textContent = message;
-                inputField.dispatchEvent(new Event('input', { bubbles: true }));
-              }
-
-              // Wait a bit then click the send button
-              setTimeout(() => {
-                sendButton.click();
-              }, 100);
-            } else {
-              console.warn('Could not find input field or send button in iframe');
-              // Fallback: try postMessage approach
-              if (chatIframe.contentWindow) {
-                chatIframe.contentWindow.postMessage({
-                  action: 'externalMessage',
-                  message: message,
-                  source: 'floating-search-bar'
-                }, '*');
-              }
-            }
-          } else {
-            console.warn('Cannot access iframe content (likely due to same-origin policy)');
-            // Fallback: try postMessage approach
-            if (chatIframe.contentWindow) {
-              chatIframe.contentWindow.postMessage({
-                action: 'externalMessage',
-                message: message,
-                source: 'floating-search-bar'
-              }, '*');
-            }
-          }
-        } catch (e) {
-          console.warn('Error accessing iframe content:', e);
-          // Fallback: try postMessage approach
-          if (chatIframe.contentWindow) {
-            chatIframe.contentWindow.postMessage({
-              action: 'externalMessage',
-              message: message,
-              source: 'floating-search-bar'
-            }, '*');
-          }
+        if (chatIframe && chatIframe.contentWindow) {
+          console.log('📤 Sending external message to chatbot iframe:', message);
+          // Send postMessage with wildcard origin since iframe can be on different domains
+          chatIframe.contentWindow.postMessage({
+            action: 'externalMessage',
+            message: message,
+            source: 'floating-search-bar'
+          }, '*');
+        } else {
+          console.warn('Chatbot iframe contentWindow not available');
         }
-      }, 1000); // Increased timeout to ensure chat is fully loaded
+      }, 1000); // Wait for chat to be fully loaded
     } else {
       console.warn('Chatbot elements not found. Make sure universal-chatbot.js is loaded first.');
     }
