@@ -64,7 +64,7 @@
   let isIframeEnlarged = false;
   let chatbotUserId = null;
   let hasReportedPurchase = false;
-  let hasInteractedWithChatbot = false; // Only track purchases for users who opened the chatbot
+  let hasSentMessageToChatbot = false; // Only track purchases for users who sent a message to the chatbot
 
   /**
    * Load chatbot configuration from backend
@@ -310,11 +310,14 @@
     // Get user ID from localStorage (will be set by postMessage from iframe)
     const userIdKey = `userId_${chatbotID}`;
     chatbotUserId = localStorage.getItem(userIdKey) || null;
-    
-    // Check if user has previously interacted with the chatbot (for purchase tracking)
-    const hasInteractedKey = `hasInteracted_${chatbotID}`;
-    const hasInteractedStored = localStorage.getItem(hasInteractedKey);
-    hasInteractedWithChatbot = hasInteractedStored === 'true';
+
+    // Check if user has previously sent a message to the chatbot (for purchase tracking)
+    const hasSentMessageKey = `hasSentMessage_${chatbotID}`;
+    const hasSentMessageStored = localStorage.getItem(hasSentMessageKey);
+    hasSentMessageToChatbot = hasSentMessageStored === 'true';
+
+    // console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
+   // console.log('🆔 Has sent message to chatbot:', hasSentMessageToChatbot);
 
     // Load font if specified
     if (config.fontFamily) {
@@ -390,17 +393,17 @@
     if (!isPreviewMode) {
       handlePurchaseTracking();
     }
+
+    console.log('✅ Chatbot initialized successfully');
   }
 
   function handlePurchaseTracking() {
     // Handle purchase tracking
-    if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
-      // Check cart total and checkout buttons every 5 seconds
+    if (config.purchaseTrackingEnabled && hasSentMessageToChatbot) {
       setInterval(trackTotalPurchasePrice, 5000);
       setInterval(checkForCheckoutButtons, 5000);
     }
   }
-
   /**
    * Update chat button HTML dynamically (for preview mode)
    */
@@ -995,11 +998,19 @@
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
-        // Handle userId from iframe (sent when user starts conversation)
+        // Handle userId from iframe (sent when userId becomes available on page load)
         chatbotUserId = event.data.userId;
-        hasInteractedWithChatbot = true; // Mark that user has interacted with the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
-        localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
+        // console.log("🆔 Received userId from iframe:", chatbotUserId);
+        // Note: Purchase tracking is NOT enabled here - only when firstMessageSent is received
+      } else if (event.data.action === 'firstMessageSent' && event.data.userId) {
+        // Handle first message sent event from iframe (sent when user sends their first message)
+        chatbotUserId = event.data.userId;
+        hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
+        localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
+        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true'); // Persist message-sent flag
+        // console.log("✅ Received first message sent from iframe:", chatbotUserId);
+        // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
       }
     });
@@ -1424,74 +1435,6 @@
     return `purchaseTotalPriceKey_${userId}`;
   }
 
-  function isCheckoutConfirmationPage() {
-    if (isPreviewMode && config.purchaseTrackingEnabled && config.checkoutConfirmationPagePatterns) {
-      // In preview mode assume the checkout confirmation page is current page if purchase tracking is enabled
-      return true;
-    }
-
-    if (!config.checkoutConfirmationPagePatterns) {
-      return false;
-    }
-
-    return matchesPagePattern(config.checkoutConfirmationPagePatterns)
-  }
-
-  function isCheckoutPage() {
-
-    if (isPreviewMode && config.purchaseTrackingEnabled) {
-      // In preview mode assume the checkout page is current page if purchase tracking is enabled
-      return true;
-    }
-
-    // Use custom patterns from config if available
-    if (matchesPagePattern(config.checkoutPagePatterns)) {
-      return true;
-    }
-
-    // Default fallback patterns
-    const defaultChecks = [
-      window.location.href.includes('/checkout'),
-      window.location.href.includes('/ordre'),
-      window.location.href.includes('/order-complete/'),
-      window.location.href.includes('/thank-you/'),
-      window.location.href.includes('/order-received/'),
-      !!document.querySelector('.order-complete'),
-      !!document.querySelector('.thank-you'),
-      !!document.querySelector('.order-confirmation')
-    ];
-
-    return defaultChecks.some(check => check);
-  }
-
-  function matchesPagePattern(pagePatterns) {
-    if (!pagePatterns) {
-      return false;
-    }
-
-    const patterns = pagePatterns.split(',').map(item => item.trim());
-
-    if (patterns) {
-      try {
-        if (Array.isArray(patterns)) {
-          return patterns.some(pattern => {
-            // Support both URL substring matching and path matching
-            if (pattern.startsWith('/') && pattern.endsWith('/')) {
-              // Exact path match
-              const path = window.location.pathname.replace(/\/$/, '');
-              return path === pattern.replace(/\/$/, '');
-            } else {
-              // Substring match in URL
-              return window.location.href.includes(pattern);
-            }
-          });
-        }
-      } catch (e) {
-        return false;
-      }
-    }
-  }
-
   // Helper function to parse price from text
   function parsePriceFromText(priceText, locale) {
     // Handle Danish/European format (1.148,00 kr)
@@ -1585,8 +1528,8 @@
       return;
     }
 
-    // Only track purchases for users who actually interacted with the chatbot
-    if (!hasInteractedWithChatbot) {
+    // Only track purchases for users who actually sent a message to the chatbot
+    if (!hasSentMessageToChatbot) {
       return;
     }
 
