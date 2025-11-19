@@ -403,7 +403,7 @@
       setInterval(trackTotalPurchasePrice, 5000);
       setInterval(checkForCheckoutButtons, 5000);
     }
-
+  }
   /**
    * Update chat button HTML dynamically (for preview mode)
    */
