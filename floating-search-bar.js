@@ -56,6 +56,74 @@
       transition: all 0.3s ease;
     `;
 
+    // Create close button (similar to popup close button)
+    const closeButton = document.createElement('button');
+    closeButton.style.cssText = `
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: rgba(224, 224, 224, 0);
+      color: black;
+      border: none;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
+      z-index: 10;
+      pointer-events: none;
+    `;
+    closeButton.innerHTML = '×';
+
+    // Show close button on hover (desktop) or always on mobile
+    searchContainer.onmouseenter = function() {
+      closeButton.style.opacity = '1';
+      closeButton.style.transform = 'scale(1.2)';
+      closeButton.style.pointerEvents = 'auto';
+    };
+    searchContainer.onmouseleave = function() {
+      // On mobile, keep it visible
+      if (window.innerWidth >= 768) {
+        closeButton.style.opacity = '0';
+        closeButton.style.transform = 'scale(0.7)';
+        closeButton.style.pointerEvents = 'none';
+      }
+    };
+
+    // On mobile, always show close button
+    if (window.innerWidth < 768) {
+      closeButton.style.opacity = '1';
+      closeButton.style.transform = 'scale(1)';
+      closeButton.style.pointerEvents = 'auto';
+      closeButton.style.backgroundColor = 'rgba(224, 224, 224, 0.8)';
+    }
+
+    // Close button hover effect
+    closeButton.onmouseover = function() {
+      this.style.backgroundColor = 'black';
+      this.style.color = 'white';
+    };
+    closeButton.onmouseout = function() {
+      this.style.backgroundColor = window.innerWidth < 768 ? 'rgba(224, 224, 224, 0.8)' : 'rgba(224, 224, 224, 0)';
+      this.style.color = 'black';
+    };
+
+    // Handle close button click
+    closeButton.onclick = function(e) {
+      e.stopPropagation();
+      container.style.display = 'none';
+      // Remember that user closed it
+      localStorage.setItem('floatingSearchBarClosed', 'true');
+    };
+
     // Create the input field
     const input = document.createElement('input');
     input.type = 'text';
@@ -136,6 +204,7 @@
     };
 
     // Assemble the elements
+    searchContainer.appendChild(closeButton);
     searchContainer.appendChild(input);
     searchContainer.appendChild(sendButton);
     container.appendChild(searchContainer);
@@ -201,6 +270,12 @@
 
   // Initialize the search bar when DOM is ready
   function init() {
+    // Check if user has previously closed the search bar
+    if (localStorage.getItem('floatingSearchBarClosed') === 'true') {
+      console.log('🔍 Floating search bar was closed by user, not showing');
+      return;
+    }
+
     // Wait for the chatbot to be initialized first
     const checkChatbotReady = () => {
       const chatButton = document.getElementById('chat-button');
