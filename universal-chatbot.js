@@ -1011,12 +1011,18 @@
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
-        // Handle userId from iframe (sent when user starts conversation)
+        // Handle userId from iframe (sent when userId becomes available on page load)
+        chatbotUserId = event.data.userId;
+        localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
+        // console.log("🆔 Received userId from iframe:", chatbotUserId);
+        // Note: Purchase tracking is NOT enabled here - only when firstMessageSent is received
+      } else if (event.data.action === 'firstMessageSent' && event.data.userId) {
+        // Handle first message sent event from iframe (sent when user sends their first message)
         chatbotUserId = event.data.userId;
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
         localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true'); // Persist message-sent flag
-        // console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
+        // console.log("✅ Received first message sent from iframe:", chatbotUserId);
         // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
       }
