@@ -65,7 +65,7 @@
   let isIframeEnlarged = false;
   let chatbotUserId = null;
   let hasReportedPurchase = false;
-  let hasInteractedWithChatbot = false; // Only track purchases for users who opened the chatbot
+  let hasSentMessageToChatbot = false; // Only track purchases for users who sent a message to the chatbot
 
   /**
    * Load chatbot configuration from backend
@@ -316,14 +316,14 @@
     // Get user ID from localStorage (will be set by postMessage from iframe)
     const userIdKey = `userId_${chatbotID}`;
     chatbotUserId = localStorage.getItem(userIdKey) || null;
-    
-    // Check if user has previously interacted with the chatbot (for purchase tracking)
-    const hasInteractedKey = `hasInteracted_${chatbotID}`;
-    const hasInteractedStored = localStorage.getItem(hasInteractedKey);
-    hasInteractedWithChatbot = hasInteractedStored === 'true';
-    
+
+    // Check if user has previously sent a message to the chatbot (for purchase tracking)
+    const hasSentMessageKey = `hasSentMessage_${chatbotID}`;
+    const hasSentMessageStored = localStorage.getItem(hasSentMessageKey);
+    hasSentMessageToChatbot = hasSentMessageStored === 'true';
+
     // console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
-   // console.log('🆔 Has interacted with chatbot:', hasInteractedWithChatbot);
+   // console.log('🆔 Has sent message to chatbot:', hasSentMessageToChatbot);
 
     // Load font if specified
     if (config.fontFamily) {
@@ -396,11 +396,6 @@
       setTimeout(showPopup, 2000);
     }
 
-    // Preview mode handles tracking during config update.
-    if (!isPreviewMode) {
-      handlePurchaseTracking();
-    }
-
     console.log('✅ Chatbot initialized successfully');
   }
 
@@ -411,13 +406,13 @@
       userId: chatbotUserId || 'waiting for iframe...'
     }); */
 
-    if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
+    if (config.purchaseTrackingEnabled && hasSentMessageToChatbot) {
       // console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
       // Check cart total and checkout buttons every 5 seconds
       setInterval(trackTotalPurchasePrice, 5000);
       setInterval(checkForCheckoutButtons, 5000);
     } else {
-      // console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
+      // console.log('🛒 Purchase tracking disabled or user has not sent message to chatbot');
     }
   }
 
@@ -1018,11 +1013,11 @@
       } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
         // Handle userId from iframe (sent when user starts conversation)
         chatbotUserId = event.data.userId;
-        hasInteractedWithChatbot = true; // Mark that user has interacted with the chatbot
+        hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
-        localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
+        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true'); // Persist message-sent flag
         // console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
-        // console.log("✅ User has interacted with chatbot, purchase tracking enabled");
+        // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
       }
     });
@@ -1561,8 +1556,8 @@
       return;
     }
 
-    // Only track purchases for users who actually interacted with the chatbot
-    if (!hasInteractedWithChatbot) {
+    // Only track purchases for users who actually sent a message to the chatbot
+    if (!hasSentMessageToChatbot) {
       return;
     }
 
