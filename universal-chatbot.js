@@ -54,10 +54,9 @@
     return;
   }
 
+  // Preview mode initialization
   if (isPreviewMode) {
-    console.log(`🔍 Preview Mode: Initializing chatbot preview`);
-  } else {
-    console.log(`🤖 Initializing universal chatbot: ${chatbotID}`);
+    // Preview mode active
   }
 
   // Global variables
@@ -73,11 +72,8 @@
   async function loadChatbotConfig() {
     // In preview mode, use the config provided by the preview window, but ensure leadFields are included
     if (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG) {
-      console.log('🔍 Preview Mode: Using provided configuration');
-
       // If preview config doesn't have leadFields, try to fetch from backend to get them
       if (!window.CHATBOT_PREVIEW_CONFIG.leadFields) {
-        console.log('🔍 Preview Mode: Missing leadFields, fetching from backend...');
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
@@ -90,7 +86,7 @@
         return { ...window.CHATBOT_PREVIEW_CONFIG, ...backendConfig };
       }
         } catch (error) {
-          console.warn('🔍 Preview Mode: Failed to fetch leadFields from backend:', error);
+          // Failed to fetch leadFields
         }
       }
 
@@ -103,7 +99,6 @@
       : 'https://egendatabasebackend.onrender.com';
     
     try {
-      console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
       const response = await fetch(
         `${backendUrl}/api/integration-config/${chatbotID}`
       );
@@ -113,7 +108,6 @@
       }
 
       const configData = await response.json();
-      console.log(`✅ Configuration loaded successfully`);
       return configData;
     } catch (error) {
       console.error('❌ Error loading chatbot config:', error);
@@ -321,9 +315,6 @@
     const hasInteractedKey = `hasInteracted_${chatbotID}`;
     const hasInteractedStored = localStorage.getItem(hasInteractedKey);
     hasInteractedWithChatbot = hasInteractedStored === 'true';
-    
-    console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
-    console.log('🆔 Has interacted with chatbot:', hasInteractedWithChatbot);
 
     // Load font if specified
     if (config.fontFamily) {
@@ -379,7 +370,6 @@
     
     if (isDesktop && savedChatState === 'open') {
       // Auto-open chat on desktop if it was previously open
-      console.log('🔄 Restoring chat window state on desktop');
       setTimeout(function() {
         const chatButton = document.getElementById('chat-button');
         if (chatButton) {
@@ -400,24 +390,14 @@
     if (!isPreviewMode) {
       handlePurchaseTracking();
     }
-
-    console.log('✅ Chatbot initialized successfully');
   }
 
   function handlePurchaseTracking() {
     // Handle purchase tracking
-    console.log('🛒 Purchase tracking check:', {
-      enabled: config.purchaseTrackingEnabled,
-      userId: chatbotUserId || 'waiting for iframe...'
-    });
-
     if (config.purchaseTrackingEnabled && hasInteractedWithChatbot) {
-      console.log('🛒 Purchase tracking enabled. Checking for checkout buttons every 5 seconds.');
       // Check cart total and checkout buttons every 5 seconds
       setInterval(trackTotalPurchasePrice, 5000);
       setInterval(checkForCheckoutButtons, 5000);
-    } else {
-      console.log('🛒 Purchase tracking disabled or user has not interacted with chatbot');
     }
   }
 
@@ -979,7 +959,6 @@
     // In preview mode, listen for config updates
     if (window.CHATBOT_PREVIEW_MODE) {
       window.addEventListener('previewConfigUpdate', function(event) {
-        console.log('🔄 Preview: Received config update event', event.detail);
         // Update the global config
         config = { ...config, ...event.detail };
         chatbotID = event.detail.chatbotID;
@@ -1021,8 +1000,6 @@
         hasInteractedWithChatbot = true; // Mark that user has interacted with the chatbot
         localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
         localStorage.setItem(`hasInteracted_${chatbotID}`, 'true'); // Persist interaction flag
-        console.log("✅ Received chatbotUserId from iframe:", chatbotUserId);
-        console.log("✅ User has interacted with chatbot, purchase tracking enabled");
         handlePurchaseTracking();
       }
     });
@@ -1222,21 +1199,9 @@
         gptInterface: false
       };
 
-
-      console.log('📤 Sending configuration to iframe:', {
-        chatbotID: messageData.chatbotID,
-        action: messageData.action,
-        themeColor: messageData.themeColor,
-        borderRadiusMultiplier: messageData.borderRadiusMultiplier,
-        purchaseTrackingEnabled: messageData.purchaseTrackingEnabled,
-        leadMail: messageData.leadMail,
-        toHumanMail: messageData.toHumanMail,
-        freshdeskGroupId: messageData.freshdeskGroupId
-      });
-
       iframe.contentWindow.postMessage(messageData, config.iframeUrl);
     } catch (e) {
-      console.warn('Failed to send message to iframe:', e);
+      // Silent error handling
     }
   }
 
@@ -1286,7 +1251,6 @@
     if (isMobile) {
       // Check if popup should be shown on mobile (configurable)
       if (config.popupShowOnMobile === false) {
-        console.log('🔍 Popup disabled on mobile via config');
         return;
       }
       
@@ -1372,7 +1336,7 @@
         finalPopupText = splitAssignment.variant.config.popup_text;
       }
     } catch (e) {
-      console.warn('Split test check failed:', e);
+      // Split test check failed
     }
 
     messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
@@ -1429,7 +1393,7 @@
         finalPopupText = splitAssignment.variant.config.popup_text;
       }
     } catch (e) {
-      console.warn('Split test check failed:', e);
+      // Split test check failed
     }
 
     messageBox.innerHTML = `${finalPopupText} <span id="funny-smiley">😊</span>`;
@@ -1461,16 +1425,12 @@
   }
 
   function isCheckoutConfirmationPage() {
-    console.log('🔍 Checking if current page is confirmation page:', window.location.href);
-
     if (isPreviewMode && config.purchaseTrackingEnabled && config.checkoutConfirmationPagePatterns) {
       // In preview mode assume the checkout confirmation page is current page if purchase tracking is enabled
       return true;
     }
 
-
     if (!config.checkoutConfirmationPagePatterns) {
-      console.log("Confirmation page not set: ", config.checkoutConfirmationPagePatterns);
       return false;
     }
 
@@ -1478,7 +1438,6 @@
   }
 
   function isCheckoutPage() {
-    console.log('🔍 Checking if current page is checkout:', window.location.href);
 
     if (isPreviewMode && config.purchaseTrackingEnabled) {
       // In preview mode assume the checkout page is current page if purchase tracking is enabled
@@ -1502,18 +1461,13 @@
       !!document.querySelector('.order-confirmation')
     ];
 
-    console.log('🔍 Default checkout checks:', defaultChecks);
-    const result = defaultChecks.some(check => check);
-    console.log('🔍 isCheckoutPage result:', result);
-    return result;
+    return defaultChecks.some(check => check);
   }
 
   function matchesPagePattern(pagePatterns) {
     if (!pagePatterns) {
       return false;
     }
-
-    console.log("Checking for page patterns match: ", pagePatterns);
 
     const patterns = pagePatterns.split(',').map(item => item.trim());
 
@@ -1525,14 +1479,10 @@
             if (pattern.startsWith('/') && pattern.endsWith('/')) {
               // Exact path match
               const path = window.location.pathname.replace(/\/$/, '');
-              const result = path === pattern.replace(/\/$/, '');
-              console.log(`🔍 Path match check: "${path}" === "${pattern}" ? ${result}`);
-              return result;
+              return path === pattern.replace(/\/$/, '');
             } else {
               // Substring match in URL
-              const result = window.location.href.includes(pattern);
-              console.log(`🔍 Substring match check: "${window.location.href}" includes "${pattern}" ? ${result}`);
-              return result;
+              return window.location.href.includes(pattern);
             }
           });
         }
@@ -1544,14 +1494,9 @@
 
   // Helper function to parse price from text
   function parsePriceFromText(priceText, locale) {
-    console.log(`🛒 Parsing price text: "${priceText}"`);
-
     // Handle Danish/European format (1.148,00 kr)
     const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
     const regularMatches = priceText.match(/\d[\d.,]*/g);
-
-    console.log(`🛒 Danish matches:`, danishMatches);
-    console.log(`🛒 Regular matches:`, regularMatches);
 
     let allMatches = [];
     if (danishMatches) allMatches = allMatches.concat(danishMatches);
@@ -1561,7 +1506,6 @@
 
     if (allMatches && allMatches.length > 0) {
       for (const match of allMatches) {
-        console.log(`🛒 Processing match: "${match}"`);
         let cleanedMatch = match;
 
         // Handle "kr" suffix (Danish currency)
@@ -1598,9 +1542,7 @@
           }
         }
 
-        console.log(`🛒 Cleaned match: "${cleanedMatch}"`);
         const numValue = parseFloat(cleanedMatch);
-        console.log(`🛒 Parsed number: ${numValue}`);
         if (!isNaN(numValue) && numValue > highestPrice) {
           highestPrice = numValue;
         }
@@ -1666,17 +1608,13 @@
       return;
     }
 
-    console.log(`🛒 Found ${purchaseButtons.length} checkout button(s) on page`);
-
     purchaseButtons.forEach(purchaseButton => {
       // Check if we've already added a listener to this button
       if (!purchaseButton.hasAttribute('data-purchase-tracked')) {
-        console.log('🛒 Adding purchase tracking listener to checkout button');
         purchaseButton.setAttribute('data-purchase-tracked', 'true');
 
         purchaseButton.addEventListener("click", async () => {
           const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
-          console.log(`✅ Tracked purchase amount: ${amount}`);
 
           if (amount) {
             reportPurchase(amount);
@@ -1690,10 +1628,8 @@
     const cleanedSelector = selector ? selector.trim() : "";
 
     try {
-      console.log("Searching for selector: ", cleanedSelector);
       return document.querySelector(cleanedSelector);
     } catch {
-      console.warn('⚠️ Found invalid selector:', cleanedSelector);
       return null;
     }
   }
@@ -1718,19 +1654,11 @@
   function reportPurchase(totalPrice) {
     if (localStorage.getItem(purchaseKey(chatbotUserId))) {
       hasReportedPurchase = true;
-      console.log('🛒 Purchase already reported for user:', chatbotUserId);
       return;
     }
 
     const backendUrl = getBackendUrl();
     const currency = config.currency || 'DKK';
-    console.log('🛒 Reporting purchase to backend:', {
-      userId: chatbotUserId,
-      chatbotId: chatbotID,
-      amount: totalPrice,
-      currency: currency,
-      endpoint: `${backendUrl}/purchases`
-    });
 
     try {
       const formData = new URLSearchParams({
@@ -1745,7 +1673,6 @@
       if (success) {
         hasReportedPurchase = true;
         localStorage.setItem(purchaseKey(chatbotUserId), 'true');
-        console.log('✅ Purchase reported successfully (queued via Beacon)');
       } else {
         console.error('❌ Failed to queue purchase beacon');
       }
