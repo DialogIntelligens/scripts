@@ -992,7 +992,7 @@
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
-      } else if (event.data.action === 'firstMessageSent' && event.data.userId) {
+      } else if (event.data.action === 'firstMessageSent') {
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
         // console.log("✅ Received first message sent from iframe:", chatbotUserId);
         // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
