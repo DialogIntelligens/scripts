@@ -994,6 +994,7 @@
         window.location.href = event.data.url;
       } else if (event.data.action === 'firstMessageSent') {
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
+        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true'); // Set persistent flag in localStorage
         // console.log("✅ Received first message sent from iframe:", chatbotUserId);
         // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
