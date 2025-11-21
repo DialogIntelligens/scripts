@@ -311,7 +311,6 @@
     const hasSentMessageStored = localStorage.getItem(hasSentMessageKey);
     hasSentMessageToChatbot = hasSentMessageStored === 'true';
 
-    // console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
    // console.log('🆔 Has sent message to chatbot:', hasSentMessageToChatbot);
 
     // Load font if specified
@@ -992,8 +991,9 @@
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
-      } else if (event.data.action === 'firstMessageSent' && event.data.userId) {
+      } else if (event.data.action === 'firstMessageSent') {
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
+        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true');
         // console.log("✅ Received first message sent from iframe:", chatbotUserId);
         // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
