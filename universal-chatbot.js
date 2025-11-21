@@ -1586,6 +1586,9 @@
     try {
       const response = await fetch(`${backendUrl}/purchases`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           chatbot_id: chatbotID,
           amount: totalPrice,
