@@ -64,6 +64,7 @@
   let isIframeEnlarged = false;
   let hasReportedPurchase = false;
   let hasSentMessageToChatbot = false; // Only track purchases for users who sent a message to the chatbot
+  let splitTestId = null;
 
   /**
    * Load chatbot configuration from backend
@@ -300,6 +301,12 @@
 
     // Load configuration from backend
     config = await loadChatbotConfig();
+
+    // Get split test assignment
+    const splitAssignment = await getSplitAssignmentOnce();
+    if (splitAssignment && splitAssignment.variant_id) {
+      splitTestId = splitAssignment.variant_id;
+    }
 
     // Merge with defaults
     config = { ...getDefaultConfig(), ...config };
@@ -1178,13 +1185,6 @@
     if (!iframe) return;
 
     try {
-      // Get split test assignment
-      let splitTestId = null;
-      const splitAssignment = await getSplitAssignmentOnce();
-      if (splitAssignment && splitAssignment.variant_id) {
-        splitTestId = splitAssignment.variant_id;
-      }
-
       const messageData = {
         action: 'integrationOptions', // CRITICAL: App.js requires this field to recognize the message
         ...config,
