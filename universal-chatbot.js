@@ -62,7 +62,6 @@
   // Global variables
   let config = null;
   let isIframeEnlarged = false;
-  let chatbotUserId = null;
   let hasReportedPurchase = false;
   let hasSentMessageToChatbot = false; // Only track purchases for users who sent a message to the chatbot
 
@@ -77,9 +76,9 @@
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
-            : 'https://egendatabasebackend.onrender.com';
+            : 'https://api.dialogintelligens.dk';
 
-          const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
+          const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`, { credentials: 'include' });
       if (response.ok) {
         const backendConfig = await response.json();
         // Merge backend config with preview config
@@ -96,7 +95,7 @@
     // Get backend URL from preview config (for development dashboard) or use production URL
     const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
-      : 'https://egendatabasebackend.onrender.com';
+      : 'https://api.dialogintelligens.dk';
     
     try {
       const response = await fetch(
@@ -115,7 +114,7 @@
       // Get iframe URL from preview config (for development dashboard) or use production URL
       const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
         ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-        : 'https://skalerbartprodukt.onrender.com';
+        : 'https://chatbot.dialogintelligens.dk';
       
       // Return minimal fallback configuration
       return {
@@ -139,7 +138,7 @@
     // Get iframe URL from preview config (for development dashboard) or use production URL
     const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-      : 'https://skalerbartprodukt.onrender.com';
+      : 'https://chatbot.dialogintelligens.dk';
     
     return {
       chatbotID: chatbotID,
@@ -220,14 +219,14 @@
       return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
     }
     // Otherwise use production URL
-    return 'https://egendatabasebackend.onrender.com';
+    return 'https://api.dialogintelligens.dk';
   }
 
   async function getSplitAssignmentOnce() {
     try {
       const visitorKey = generateVisitorKey();
       const backendUrl = getBackendUrl();
-      const resp = await fetch(`${backendUrl}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`${backendUrl}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`, { credentials: 'include' });
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -243,12 +242,12 @@
       const backendUrl = getBackendUrl();
       await fetch(`${backendUrl}/api/split-impression`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chatbot_id: chatbotID,
           variant_id: variantId,
           visitor_key: visitorKey,
-          user_id: chatbotUserId
         })
       });
     } catch (e) {
@@ -260,7 +259,7 @@
     try {
       const visitorKey = generateVisitorKey();
       const backendUrl = getBackendUrl();
-      const resp = await fetch(`${backendUrl}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
+      const resp = await fetch(`${backendUrl}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`, { credentials: 'include' });
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -307,16 +306,11 @@
     config.pagePath = window.location.href;
     config.isPhoneView = window.innerWidth < 1000;
 
-    // Get user ID from localStorage (will be set by postMessage from iframe)
-    const userIdKey = `userId_${chatbotID}`;
-    chatbotUserId = localStorage.getItem(userIdKey) || null;
-
     // Check if user has previously sent a message to the chatbot (for purchase tracking)
     const hasSentMessageKey = `hasSentMessage_${chatbotID}`;
     const hasSentMessageStored = localStorage.getItem(hasSentMessageKey);
     hasSentMessageToChatbot = hasSentMessageStored === 'true';
 
-    // console.log('🆔 Initial userId from localStorage:', chatbotUserId || 'none (waiting for iframe)');
    // console.log('🆔 Has sent message to chatbot:', hasSentMessageToChatbot);
 
     // Load font if specified
@@ -476,7 +470,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'https://skalerbartprodukt.onrender.com'}"
+        src="${config.iframeUrl || 'https://chatbot.dialogintelligens.dk'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -997,18 +991,9 @@
       } else if (event.data.action === 'navigate' && event.data.url) {
         // Handle product button clicks - navigate to product URL
         window.location.href = event.data.url;
-      } else if (event.data.action === 'setChatbotUserId' && event.data.userId) {
-        // Handle userId from iframe (sent when userId becomes available on page load)
-        chatbotUserId = event.data.userId;
-        localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
-        // console.log("🆔 Received userId from iframe:", chatbotUserId);
-        // Note: Purchase tracking is NOT enabled here - only when firstMessageSent is received
-      } else if (event.data.action === 'firstMessageSent' && event.data.userId) {
-        // Handle first message sent event from iframe (sent when user sends their first message)
-        chatbotUserId = event.data.userId;
+      } else if (event.data.action === 'firstMessageSent') {
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
-        localStorage.setItem(`userId_${chatbotID}`, chatbotUserId);
-        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true'); // Persist message-sent flag
+        localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true');
         // console.log("✅ Received first message sent from iframe:", chatbotUserId);
         // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
@@ -1419,7 +1404,7 @@
     // No animations on subsequent loads
   }
 
-  function purchaseKey(userId) {
+  function purchaseKey(chatbotId) {
     let today = new Date();
 
     let year = today.getFullYear();
@@ -1428,15 +1413,15 @@
 
     let date = `${year}-${month}-${day}`;
 
-    return `purchaseReported_${date}_${userId}`;
+    return `purchaseReported_${date}_${chatbotId}`;
   }
 
-  function purchaseTotalPriceKey(userId) {
-    return `purchaseTotalPriceKey_${userId}`;
+  function purchaseTotalPriceKey(chatbotId) {
+    return `purchaseTotalPriceKey_${chatbotId}`;
   }
 
   // Helper function to parse price from text
-  function parsePriceFromText(priceText, locale) {
+  function parsePriceFromText(priceText) {
     // Handle Danish/European format (1.148,00 kr)
     const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
     const regularMatches = priceText.match(/\d[\d.,]*/g);
@@ -1518,16 +1503,11 @@
     const amount = parsePriceFromText(priceElement.textContent.trim());
     if (amount) {
       // Track amount in local storage incase confirmation page is used as tracking indicator (or any other page)
-      localStorage.setItem(purchaseTotalPriceKey(chatbotUserId), amount);
+      localStorage.setItem(purchaseTotalPriceKey(chatbotID), amount);
     }
   }
 
   function checkForCheckoutButtons() {
-    // Wait for userId from iframe (set by postMessage listener)
-    if (!chatbotUserId) {
-      return;
-    }
-
     // Only track purchases for users who actually sent a message to the chatbot
     if (!hasSentMessageToChatbot) {
       return;
@@ -1557,10 +1537,10 @@
         purchaseButton.setAttribute('data-purchase-tracked', 'true');
 
         purchaseButton.addEventListener("click", async () => {
-          const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotUserId));
+          const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotID));
 
           if (amount) {
-            reportPurchase(amount);
+            await reportPurchase(amount);
           }
         });
       }
@@ -1594,8 +1574,8 @@
     return [];
   }
 
-  function reportPurchase(totalPrice) {
-    if (localStorage.getItem(purchaseKey(chatbotUserId))) {
+  async function reportPurchase(totalPrice) {
+    if (localStorage.getItem(purchaseKey(chatbotID))) {
       hasReportedPurchase = true;
       return;
     }
@@ -1604,18 +1584,20 @@
     const currency = config.currency || 'DKK';
 
     try {
-      const formData = new URLSearchParams({
-        user_id: chatbotUserId,
-        chatbot_id: chatbotID,
-        amount: totalPrice,
-        currency: currency
+      const response = await fetch(`${backendUrl}/purchases`, {
+        method: "POST",
+        body: JSON.stringify({
+          chatbot_id: chatbotID,
+          amount: totalPrice,
+          currency: currency
+        }),
+        credentials: "include",
+        keepalive: true,
       });
 
-      const success = navigator.sendBeacon(`${backendUrl}/purchases`, formData);
-
-      if (success) {
+      if (response.ok) {
         hasReportedPurchase = true;
-        localStorage.setItem(purchaseKey(chatbotUserId), 'true');
+        localStorage.setItem(purchaseKey(chatbotID), 'true');
       } else {
         console.error('❌ Failed to queue purchase beacon');
       }
