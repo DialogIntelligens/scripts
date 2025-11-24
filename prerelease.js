@@ -64,6 +64,7 @@
   let isIframeEnlarged = false;
   let hasReportedPurchase = false;
   let hasSentMessageToChatbot = false; // Only track purchases for users who sent a message to the chatbot
+  let splitTestId = null;
 
   /**
    * Load chatbot configuration from backend
@@ -78,7 +79,8 @@
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
             : 'https://api.dialogintelligens.dk';
 
-          const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`, { credentials: 'include' });
+      const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
+
       if (response.ok) {
         const backendConfig = await response.json();
         // Merge backend config with preview config
@@ -226,7 +228,7 @@
     try {
       const visitorKey = generateVisitorKey();
       const backendUrl = getBackendUrl();
-      const resp = await fetch(`${backendUrl}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`, { credentials: 'include' });
+      const resp = await fetch(`${backendUrl}/api/split-assign?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.enabled) ? data : null;
@@ -242,7 +244,6 @@
       const backendUrl = getBackendUrl();
       await fetch(`${backendUrl}/api/split-impression`, {
         method: 'POST',
-        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           chatbot_id: chatbotID,
@@ -259,7 +260,7 @@
     try {
       const visitorKey = generateVisitorKey();
       const backendUrl = getBackendUrl();
-      const resp = await fetch(`${backendUrl}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`, { credentials: 'include' });
+      const resp = await fetch(`${backendUrl}/api/popup-message?chatbot_id=${encodeURIComponent(chatbotID)}&visitor_key=${encodeURIComponent(visitorKey)}`);
       if (!resp.ok) return null;
       const data = await resp.json();
       return (data && data.popup_text) ? String(data.popup_text) : null;
@@ -300,6 +301,12 @@
 
     // Load configuration from backend
     config = await loadChatbotConfig();
+
+    // Get split test assignment
+    const splitAssignment = await getSplitAssignmentOnce();
+    if (splitAssignment && splitAssignment.variant_id) {
+      splitTestId = splitAssignment.variant_id;
+    }
 
     // Merge with defaults
     config = { ...getDefaultConfig(), ...config };
@@ -387,8 +394,6 @@
     if (!isPreviewMode) {
       handlePurchaseTracking();
     }
-
-    console.log('✅ Chatbot initialized successfully');
   }
 
   function handlePurchaseTracking() {
@@ -977,6 +982,11 @@
     window.addEventListener('message', function(event) {
       if (event.origin !== config.iframeUrl.replace(/\/$/, '')) return;
 
+      if (event.data.action === 'purchaseReported') {
+        hasReportedPurchase = true;
+        localStorage.setItem(purchaseKey(chatbotID), 'true');
+      }
+
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
         adjustIframeSize();
@@ -994,8 +1004,6 @@
       } else if (event.data.action === 'firstMessageSent') {
         hasSentMessageToChatbot = true; // Mark that user has sent a message to the chatbot
         localStorage.setItem(`hasSentMessage_${chatbotID}`, 'true');
-        // console.log("✅ Received first message sent from iframe:", chatbotUserId);
-        // console.log("✅ User has sent message to chatbot, purchase tracking enabled");
         handlePurchaseTracking();
       }
     });
@@ -1178,13 +1186,6 @@
     if (!iframe) return;
 
     try {
-      // Get split test assignment
-      let splitTestId = null;
-      const splitAssignment = await getSplitAssignmentOnce();
-      if (splitAssignment && splitAssignment.variant_id) {
-        splitTestId = splitAssignment.variant_id;
-      }
-
       const messageData = {
         action: 'integrationOptions', // CRITICAL: App.js requires this field to recognize the message
         ...config,
@@ -1580,29 +1581,11 @@
       return;
     }
 
-    const backendUrl = getBackendUrl();
     const currency = config.currency || 'DKK';
 
-    try {
-      const response = await fetch(`${backendUrl}/purchases`, {
-        method: "POST",
-        body: JSON.stringify({
-          chatbot_id: chatbotID,
-          amount: totalPrice,
-          currency: currency
-        }),
-        credentials: "include",
-        keepalive: true,
-      });
-
-      if (response.ok) {
-        hasReportedPurchase = true;
-        localStorage.setItem(purchaseKey(chatbotID), 'true');
-      } else {
-        console.error('❌ Failed to queue purchase beacon');
-      }
-    } catch (err) {
-      console.error('❌ Failed to send purchase beacon:', err);
+    const chatIframe = document.getElementById('chat-iframe');
+    if (chatIframe && chatIframe.contentWindow) {
+      chatIframe.contentWindow.postMessage({ action: 'reportPurchase', chatbotID, totalPrice, currency }, config.iframeUrl);
     }
   }
 
