@@ -1483,27 +1483,23 @@
 
 
   function trackTotalPurchasePrice() {
-    const { checkoutPriceSelector: basePriceSelector } = config;
-    
-    // PREVIEW_MODE_ONLY: If checkout price selector is set then override it to target element in preview.html with matching selector
-    const checkoutPriceSelector =
-      isPreviewMode && basePriceSelector
-        ? "#purchase-tracking-checkout-price"
-        : basePriceSelector;
+    const checkoutPriceSelectors = getCheckoutPriceSelectors();
 
-    if (!checkoutPriceSelector) {
+    if (!checkoutPriceSelectors || !checkoutPriceSelectors.length) {
       return;
     }
 
-    const priceElement = getSelectorElement(checkoutPriceSelector);
+    // Try each selector until we find a valid price element
+    for (const selector of checkoutPriceSelectors) {
+      const priceElement = getSelectorElement(selector);
 
-    if (!priceElement) {
-      return;
-    }
-
-    const amount = parsePriceFromText(priceElement.textContent.trim());
-    if (amount) {
-      localStorage.setItem(purchaseTotalPriceKey(chatbotID), amount);
+      if (priceElement) {
+        const amount = parsePriceFromText(priceElement.textContent.trim());
+        if (amount) {
+          localStorage.setItem(purchaseTotalPriceKey(chatbotID), amount);
+          break; // Stop at the first valid price found
+        }
+      }
     }
   }
 
@@ -1568,6 +1564,22 @@
     // If it's a string, split by comma and trim whitespace
     if (typeof basePurchaseSelector === 'string') {
       return basePurchaseSelector.split(',').map(selector => selector.trim()).filter(Boolean);
+    }
+
+    // If it's neither array nor string, or undefined/null, return empty array
+    return [];
+  }
+
+  function getCheckoutPriceSelectors() {
+    const { checkoutPriceSelector: basePriceSelector } = config;
+
+    if (isPreviewMode && basePriceSelector) {
+      return ["#purchase-tracking-checkout-price"];
+    }
+
+    // If it's a string, split by comma and trim whitespace
+    if (typeof basePriceSelector === 'string') {
+      return basePriceSelector.split(',').map(selector => selector.trim()).filter(Boolean);
     }
 
     // If it's neither array nor string, or undefined/null, return empty array
