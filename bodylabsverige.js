@@ -1,5 +1,9 @@
-(function() {
-  const s = document.createElement('script');
+(function () {
+  if (window.location.href.includes("/shop/checkout.html")) {
+    return;
+  }
+
+  const s = document.createElement("script");
   s.src = "https://dialogintelligens.github.io/scripts/universal-chatbot.js?id=bodylabsverige";
   s.defer = true;
   document.head.appendChild(s);
