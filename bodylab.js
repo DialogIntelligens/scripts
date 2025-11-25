@@ -1,10 +1,9 @@
 <script>
 (function() {
-  // block on this exact URL
-  if (window.location.pathname === "/shop/checkout.html") {
-    return; // do nothing
+  
+  if (window.location.href.includes("/shop/checkout.html")) {
+    return;
   }
-
   const s = document.createElement('script');
   s.src = "https://dialogintelligens.github.io/scripts/universal-chatbot.js?id=bodylab";
   s.defer = true;
