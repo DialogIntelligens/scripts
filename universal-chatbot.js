@@ -1349,6 +1349,22 @@
     const calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 260));
     popup.style.width = calculatedWidth + 'px';
 
+    // Adjust bottom position for short text (20 characters or less)
+    const isMobile = window.innerWidth < 1000;
+    if (charCount <= 20) {
+      if (isMobile) {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -11px)`;
+      } else {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 14px)`;
+      }
+    } else {
+      if (isMobile) {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -20px)`;
+      } else {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 5px)`;
+      }
+    }
+
     // Add animation class for popup entrance
     popup.classList.add('animate');
     popup.style.display = 'flex';
@@ -1400,6 +1416,22 @@
     const charCount = messageBox.textContent.trim().length;
     const calculatedWidth = Math.max(380, Math.min(700, (charCount * 3.2) + 260));
     popup.style.width = calculatedWidth + 'px';
+
+    // Adjust bottom position for short text (20 characters or less)
+    const isMobile = window.innerWidth < 1000;
+    if (charCount <= 20) {
+      if (isMobile) {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -11px)`;
+      } else {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 14px)`;
+      }
+    } else {
+      if (isMobile) {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + -20px)`;
+      } else {
+        popup.style.bottom = `calc(${(config.buttonBottom || '20px').replace(/\s*!important/g, '')} + 5px)`;
+      }
+    }
 
     popup.style.display = 'flex';
     // No animations on subsequent loads
