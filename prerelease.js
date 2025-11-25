@@ -77,7 +77,7 @@
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
-            : 'https://backend-development-k1o9.onrender.com';
+            : 'https://api.dialogintelligens.dk';
 
       const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
 
@@ -97,7 +97,7 @@
     // Get backend URL from preview config (for development dashboard) or use production URL
     const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
-      : 'https://backend-development-k1o9.onrender.com';
+      : 'https://api.dialogintelligens.dk';
     
     try {
       const response = await fetch(
@@ -116,7 +116,7 @@
       // Get iframe URL from preview config (for development dashboard) or use production URL
       const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
         ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-        : 'https://chatbot-development-hla7.onrender.com';
+        : 'https://chatbot.dialogintelligens.dk';
       
       // Return minimal fallback configuration
       return {
@@ -140,7 +140,7 @@
     // Get iframe URL from preview config (for development dashboard) or use production URL
     const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-      : 'https://chatbot-development-hla7.onrender.com';
+      : 'https://chatbot.dialogintelligens.dk';
     
     return {
       chatbotID: chatbotID,
@@ -221,7 +221,7 @@
       return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
     }
     // Otherwise use production URL
-    return 'https://backend-development-k1o9.onrender.com';
+    return 'https://api.dialogintelligens.dk';
   }
 
   async function getSplitAssignmentOnce() {
@@ -475,7 +475,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'https://chatbot-development-hla7.onrender.com'}"
+        src="${config.iframeUrl || 'https://chatbot.dialogintelligens.dk'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -1503,7 +1503,6 @@
 
     const amount = parsePriceFromText(priceElement.textContent.trim());
     if (amount) {
-      // Track amount in local storage incase confirmation page is used as tracking indicator (or any other page)
       localStorage.setItem(purchaseTotalPriceKey(chatbotID), amount);
     }
   }
