@@ -77,7 +77,7 @@
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
-            : 'https://api.dialogintelligens.dk';
+            : 'https://backend-development-k1o9.onrender.com';
 
       const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
 
@@ -97,7 +97,7 @@
     // Get backend URL from preview config (for development dashboard) or use production URL
     const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
-      : 'https://api.dialogintelligens.dk';
+      : 'https://backend-development-k1o9.onrender.com';
     
     try {
       const response = await fetch(
@@ -116,7 +116,7 @@
       // Get iframe URL from preview config (for development dashboard) or use production URL
       const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
         ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-        : 'https://chatbot.dialogintelligens.dk';
+        : 'https://chatbot-development-hla7.onrender.com';
       
       // Return minimal fallback configuration
       return {
@@ -140,7 +140,7 @@
     // Get iframe URL from preview config (for development dashboard) or use production URL
     const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-      : 'https://chatbot.dialogintelligens.dk';
+      : 'https://chatbot-development-hla7.onrender.com';
     
     return {
       chatbotID: chatbotID,
@@ -221,7 +221,7 @@
       return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
     }
     // Otherwise use production URL
-    return 'https://api.dialogintelligens.dk';
+    return 'https://backend-development-k1o9.onrender.com';
   }
 
   async function getSplitAssignmentOnce() {
@@ -475,7 +475,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'https://chatbot.dialogintelligens.dk'}"
+        src="${config.iframeUrl || 'https://chatbot-development-hla7.onrender.com'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
