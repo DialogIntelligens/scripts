@@ -1568,7 +1568,7 @@
           const amount = localStorage.getItem(purchaseTotalPriceKey(chatbotID));
 
           if (amount) {
-            await reportPurchase(amount);
+            await reportPurchase(parseFloat(amount));
           }
         });
       }
