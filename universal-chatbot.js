@@ -1455,58 +1455,27 @@
 
   // Helper function to parse price from text
   function parsePriceFromText(priceText) {
-    // Handle Danish/European format (1.148,00 kr)
-    const danishMatches = priceText.match(/(\d{1,3}(?:\.\d{3})*),(\d{2})\s*kr\.?/gi);
+    const locale = config.priceExtractionLocale || 'comma';
     const regularMatches = priceText.match(/\d[\d.,]*/g);
 
-    let allMatches = [];
-    if (danishMatches) allMatches = allMatches.concat(danishMatches);
-    if (regularMatches) allMatches = allMatches.concat(regularMatches);
+    if (!regularMatches || regularMatches.length === 0) {
+      return null;
+    }
 
     let highestPrice = 0;
 
-    if (allMatches && allMatches.length > 0) {
-      for (const match of allMatches) {
-        let cleanedMatch = match;
+    for (const match of regularMatches) {
+      let cleanedMatch = match.replace(/[^\d.,]/g, '');
 
-        // Handle "kr" suffix (Danish currency)
-        if (match.includes('kr')) {
-          cleanedMatch = match.replace(/\s*kr\.?/gi, '').trim();
+      if (locale === 'comma') {
+        cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
+      } else {
+        cleanedMatch = cleanedMatch.replace(/,/g, '');
+      }
 
-          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
-            cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
-          } else if (cleanedMatch.includes(',')) {
-            cleanedMatch = cleanedMatch.replace(',', '.');
-          }
-        } else {
-          // Locale-aware parsing
-          cleanedMatch = match.replace(/[^\d.,]/g, '');
-
-          if (cleanedMatch.includes('.') && cleanedMatch.includes(',')) {
-            const lastCommaIndex = cleanedMatch.lastIndexOf(',');
-            const lastPeriodIndex = cleanedMatch.lastIndexOf('.');
-
-            if (lastPeriodIndex < lastCommaIndex && cleanedMatch.length - lastCommaIndex - 1 === 2) {
-              // Danish format: 1.148,00
-              cleanedMatch = cleanedMatch.replace(/\./g, '').replace(',', '.');
-            } else {
-              // US format: 1,148.00
-              cleanedMatch = cleanedMatch.replace(/,/g, '');
-            }
-          } else if (cleanedMatch.includes(',')) {
-            const parts = cleanedMatch.split(',');
-            if (parts.length === 2 && parts[1].length <= 2) {
-              cleanedMatch = cleanedMatch.replace(',', '.');
-            } else {
-              cleanedMatch = cleanedMatch.replace(/,/g, '');
-            }
-          }
-        }
-
-        const numValue = parseFloat(cleanedMatch);
-        if (!isNaN(numValue) && numValue > highestPrice) {
-          highestPrice = numValue;
-        }
+      const numValue = parseFloat(cleanedMatch);
+      if (!isNaN(numValue) && numValue > highestPrice) {
+        highestPrice = numValue;
       }
     }
 
