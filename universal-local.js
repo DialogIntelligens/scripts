@@ -81,7 +81,7 @@
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
-            : 'http://localhost:3000';
+            : 'https://backend-development-k1o9.onrender.com';
 
           const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
       if (response.ok) {
@@ -100,7 +100,7 @@
     // Get backend URL from preview config (for development dashboard) or use production URL
     const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
-      : 'http://localhost:3000';
+      : 'https://backend-development-k1o9.onrender.com';
     
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
@@ -119,7 +119,7 @@
       console.error('❌ Error loading chatbot config:', error);
       
       // Get iframe URL from preview config (for development dashboard) or use production URL
-        const iframeUrl = 'http://localhost:3002';
+        const iframeUrl = 'https://chatbot-development-hla7.onrender.com';
       
       // Return minimal fallback configuration
       return {
@@ -143,7 +143,7 @@
     // Get iframe URL from preview config (for development dashboard) or use production URL
     const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-      : 'http://localhost:3002';
+      : 'https://chatbot-development-hla7.onrender.com';
     
     return {
       chatbotID: chatbotID,
@@ -224,7 +224,7 @@
       return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
     }
     // Otherwise use production URL
-    return 'http://localhost:3000';
+    return 'https://backend-development-k1o9.onrender.com';
   }
 
   async function getSplitAssignmentOnce() {
@@ -491,7 +491,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="${config.iframeUrl || 'http://localhost:3002'}"
+        src="https://chatbot-development-hla7.onrender.com"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
