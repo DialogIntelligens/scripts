@@ -145,7 +145,9 @@
     return {
       chatbotID: chatbotID,
       iframeUrl: iframeUrl,
-      pagePath: window.location.href,
+      pagePath: (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.parentPageUrl) 
+        ? window.CHATBOT_PREVIEW_CONFIG.parentPageUrl 
+        : window.location.href,
       leadGen: '%%',
       leadMail: '',
       leadField1: 'Navn',
@@ -310,7 +312,9 @@
 
     // Merge with defaults
     config = { ...getDefaultConfig(), ...config };
-    config.pagePath = window.location.href;
+    config.pagePath = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.parentPageUrl) 
+      ? window.CHATBOT_PREVIEW_CONFIG.parentPageUrl 
+      : window.location.href;
     config.isPhoneView = window.innerWidth < 1000;
 
     // Check if user has previously sent a message to the chatbot (for purchase tracking)
@@ -1190,7 +1194,9 @@
         action: 'integrationOptions', // CRITICAL: App.js requires this field to recognize the message
         ...config,
         splitTestId: splitTestId,
-        pagePath: window.location.href,
+        pagePath: (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.parentPageUrl) 
+          ? window.CHATBOT_PREVIEW_CONFIG.parentPageUrl 
+          : window.location.href,
         isTabletView: false,  // Always false to match legacy behavior
         isPhoneView: window.innerWidth < 1000,
         gptInterface: false
