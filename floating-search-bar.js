@@ -1,8 +1,8 @@
 /**
- * Floating Search Bar Snippet
+ * Floating Search Bar Snippet (Expandable Chatbot Version)
  *
  * Creates a floating search bar in the bottom middle of the screen
- * When user types a question and clicks send, it opens the chatbot and sends the question
+ * When user types a question and clicks send, it expands into a full chatbot
  *
  * Usage: Include this script after the universal-chatbot.js script
  * <script src="universal-chatbot.js?id=YOUR_CHATBOT_ID"></script>
@@ -12,7 +12,6 @@
 (function() {
   'use strict';
 
-  // Configuration
   const CONFIG = {
     placeholder: "Stil et spørgsmål...",
     sendIconColor: "#636a8b",
@@ -24,10 +23,33 @@
     width: "400px",
     maxWidth: "90vw",
     bottom: "20px",
-    zIndex: "9999"
+    zIndex: "9999",
+    expandedHeight: "600px",
+    expandedWidth: "400px",
+    expandedMaxWidth: "90vw",
+    expandedMaxHeight: "85vh",
+    animationDuration: "300ms"
   };
 
-  // Create the search bar container
+  let isExpanded = false;
+  let chatIframe = null;
+  let chatbotId = null;
+
+  function getChatbotId() {
+    if (chatbotId) return chatbotId;
+    
+    const scripts = document.querySelectorAll('script[src*="universal-chatbot"]');
+    for (const script of scripts) {
+      const src = script.getAttribute('src');
+      const match = src.match(/[?&]id=([^&]+)/);
+      if (match) {
+        chatbotId = match[1];
+        return chatbotId;
+      }
+    }
+    return null;
+  }
+
   function createSearchBar() {
     const container = document.createElement('div');
     container.id = 'floating-search-container';
@@ -40,23 +62,24 @@
       max-width: ${CONFIG.maxWidth};
       z-index: ${CONFIG.zIndex};
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      transition: all ${CONFIG.animationDuration} cubic-bezier(0.4, 0, 0.2, 1);
     `;
 
-    // Create the search input container
-    const searchContainer = document.createElement('div');
-    searchContainer.style.cssText = `
+    const innerContainer = document.createElement('div');
+    innerContainer.id = 'floating-search-inner';
+    innerContainer.style.cssText = `
       position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
       background: ${CONFIG.backgroundColor};
       border: 1px solid ${CONFIG.borderColor};
       border-radius: ${CONFIG.borderRadius};
       box-shadow: 0 4px 12px ${CONFIG.shadowColor};
-      display: flex;
-      align-items: center;
-      padding: 8px 16px;
-      transition: all 0.3s ease;
+      transition: all ${CONFIG.animationDuration} ease;
+      overflow: hidden;
     `;
 
-    // Create close button (similar to popup close button)
     const closeButton = document.createElement('button');
     closeButton.style.cssText = `
       position: absolute;
@@ -83,22 +106,19 @@
     `;
     closeButton.innerHTML = '×';
 
-    // Show close button on hover (desktop) or always on mobile
-    searchContainer.onmouseenter = function() {
+    innerContainer.onmouseenter = function() {
       closeButton.style.opacity = '1';
       closeButton.style.transform = 'scale(1.2)';
       closeButton.style.pointerEvents = 'auto';
     };
-    searchContainer.onmouseleave = function() {
-      // On mobile, keep it visible
-      if (window.innerWidth >= 768) {
+    innerContainer.onmouseleave = function() {
+      if (window.innerWidth >= 768 && !isExpanded) {
         closeButton.style.opacity = '0';
         closeButton.style.transform = 'scale(0.7)';
         closeButton.style.pointerEvents = 'none';
       }
     };
 
-    // On mobile, always show close button
     if (window.innerWidth < 768) {
       closeButton.style.opacity = '1';
       closeButton.style.transform = 'scale(1)';
@@ -106,7 +126,6 @@
       closeButton.style.backgroundColor = 'rgba(224, 224, 224, 0.8)';
     }
 
-    // Close button hover effect
     closeButton.onmouseover = function() {
       this.style.backgroundColor = 'black';
       this.style.color = 'white';
@@ -116,18 +135,94 @@
       this.style.color = 'black';
     };
 
-    // Handle close button click
     closeButton.onclick = function(e) {
       e.stopPropagation();
       container.style.display = 'none';
-      // Remember that user closed it
       localStorage.setItem('floatingSearchBarClosed', 'true');
     };
 
-    // Create the input field
+    const chatHeaderContainer = document.createElement('div');
+    chatHeaderContainer.id = 'floating-chat-header';
+    chatHeaderContainer.style.cssText = `
+      display: none;
+      padding: 12px 16px;
+      border-bottom: 1px solid ${CONFIG.borderColor};
+      background: white;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: ${CONFIG.borderRadius} ${CONFIG.borderRadius} 0 0;
+    `;
+
+    const headerTitle = document.createElement('div');
+    headerTitle.style.cssText = `
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      flex: 1;
+    `;
+    headerTitle.textContent = 'Chat';
+
+    const headerButtons = document.createElement('div');
+    headerButtons.style.cssText = `
+      display: flex;
+      gap: 8px;
+    `;
+
+    const minimizeButton = document.createElement('button');
+    minimizeButton.style.cssText = `
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 4px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: ${CONFIG.sendIconColor};
+      transition: all 0.2s ease;
+      border-radius: 4px;
+      font-size: 18px;
+      line-height: 1;
+    `;
+    minimizeButton.innerHTML = '−';
+    minimizeButton.title = 'Minimér til søgefelt';
+    
+    minimizeButton.onmouseover = function() {
+      this.style.backgroundColor = 'rgba(99, 106, 139, 0.1)';
+    };
+    minimizeButton.onmouseout = function() {
+      this.style.backgroundColor = 'transparent';
+    };
+    minimizeButton.onclick = function() {
+      collapseToSearchBar();
+    };
+
+    headerButtons.appendChild(minimizeButton);
+    chatHeaderContainer.appendChild(headerTitle);
+    chatHeaderContainer.appendChild(headerButtons);
+
+    const chatIframeContainer = document.createElement('div');
+    chatIframeContainer.id = 'floating-chat-iframe-container';
+    chatIframeContainer.style.cssText = `
+      display: none;
+      flex: 1;
+      overflow: hidden;
+      background: white;
+    `;
+
+    const searchContainer = document.createElement('div');
+    searchContainer.id = 'floating-search-input-container';
+    searchContainer.style.cssText = `
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      transition: all 0.3s ease;
+    `;
+
     const input = document.createElement('input');
     input.type = 'text';
     input.placeholder = CONFIG.placeholder;
+    input.id = 'floating-search-input';
     input.style.cssText = `
       flex: 1;
       border: none;
@@ -139,8 +234,8 @@
       font-family: inherit;
     `;
 
-    // Create the send button
     const sendButton = document.createElement('button');
+    sendButton.id = 'floating-search-send-button';
     sendButton.style.cssText = `
       border: none;
       background: none;
@@ -156,7 +251,6 @@
       height: 32px;
     `;
 
-    // Add hover effect to send button
     sendButton.onmouseover = function() {
       this.style.backgroundColor = 'rgba(99, 106, 139, 0.1)';
       this.style.transform = 'scale(1.1)';
@@ -166,7 +260,6 @@
       this.style.transform = 'scale(1)';
     };
 
-    // Create the send icon (same as the one used in the chat)
     const sendIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sendIcon.setAttribute('viewBox', '0 0 20 20');
     sendIcon.setAttribute('width', '20');
@@ -183,109 +276,178 @@
     sendIcon.appendChild(path);
     sendButton.appendChild(sendIcon);
 
-    // Handle send button click
     sendButton.onclick = function() {
       const message = input.value.trim();
       if (message) {
-        sendMessageToChatbot(message);
-        input.value = ''; // Clear the input
+        expandToChatbot(message);
+        input.value = '';
       }
     };
 
-    // Handle Enter key press
     input.onkeypress = function(e) {
       if (e.key === 'Enter') {
         const message = input.value.trim();
         if (message) {
-          sendMessageToChatbot(message);
-          input.value = ''; // Clear the input
+          expandToChatbot(message);
+          input.value = '';
         }
       }
     };
 
-    // Assemble the elements
-    searchContainer.appendChild(closeButton);
-    searchContainer.appendChild(input);
-    searchContainer.appendChild(sendButton);
-    container.appendChild(searchContainer);
-
-    // Add focus/blur effects
     input.onfocus = function() {
-      searchContainer.style.boxShadow = `0 6px 20px ${CONFIG.focusShadowColor}`;
-      searchContainer.style.borderColor = CONFIG.sendIconColor;
+      innerContainer.style.boxShadow = `0 6px 20px ${CONFIG.focusShadowColor}`;
+      innerContainer.style.borderColor = CONFIG.sendIconColor;
     };
 
     input.onblur = function() {
-      searchContainer.style.boxShadow = `0 4px 12px ${CONFIG.shadowColor}`;
-      searchContainer.style.borderColor = CONFIG.borderColor;
+      innerContainer.style.boxShadow = `0 4px 12px ${CONFIG.shadowColor}`;
+      innerContainer.style.borderColor = CONFIG.borderColor;
     };
+
+    searchContainer.appendChild(input);
+    searchContainer.appendChild(sendButton);
+
+    innerContainer.appendChild(closeButton);
+    innerContainer.appendChild(chatHeaderContainer);
+    innerContainer.appendChild(chatIframeContainer);
+    innerContainer.appendChild(searchContainer);
+    container.appendChild(innerContainer);
 
     return container;
   }
 
-  // Function to send message to chatbot
-  function sendMessageToChatbot(message) {
-    // First, try to open the chatbot if it's not already open
-    const chatIframe = document.getElementById('chat-iframe');
-    const chatButton = document.getElementById('chat-button');
+  function expandToChatbot(initialMessage) {
+    if (isExpanded) {
+      if (chatIframe && chatIframe.contentWindow) {
+        chatIframe.contentWindow.postMessage({
+          action: 'externalMessage',
+          message: initialMessage,
+          source: 'floating-search-bar'
+        }, '*');
+      }
+      return;
+    }
 
-    if (chatIframe && chatButton) {
-      // Check if chat is closed (iframe is hidden)
-      if (chatIframe.style.display === 'none' || !chatIframe.style.display) {
-        // Simulate clicking the chat button to open it
-        if (typeof toggleChatWindow === 'function') {
-          toggleChatWindow();
-        } else {
-          // Fallback: manually toggle the elements
-          chatIframe.style.display = 'block';
-          chatButton.style.display = 'none';
-          const minimizeBtn = document.getElementById('minimize-button');
-          if (minimizeBtn) minimizeBtn.style.display = 'block';
-          const container = document.getElementById('chat-container');
-          if (container) {
-            container.classList.add('chat-open');
-            container.classList.remove('minimized');
-          }
-        }
+    const container = document.getElementById('floating-search-container');
+    const innerContainer = document.getElementById('floating-search-inner');
+    const searchContainer = document.getElementById('floating-search-input-container');
+    const chatHeaderContainer = document.getElementById('floating-chat-header');
+    const chatIframeContainer = document.getElementById('floating-chat-iframe-container');
+    
+    if (!container || !innerContainer) return;
+
+    isExpanded = true;
+
+    container.style.width = CONFIG.expandedWidth;
+    container.style.maxWidth = CONFIG.expandedMaxWidth;
+    container.style.height = CONFIG.expandedHeight;
+    container.style.maxHeight = CONFIG.expandedMaxHeight;
+    container.style.bottom = CONFIG.bottom;
+
+    innerContainer.style.borderRadius = '12px';
+
+    searchContainer.style.display = 'none';
+    chatHeaderContainer.style.display = 'flex';
+    chatIframeContainer.style.display = 'block';
+
+    if (!chatIframe) {
+      const id = getChatbotId();
+      if (!id) {
+        console.error('Could not find chatbot ID');
+        return;
       }
 
-      // Wait for the chat to open, then send message via postMessage
-      setTimeout(() => {
-        if (chatIframe && chatIframe.contentWindow) {
-          console.log('📤 Sending external message to chatbot iframe:', message);
-          // Send postMessage with wildcard origin since iframe can be on different domains
-          chatIframe.contentWindow.postMessage({
-            action: 'externalMessage',
-            message: message,
-            source: 'floating-search-bar'
-          }, '*');
-        } else {
-          console.warn('Chatbot iframe contentWindow not available');
-        }
-      }, 1000); // Wait for chat to be fully loaded
+      chatIframe = document.createElement('iframe');
+      chatIframe.id = 'floating-chatbot-iframe';
+      chatIframe.src = `${window.location.origin}/chatbot?id=${id}`;
+      chatIframe.style.cssText = `
+        width: 100%;
+        height: 100%;
+        border: none;
+        background: white;
+      `;
+      chatIframeContainer.appendChild(chatIframe);
+
+      chatIframe.onload = function() {
+        setTimeout(() => {
+          if (chatIframe && chatIframe.contentWindow) {
+            console.log('📤 Sending initial message to expanded chatbot:', initialMessage);
+            chatIframe.contentWindow.postMessage({
+              action: 'externalMessage',
+              message: initialMessage,
+              source: 'floating-search-bar'
+            }, '*');
+          }
+        }, 1000);
+      };
     } else {
-      console.warn('Chatbot elements not found. Make sure universal-chatbot.js is loaded first.');
+      if (chatIframe.contentWindow) {
+        chatIframe.contentWindow.postMessage({
+          action: 'externalMessage',
+          message: initialMessage,
+          source: 'floating-search-bar'
+        }, '*');
+      }
     }
+
+    localStorage.setItem('floatingSearchBarExpanded', 'true');
   }
 
-  // Initialize the search bar when DOM is ready
+  function collapseToSearchBar() {
+    if (!isExpanded) return;
+
+    const container = document.getElementById('floating-search-container');
+    const innerContainer = document.getElementById('floating-search-inner');
+    const searchContainer = document.getElementById('floating-search-input-container');
+    const chatHeaderContainer = document.getElementById('floating-chat-header');
+    const chatIframeContainer = document.getElementById('floating-chat-iframe-container');
+    
+    if (!container || !innerContainer) return;
+
+    isExpanded = false;
+
+    container.style.width = CONFIG.width;
+    container.style.maxWidth = CONFIG.maxWidth;
+    container.style.height = 'auto';
+    container.style.maxHeight = 'none';
+
+    innerContainer.style.borderRadius = CONFIG.borderRadius;
+
+    chatHeaderContainer.style.display = 'none';
+    chatIframeContainer.style.display = 'none';
+    searchContainer.style.display = 'flex';
+
+    localStorage.setItem('floatingSearchBarExpanded', 'false');
+  }
+
   function init() {
-    // Check if user has previously closed the search bar
     if (localStorage.getItem('floatingSearchBarClosed') === 'true') {
       console.log('🔍 Floating search bar was closed by user, not showing');
       return;
     }
 
-    // Wait for the chatbot to be initialized first
     const checkChatbotReady = () => {
-      const chatButton = document.getElementById('chat-button');
-      if (chatButton) {
-        // Chatbot is ready, create and add the search bar
-        const searchBar = createSearchBar();
-        document.body.appendChild(searchBar);
-      } else {
-        // Chatbot not ready yet, check again in 100ms
-        setTimeout(checkChatbotReady, 100);
+      const existingChatButton = document.getElementById('chat-button');
+      if (existingChatButton) {
+        existingChatButton.style.display = 'none';
+        
+        const existingMinimizeBtn = document.getElementById('minimize-button');
+        if (existingMinimizeBtn) {
+          existingMinimizeBtn.style.display = 'none';
+        }
+        
+        const existingIframe = document.getElementById('chat-iframe');
+        if (existingIframe) {
+          existingIframe.style.display = 'none';
+        }
+      }
+
+      const searchBar = createSearchBar();
+      document.body.appendChild(searchBar);
+
+      const wasExpanded = localStorage.getItem('floatingSearchBarExpanded') === 'true';
+      if (wasExpanded) {
+        expandToChatbot('');
       }
     };
 
@@ -296,7 +458,6 @@
     }
   }
 
-  // Start initialization
   init();
 
 })();
