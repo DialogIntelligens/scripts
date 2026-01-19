@@ -7,31 +7,10 @@
  * Usage: Include this script after the universal-chatbot.js script
  * <script src="universal-chatbot.js?id=YOUR_CHATBOT_ID"></script>
  * <script src="floating-search-bar.js"></script>
- *
- * Optional parameters (via URL query string):
- * - persistent=true : Makes the search bar always visible (no close button, ignores localStorage)
- *   Example: <script src="floating-search-bar.js?persistent=true"></script>
  */
 
 (function() {
   'use strict';
-
-  // Get script parameters from URL
-  function getScriptParams() {
-    const scripts = document.getElementsByTagName('script');
-    for (let i = scripts.length - 1; i >= 0; i--) {
-      const src = scripts[i].src;
-      if (src && src.includes('floating-search-bar.js')) {
-        const url = new URL(src);
-        return {
-          persistent: url.searchParams.get('persistent') === 'true'
-        };
-      }
-    }
-    return { persistent: false };
-  }
-
-  const PARAMS = getScriptParams();
 
   // Configuration
   const CONFIG = {
@@ -45,8 +24,7 @@
     width: "400px",
     maxWidth: "90vw",
     bottom: "20px",
-    zIndex: "9999",
-    persistent: PARAMS.persistent
+    zIndex: "9999"
   };
 
   // Create the search bar container
@@ -78,76 +56,73 @@
       transition: all 0.3s ease;
     `;
 
-    // Create close button (similar to popup close button) - only if not persistent
-    let closeButton = null;
-    if (!CONFIG.persistent) {
-      closeButton = document.createElement('button');
-      closeButton.style.cssText = `
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        text-align: center;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: rgba(224, 224, 224, 0);
-        color: black;
-        border: none;
-        opacity: 0;
-        transform: scale(0.7);
-        transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-        z-index: 10;
-        pointer-events: none;
-      `;
-      closeButton.innerHTML = '×';
+    // Create close button (similar to popup close button)
+    const closeButton = document.createElement('button');
+    closeButton.style.cssText = `
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: rgba(224, 224, 224, 0);
+      color: black;
+      border: none;
+      opacity: 0;
+      transform: scale(0.7);
+      transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
+      z-index: 10;
+      pointer-events: none;
+    `;
+    closeButton.innerHTML = '×';
 
-      // Show close button on hover (desktop) or always on mobile
-      searchContainer.onmouseenter = function() {
-        closeButton.style.opacity = '1';
-        closeButton.style.transform = 'scale(1.2)';
-        closeButton.style.pointerEvents = 'auto';
-      };
-      searchContainer.onmouseleave = function() {
-        // On mobile, keep it visible
-        if (window.innerWidth >= 768) {
-          closeButton.style.opacity = '0';
-          closeButton.style.transform = 'scale(0.7)';
-          closeButton.style.pointerEvents = 'none';
-        }
-      };
-
-      // On mobile, always show close button
-      if (window.innerWidth < 768) {
-        closeButton.style.opacity = '1';
-        closeButton.style.transform = 'scale(1)';
-        closeButton.style.pointerEvents = 'auto';
-        closeButton.style.backgroundColor = 'rgba(224, 224, 224, 0.8)';
+    // Show close button on hover (desktop) or always on mobile
+    searchContainer.onmouseenter = function() {
+      closeButton.style.opacity = '1';
+      closeButton.style.transform = 'scale(1.2)';
+      closeButton.style.pointerEvents = 'auto';
+    };
+    searchContainer.onmouseleave = function() {
+      // On mobile, keep it visible
+      if (window.innerWidth >= 768) {
+        closeButton.style.opacity = '0';
+        closeButton.style.transform = 'scale(0.7)';
+        closeButton.style.pointerEvents = 'none';
       }
+    };
 
-      // Close button hover effect
-      closeButton.onmouseover = function() {
-        this.style.backgroundColor = 'black';
-        this.style.color = 'white';
-      };
-      closeButton.onmouseout = function() {
-        this.style.backgroundColor = window.innerWidth < 768 ? 'rgba(224, 224, 224, 0.8)' : 'rgba(224, 224, 224, 0)';
-        this.style.color = 'black';
-      };
-
-      // Handle close button click
-      closeButton.onclick = function(e) {
-        e.stopPropagation();
-        container.style.display = 'none';
-        // Remember that user closed it
-        localStorage.setItem('floatingSearchBarClosed', 'true');
-      };
+    // On mobile, always show close button
+    if (window.innerWidth < 768) {
+      closeButton.style.opacity = '1';
+      closeButton.style.transform = 'scale(1)';
+      closeButton.style.pointerEvents = 'auto';
+      closeButton.style.backgroundColor = 'rgba(224, 224, 224, 0.8)';
     }
+
+    // Close button hover effect
+    closeButton.onmouseover = function() {
+      this.style.backgroundColor = 'black';
+      this.style.color = 'white';
+    };
+    closeButton.onmouseout = function() {
+      this.style.backgroundColor = window.innerWidth < 768 ? 'rgba(224, 224, 224, 0.8)' : 'rgba(224, 224, 224, 0)';
+      this.style.color = 'black';
+    };
+
+    // Handle close button click
+    closeButton.onclick = function(e) {
+      e.stopPropagation();
+      container.style.display = 'none';
+      // Remember that user closed it
+      localStorage.setItem('floatingSearchBarClosed', 'true');
+    };
 
     // Create the input field
     const input = document.createElement('input');
@@ -229,9 +204,7 @@
     };
 
     // Assemble the elements
-    if (closeButton) {
-      searchContainer.appendChild(closeButton);
-    }
+    searchContainer.appendChild(closeButton);
     searchContainer.appendChild(input);
     searchContainer.appendChild(sendButton);
     container.appendChild(searchContainer);
@@ -248,21 +221,6 @@
     };
 
     return container;
-  }
-
-  // Function to hide search bar with animation
-  function hideSearchBar() {
-    const container = document.getElementById('floating-search-container');
-    if (container) {
-      container.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
-      container.style.opacity = '0';
-      container.style.transform = 'translateX(-50%) translateY(20px)';
-      
-      setTimeout(() => {
-        container.style.display = 'none';
-        localStorage.setItem('floatingSearchBarClosed', 'true');
-      }, 400);
-    }
   }
 
   // Function to send message to chatbot
@@ -291,13 +249,10 @@
         }
       }
 
-      // Hide the search bar with animation
-      hideSearchBar();
-
       // Wait for the chat to open, then send message via postMessage
       setTimeout(() => {
         if (chatIframe && chatIframe.contentWindow) {
-          console.log('📤 Sending external message to chatbot iframe:', message);
+          console.log('Sending external message to chatbot iframe:', message);
           // Send postMessage with wildcard origin since iframe can be on different domains
           chatIframe.contentWindow.postMessage({
             action: 'externalMessage',
@@ -315,33 +270,53 @@
 
   // Initialize the search bar when DOM is ready
   function init() {
-    // Check if user has previously closed the search bar (skip if persistent mode)
-    if (!CONFIG.persistent && localStorage.getItem('floatingSearchBarClosed') === 'true') {
-      console.log('🔍 Floating search bar was closed by user, not showing');
+    // Check if user has previously closed the search bar
+    if (localStorage.getItem('floatingSearchBarClosed') === 'true') {
+      console.log('Floating search bar was closed by user, not showing');
       return;
     }
 
-    // Wait for the chatbot to be initialized first
-    const checkChatbotReady = () => {
+    // Wait for the chatbot and DOM to be ready
+    const checkReady = () => {
       const chatButton = document.getElementById('chat-button');
-      if (chatButton) {
+      if (chatButton && document.readyState === 'complete') {
         // Chatbot is ready, create and add the search bar
         const searchBar = createSearchBar();
         document.body.appendChild(searchBar);
+        console.log('Floating search bar initialized');
       } else {
-        // Chatbot not ready yet, check again in 100ms
-        setTimeout(checkChatbotReady, 100);
+        // Not ready yet, check again in 100ms
+        setTimeout(checkReady, 100);
       }
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkChatbotReady);
+      document.addEventListener('DOMContentLoaded', checkReady);
     } else {
-      checkChatbotReady();
+      checkReady();
     }
   }
 
   // Start initialization
   init();
+
+  // Expose global functions for manual control
+  window.showFloatingSearchBar = function() {
+    localStorage.removeItem('floatingSearchBarClosed');
+    const existing = document.getElementById('floating-search-container');
+    if (!existing) {
+      const searchBar = createSearchBar();
+      document.body.appendChild(searchBar);
+    } else {
+      existing.style.display = 'block';
+    }
+  };
+
+  window.hideFloatingSearchBar = function() {
+    const existing = document.getElementById('floating-search-container');
+    if (existing) {
+      existing.style.display = 'none';
+    }
+  };
 
 })();
