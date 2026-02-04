@@ -36,7 +36,7 @@
         <iframe
         id="chat-iframe"
         src="${o}"
-        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${e.zIndex||190} + 39810);">
+        style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${e.zIndex||190} + 10);">
         </iframe>
     `}var V={inject:mt};function mt({ctx:t}){let e=t.getConfig(),o=e.productButtonColor||e.themeColor||"#1a1d56",i=`
         /* ----------------------------------------
