@@ -335,6 +335,11 @@
             width: 65px !important;
             height: 65px !important;
         }
+
+        #chat-container #chat-button img {
+            width: 65px !important;
+            height: 65px !important;
+        }
         
         /* Always show close button on mobile as simple X */
         #chatbase-message-bubbles .close-popup {
