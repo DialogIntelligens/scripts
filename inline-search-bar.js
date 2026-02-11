@@ -213,7 +213,6 @@
       createSearchWidget(widget);
     });
 
-    console.log(`✅ Initialized ${widgets.length} chatbot search widget(s)`);
   }
 
   // Wait for chatbot and DOM to be ready
