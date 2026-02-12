@@ -1,19 +1,24 @@
 /**
- * Floating Search Bar Snippet
+ * Inline Search Bar Widget
  *
- * Creates a floating search bar in the bottom middle of the screen
+ * Creates an inline search bar that can be placed anywhere on the page
  * When user types a question and clicks send, it opens the chatbot and sends the question
  *
- * Usage: Include this script after the universal-chatbot.js script
- * <script src="universal-chatbot.js?id=YOUR_CHATBOT_ID"></script>
- * <script src="floating-search-bar.js"></script>
+ * Usage: 
+ * 1. Include this script after the universal-chatbot.js script
+ * 2. Add a container element where you want the search bar to appear:
+ *    <div id="chatbot-search-widget"></div>
+ * 3. The widget will automatically initialize in elements with class "chatbot-search-widget" or id "chatbot-search-widget"
+ * 
+ * Custom placement:
+ *    <div class="chatbot-search-widget" data-placeholder="Ask us anything..."></div>
  */
 
 (function() {
   'use strict';
 
-  // Configuration
-  const CONFIG = {
+  // Default configuration
+  const DEFAULT_CONFIG = {
     placeholder: "Stil et spørgsmål...",
     sendIconColor: "#636a8b",
     backgroundColor: "rgba(255, 255, 255, 0.95)",
@@ -21,113 +26,41 @@
     shadowColor: "rgba(99, 106, 139, 0.15)",
     focusShadowColor: "rgba(99, 106, 139, 0.25)",
     borderRadius: "25px",
-    width: "400px",
-    maxWidth: "90vw",
-    bottom: "20px",
-    zIndex: "9999"
+    width: "100%",
+    maxWidth: "600px"
   };
 
-  // Create the search bar container
-  function createSearchBar() {
-    const container = document.createElement('div');
-    container.id = 'floating-search-container';
-    container.style.cssText = `
-      position: fixed;
-      bottom: ${CONFIG.bottom};
-      left: 50%;
-      transform: translateX(-50%);
-      width: ${CONFIG.width};
-      max-width: ${CONFIG.maxWidth};
-      z-index: ${CONFIG.zIndex};
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    `;
+  // Create the search bar widget
+  function createSearchWidget(targetElement, customConfig = {}) {
+    const config = { ...DEFAULT_CONFIG, ...customConfig };
+    
+    // Read custom placeholder from data attribute if available
+    const placeholder = targetElement.getAttribute('data-placeholder') || config.placeholder;
 
     // Create the search input container
     const searchContainer = document.createElement('div');
+    searchContainer.className = 'chatbot-search-widget-container';
     searchContainer.style.cssText = `
       position: relative;
-      background: ${CONFIG.backgroundColor};
-      border: 1px solid ${CONFIG.borderColor};
-      border-radius: ${CONFIG.borderRadius};
-      box-shadow: 0 4px 12px ${CONFIG.shadowColor};
+      background: ${config.backgroundColor};
+      border: 1px solid ${config.borderColor};
+      border-radius: ${config.borderRadius};
+      box-shadow: 0 4px 12px ${config.shadowColor};
       display: flex;
       align-items: center;
       padding: 8px 16px;
       transition: all 0.3s ease;
+      width: ${config.width};
+      max-width: ${config.maxWidth};
+      margin: 0 auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
-
-    // Create close button (similar to popup close button)
-    const closeButton = document.createElement('button');
-    closeButton.style.cssText = `
-      position: absolute;
-      top: -8px;
-      right: -8px;
-      font-weight: bold;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 16px;
-      cursor: pointer;
-      background-color: rgba(224, 224, 224, 0);
-      color: black;
-      border: none;
-      opacity: 0;
-      transform: scale(0.7);
-      transition: background-color 0.3s, color 0.3s, opacity 0.3s, transform 0.3s;
-      z-index: 10;
-      pointer-events: none;
-    `;
-    closeButton.innerHTML = '×';
-
-    // Show close button on hover (desktop) or always on mobile
-    searchContainer.onmouseenter = function() {
-      closeButton.style.opacity = '1';
-      closeButton.style.transform = 'scale(1.2)';
-      closeButton.style.pointerEvents = 'auto';
-    };
-    searchContainer.onmouseleave = function() {
-      // On mobile, keep it visible
-      if (window.innerWidth >= 768) {
-        closeButton.style.opacity = '0';
-        closeButton.style.transform = 'scale(0.7)';
-        closeButton.style.pointerEvents = 'none';
-      }
-    };
-
-    // On mobile, always show close button
-    if (window.innerWidth < 768) {
-      closeButton.style.opacity = '1';
-      closeButton.style.transform = 'scale(1)';
-      closeButton.style.pointerEvents = 'auto';
-      closeButton.style.backgroundColor = 'rgba(224, 224, 224, 0.8)';
-    }
-
-    // Close button hover effect
-    closeButton.onmouseover = function() {
-      this.style.backgroundColor = 'black';
-      this.style.color = 'white';
-    };
-    closeButton.onmouseout = function() {
-      this.style.backgroundColor = window.innerWidth < 768 ? 'rgba(224, 224, 224, 0.8)' : 'rgba(224, 224, 224, 0)';
-      this.style.color = 'black';
-    };
-
-    // Handle close button click
-    closeButton.onclick = function(e) {
-      e.stopPropagation();
-      container.style.display = 'none';
-      // Remember that user closed it
-      localStorage.setItem('floatingSearchBarClosed', 'true');
-    };
 
     // Create the input field
     const input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = CONFIG.placeholder;
+    input.placeholder = placeholder;
+    input.className = 'chatbot-search-widget-input';
     input.style.cssText = `
       flex: 1;
       border: none;
@@ -141,6 +74,7 @@
 
     // Create the send button
     const sendButton = document.createElement('button');
+    sendButton.className = 'chatbot-search-widget-button';
     sendButton.style.cssText = `
       border: none;
       background: none;
@@ -149,7 +83,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: ${CONFIG.sendIconColor};
+      color: ${config.sendIconColor};
       transition: all 0.2s ease;
       border-radius: 50%;
       width: 32px;
@@ -166,7 +100,7 @@
       this.style.transform = 'scale(1)';
     };
 
-    // Create the send icon (same as the one used in the chat)
+    // Create the send icon
     const sendIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     sendIcon.setAttribute('viewBox', '0 0 20 20');
     sendIcon.setAttribute('width', '20');
@@ -188,7 +122,7 @@
       const message = input.value.trim();
       if (message) {
         sendMessageToChatbot(message);
-        input.value = ''; // Clear the input
+        input.value = '';
       }
     };
 
@@ -198,34 +132,33 @@
         const message = input.value.trim();
         if (message) {
           sendMessageToChatbot(message);
-          input.value = ''; // Clear the input
+          input.value = '';
         }
       }
     };
 
     // Assemble the elements
-    searchContainer.appendChild(closeButton);
     searchContainer.appendChild(input);
     searchContainer.appendChild(sendButton);
-    container.appendChild(searchContainer);
 
     // Add focus/blur effects
     input.onfocus = function() {
-      searchContainer.style.boxShadow = `0 6px 20px ${CONFIG.focusShadowColor}`;
-      searchContainer.style.borderColor = CONFIG.sendIconColor;
+      searchContainer.style.boxShadow = `0 6px 20px ${config.focusShadowColor}`;
+      searchContainer.style.borderColor = config.sendIconColor;
     };
 
     input.onblur = function() {
-      searchContainer.style.boxShadow = `0 4px 12px ${CONFIG.shadowColor}`;
-      searchContainer.style.borderColor = CONFIG.borderColor;
+      searchContainer.style.boxShadow = `0 4px 12px ${config.shadowColor}`;
+      searchContainer.style.borderColor = config.borderColor;
     };
 
-    return container;
+    // Clear the target element and append the search widget
+    targetElement.innerHTML = '';
+    targetElement.appendChild(searchContainer);
   }
 
   // Function to send message to chatbot
   function sendMessageToChatbot(message) {
-    // First, try to open the chatbot if it's not already open
     const chatIframe = document.getElementById('chat-iframe');
     const chatButton = document.getElementById('chat-button');
 
@@ -252,40 +185,44 @@
       // Wait for the chat to open, then send message via postMessage
       setTimeout(() => {
         if (chatIframe && chatIframe.contentWindow) {
-          console.log('Sending external message to chatbot iframe:', message);
-          // Send postMessage with wildcard origin since iframe can be on different domains
+          console.log('📤 Sending external message to chatbot iframe:', message);
           chatIframe.contentWindow.postMessage({
             action: 'externalMessage',
             message: message,
-            source: 'floating-search-bar'
+            source: 'inline-search-widget'
           }, '*');
         } else {
           console.warn('Chatbot iframe contentWindow not available');
         }
-      }, 1000); // Wait for chat to be fully loaded
+      }, 1000);
     } else {
       console.warn('Chatbot elements not found. Make sure universal-chatbot.js is loaded first.');
     }
   }
 
-  // Initialize the search bar when DOM is ready
-  function init() {
-    // Check if user has previously closed the search bar
-    if (localStorage.getItem('floatingSearchBarClosed') === 'true') {
-      console.log('Floating search bar was closed by user, not showing');
+  // Initialize all search widgets on the page
+  function initWidgets() {
+    const widgets = document.querySelectorAll('.chatbot-search-widget, #chatbot-search-widget');
+    
+    if (widgets.length === 0) {
+      console.log('No chatbot search widget containers found. Add an element with class "chatbot-search-widget" or id "chatbot-search-widget"');
       return;
     }
 
-    // Wait for the chatbot and DOM to be ready
+    widgets.forEach(widget => {
+      createSearchWidget(widget);
+    });
+
+    console.log(`✅ Initialized ${widgets.length} chatbot search widget(s)`);
+  }
+
+  // Wait for chatbot and DOM to be ready
+  function init() {
     const checkReady = () => {
       const chatButton = document.getElementById('chat-button');
       if (chatButton && document.readyState === 'complete') {
-        // Chatbot is ready, create and add the search bar
-        const searchBar = createSearchBar();
-        document.body.appendChild(searchBar);
-        console.log('Floating search bar initialized');
+        initWidgets();
       } else {
-        // Not ready yet, check again in 100ms
         setTimeout(checkReady, 100);
       }
     };
@@ -300,23 +237,15 @@
   // Start initialization
   init();
 
-  // Expose global functions for manual control
-  window.showFloatingSearchBar = function() {
-    localStorage.removeItem('floatingSearchBarClosed');
-    const existing = document.getElementById('floating-search-container');
-    if (!existing) {
-      const searchBar = createSearchBar();
-      document.body.appendChild(searchBar);
+  // Expose global function for manual initialization if needed
+  window.initChatbotSearchWidget = function(elementIdOrClass, customConfig) {
+    const element = document.querySelector(elementIdOrClass);
+    if (element) {
+      createSearchWidget(element, customConfig);
     } else {
-      existing.style.display = 'block';
-    }
-  };
-
-  window.hideFloatingSearchBar = function() {
-    const existing = document.getElementById('floating-search-container');
-    if (existing) {
-      existing.style.display = 'none';
+      console.warn(`Element not found: ${elementIdOrClass}`);
     }
   };
 
 })();
+

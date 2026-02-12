@@ -81,7 +81,7 @@
         try {
           const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl)
             ? window.CHATBOT_PREVIEW_CONFIG.backendUrl
-            : 'http://localhost:3000/';
+            : 'http://localhost:3000';
 
           const response = await fetch(`${backendUrl}/api/integration-config/${chatbotID}`);
       if (response.ok) {
@@ -100,7 +100,7 @@
     // Get backend URL from preview config (for development dashboard) or use production URL
     const backendUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.backendUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.backendUrl 
-      : 'http://localhost:3000/';
+      : 'http://localhost:3000';
     
     try {
       console.log(`📡 Loading configuration for chatbot: ${chatbotID}`);
@@ -119,7 +119,7 @@
       console.error('❌ Error loading chatbot config:', error);
       
       // Get iframe URL from preview config (for development dashboard) or use production URL
-        const iframeUrl = 'http://localhost:3002/';
+        const iframeUrl = 'http://localhost:3002';
       
       // Return minimal fallback configuration
       return {
@@ -143,7 +143,7 @@
     // Get iframe URL from preview config (for development dashboard) or use production URL
     const iframeUrl = (isPreviewMode && window.CHATBOT_PREVIEW_CONFIG?.iframeUrl) 
       ? window.CHATBOT_PREVIEW_CONFIG.iframeUrl 
-      : 'http://localhost:3002/';
+      : 'http://localhost:3002';
     
     return {
       chatbotID: chatbotID,
@@ -224,7 +224,7 @@
       return window.CHATBOT_PREVIEW_CONFIG.backendUrl;
     }
     // Otherwise use production URL
-    return 'http://localhost:3000/';
+    return 'http://localhost:3000';
   }
 
   async function getSplitAssignmentOnce() {
@@ -491,7 +491,7 @@
       <!-- Chat Iframe -->
       <iframe
         id="chat-iframe"
-        src="http://localhost:3002/"
+        src="${config.iframeUrl || 'http://localhost:3002'}"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: calc(${config.zIndex || 190} + 39810);">
       </iframe>
     `;
@@ -997,7 +997,14 @@
 
     // Listen for messages from iframe
     window.addEventListener('message', function(event) {
-      if (event.origin !== config.iframeUrl.replace(/\/$/, '')) return;
+      let expectedOrigin = '';
+      try {
+        expectedOrigin = new URL(config.iframeUrl).origin;
+      } catch (_) {
+        expectedOrigin = (config.iframeUrl || '').replace(/\/$/, '');
+      }
+      const allowLocalPreview = isPreviewMode && event.origin.includes('localhost');
+      if (expectedOrigin && event.origin !== expectedOrigin && !allowLocalPreview) return;
 
       if (event.data.action === 'toggleSize') {
         isIframeEnlarged = !isIframeEnlarged;
@@ -1124,17 +1131,19 @@
     const iframe = document.getElementById('chat-iframe');
     if (!iframe) return;
 
-    // In preview mode, use fixed sizes and don't respond to window resize
     const isPreview = window.CHATBOT_PREVIEW_MODE === true;
-    
+    const isMobileViewport = window.innerWidth < 1000;
+
     if (isPreview) {
-      // Check if this is mobile preview mode (passed from parent)
       const isMobilePreview = config && config.previewMode === 'mobile';
-      
-      if (isMobilePreview) {
-        // Mobile preview: use 95% of preview window (responsive)
-        iframe.style.width = '95vw';
-        iframe.style.height = '90vh';
+
+      if (isMobilePreview || isMobileViewport) {
+        iframe.style.width = isIframeEnlarged
+          ? (config.iframeWidthEnlarged || '98vw')
+          : '95vw';
+        iframe.style.height = isIframeEnlarged
+          ? (config.iframeHeightEnlarged || '95vh')
+          : '90vh';
         iframe.style.position = 'fixed';
         iframe.style.left = '50%';
         iframe.style.top = '50%';
@@ -1142,9 +1151,12 @@
         iframe.style.bottom = '';
         iframe.style.right = '';
       } else {
-        // Desktop preview: fixed size (doesn't respond to preview window size)
-        iframe.style.width = 'calc(375px + 6vw)';
-        iframe.style.height = 'calc(450px + 20vh)';
+        iframe.style.width = isIframeEnlarged
+          ? (config.iframeWidthEnlarged || '90vw')
+          : 'calc(375px + 6vw)';
+        iframe.style.height = isIframeEnlarged
+          ? (config.iframeHeightEnlarged || '90vh')
+          : 'calc(450px + 20vh)';
         iframe.style.position = 'fixed';
         iframe.style.left = 'auto';
         iframe.style.top = 'auto';
