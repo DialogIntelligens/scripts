@@ -123,13 +123,23 @@
      });
  
  
-     /* ---------- init ---------- */
-     iframe.addEventListener('load', () => {
-       sendIntegrationOptions();
-       adjustIframeSize();
-     });
- 
-     window.addEventListener('resize', () => adjustIframeSize());
+    /* ---------- init ---------- */
+    iframe.addEventListener('load', () => {
+      sendIntegrationOptions();
+      adjustIframeSize();
+      setTimeout(sendIntegrationOptions, 500);
+      setTimeout(sendIntegrationOptions, 1500);
+      setTimeout(sendIntegrationOptions, 3000);
+    });
+
+    window.addEventListener('message', (event) => {
+      if (event.origin !== SCRIPT_ORIGIN) return;
+      if (event.data?.action === 'ready') {
+        sendIntegrationOptions();
+      }
+    });
+
+    window.addEventListener('resize', () => adjustIframeSize());
  
    });
  })();
