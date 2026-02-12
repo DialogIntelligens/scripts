@@ -1,10 +1,10 @@
 (function () {
-  // Production URLs (uncomment for production)
    const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
    const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
    const API_URL = 'https://api.dialogintelligens.dk';
   
     const CHATBOT_ID = 'bodylab';
+    const scriptEl = document.currentScript;
   
     let dashboardConfig = {};
   
@@ -36,6 +36,8 @@
       const placeholder = document.getElementById('chatbot-placeholder');
       if (placeholder) {
         placeholder.appendChild(container);
+      } else if (scriptEl && scriptEl.parentElement) {
+        scriptEl.parentElement.appendChild(container);
       } else {
         document.body.appendChild(container);
       }
