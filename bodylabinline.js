@@ -2,13 +2,29 @@
   const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
   const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
   const API_URL = 'https://api.dialogintelligens.dk';
- 
-   const CHATBOT_ID = 'bodylab';
-   const scriptEl = document.currentScript;
- 
-   let dashboardConfig = {};
- 
-   document.addEventListener('DOMContentLoaded', async () => {
+
+    const CHATBOT_ID = 'bodylab';
+    const scriptEl = document.currentScript;
+
+    window.chatbotInitialized = true;
+
+    const hideWidgetStyle = document.createElement('style');
+    hideWidgetStyle.textContent = '#chat-container, #chat-button, #chatbase-message-bubbles { display: none !important; }';
+    document.head.appendChild(hideWidgetStyle);
+
+    function destroyWidgetChatbot() {
+      if (window.DialogIntelligens?.destroy) {
+        window.DialogIntelligens.destroy();
+      }
+      window.chatbotInitialized = true;
+    }
+
+    let dashboardConfig = {};
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      destroyWidgetChatbot();
+      setTimeout(destroyWidgetChatbot, 200);
+      setTimeout(destroyWidgetChatbot, 2500);
  
      /* ---------- fetch dashboard config ---------- */
      try {
@@ -24,7 +40,7 @@
  
      /* ---------- iframe ---------- */
      const iframe = document.createElement('iframe');
-     iframe.id = 'chat-iframe';
+     iframe.id = 'chat-iframe-inline';
      iframe.src = IFRAME_URL;
      iframe.style.display = 'block';
      iframe.setAttribute(
@@ -127,16 +143,6 @@
     iframe.addEventListener('load', () => {
       sendIntegrationOptions();
       adjustIframeSize();
-      setTimeout(sendIntegrationOptions, 500);
-      setTimeout(sendIntegrationOptions, 1500);
-      setTimeout(sendIntegrationOptions, 3000);
-    });
-
-    window.addEventListener('message', (event) => {
-      if (event.origin !== SCRIPT_ORIGIN) return;
-      if (event.data?.action === 'ready') {
-        sendIntegrationOptions();
-      }
     });
 
     window.addEventListener('resize', () => adjustIframeSize());
