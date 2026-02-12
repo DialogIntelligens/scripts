@@ -252,7 +252,7 @@
       // Wait for the chat to open, then send message via postMessage
       setTimeout(() => {
         if (chatIframe && chatIframe.contentWindow) {
-          console.log('📤 Sending external message to chatbot iframe:', message);
+          console.log('Sending external message to chatbot iframe:', message);
           // Send postMessage with wildcard origin since iframe can be on different domains
           chatIframe.contentWindow.postMessage({
             action: 'externalMessage',
@@ -272,31 +272,51 @@
   function init() {
     // Check if user has previously closed the search bar
     if (localStorage.getItem('floatingSearchBarClosed') === 'true') {
-      console.log('🔍 Floating search bar was closed by user, not showing');
+      console.log('Floating search bar was closed by user, not showing');
       return;
     }
 
-    // Wait for the chatbot to be initialized first
-    const checkChatbotReady = () => {
+    // Wait for the chatbot and DOM to be ready
+    const checkReady = () => {
       const chatButton = document.getElementById('chat-button');
-      if (chatButton) {
+      if (chatButton && document.readyState === 'complete') {
         // Chatbot is ready, create and add the search bar
         const searchBar = createSearchBar();
         document.body.appendChild(searchBar);
+        console.log('Floating search bar initialized');
       } else {
-        // Chatbot not ready yet, check again in 100ms
-        setTimeout(checkChatbotReady, 100);
+        // Not ready yet, check again in 100ms
+        setTimeout(checkReady, 100);
       }
     };
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkChatbotReady);
+      document.addEventListener('DOMContentLoaded', checkReady);
     } else {
-      checkChatbotReady();
+      checkReady();
     }
   }
 
   // Start initialization
   init();
+
+  // Expose global functions for manual control
+  window.showFloatingSearchBar = function() {
+    localStorage.removeItem('floatingSearchBarClosed');
+    const existing = document.getElementById('floating-search-container');
+    if (!existing) {
+      const searchBar = createSearchBar();
+      document.body.appendChild(searchBar);
+    } else {
+      existing.style.display = 'block';
+    }
+  };
+
+  window.hideFloatingSearchBar = function() {
+    const existing = document.getElementById('floating-search-container');
+    if (existing) {
+      existing.style.display = 'none';
+    }
+  };
 
 })();
