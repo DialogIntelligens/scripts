@@ -420,8 +420,8 @@
 /* Notification badge styles */
 .notification-badge {
   position: absolute;
-  top: 2px;
-  right: 12px;
+  top: 1px;
+  right: 9px;
   min-width: 20px;
   height: 20px;
   padding: 0 5px;
