@@ -156,8 +156,12 @@
       }
 
       if (event.data?.action === 'navigate' && event.data.url) {
-        localStorage.setItem('chatWindowState', 'open');
-        window.location.href = event.data.url;
+        if (event.data.url.endsWith('.pdf')) {
+          window.open(event.data.url, '_blank', 'noopener');
+        } else {
+          localStorage.setItem('chatWindowState', 'open');
+          window.location.href = event.data.url;
+        }
       }
      });
  
