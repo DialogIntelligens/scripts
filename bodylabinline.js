@@ -9,13 +9,15 @@
     window.chatbotInitialized = true;
 
     const hideWidgetStyle = document.createElement('style');
-    hideWidgetStyle.textContent = '#chat-container, #chat-button, #chatbase-message-bubbles { display: none !important; }';
+    hideWidgetStyle.textContent = '#chat-container, #chat-button, #chat-iframe, #chatbase-message-bubbles { display: none !important; }';
     document.head.appendChild(hideWidgetStyle);
 
     function destroyWidgetChatbot() {
       if (window.DialogIntelligens?.destroy) {
         window.DialogIntelligens.destroy();
       }
+      const widgetIframe = document.getElementById('chat-iframe');
+      if (widgetIframe) widgetIframe.remove();
       window.chatbotInitialized = true;
     }
 
@@ -26,6 +28,8 @@
       destroyWidgetChatbot();
       setTimeout(destroyWidgetChatbot, 200);
       setTimeout(destroyWidgetChatbot, 2500);
+      setTimeout(destroyWidgetChatbot, 5000);
+      setTimeout(destroyWidgetChatbot, 10000);
  
      /* ---------- fetch dashboard config ---------- */
      try {
@@ -64,6 +68,7 @@
      container.style.marginBottom = '2em';
      container.style.transition = 'height 0.5s ease';
      container.style.boxSizing = 'border-box';
+     container.style.overflow = 'hidden';
      iframe.style.width = '100%';
      iframe.style.height = '100%';
      iframe.style.border = 'none';
@@ -71,7 +76,7 @@
  
      /* ---------- resize logic ---------- */
      let isIframeEnlarged = false;
- 
+
     function adjustIframeSize() {
       const isMobile = window.innerWidth < 1000;
 
@@ -166,6 +171,8 @@
     iframe.addEventListener('load', () => {
       sendIntegrationOptions();
       adjustIframeSize();
+      setTimeout(sendIntegrationOptions, 500);
+      setTimeout(sendIntegrationOptions, 2000);
     });
 
     window.addEventListener('resize', () => adjustIframeSize());
