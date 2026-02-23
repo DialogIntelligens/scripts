@@ -44,10 +44,6 @@
      iframe.id = 'chat-iframe-inline';
      iframe.src = IFRAME_URL;
      iframe.style.display = 'block';
-     iframe.setAttribute(
-      'sandbox',
-      'allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation'
-     );
  
      container.appendChild(iframe);
      const placeholder = document.getElementById('chatbot-placeholder');
