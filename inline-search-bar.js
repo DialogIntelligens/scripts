@@ -34,8 +34,10 @@
   function createSearchWidget(targetElement, customConfig = {}) {
     const config = { ...DEFAULT_CONFIG, ...customConfig };
     
-    // Read custom placeholder from data attribute if available
-    const placeholder = targetElement.getAttribute('data-placeholder') || config.placeholder;
+    const placeholder =
+      (targetElement.getAttribute && targetElement.getAttribute('data-placeholder')) ||
+      (targetElement.dataset && targetElement.dataset.placeholder) ||
+      config.placeholder;
 
     // Create the search input container
     const searchContainer = document.createElement('div');
@@ -56,10 +58,9 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     `;
 
-    // Create the input field
     const input = document.createElement('input');
     input.type = 'text';
-    input.placeholder = placeholder;
+    input.setAttribute('placeholder', placeholder);
     input.className = 'chatbot-search-widget-input';
     input.style.cssText = `
       flex: 1;
