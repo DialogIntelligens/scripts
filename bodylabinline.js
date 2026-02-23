@@ -44,10 +44,6 @@
      iframe.id = 'chat-iframe-inline';
      iframe.src = IFRAME_URL;
      iframe.style.display = 'block';
-     iframe.setAttribute(
-       'sandbox',
-       'allow-scripts allow-same-origin allow-forms allow-popups'
-     );
  
      container.appendChild(iframe);
      const placeholder = document.getElementById('chatbot-placeholder');
@@ -156,8 +152,12 @@
       }
 
       if (event.data?.action === 'navigate' && event.data.url) {
-        localStorage.setItem('chatWindowState', 'open');
-        window.location.href = event.data.url;
+        if (event.data.url.endsWith('.pdf')) {
+          window.open(event.data.url, '_blank', 'noopener');
+        } else {
+          localStorage.setItem('chatWindowState', 'open');
+          window.location.href = event.data.url;
+        }
       }
      });
  
