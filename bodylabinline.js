@@ -22,7 +22,7 @@
     let dashboardConfig = {};
     let isChatExpanded = false;
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function init() {
       destroyWidgetChatbot();
       setTimeout(destroyWidgetChatbot, 200);
       setTimeout(destroyWidgetChatbot, 2500);
@@ -72,38 +72,38 @@
      /* ---------- resize logic ---------- */
      let isIframeEnlarged = false;
  
-     function adjustIframeSize() {
-       const isMobile = window.innerWidth < 1000;
+    function adjustIframeSize() {
+      const isMobile = window.innerWidth < 1000;
 
-       if (!isChatExpanded) {
-         container.style.width = '100%';
-         container.style.maxWidth = '100%';
-         container.style.height = '90px';
-         container.style.marginLeft = 'auto';
-         container.style.marginRight = 'auto';
-         container.style.marginBottom = '2em';
-         return;
-       }
- 
-       let maxWidth, height;
-       if (isIframeEnlarged) {
-         maxWidth = '80vw';
-         height = '500px';
-       } else if (isMobile) {
-         maxWidth = '100%';
-         height = '450px';
-       } else {
-         maxWidth = '60vw';
-         height = '450px';
-       }
- 
-       container.style.width = '100%';
-       container.style.maxWidth = maxWidth;
-       container.style.height = height;
-       container.style.marginLeft = 'auto';
-       container.style.marginRight = 'auto';
-       container.style.marginBottom = '2em';
-     }
+      if (!isChatExpanded) {
+        container.style.width = '100%';
+        container.style.maxWidth = '100%';
+        container.style.height = '90px';
+        container.style.marginLeft = 'auto';
+        container.style.marginRight = 'auto';
+        container.style.marginBottom = '2em';
+        return;
+      }
+
+      let maxWidth, height;
+      if (isIframeEnlarged) {
+        maxWidth = '80vw';
+        height = '500px';
+      } else if (isMobile) {
+        maxWidth = '100%';
+        height = '450px';
+      } else {
+        maxWidth = '60vw';
+        height = '450px';
+      }
+
+      container.style.width = '100%';
+      container.style.maxWidth = maxWidth;
+      container.style.height = height;
+      container.style.marginLeft = 'auto';
+      container.style.marginRight = 'auto';
+      container.style.marginBottom = '2em';
+    }
  
      /* ---------- send integrationOptions ---------- */
      function sendIntegrationOptions() {
@@ -170,5 +170,11 @@
 
     window.addEventListener('resize', () => adjustIframeSize());
  
-   });
+   }
+
+   if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', init);
+   } else {
+     init();
+   }
 })();
