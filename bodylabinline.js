@@ -62,7 +62,7 @@
      /* ---------- set initial size (minimal - input only) ---------- */
      container.style.width = '100%';
      container.style.maxWidth = '100%';
-     container.style.height = '90px';
+     container.style.height = '100px';
      container.style.margin = '0 auto';
      container.style.marginTop = '2em';
      container.style.marginBottom = '2em';
@@ -83,7 +83,7 @@
       if (!isChatExpanded) {
         container.style.width = '100%';
         container.style.maxWidth = '100%';
-        container.style.height = '90px';
+        container.style.height = '100px';
         container.style.marginLeft = 'auto';
         container.style.marginRight = 'auto';
         container.style.marginBottom = '2em';
