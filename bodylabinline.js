@@ -1,7 +1,11 @@
 (function () {
-  const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
-  const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
-  const API_URL = 'https://api.dialogintelligens.dk';
+  //const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
+  //const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
+  //const API_URL = 'https://api.dialogintelligens.dk';
+
+  SCRIPT_ORIGIN = 'http://localhost:3002';
+  const IFRAME_URL = 'http://localhost:3002';
+  const API_URL = 'http://localhost:3000';
 
     const CHATBOT_ID = 'bodylab';
     const scriptEl = document.currentScript;
@@ -47,6 +51,7 @@
      const iframe = document.createElement('iframe');
      iframe.id = 'chat-iframe-inline';
      iframe.src = IFRAME_URL;
+     iframe.setAttribute('allow', 'microphone');
      iframe.style.display = 'block';
  
      container.appendChild(iframe);
@@ -92,13 +97,13 @@
 
       let maxWidth, height;
       if (isIframeEnlarged) {
-        maxWidth = '80vw';
+        maxWidth = '100%';
         height = '500px';
       } else if (isMobile) {
         maxWidth = '100%';
         height = '450px';
       } else {
-        maxWidth = '60vw';
+        maxWidth = '100%';
         height = '450px';
       }
 
