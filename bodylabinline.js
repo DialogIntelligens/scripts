@@ -1,11 +1,7 @@
 (function () {
-  //const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
-  //const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
-  //const API_URL = 'https://api.dialogintelligens.dk';
-
-  SCRIPT_ORIGIN = 'http://localhost:3002';
-  const IFRAME_URL = 'http://localhost:3002';
-  const API_URL = 'http://localhost:3000';
+  const SCRIPT_ORIGIN = 'https://chatbot.dialogintelligens.dk';
+  const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
+  const API_URL = 'https://api.dialogintelligens.dk';
 
     const CHATBOT_ID = 'bodylab';
     const scriptEl = document.currentScript;
