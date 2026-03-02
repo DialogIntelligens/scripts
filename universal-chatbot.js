@@ -19,6 +19,7 @@
         <iframe
         id="chat-iframe"
         src="${e}"
+        allow="microphone"
         style="display: block; position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw; height: 100vh; border: none; z-index: ${o.iframeZIndex||3e3};">
         </iframe>
     `:`
@@ -49,6 +50,7 @@
         <iframe
         id="chat-iframe"
         src="${e}"
+        allow="microphone"
         style="display: none; position: fixed; bottom: 3vh; right: 2vw; width: 50vh; height: 90vh; border: none; z-index: ${o.iframeZIndex||3e3};">
         </iframe>
     `}var gt={inject:$t};function $t({ctx:t}){let o=t.getConfig(),e=o.productButtonColor||o.themeColor||"#1a1d56",i=`
