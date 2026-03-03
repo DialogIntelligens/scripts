@@ -9,23 +9,27 @@
     window.chatbotInitialized = true;
 
     const hideWidgetStyle = document.createElement('style');
-    hideWidgetStyle.textContent = '#chat-container, #chat-button, #chatbase-message-bubbles { display: none !important; }';
+    hideWidgetStyle.textContent = '#chat-container, #chat-button, #chat-iframe, #chatbase-message-bubbles { display: none !important; }';
     document.head.appendChild(hideWidgetStyle);
 
     function destroyWidgetChatbot() {
       if (window.DialogIntelligens?.destroy) {
         window.DialogIntelligens.destroy();
       }
+      const widgetIframe = document.getElementById('chat-iframe');
+      if (widgetIframe) widgetIframe.remove();
       window.chatbotInitialized = true;
     }
 
     let dashboardConfig = {};
     let isChatExpanded = false;
 
-    document.addEventListener('DOMContentLoaded', async () => {
+    async function init() {
       destroyWidgetChatbot();
       setTimeout(destroyWidgetChatbot, 200);
       setTimeout(destroyWidgetChatbot, 2500);
+      setTimeout(destroyWidgetChatbot, 5000);
+      setTimeout(destroyWidgetChatbot, 10000);
  
      /* ---------- fetch dashboard config ---------- */
      try {
@@ -43,6 +47,7 @@
      const iframe = document.createElement('iframe');
      iframe.id = 'chat-iframe-inline';
      iframe.src = IFRAME_URL;
+     iframe.setAttribute('allow', 'microphone');
      iframe.style.display = 'block';
  
      container.appendChild(iframe);
@@ -58,12 +63,13 @@
      /* ---------- set initial size (minimal - input only) ---------- */
      container.style.width = '100%';
      container.style.maxWidth = '100%';
-     container.style.height = '90px';
+     container.style.height = '100px';
      container.style.margin = '0 auto';
      container.style.marginTop = '2em';
      container.style.marginBottom = '2em';
      container.style.transition = 'height 0.5s ease';
      container.style.boxSizing = 'border-box';
+     container.style.overflow = 'hidden';
      iframe.style.width = '100%';
      iframe.style.height = '100%';
      iframe.style.border = 'none';
@@ -71,39 +77,39 @@
  
      /* ---------- resize logic ---------- */
      let isIframeEnlarged = false;
- 
-     function adjustIframeSize() {
-       const isMobile = window.innerWidth < 1000;
 
-       if (!isChatExpanded) {
-         container.style.width = '100%';
-         container.style.maxWidth = '100%';
-         container.style.height = '90px';
-         container.style.marginLeft = 'auto';
-         container.style.marginRight = 'auto';
-         container.style.marginBottom = '2em';
-         return;
-       }
- 
-       let maxWidth, height;
-       if (isIframeEnlarged) {
-         maxWidth = '80vw';
-         height = '500px';
-       } else if (isMobile) {
-         maxWidth = '100%';
-         height = '450px';
-       } else {
-         maxWidth = '60vw';
-         height = '450px';
-       }
- 
-       container.style.width = '100%';
-       container.style.maxWidth = maxWidth;
-       container.style.height = height;
-       container.style.marginLeft = 'auto';
-       container.style.marginRight = 'auto';
-       container.style.marginBottom = '2em';
-     }
+    function adjustIframeSize() {
+      const isMobile = window.innerWidth < 1000;
+
+      if (!isChatExpanded) {
+        container.style.width = '100%';
+        container.style.maxWidth = '100%';
+        container.style.height = '100px';
+        container.style.marginLeft = 'auto';
+        container.style.marginRight = 'auto';
+        container.style.marginBottom = '2em';
+        return;
+      }
+
+      let maxWidth, height;
+      if (isIframeEnlarged) {
+        maxWidth = '100%';
+        height = '500px';
+      } else if (isMobile) {
+        maxWidth = '100%';
+        height = '450px';
+      } else {
+        maxWidth = '100%';
+        height = '450px';
+      }
+
+      container.style.width = '100%';
+      container.style.maxWidth = maxWidth;
+      container.style.height = height;
+      container.style.marginLeft = 'auto';
+      container.style.marginRight = 'auto';
+      container.style.marginBottom = '2em';
+    }
  
      /* ---------- send integrationOptions ---------- */
      function sendIntegrationOptions() {
@@ -166,9 +172,17 @@
     iframe.addEventListener('load', () => {
       sendIntegrationOptions();
       adjustIframeSize();
+      setTimeout(sendIntegrationOptions, 500);
+      setTimeout(sendIntegrationOptions, 2000);
     });
 
     window.addEventListener('resize', () => adjustIframeSize());
  
-   });
+   }
+
+   if (document.readyState === 'loading') {
+     document.addEventListener('DOMContentLoaded', init);
+   } else {
+     init();
+   }
 })();
