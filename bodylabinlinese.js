@@ -3,7 +3,7 @@
   const IFRAME_URL = 'https://chatbot.dialogintelligens.dk';
   const API_URL = 'https://api.dialogintelligens.dk';
 
-    const CHATBOT_ID = 'bodylabfinland';
+    const CHATBOT_ID = 'bodylabsverige';
     const scriptEl = document.currentScript;
 
     window.chatbotInitialized = true;
