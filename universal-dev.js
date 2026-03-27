@@ -1142,22 +1142,16 @@
       return;
     }
   
-    // Keep 'isIframeEnlarged' logic if toggled from the iframe
+    // Desktop dimensions only (mobile/enlarged use fixed or same as desktop)
     if (isIframeEnlarged) {
-      // Enlarged dimensions (configurable)
-      iframe.style.width = config.iframeWidthEnlarged || 'calc(2 * 45vh + 6vw)';
-      iframe.style.height = config.iframeHeightEnlarged || '90vh';
+      iframe.style.width = config.iframeWidthDesktop || 'calc(50vh + 8vw)';
+      iframe.style.height = config.iframeHeightDesktop || '90vh';
+    } else if (window.innerWidth < 1000) {
+      iframe.style.width = '100vw';
+      iframe.style.height = '100vh';
     } else {
-      // Default sizing:
-      // For phone/tablet (< 1000px), use mobile dimensions
-      // For larger screens, use desktop dimensions
-      if (window.innerWidth < 1000) {
-        iframe.style.width = config.iframeWidthMobile || '95vw';
-        iframe.style.height = config.iframeHeightMobile || '90vh';
-      } else {
-        iframe.style.width = config.iframeWidthDesktop || 'calc(50vh + 8vw)';
-        iframe.style.height = config.iframeHeightDesktop || '90vh';
-      }
+      iframe.style.width = config.iframeWidthDesktop || 'calc(50vh + 8vw)';
+      iframe.style.height = config.iframeHeightDesktop || '90vh';
     }
   
     // Always position fixed
