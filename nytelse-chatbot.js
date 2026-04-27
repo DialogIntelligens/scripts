@@ -355,7 +355,6 @@ setInterval(trackCheckoutIfAny, 8000);
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_nytelse.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744618878962.png",

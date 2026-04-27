@@ -346,7 +346,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
         useThumbsRating: false,
         ratingTimerDuration: 15000,
-        replaceExclamationWithPeriod: false,
           
         // Set FreshdeskForm text
         freshdeskEmailLabel: "Din email:",

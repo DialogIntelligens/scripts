@@ -334,7 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/slagteralibaba.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1744704790777.png",

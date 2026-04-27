@@ -284,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       useThumbsRating: true,
       ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitikk_Crux.pdf",
       headerLogoG: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/chatbot_logo/logo-1743428365322.png",

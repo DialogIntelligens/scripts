@@ -80,7 +80,6 @@
 
             useThumbsRating: false,
             ratingTimerDuration: 15000,
-            replaceExclamationWithPeriod: false,
 
             pineconeApiKey: "",
             knowledgebaseIndexApiEndpoint: "",

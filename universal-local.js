@@ -155,7 +155,6 @@
       leadField2: 'Email',
       useThumbsRating: false,
       ratingTimerDuration: 18000,
-      replaceExclamationWithPeriod: false,
       privacyLink: 'https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf',
       freshdeskEmailLabel: 'Din email:',
       freshdeskMessageLabel: 'Besked til kundeservice:',

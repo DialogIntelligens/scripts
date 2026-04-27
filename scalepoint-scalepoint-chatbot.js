@@ -514,7 +514,6 @@ setInterval(checkForPurchase, 15000); // Check every 15 seconds
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik_Nih.pdf",
 
