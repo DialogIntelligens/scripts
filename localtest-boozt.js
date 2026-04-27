@@ -599,7 +599,6 @@ function initWithDebug() {
   
         useThumbsRating: false,
         ratingTimerDuration: 15000,
-        replaceExclamationWithPeriod: false,
         
         privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privatlivspolitik-AI-Chatbot.pdf",
   

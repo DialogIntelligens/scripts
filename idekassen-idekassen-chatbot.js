@@ -530,7 +530,6 @@ function sendMessageToIframe() {
 
       useThumbsRating: false,
       ratingTimerDuration: 15000,
-      replaceExclamationWithPeriod: false,
       
       privacyLink: "https://raw.githubusercontent.com/DialogIntelligens/image-hosting/master/Privacy_policy_Idekassen.pdf",
 
