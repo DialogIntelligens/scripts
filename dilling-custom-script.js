@@ -115,7 +115,7 @@
     "@keyframes di-dilling-bar-content-out{to{opacity:0;transform:translateX(8px)}}" +
     "@keyframes di-dilling-collapse-icon{to{opacity:1;transform:scale(1)}}" +
     "@keyframes di-dilling-icon-enter{from{opacity:0;transform:translateX(0) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}" +
-    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:26px;--di-dilling-bar-width:calc(100vw - 28px)}}";
+    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:26px;--di-dilling-bar-width:min(208px,calc(100vw - 28px))}}";
 
   var ownScript = getOwnScript();
   var chatbotId = getRequiredChatbotId(ownScript);
