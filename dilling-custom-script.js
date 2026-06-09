@@ -95,21 +95,27 @@
 
   var css =
     "#chat-container #chat-button,#chat-container[data-di-hidden-universal='true'] #chat-button,.di-hidden-universal-chatbot #chat-container #chat-button,#chatbase-message-bubbles,#chat-container #minimize-button,#chat-container #plus-overlay,#chat-container .notification-badge{display:none!important;pointer-events:none!important}" +
-    "#di-dilling-custom-launcher{--di-dilling-custom-launcher-bg:#262524;--di-dilling-custom-launcher-fg:#fff;position:fixed;right:22px;bottom:34px;z-index:2147483000;display:flex;align-items:center;justify-content:flex-end;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}" +
-    ".di-dilling-custom-launcher__button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:59px;height:59px;padding:0;border:0;border-radius:6px;background:transparent;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);transform-origin:right center;transition:transform 180ms ease,box-shadow 180ms ease,color 180ms ease}" +
-    ".di-dilling-custom-launcher__button.is-entering{animation:di-dilling-icon-enter 280ms cubic-bezier(.22,1,.36,1) forwards}" +
+    "#di-dilling-custom-launcher{--di-dilling-custom-launcher-bg:#262524;--di-dilling-custom-launcher-fg:#fff;--di-dilling-launcher-size:52px;--di-dilling-bar-width:min(208px,calc(100vw - 32px));position:fixed;right:22px;bottom:34px;z-index:2147483000;display:flex;align-items:center;justify-content:flex-end;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}" +
+    ".di-dilling-custom-launcher__button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size);padding:0;border:0;border-radius:6px;background:transparent;cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);transform-origin:right center;transition:transform 220ms cubic-bezier(.22,1,.36,1),box-shadow 220ms ease,color 180ms ease}" +
+    ".di-dilling-custom-launcher__button.is-entering{animation:di-dilling-icon-enter 360ms cubic-bezier(.22,1,.36,1) forwards}" +
     ".di-dilling-custom-launcher__button:hover{transform:translateY(-1px);box-shadow:0 14px 32px rgba(0,0,0,.24)}" +
     ".di-dilling-custom-launcher__button:focus-visible,.di-dilling-custom-launcher__bar:focus-visible,.di-dilling-custom-launcher__close:focus-visible{outline:2px solid var(--di-dilling-custom-launcher-bg,#262524);outline-offset:3px}" +
-    ".di-dilling-custom-launcher__icon{display:block;width:59px;height:59px}" +
+    ".di-dilling-custom-launcher__icon{display:block;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size)}" +
     ".di-dilling-custom-launcher__icon rect,.di-dilling-custom-launcher__icon path{transition:fill 180ms ease}" +
-    ".di-dilling-custom-launcher__bar{display:inline-flex;align-items:center;min-height:44px;max-width:min(340px,calc(100vw - 32px));padding:0 17px 0 12px;border:0;border-radius:4px;color:var(--di-dilling-custom-launcher-fg,#fff);background-color:var(--di-dilling-custom-launcher-bg,#262524);cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);opacity:0;transform:translateX(14px) scaleX(.78);transform-origin:right center;transition:background-color 180ms ease,color 180ms ease;animation:di-dilling-expand 280ms cubic-bezier(.22,1,.36,1) forwards}" +
-    ".di-dilling-custom-launcher__bar.is-collapsing{animation:di-dilling-collapse 280ms cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}" +
-    ".di-dilling-custom-launcher__close{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:18px;padding:0;border:0;border-radius:50%;color:currentColor;background:transparent;cursor:pointer}" +
-    ".di-dilling-custom-launcher__close svg{width:12px;height:12px}.di-dilling-custom-launcher__message{overflow:hidden;font-size:13px;line-height:1.2;white-space:nowrap;text-overflow:ellipsis}" +
-    "@keyframes di-dilling-expand{to{opacity:1;transform:translateX(0) scaleX(1)}}" +
-    "@keyframes di-dilling-collapse{from{opacity:1;transform:translateX(0) scaleX(1)}to{opacity:0;transform:translateX(14px) scaleX(.78)}}" +
-    "@keyframes di-dilling-icon-enter{from{opacity:0;transform:translateX(10px) scale(.9)}to{opacity:1;transform:translateX(0) scale(1)}}" +
-    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:26px}.di-dilling-custom-launcher__bar{max-width:calc(100vw - 28px)}}";
+    ".di-dilling-custom-launcher__bar{position:relative;display:inline-flex;align-items:center;justify-content:flex-start;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size);max-width:var(--di-dilling-bar-width);overflow:hidden;padding:0;border:0;border-radius:6px;color:var(--di-dilling-custom-launcher-fg,#fff);background-color:var(--di-dilling-custom-launcher-bg,#262524);cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);transform-origin:right center;transition:background-color 180ms ease,color 180ms ease;animation:di-dilling-expand 560ms cubic-bezier(.22,1,.36,1) forwards}" +
+    ".di-dilling-custom-launcher__bar.is-collapsing{animation:di-dilling-collapse 900ms cubic-bezier(.22,1,.36,1) forwards;pointer-events:none}" +
+    ".di-dilling-custom-launcher__close{display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;width:22px;height:22px;margin-left:14px;margin-right:16px;padding:0;border:0;border-radius:50%;color:currentColor;background:transparent;cursor:pointer;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 150ms forwards}" +
+    ".di-dilling-custom-launcher__close svg{width:12px;height:12px}.di-dilling-custom-launcher__message{display:block;overflow:hidden;font-size:13px;line-height:1.2;white-space:nowrap;text-overflow:ellipsis;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 170ms forwards}" +
+    ".di-dilling-custom-launcher__collapse-icon{position:absolute;top:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;justify-content:center;width:var(--di-dilling-launcher-size);opacity:0;transform:scale(.96);pointer-events:none}" +
+    ".di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__close,.di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__message{animation:di-dilling-bar-content-out 160ms ease forwards}" +
+    ".di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__collapse-icon{animation:di-dilling-collapse-icon 540ms ease 180ms forwards}" +
+    "@keyframes di-dilling-expand{from{width:var(--di-dilling-launcher-size)}to{width:var(--di-dilling-bar-width)}}" +
+    "@keyframes di-dilling-collapse{from{width:var(--di-dilling-bar-width)}to{width:var(--di-dilling-launcher-size)}}" +
+    "@keyframes di-dilling-bar-content{to{opacity:1;transform:translateX(0)}}" +
+    "@keyframes di-dilling-bar-content-out{to{opacity:0;transform:translateX(8px)}}" +
+    "@keyframes di-dilling-collapse-icon{to{opacity:1;transform:scale(1)}}" +
+    "@keyframes di-dilling-icon-enter{from{opacity:0;transform:translateX(0) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}" +
+    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:26px;--di-dilling-bar-width:min(208px,calc(100vw - 28px))}}";
 
   var ownScript = getOwnScript();
   var chatbotId = getRequiredChatbotId(ownScript);
@@ -727,6 +733,9 @@
         closeSvg +
         "</span>" +
         '<span class="di-dilling-custom-launcher__message"></span>' +
+        '<span class="di-dilling-custom-launcher__collapse-icon" aria-hidden="true">' +
+        notificationSvg +
+        "</span>" +
         "</button>";
       root.querySelector(".di-dilling-custom-launcher__message").textContent = getLauncherMessage();
       root.querySelector(".di-dilling-custom-launcher__bar").addEventListener("click", openChat);
@@ -760,10 +769,12 @@
       bar.classList.add("is-collapsing");
       bar.addEventListener(
         "animationend",
-        function () {
-          renderIcon(notificationSvg, "Open chat, 1 new message", { animateEnter: true });
+        function (event) {
+          if (event.target !== bar || event.animationName !== "di-dilling-collapse") {
+            return;
+          }
+          renderIcon(notificationSvg, "Open chat, 1 new message");
         },
-        { once: true },
       );
     }
 
