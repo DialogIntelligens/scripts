@@ -547,6 +547,43 @@
     return relativeLuminance(rgb) > 0.48 ? LIGHT_LAUNCHER_FG : DARK_LAUNCHER_FG;
   }
 
+  function compositeStyleBackground(backdrop, style, element, x, y) {
+    var painted = false;
+    var parsed = parseCssRgbColor(style.backgroundColor);
+    if (parsed && parsed.a >= 0.02) {
+      backdrop = compositeColor(backdrop, parsed);
+      painted = true;
+    }
+    if (x !== undefined && y !== undefined) {
+      var gradient = gradientColorAtPoint(style.backgroundImage, element, x, y);
+      if (gradient && gradient.a >= 0.02) {
+        backdrop = compositeColor(backdrop, gradient);
+        painted = true;
+      }
+    }
+    return { backdrop: backdrop, painted: painted };
+  }
+
+  function pseudoElementMayPaint(style) {
+    var content = style.content;
+    if (content === "none" || content === "normal") {
+      return false;
+    }
+    return true;
+  }
+
+  function backgroundFromPseudoElement(element, pseudo, backdrop, x, y) {
+    try {
+      var style = window.getComputedStyle(element, pseudo);
+      if (!style || !pseudoElementMayPaint(style)) {
+        return { backdrop: backdrop, painted: false };
+      }
+      return compositeStyleBackground(backdrop, style, element, x, y);
+    } catch (error) {
+      return { backdrop: backdrop, painted: false };
+    }
+  }
+
   function backgroundFromAncestors(start, x, y) {
     var chain = [];
     var el = start;
@@ -556,27 +593,75 @@
       el = el.parentElement;
     }
     var backdrop = { r: 255, g: 255, b: 255 };
+    var painted = false;
     for (var i = chain.length - 1; i >= 0; i -= 1) {
       var style = window.getComputedStyle(chain[i]);
-      var parsed = parseCssRgbColor(style.backgroundColor);
-      if (parsed && parsed.a >= 0.02) backdrop = compositeColor(backdrop, parsed);
-      if (x !== undefined && y !== undefined) {
-        var gradient = gradientColorAtPoint(style.backgroundImage, chain[i], x, y);
-        if (gradient && gradient.a >= 0.02) backdrop = compositeColor(backdrop, gradient);
-      }
+      var normal = compositeStyleBackground(backdrop, style, chain[i], x, y);
+      backdrop = normal.backdrop;
+      painted = normal.painted || painted;
+
+      var before = backgroundFromPseudoElement(chain[i], "::before", backdrop, x, y);
+      backdrop = before.backdrop;
+      painted = before.painted || painted;
+
+      var after = backgroundFromPseudoElement(chain[i], "::after", backdrop, x, y);
+      backdrop = after.backdrop;
+      painted = after.painted || painted;
     }
-    return withLuminance(backdrop);
+    return painted ? withLuminance(backdrop) : null;
   }
 
-  function backgroundAtViewportPoint(x, y, root) {
+  function collectBackgroundSamplesAtViewportPoint(x, y, root, samples) {
     var stack = document.elementsFromPoint
       ? document.elementsFromPoint(x, y)
       : [document.elementFromPoint(x, y)];
     for (var i = 0; i < stack.length; i += 1) {
       var el = stack[i];
-      if (el && !root.contains(el)) return backgroundFromAncestors(el, x, y);
+      if (!el || root.contains(el)) {
+        continue;
+      }
+      var background = backgroundFromAncestors(el, x, y);
+      if (background) {
+        samples.push(background);
+        return;
+      }
     }
-    return backgroundFromAncestors(document.body, x, y);
+    var bodyBackground = backgroundFromAncestors(document.body, x, y);
+    if (bodyBackground) {
+      samples.push(bodyBackground);
+    }
+  }
+
+  function dillingSectionFallbackBackground(root) {
+    var selectors = [
+      "main",
+      "[class*='module_content_overview']",
+      "[class*='content_overview']",
+      "[class*='page']",
+    ];
+    var rootRect = root.getBoundingClientRect();
+    var launcherCenterY = rootRect.top + rootRect.height / 2;
+    for (var i = 0; i < selectors.length; i += 1) {
+      var elements = Array.prototype.slice.call(document.querySelectorAll(selectors[i]));
+      for (var j = 0; j < elements.length; j += 1) {
+        var rect = elements[j].getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) {
+          continue;
+        }
+        if (launcherCenterY < rect.top - 80 || launcherCenterY > rect.bottom + 80) {
+          continue;
+        }
+        var background = backgroundFromAncestors(
+          elements[j],
+          rootRect.left + rootRect.width / 2,
+          launcherCenterY,
+        );
+        if (background) {
+          return background;
+        }
+      }
+    }
+    return null;
   }
 
   function averageColor(samples) {
@@ -599,26 +684,38 @@
   function sampleBackgroundBehindLauncher(root) {
     var rect = root.getBoundingClientRect();
     if (rect.width < 2 || rect.height < 2) return null;
+    var halo = Math.min(96, Math.max(32, Math.max(rect.width, rect.height)));
+    var sampleRect = {
+      left: rect.left - halo,
+      top: rect.top - halo,
+      width: rect.width + halo * 2,
+      height: rect.height + halo * 2,
+    };
     var points = [
       [0.5, 0.5],
       [0.18, 0.18],
       [0.82, 0.18],
       [0.18, 0.82],
       [0.82, 0.82],
+      [0.5, 0.08],
+      [0.5, 0.92],
+      [0.08, 0.5],
+      [0.92, 0.5],
     ];
     var samples = [];
     points.forEach(function (point) {
       var x = Math.max(
         0,
-        Math.min(window.innerWidth - 1, Math.floor(rect.left + rect.width * point[0])),
+        Math.min(window.innerWidth - 1, Math.floor(sampleRect.left + sampleRect.width * point[0])),
       );
       var y = Math.max(
         0,
-        Math.min(window.innerHeight - 1, Math.floor(rect.top + rect.height * point[1])),
+        Math.min(window.innerHeight - 1, Math.floor(sampleRect.top + sampleRect.height * point[1])),
       );
-      samples.push(backgroundAtViewportPoint(x, y, root));
+      collectBackgroundSamplesAtViewportPoint(x, y, root, samples);
     });
-    return averageColor(samples);
+    if (samples.length > 0) return averageColor(samples);
+    return dillingSectionFallbackBackground(root) || withLuminance({ r: 238, g: 238, b: 238 });
   }
 
   function applyAdaptiveLauncherColor(root) {
