@@ -65,6 +65,7 @@
   var BASE_LAUNCHER_BG = "#262524";
   var DARK_LAUNCHER_FG = "#ffffff";
   var LIGHT_LAUNCHER_FG = "#262524";
+  var mediaSampleCache = {};
 
   var iconSvg =
     '<svg class="di-dilling-custom-launcher__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.33 59.33" aria-hidden="true" focusable="false">' +
@@ -547,6 +548,145 @@
     return relativeLuminance(rgb) > 0.48 ? LIGHT_LAUNCHER_FG : DARK_LAUNCHER_FG;
   }
 
+  function sampleCanvasPixel(draw) {
+    try {
+      var canvas = document.createElement("canvas");
+      canvas.width = 1;
+      canvas.height = 1;
+      var context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) return null;
+      draw(context);
+      var pixel = context.getImageData(0, 0, 1, 1).data;
+      if (pixel[3] < 5) return null;
+      return withLuminance({ r: pixel[0], g: pixel[1], b: pixel[2] });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function naturalImagePointForElement(rect, naturalWidth, naturalHeight, x, y, objectFit) {
+    var localX = x - rect.left;
+    var localY = y - rect.top;
+    var fit = objectFit || "fill";
+    var sx;
+    var sy;
+    if (fit === "cover" || fit === "contain") {
+      var scale =
+        fit === "cover"
+          ? Math.max(rect.width / naturalWidth, rect.height / naturalHeight)
+          : Math.min(rect.width / naturalWidth, rect.height / naturalHeight);
+      var renderedWidth = naturalWidth * scale;
+      var renderedHeight = naturalHeight * scale;
+      sx = (localX - (rect.width - renderedWidth) / 2) / scale;
+      sy = (localY - (rect.height - renderedHeight) / 2) / scale;
+    } else {
+      sx = (localX / rect.width) * naturalWidth;
+      sy = (localY / rect.height) * naturalHeight;
+    }
+    return {
+      x: Math.round(clamp(sx, 0, naturalWidth - 1)),
+      y: Math.round(clamp(sy, 0, naturalHeight - 1)),
+    };
+  }
+
+  function mediaElementSource(element) {
+    var tag = element.tagName ? element.tagName.toLowerCase() : "";
+    if (tag === "video") {
+      return element.poster || element.currentSrc || element.src || "";
+    }
+    if (tag === "img") {
+      return element.currentSrc || element.src || "";
+    }
+    return "";
+  }
+
+  function mediaSampleKey(element, x, y, source) {
+    var rect = element.getBoundingClientRect();
+    var px = rect.width > 0 ? clamp01((x - rect.left) / rect.width) : 0.5;
+    var py = rect.height > 0 ? clamp01((y - rect.top) / rect.height) : 0.5;
+    return source + "|" + Math.round(px * 1000) + "|" + Math.round(py * 1000);
+  }
+
+  function sampleLoadedMediaElement(element, x, y) {
+    var tag = element.tagName ? element.tagName.toLowerCase() : "";
+    var rect = element.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) return null;
+    if (tag === "video" && element.readyState >= 2 && element.videoWidth > 0 && element.videoHeight > 0) {
+      var videoPoint = naturalImagePointForElement(
+        rect,
+        element.videoWidth,
+        element.videoHeight,
+        x,
+        y,
+        window.getComputedStyle(element).objectFit,
+      );
+      return sampleCanvasPixel(function (context) {
+        context.drawImage(element, videoPoint.x, videoPoint.y, 1, 1, 0, 0, 1, 1);
+      });
+    }
+    if (tag === "img" && element.complete && element.naturalWidth > 0 && element.naturalHeight > 0) {
+      var imagePoint = naturalImagePointForElement(
+        rect,
+        element.naturalWidth,
+        element.naturalHeight,
+        x,
+        y,
+        window.getComputedStyle(element).objectFit,
+      );
+      return sampleCanvasPixel(function (context) {
+        context.drawImage(element, imagePoint.x, imagePoint.y, 1, 1, 0, 0, 1, 1);
+      });
+    }
+    return null;
+  }
+
+  function startPosterImageSample(key, source, rect, x, y, objectFit, root) {
+    mediaSampleCache[key] = { loading: true };
+    var image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = function () {
+      var point = naturalImagePointForElement(rect, image.naturalWidth, image.naturalHeight, x, y, objectFit);
+      var sampled = sampleCanvasPixel(function (context) {
+        context.drawImage(image, point.x, point.y, 1, 1, 0, 0, 1, 1);
+      });
+      if (sampled) {
+        mediaSampleCache[key] = { color: sampled };
+        applyAdaptiveLauncherColor(root);
+        return;
+      }
+      mediaSampleCache[key] = { failed: true };
+    };
+    image.onerror = function () {
+      mediaSampleCache[key] = { failed: true };
+    };
+    image.src = source;
+  }
+
+  function backgroundFromMediaElement(element, x, y, root) {
+    var source = mediaElementSource(element);
+    if (!source) return null;
+    var immediate = sampleLoadedMediaElement(element, x, y);
+    if (immediate) return immediate;
+
+    var key = mediaSampleKey(element, x, y, source);
+    var cached = mediaSampleCache[key];
+    if (cached && cached.color) return cached.color;
+    if (cached) return null;
+
+    var rect = element.getBoundingClientRect();
+    if (rect.width < 2 || rect.height < 2) return null;
+    startPosterImageSample(
+      key,
+      source,
+      { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
+      x,
+      y,
+      window.getComputedStyle(element).objectFit,
+      root,
+    );
+    return null;
+  }
+
   function compositeStyleBackground(backdrop, style, element, x, y) {
     var painted = false;
     var parsed = parseCssRgbColor(style.backgroundColor);
@@ -619,6 +759,11 @@
       var el = stack[i];
       if (!el || root.contains(el)) {
         continue;
+      }
+      var mediaBackground = backgroundFromMediaElement(el, x, y, root);
+      if (mediaBackground) {
+        samples.push(mediaBackground);
+        return;
       }
       var background = backgroundFromAncestors(el, x, y);
       if (background) {
