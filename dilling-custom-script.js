@@ -65,7 +65,8 @@
   var BASE_LAUNCHER_BG = "#262524";
   var DARK_LAUNCHER_FG = "#ffffff";
   var LIGHT_LAUNCHER_FG = "#262524";
-  var mediaSampleCache = {};
+  var mediaImageCache = {};
+  var scheduleMediaSampleRefresh = null;
 
   var iconSvg =
     '<svg class="di-dilling-custom-launcher__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.33 59.33" aria-hidden="true" focusable="false">' +
@@ -103,10 +104,10 @@
     ".di-dilling-custom-launcher__button:focus-visible,.di-dilling-custom-launcher__bar:focus-visible,.di-dilling-custom-launcher__close:focus-visible{outline:2px solid var(--di-dilling-custom-launcher-bg,#262524);outline-offset:3px}" +
     ".di-dilling-custom-launcher__icon{display:block;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size)}" +
     ".di-dilling-custom-launcher__icon rect,.di-dilling-custom-launcher__icon path{transition:fill 180ms ease}" +
-    ".di-dilling-custom-launcher__bar{position:relative;display:inline-flex;align-items:center;justify-content:flex-start;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size);max-width:var(--di-dilling-bar-width);overflow:hidden;padding:0;border:0;border-radius:6px;color:var(--di-dilling-custom-launcher-fg,#fff);background-color:var(--di-dilling-custom-launcher-bg,#262524);cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);transform-origin:right center;transition:background-color 180ms ease,color 180ms ease;animation:di-dilling-expand 560ms cubic-bezier(.22,1,.36,1) forwards}" +
+    ".di-dilling-custom-launcher__bar{position:relative;display:grid;grid-template-columns:42px minmax(0,1fr) 14px;align-items:center;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size);max-width:var(--di-dilling-bar-width);overflow:hidden;padding:0;border:0;border-radius:6px;color:var(--di-dilling-custom-launcher-fg,#fff);background-color:var(--di-dilling-custom-launcher-bg,#262524);cursor:pointer;box-shadow:0 10px 28px rgba(0,0,0,.18);transform-origin:right center;transition:background-color 180ms ease,color 180ms ease;animation:di-dilling-expand 560ms cubic-bezier(.22,1,.36,1) forwards}" +
     ".di-dilling-custom-launcher__bar.is-collapsing{animation:di-dilling-collapse 900ms cubic-bezier(.22,1,.36,1) forwards;pointer-events:none}" +
-    ".di-dilling-custom-launcher__close{display:inline-flex;align-items:center;justify-content:center;flex:0 0 22px;width:22px;height:22px;margin-left:14px;margin-right:16px;padding:0;border:0;border-radius:50%;color:currentColor;background:transparent;cursor:pointer;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 150ms forwards}" +
-    ".di-dilling-custom-launcher__close svg{width:12px;height:12px}.di-dilling-custom-launcher__message{display:block;overflow:hidden;font-size:13px;line-height:1.2;white-space:nowrap;text-overflow:ellipsis;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 170ms forwards}" +
+    ".di-dilling-custom-launcher__close{display:inline-flex;grid-column:1;grid-row:1;align-items:center;justify-content:center;justify-self:center;width:22px;height:22px;margin:0;padding:0;border:0;border-radius:50%;color:currentColor;background:transparent;cursor:pointer;line-height:0!important;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 150ms forwards}" +
+    ".di-dilling-custom-launcher__close svg{display:block;width:12px;height:12px}.di-dilling-custom-launcher__message{display:block;grid-column:2;grid-row:1;justify-self:stretch;max-width:100%;overflow:hidden;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif!important;font-size:13px!important;font-weight:400!important;letter-spacing:normal!important;line-height:1.2!important;text-align:center;text-transform:none!important;white-space:nowrap;text-overflow:ellipsis;opacity:0;transform:translateX(8px);animation:di-dilling-bar-content 260ms ease 170ms forwards}" +
     ".di-dilling-custom-launcher__collapse-icon{position:absolute;top:0;right:0;bottom:0;z-index:2;display:flex;align-items:center;justify-content:center;width:var(--di-dilling-launcher-size);opacity:0;transform:scale(.96);pointer-events:none}" +
     ".di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__close,.di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__message{animation:di-dilling-bar-content-out 160ms ease forwards}" +
     ".di-dilling-custom-launcher__bar.is-collapsing .di-dilling-custom-launcher__collapse-icon{animation:di-dilling-collapse-icon 540ms ease 180ms forwards}" +
@@ -548,182 +549,6 @@
     return relativeLuminance(rgb) > 0.48 ? LIGHT_LAUNCHER_FG : DARK_LAUNCHER_FG;
   }
 
-  function sampleCanvasPixel(draw) {
-    try {
-      var canvas = document.createElement("canvas");
-      canvas.width = 1;
-      canvas.height = 1;
-      var context = canvas.getContext("2d", { willReadFrequently: true });
-      if (!context) return null;
-      draw(context);
-      var pixel = context.getImageData(0, 0, 1, 1).data;
-      if (pixel[3] < 5) return null;
-      return withLuminance({ r: pixel[0], g: pixel[1], b: pixel[2] });
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function naturalImagePointForElement(rect, naturalWidth, naturalHeight, x, y, objectFit) {
-    var localX = x - rect.left;
-    var localY = y - rect.top;
-    var fit = objectFit || "fill";
-    var sx;
-    var sy;
-    if (fit === "cover" || fit === "contain") {
-      var scale =
-        fit === "cover"
-          ? Math.max(rect.width / naturalWidth, rect.height / naturalHeight)
-          : Math.min(rect.width / naturalWidth, rect.height / naturalHeight);
-      var renderedWidth = naturalWidth * scale;
-      var renderedHeight = naturalHeight * scale;
-      sx = (localX - (rect.width - renderedWidth) / 2) / scale;
-      sy = (localY - (rect.height - renderedHeight) / 2) / scale;
-    } else {
-      sx = (localX / rect.width) * naturalWidth;
-      sy = (localY / rect.height) * naturalHeight;
-    }
-    return {
-      x: Math.round(clamp(sx, 0, naturalWidth - 1)),
-      y: Math.round(clamp(sy, 0, naturalHeight - 1)),
-    };
-  }
-
-  function mediaElementSource(element) {
-    var tag = element.tagName ? element.tagName.toLowerCase() : "";
-    if (tag === "video") {
-      return element.poster || element.currentSrc || element.src || "";
-    }
-    if (tag === "img") {
-      return element.currentSrc || element.src || "";
-    }
-    return "";
-  }
-
-  function mediaSampleKey(element, x, y, source) {
-    var rect = element.getBoundingClientRect();
-    var px = rect.width > 0 ? clamp01((x - rect.left) / rect.width) : 0.5;
-    var py = rect.height > 0 ? clamp01((y - rect.top) / rect.height) : 0.5;
-    return source + "|" + Math.round(px * 1000) + "|" + Math.round(py * 1000);
-  }
-
-  function sampleLoadedMediaElement(element, x, y) {
-    var tag = element.tagName ? element.tagName.toLowerCase() : "";
-    var rect = element.getBoundingClientRect();
-    if (rect.width < 2 || rect.height < 2) return null;
-    if (tag === "video" && element.readyState >= 2 && element.videoWidth > 0 && element.videoHeight > 0) {
-      var videoPoint = naturalImagePointForElement(
-        rect,
-        element.videoWidth,
-        element.videoHeight,
-        x,
-        y,
-        window.getComputedStyle(element).objectFit,
-      );
-      return sampleCanvasPixel(function (context) {
-        context.drawImage(element, videoPoint.x, videoPoint.y, 1, 1, 0, 0, 1, 1);
-      });
-    }
-    if (tag === "img" && element.complete && element.naturalWidth > 0 && element.naturalHeight > 0) {
-      var imagePoint = naturalImagePointForElement(
-        rect,
-        element.naturalWidth,
-        element.naturalHeight,
-        x,
-        y,
-        window.getComputedStyle(element).objectFit,
-      );
-      return sampleCanvasPixel(function (context) {
-        context.drawImage(element, imagePoint.x, imagePoint.y, 1, 1, 0, 0, 1, 1);
-      });
-    }
-    return null;
-  }
-
-  function startPosterImageSample(key, source, rect, x, y, objectFit, root) {
-    mediaSampleCache[key] = { loading: true };
-    var image = new Image();
-    image.crossOrigin = "anonymous";
-    image.onload = function () {
-      var point = naturalImagePointForElement(rect, image.naturalWidth, image.naturalHeight, x, y, objectFit);
-      var sampled = sampleCanvasPixel(function (context) {
-        context.drawImage(image, point.x, point.y, 1, 1, 0, 0, 1, 1);
-      });
-      if (sampled) {
-        mediaSampleCache[key] = { color: sampled };
-        applyAdaptiveLauncherColor(root);
-        return;
-      }
-      mediaSampleCache[key] = { failed: true };
-    };
-    image.onerror = function () {
-      mediaSampleCache[key] = { failed: true };
-    };
-    image.src = source;
-  }
-
-  function backgroundFromMediaElement(element, x, y, root) {
-    var source = mediaElementSource(element);
-    if (!source) return null;
-    var immediate = sampleLoadedMediaElement(element, x, y);
-    if (immediate) return immediate;
-
-    var key = mediaSampleKey(element, x, y, source);
-    var cached = mediaSampleCache[key];
-    if (cached && cached.color) return cached.color;
-    if (cached) return null;
-
-    var rect = element.getBoundingClientRect();
-    if (rect.width < 2 || rect.height < 2) return null;
-    startPosterImageSample(
-      key,
-      source,
-      { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
-      x,
-      y,
-      window.getComputedStyle(element).objectFit,
-      root,
-    );
-    return null;
-  }
-
-  function compositeStyleBackground(backdrop, style, element, x, y) {
-    var painted = false;
-    var parsed = parseCssRgbColor(style.backgroundColor);
-    if (parsed && parsed.a >= 0.02) {
-      backdrop = compositeColor(backdrop, parsed);
-      painted = true;
-    }
-    if (x !== undefined && y !== undefined) {
-      var gradient = gradientColorAtPoint(style.backgroundImage, element, x, y);
-      if (gradient && gradient.a >= 0.02) {
-        backdrop = compositeColor(backdrop, gradient);
-        painted = true;
-      }
-    }
-    return { backdrop: backdrop, painted: painted };
-  }
-
-  function pseudoElementMayPaint(style) {
-    var content = style.content;
-    if (content === "none" || content === "normal") {
-      return false;
-    }
-    return true;
-  }
-
-  function backgroundFromPseudoElement(element, pseudo, backdrop, x, y) {
-    try {
-      var style = window.getComputedStyle(element, pseudo);
-      if (!style || !pseudoElementMayPaint(style)) {
-        return { backdrop: backdrop, painted: false };
-      }
-      return compositeStyleBackground(backdrop, style, element, x, y);
-    } catch (error) {
-      return { backdrop: backdrop, painted: false };
-    }
-  }
-
   function backgroundFromAncestors(start, x, y) {
     var chain = [];
     var el = start;
@@ -733,80 +558,62 @@
       el = el.parentElement;
     }
     var backdrop = { r: 255, g: 255, b: 255 };
-    var painted = false;
     for (var i = chain.length - 1; i >= 0; i -= 1) {
       var style = window.getComputedStyle(chain[i]);
-      var normal = compositeStyleBackground(backdrop, style, chain[i], x, y);
-      backdrop = normal.backdrop;
-      painted = normal.painted || painted;
-
-      var before = backgroundFromPseudoElement(chain[i], "::before", backdrop, x, y);
-      backdrop = before.backdrop;
-      painted = before.painted || painted;
-
-      var after = backgroundFromPseudoElement(chain[i], "::after", backdrop, x, y);
-      backdrop = after.backdrop;
-      painted = after.painted || painted;
+      var parsed = parseCssRgbColor(style.backgroundColor);
+      if (parsed && parsed.a >= 0.02) backdrop = compositeColor(backdrop, parsed);
+      if (x !== undefined && y !== undefined) {
+        var gradient = gradientColorAtPoint(style.backgroundImage, chain[i], x, y);
+        if (gradient && gradient.a >= 0.02) backdrop = compositeColor(backdrop, gradient);
+      }
     }
-    return painted ? withLuminance(backdrop) : null;
+    return withLuminance(backdrop);
   }
 
-  function collectBackgroundSamplesAtViewportPoint(x, y, root, samples) {
+  function applyElementBackground(backdrop, element, x, y) {
+    var style = window.getComputedStyle(element);
+    var found = false;
+    var parsed = parseCssRgbColor(style.backgroundColor);
+    if (parsed && parsed.a >= 0.02) {
+      backdrop = compositeColor(backdrop, parsed);
+      found = true;
+    }
+    var gradient = gradientColorAtPoint(style.backgroundImage, element, x, y);
+    if (gradient && gradient.a >= 0.02) {
+      backdrop = compositeColor(backdrop, gradient);
+      found = true;
+    }
+    return {
+      backdrop: backdrop,
+      found: found,
+    };
+  }
+
+  function backgroundAtViewportPoint(x, y, root) {
     var stack = document.elementsFromPoint
       ? document.elementsFromPoint(x, y)
       : [document.elementFromPoint(x, y)];
-    for (var i = 0; i < stack.length; i += 1) {
+    var backdrop = { r: 255, g: 255, b: 255 };
+    var foundVisual = false;
+    for (var i = stack.length - 1; i >= 0; i -= 1) {
       var el = stack[i];
-      if (!el || root.contains(el)) {
-        continue;
-      }
-      var mediaBackground = backgroundFromMediaElement(el, x, y, root);
-      if (mediaBackground) {
-        samples.push(mediaBackground);
-        return;
-      }
-      var background = backgroundFromAncestors(el, x, y);
-      if (background) {
-        samples.push(background);
-        return;
-      }
-    }
-    var bodyBackground = backgroundFromAncestors(document.body, x, y);
-    if (bodyBackground) {
-      samples.push(bodyBackground);
-    }
-  }
+      if (el && !root.contains(el)) {
+        var background = applyElementBackground(backdrop, el, x, y);
+        backdrop = background.backdrop;
+        foundVisual = foundVisual || background.found;
 
-  function dillingSectionFallbackBackground(root) {
-    var selectors = [
-      "main",
-      "[class*='module_content_overview']",
-      "[class*='content_overview']",
-      "[class*='page']",
-    ];
-    var rootRect = root.getBoundingClientRect();
-    var launcherCenterY = rootRect.top + rootRect.height / 2;
-    for (var i = 0; i < selectors.length; i += 1) {
-      var elements = Array.prototype.slice.call(document.querySelectorAll(selectors[i]));
-      for (var j = 0; j < elements.length; j += 1) {
-        var rect = elements[j].getBoundingClientRect();
-        if (rect.bottom < 0 || rect.top > window.innerHeight) {
-          continue;
-        }
-        if (launcherCenterY < rect.top - 80 || launcherCenterY > rect.bottom + 80) {
-          continue;
-        }
-        var background = backgroundFromAncestors(
-          elements[j],
-          rootRect.left + rootRect.width / 2,
-          launcherCenterY,
-        );
-        if (background) {
-          return background;
+        var media = backgroundFromMediaElement(el, x, y);
+        if (media) {
+          backdrop = {
+            r: media.r,
+            g: media.g,
+            b: media.b,
+          };
+          foundVisual = true;
         }
       }
     }
-    return null;
+    return foundVisual ? withLuminance(backdrop) : backgroundFromAncestors(document.body, x, y);
   }
 
   function averageColor(samples) {
@@ -826,41 +633,163 @@
     });
   }
 
+  function sampleCanvasPixel(source, sx, sy) {
+    try {
+      var canvas = document.createElement("canvas");
+      canvas.width = 1;
+      canvas.height = 1;
+      var context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) return null;
+      context.drawImage(source, sx, sy, 1, 1, 0, 0, 1, 1);
+      var pixel = context.getImageData(0, 0, 1, 1).data;
+      if (pixel[3] < 5) return null;
+      return withLuminance({
+        r: pixel[0],
+        g: pixel[1],
+        b: pixel[2],
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function loadSampleImage(url) {
+    if (!url) return null;
+    if (mediaImageCache[url]) return mediaImageCache[url];
+    var entry = {
+      loaded: false,
+      failed: false,
+      image: new Image(),
+    };
+    entry.image.crossOrigin = "anonymous";
+    entry.image.onload = function () {
+      entry.loaded = true;
+      if (scheduleMediaSampleRefresh) scheduleMediaSampleRefresh();
+    };
+    entry.image.onerror = function () {
+      entry.failed = true;
+    };
+    entry.image.src = url;
+    mediaImageCache[url] = entry;
+    return entry;
+  }
+
+  function objectPositionPart(part, keywords, fallback) {
+    if (!part) return fallback;
+    if (part.endsWith("%")) return clamp01(Number(part.slice(0, -1)) / 100);
+    if (keywords[part] !== undefined) return keywords[part];
+    return fallback;
+  }
+
+  function objectPosition(style) {
+    var parts = String(style.objectPosition || "50% 50%").trim().toLowerCase().split(/\s+/);
+    var horizontal = {
+      left: 0,
+      center: 0.5,
+      right: 1,
+    };
+    var vertical = {
+      top: 0,
+      center: 0.5,
+      bottom: 1,
+    };
+    return {
+      x: objectPositionPart(parts[0], horizontal, 0.5),
+      y: objectPositionPart(parts[1] || parts[0], vertical, 0.5),
+    };
+  }
+
+  function mediaPoint(element, sourceWidth, sourceHeight, x, y) {
+    var rect = element.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0 || sourceWidth <= 0 || sourceHeight <= 0) return null;
+    var style = window.getComputedStyle(element);
+    var localX = clamp(x - rect.left, 0, rect.width);
+    var localY = clamp(y - rect.top, 0, rect.height);
+    var fit = style.objectFit || "fill";
+    var renderedWidth = rect.width;
+    var renderedHeight = rect.height;
+    var offsetX = 0;
+    var offsetY = 0;
+
+    if (fit === "cover" || fit === "contain" || fit === "scale-down" || fit === "none") {
+      var scale =
+        fit === "cover"
+          ? Math.max(rect.width / sourceWidth, rect.height / sourceHeight)
+          : fit === "none"
+            ? 1
+            : Math.min(rect.width / sourceWidth, rect.height / sourceHeight);
+      if (fit === "scale-down") scale = Math.min(1, scale);
+      renderedWidth = sourceWidth * scale;
+      renderedHeight = sourceHeight * scale;
+      var position = objectPosition(style);
+      offsetX = (rect.width - renderedWidth) * position.x;
+      offsetY = (rect.height - renderedHeight) * position.y;
+    }
+
+    return {
+      x: clamp(((localX - offsetX) / renderedWidth) * sourceWidth, 0, sourceWidth - 1),
+      y: clamp(((localY - offsetY) / renderedHeight) * sourceHeight, 0, sourceHeight - 1),
+    };
+  }
+
+  function sampleImageLikeElement(element, source, sourceWidth, sourceHeight, x, y) {
+    var point = mediaPoint(element, sourceWidth, sourceHeight, x, y);
+    if (!point) return null;
+    return sampleCanvasPixel(source, point.x, point.y);
+  }
+
+  function backgroundFromImageElement(element, x, y) {
+    if (element.naturalWidth > 0 && element.naturalHeight > 0) {
+      var direct = sampleImageLikeElement(element, element, element.naturalWidth, element.naturalHeight, x, y);
+      if (direct) return direct;
+    }
+    var src = element.currentSrc || element.src;
+    var entry = loadSampleImage(src);
+    if (!entry || !entry.loaded) return null;
+    return sampleImageLikeElement(element, entry.image, entry.image.naturalWidth, entry.image.naturalHeight, x, y);
+  }
+
+  function backgroundFromVideoElement(element, x, y) {
+    if (element.readyState >= 2 && element.videoWidth > 0 && element.videoHeight > 0) {
+      var frame = sampleImageLikeElement(element, element, element.videoWidth, element.videoHeight, x, y);
+      if (frame) return frame;
+    }
+    var entry = loadSampleImage(element.poster);
+    if (!entry || !entry.loaded) return null;
+    return sampleImageLikeElement(element, entry.image, entry.image.naturalWidth, entry.image.naturalHeight, x, y);
+  }
+
+  function backgroundFromMediaElement(element, x, y) {
+    if (!element || !element.tagName) return null;
+    var tag = element.tagName.toLowerCase();
+    if (tag === "img") return backgroundFromImageElement(element, x, y);
+    if (tag === "video") return backgroundFromVideoElement(element, x, y);
+    return null;
+  }
+
   function sampleBackgroundBehindLauncher(root) {
     var rect = root.getBoundingClientRect();
     if (rect.width < 2 || rect.height < 2) return null;
-    var halo = Math.min(96, Math.max(32, Math.max(rect.width, rect.height)));
-    var sampleRect = {
-      left: rect.left - halo,
-      top: rect.top - halo,
-      width: rect.width + halo * 2,
-      height: rect.height + halo * 2,
-    };
     var points = [
       [0.5, 0.5],
       [0.18, 0.18],
       [0.82, 0.18],
       [0.18, 0.82],
       [0.82, 0.82],
-      [0.5, 0.08],
-      [0.5, 0.92],
-      [0.08, 0.5],
-      [0.92, 0.5],
     ];
     var samples = [];
     points.forEach(function (point) {
       var x = Math.max(
         0,
-        Math.min(window.innerWidth - 1, Math.floor(sampleRect.left + sampleRect.width * point[0])),
+        Math.min(window.innerWidth - 1, Math.floor(rect.left + rect.width * point[0])),
       );
       var y = Math.max(
         0,
-        Math.min(window.innerHeight - 1, Math.floor(sampleRect.top + sampleRect.height * point[1])),
+        Math.min(window.innerHeight - 1, Math.floor(rect.top + rect.height * point[1])),
       );
-      collectBackgroundSamplesAtViewportPoint(x, y, root, samples);
+      samples.push(backgroundAtViewportPoint(x, y, root));
     });
-    if (samples.length > 0) return averageColor(samples);
-    return dillingSectionFallbackBackground(root) || withLuminance({ r: 238, g: 238, b: 238 });
+    return averageColor(samples);
   }
 
   function applyAdaptiveLauncherColor(root) {
@@ -882,6 +811,7 @@
     }
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    scheduleMediaSampleRefresh = schedule;
     schedule();
     return schedule;
   }
