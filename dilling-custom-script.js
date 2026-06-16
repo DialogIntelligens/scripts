@@ -65,6 +65,8 @@
   var BASE_LAUNCHER_BG = "#262524";
   var DARK_LAUNCHER_FG = "#ffffff";
   var LIGHT_LAUNCHER_FG = "#262524";
+  var mediaImageCache = {};
+  var scheduleMediaSampleRefresh = null;
 
   var iconSvg =
     '<svg class="di-dilling-custom-launcher__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 59.33 59.33" aria-hidden="true" focusable="false">' +
@@ -568,15 +570,50 @@
     return withLuminance(backdrop);
   }
 
+  function applyElementBackground(backdrop, element, x, y) {
+    var style = window.getComputedStyle(element);
+    var found = false;
+    var parsed = parseCssRgbColor(style.backgroundColor);
+    if (parsed && parsed.a >= 0.02) {
+      backdrop = compositeColor(backdrop, parsed);
+      found = true;
+    }
+    var gradient = gradientColorAtPoint(style.backgroundImage, element, x, y);
+    if (gradient && gradient.a >= 0.02) {
+      backdrop = compositeColor(backdrop, gradient);
+      found = true;
+    }
+    return {
+      backdrop: backdrop,
+      found: found,
+    };
+  }
+
   function backgroundAtViewportPoint(x, y, root) {
     var stack = document.elementsFromPoint
       ? document.elementsFromPoint(x, y)
       : [document.elementFromPoint(x, y)];
-    for (var i = 0; i < stack.length; i += 1) {
+    var backdrop = { r: 255, g: 255, b: 255 };
+    var foundVisual = false;
+    for (var i = stack.length - 1; i >= 0; i -= 1) {
       var el = stack[i];
-      if (el && !root.contains(el)) return backgroundFromAncestors(el, x, y);
+      if (el && !root.contains(el)) {
+        var background = applyElementBackground(backdrop, el, x, y);
+        backdrop = background.backdrop;
+        foundVisual = foundVisual || background.found;
+
+        var media = backgroundFromMediaElement(el, x, y);
+        if (media) {
+          backdrop = {
+            r: media.r,
+            g: media.g,
+            b: media.b,
+          };
+          foundVisual = true;
+        }
+      }
     }
-    return backgroundFromAncestors(document.body, x, y);
+    return foundVisual ? withLuminance(backdrop) : backgroundFromAncestors(document.body, x, y);
   }
 
   function averageColor(samples) {
@@ -594,6 +631,140 @@
       g: total.g / samples.length,
       b: total.b / samples.length,
     });
+  }
+
+  function sampleCanvasPixel(source, sx, sy) {
+    try {
+      var canvas = document.createElement("canvas");
+      canvas.width = 1;
+      canvas.height = 1;
+      var context = canvas.getContext("2d", { willReadFrequently: true });
+      if (!context) return null;
+      context.drawImage(source, sx, sy, 1, 1, 0, 0, 1, 1);
+      var pixel = context.getImageData(0, 0, 1, 1).data;
+      if (pixel[3] < 5) return null;
+      return withLuminance({
+        r: pixel[0],
+        g: pixel[1],
+        b: pixel[2],
+      });
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function loadSampleImage(url) {
+    if (!url) return null;
+    if (mediaImageCache[url]) return mediaImageCache[url];
+    var entry = {
+      loaded: false,
+      failed: false,
+      image: new Image(),
+    };
+    entry.image.crossOrigin = "anonymous";
+    entry.image.onload = function () {
+      entry.loaded = true;
+      if (scheduleMediaSampleRefresh) scheduleMediaSampleRefresh();
+    };
+    entry.image.onerror = function () {
+      entry.failed = true;
+    };
+    entry.image.src = url;
+    mediaImageCache[url] = entry;
+    return entry;
+  }
+
+  function objectPositionPart(part, keywords, fallback) {
+    if (!part) return fallback;
+    if (part.endsWith("%")) return clamp01(Number(part.slice(0, -1)) / 100);
+    if (keywords[part] !== undefined) return keywords[part];
+    return fallback;
+  }
+
+  function objectPosition(style) {
+    var parts = String(style.objectPosition || "50% 50%").trim().toLowerCase().split(/\s+/);
+    var horizontal = {
+      left: 0,
+      center: 0.5,
+      right: 1,
+    };
+    var vertical = {
+      top: 0,
+      center: 0.5,
+      bottom: 1,
+    };
+    return {
+      x: objectPositionPart(parts[0], horizontal, 0.5),
+      y: objectPositionPart(parts[1] || parts[0], vertical, 0.5),
+    };
+  }
+
+  function mediaPoint(element, sourceWidth, sourceHeight, x, y) {
+    var rect = element.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0 || sourceWidth <= 0 || sourceHeight <= 0) return null;
+    var style = window.getComputedStyle(element);
+    var localX = clamp(x - rect.left, 0, rect.width);
+    var localY = clamp(y - rect.top, 0, rect.height);
+    var fit = style.objectFit || "fill";
+    var renderedWidth = rect.width;
+    var renderedHeight = rect.height;
+    var offsetX = 0;
+    var offsetY = 0;
+
+    if (fit === "cover" || fit === "contain" || fit === "scale-down" || fit === "none") {
+      var scale =
+        fit === "cover"
+          ? Math.max(rect.width / sourceWidth, rect.height / sourceHeight)
+          : fit === "none"
+            ? 1
+            : Math.min(rect.width / sourceWidth, rect.height / sourceHeight);
+      if (fit === "scale-down") scale = Math.min(1, scale);
+      renderedWidth = sourceWidth * scale;
+      renderedHeight = sourceHeight * scale;
+      var position = objectPosition(style);
+      offsetX = (rect.width - renderedWidth) * position.x;
+      offsetY = (rect.height - renderedHeight) * position.y;
+    }
+
+    return {
+      x: clamp(((localX - offsetX) / renderedWidth) * sourceWidth, 0, sourceWidth - 1),
+      y: clamp(((localY - offsetY) / renderedHeight) * sourceHeight, 0, sourceHeight - 1),
+    };
+  }
+
+  function sampleImageLikeElement(element, source, sourceWidth, sourceHeight, x, y) {
+    var point = mediaPoint(element, sourceWidth, sourceHeight, x, y);
+    if (!point) return null;
+    return sampleCanvasPixel(source, point.x, point.y);
+  }
+
+  function backgroundFromImageElement(element, x, y) {
+    if (element.naturalWidth > 0 && element.naturalHeight > 0) {
+      var direct = sampleImageLikeElement(element, element, element.naturalWidth, element.naturalHeight, x, y);
+      if (direct) return direct;
+    }
+    var src = element.currentSrc || element.src;
+    var entry = loadSampleImage(src);
+    if (!entry || !entry.loaded) return null;
+    return sampleImageLikeElement(element, entry.image, entry.image.naturalWidth, entry.image.naturalHeight, x, y);
+  }
+
+  function backgroundFromVideoElement(element, x, y) {
+    if (element.readyState >= 2 && element.videoWidth > 0 && element.videoHeight > 0) {
+      var frame = sampleImageLikeElement(element, element, element.videoWidth, element.videoHeight, x, y);
+      if (frame) return frame;
+    }
+    var entry = loadSampleImage(element.poster);
+    if (!entry || !entry.loaded) return null;
+    return sampleImageLikeElement(element, entry.image, entry.image.naturalWidth, entry.image.naturalHeight, x, y);
+  }
+
+  function backgroundFromMediaElement(element, x, y) {
+    if (!element || !element.tagName) return null;
+    var tag = element.tagName.toLowerCase();
+    if (tag === "img") return backgroundFromImageElement(element, x, y);
+    if (tag === "video") return backgroundFromVideoElement(element, x, y);
+    return null;
   }
 
   function sampleBackgroundBehindLauncher(root) {
@@ -640,6 +811,7 @@
     }
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
+    scheduleMediaSampleRefresh = schedule;
     schedule();
     return schedule;
   }
