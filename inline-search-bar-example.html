@@ -93,6 +93,30 @@
     <div class="chatbot-search-widget" data-placeholder="Spørg om vores services..."></div>
   </section>
 
+  <!-- Service Section with a fixed sentence around the search word -->
+  <section class="service-section">
+    <h2>Find den rigtige størrelse</h2>
+    <p>Søg efter et produkt, så hjælper vi med størrelsen. Søgeordet pakkes ind i en fast sætning,
+      før det sendes til chatbotten:</p>
+
+    <!-- Searching for "vin" sends: Jeg leder efter størrelseshjælp til "vin", kan du hjælpe mig? -->
+    <div class="chatbot-search-widget"
+         data-placeholder="Søg efter et produkt..."
+         data-message-template='Jeg leder efter størrelseshjælp til "{query}", kan du hjælpe mig?'></div>
+  </section>
+
+  <!-- Service Section using prefix/suffix instead of a full template -->
+  <section class="service-section">
+    <h2>Spørg om levering</h2>
+    <p>Her tilføjes der kun tekst før og efter søgeordet:</p>
+
+    <!-- Searching for "vin" sends: Hvad er leveringstiden på vin? -->
+    <div class="chatbot-search-widget"
+         data-placeholder="Søg efter et produkt..."
+         data-message-prefix="Hvad er leveringstiden på "
+         data-message-suffix="?"></div>
+  </section>
+
   <!-- Content Section -->
   <section class="content">
     <h2>Om os</h2>

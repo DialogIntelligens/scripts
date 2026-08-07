@@ -12,14 +12,31 @@
  * 
  * Custom placement:
  *    <div class="chatbot-search-widget" data-placeholder="Ask us anything..."></div>
+ *
+ * Wrapping the search word in a fixed sentence before it is sent to the chatbot:
+ *    <div class="chatbot-search-widget"
+ *         data-message-template='Jeg leder efter størrelseshjælp til "{query}", kan du hjælpe mig?'></div>
+ *
+ * Or only add text before/after the search word:
+ *    <div class="chatbot-search-widget"
+ *         data-message-prefix="Jeg leder efter "
+ *         data-message-suffix=" - kan du hjælpe mig?"></div>
+ *
+ * If none of the attributes are set, the raw search word is sent (default behavior).
  */
 
 (function() {
   'use strict';
 
+  // Placeholder that is replaced with whatever the user typed
+  const QUERY_PLACEHOLDER = '{query}';
+
   // Default configuration
   const DEFAULT_CONFIG = {
     placeholder: "Stil et spørgsmål...",
+    messageTemplate: "",
+    messagePrefix: "",
+    messageSuffix: "",
     sendIconColor: "#636a8b",
     backgroundColor: "rgba(255, 255, 255, 0.95)",
     borderColor: "#d0d4e0",
@@ -30,14 +47,85 @@
     maxWidth: "600px"
   };
 
+  // Read a data-attribute from the container, falling back to the config value
+  function readDataAttribute(targetElement, attributeName, datasetKey, fallback) {
+    const fromAttribute =
+      targetElement && targetElement.getAttribute && targetElement.getAttribute(attributeName);
+    if (fromAttribute !== null && fromAttribute !== undefined && fromAttribute !== '') {
+      return fromAttribute;
+    }
+
+    const fromDataset =
+      targetElement && targetElement.dataset && targetElement.dataset[datasetKey];
+    if (fromDataset !== null && fromDataset !== undefined && fromDataset !== '') {
+      return fromDataset;
+    }
+
+    return fallback;
+  }
+
+  /**
+   * Build the message that is sent to the chatbot.
+   *
+   * - If a template is configured, every {query} placeholder is replaced with the search word.
+   * - Otherwise an optional prefix/suffix is added around the search word.
+   * - If nothing is configured, the raw search word is returned (backwards compatible default).
+   */
+  function buildMessage(query, messageOptions) {
+    const template = (messageOptions && messageOptions.template) || '';
+
+    if (template) {
+      if (template.indexOf(QUERY_PLACEHOLDER) === -1) {
+        console.warn(
+          `Chatbot search widget: data-message-template is missing the ${QUERY_PLACEHOLDER} placeholder. Sending the raw search word instead.`
+        );
+        return query;
+      }
+      return template.split(QUERY_PLACEHOLDER).join(query);
+    }
+
+    const prefix = (messageOptions && messageOptions.prefix) || '';
+    const suffix = (messageOptions && messageOptions.suffix) || '';
+
+    if (!prefix && !suffix) {
+      return query;
+    }
+
+    return `${prefix}${query}${suffix}`;
+  }
+
   // Create the search bar widget
   function createSearchWidget(targetElement, customConfig = {}) {
     const config = { ...DEFAULT_CONFIG, ...customConfig };
-    
-    const placeholder =
-      (targetElement.getAttribute && targetElement.getAttribute('data-placeholder')) ||
-      (targetElement.dataset && targetElement.dataset.placeholder) ||
-      config.placeholder;
+
+    const placeholder = readDataAttribute(
+      targetElement,
+      'data-placeholder',
+      'placeholder',
+      config.placeholder
+    );
+
+    // Optional wrapping of the search word before it is sent to the chatbot
+    const messageOptions = {
+      template: readDataAttribute(
+        targetElement,
+        'data-message-template',
+        'messageTemplate',
+        config.messageTemplate
+      ),
+      prefix: readDataAttribute(
+        targetElement,
+        'data-message-prefix',
+        'messagePrefix',
+        config.messagePrefix
+      ),
+      suffix: readDataAttribute(
+        targetElement,
+        'data-message-suffix',
+        'messageSuffix',
+        config.messageSuffix
+      )
+    };
 
     // Create the search input container
     const searchContainer = document.createElement('div');
@@ -120,9 +208,9 @@
 
     // Handle send button click
     sendButton.onclick = function() {
-      const message = input.value.trim();
-      if (message) {
-        sendMessageToChatbot(message);
+      const query = input.value.trim();
+      if (query) {
+        sendMessageToChatbot(buildMessage(query, messageOptions));
         input.value = '';
       }
     };
@@ -130,9 +218,9 @@
     // Handle Enter key press
     input.onkeypress = function(e) {
       if (e.key === 'Enter') {
-        const message = input.value.trim();
-        if (message) {
-          sendMessageToChatbot(message);
+        const query = input.value.trim();
+        if (query) {
+          sendMessageToChatbot(buildMessage(query, messageOptions));
           input.value = '';
         }
       }
