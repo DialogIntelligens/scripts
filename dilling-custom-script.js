@@ -97,7 +97,7 @@
 
   var css =
     "#chat-container #chat-button,#chat-container[data-di-hidden-universal='true'] #chat-button,.di-hidden-universal-chatbot #chat-container #chat-button,#chatbase-message-bubbles,#chat-container #minimize-button,#chat-container #plus-overlay,#chat-container .notification-badge{display:none!important;pointer-events:none!important}" +
-    "#di-dilling-custom-launcher{--di-dilling-custom-launcher-bg:#262524;--di-dilling-custom-launcher-fg:#fff;--di-dilling-launcher-size:52px;--di-dilling-bar-width:min(208px,calc(100vw - 32px));position:fixed;right:22px;bottom:34px;z-index:2147483000;display:flex;align-items:center;justify-content:flex-end;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}" +
+    "#di-dilling-custom-launcher{--di-dilling-custom-launcher-bg:#262524;--di-dilling-custom-launcher-fg:#fff;--di-dilling-launcher-size:52px;--di-dilling-bar-width:min(208px,calc(100vw - 32px));position:fixed;right:22px;bottom:34px;z-index:45;display:flex;align-items:center;justify-content:flex-end;font-family:Montserrat,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}" +
     ".di-dilling-custom-launcher__button{position:relative;display:inline-flex;align-items:center;justify-content:center;width:var(--di-dilling-launcher-size);height:var(--di-dilling-launcher-size);padding:0;border:0;border-radius:6px;background:transparent;cursor:pointer;box-shadow:none;transform-origin:right center;transition:transform 220ms cubic-bezier(.22,1,.36,1),color 180ms ease}" +
     ".di-dilling-custom-launcher__button.is-entering{animation:di-dilling-icon-enter 360ms cubic-bezier(.22,1,.36,1) forwards}" +
     ".di-dilling-custom-launcher__button:hover{transform:translateY(-1px);box-shadow:none}" +
@@ -117,7 +117,7 @@
     "@keyframes di-dilling-bar-content-out{to{opacity:0;transform:translateX(8px)}}" +
     "@keyframes di-dilling-collapse-icon{to{opacity:1;transform:scale(1)}}" +
     "@keyframes di-dilling-icon-enter{from{opacity:0;transform:translateX(0) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}" +
-    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:26px;--di-dilling-bar-width:min(208px,calc(100vw - 28px))}}";
+    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:calc(68px + env(safe-area-inset-bottom,0px));--di-dilling-launcher-size:44px;--di-dilling-bar-width:min(192px,calc(100vw - 28px))}.di-dilling-custom-launcher__message{font-size:12px!important}}";
 
   var ownScript = getOwnScript();
   var chatbotId = getRequiredChatbotId(ownScript);
