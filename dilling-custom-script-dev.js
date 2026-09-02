@@ -1,6 +1,7 @@
 // DEV COPY of dilling-custom-script.js — for testing changes before they go live.
 // Differences vs. production: launcher z-index 45 (below Dilling's z-50 PDP overlays,
-// above their z-40 mobile add-to-cart bar) and mobile bottom offset raised to clear that bar.
+// above their z-40 mobile add-to-cart bar), mobile bottom offset raised to clear that bar,
+// and a smaller launcher on mobile (44px icon, 192px bar, 12px text).
 // Test on dk.dilling.com by pasting in the console:
 //   var s=document.createElement('script');s.src='https://dialogintelligens.github.io/scripts/dilling-custom-script-dev.js?id=dillingdk';document.head.appendChild(s);
 (function () {
@@ -122,7 +123,7 @@
     "@keyframes di-dilling-bar-content-out{to{opacity:0;transform:translateX(8px)}}" +
     "@keyframes di-dilling-collapse-icon{to{opacity:1;transform:scale(1)}}" +
     "@keyframes di-dilling-icon-enter{from{opacity:0;transform:translateX(0) scale(.96)}to{opacity:1;transform:translateX(0) scale(1)}}" +
-    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:calc(68px + env(safe-area-inset-bottom,0px));--di-dilling-bar-width:min(208px,calc(100vw - 28px))}}";
+    "@media(max-width:640px){#di-dilling-custom-launcher{right:14px;bottom:calc(68px + env(safe-area-inset-bottom,0px));--di-dilling-launcher-size:44px;--di-dilling-bar-width:min(192px,calc(100vw - 28px))}.di-dilling-custom-launcher__message{font-size:12px!important}}";
 
   var ownScript = getOwnScript();
   var chatbotId = getRequiredChatbotId(ownScript);
