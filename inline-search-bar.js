@@ -248,6 +248,15 @@
 
   // Function to send message to chatbot
   function sendMessageToChatbot(message) {
+    // universal-chatbot.js no longer exposes toggleChatWindow globally, and the
+    // manual fallback below never assigns the iframe src — it hid the launcher and
+    // showed an empty window, so the chatbot looked like it had disappeared.
+    // The public API loads the src, opens the window and delivers the message.
+    if (window.DialogIntelligens && typeof window.DialogIntelligens.open === 'function') {
+      window.DialogIntelligens.open(message, 'inline-search-widget');
+      return;
+    }
+
     const chatIframe = document.getElementById('chat-iframe');
     const chatButton = document.getElementById('chat-button');
 
@@ -258,16 +267,11 @@
         if (typeof toggleChatWindow === 'function') {
           toggleChatWindow();
         } else {
-          // Fallback: manually toggle the elements
-          chatIframe.style.display = 'block';
-          chatButton.style.display = 'none';
-          const minimizeBtn = document.getElementById('minimize-button');
-          if (minimizeBtn) minimizeBtn.style.display = 'block';
-          const container = document.getElementById('chat-container');
-          if (container) {
-            container.classList.add('chat-open');
-            container.classList.remove('minimized');
-          }
+          console.warn(
+            'DialogIntelligens.open is unavailable and toggleChatWindow is not global. ' +
+              'Load universal-chatbot.js before inline-search-bar.js.'
+          );
+          return;
         }
       }
 
