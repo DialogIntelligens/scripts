@@ -8,7 +8,8 @@
  * next to the script tag. Optional: set window.__CHATBOT_INLINE_OVERRIDES__
  * before loading to merge extra integrationOptions, e.g.
  *   window.__CHATBOT_INLINE_OVERRIDES__ = {
- *     inlineWelcomeMessage: 'Hvordan kan vi hjaelpe dig i dag?'
+ *     inlineWelcomeMessage: 'Hvordan kan vi hjaelpe dig i dag?',
+ *     inlineHeight: '80vh'
  *   };
  * Backend-managed text such as headerTitleG, titleG and inputPlaceholder
  * should normally be configured in chatbot settings instead.
@@ -100,12 +101,15 @@
       typeof window.__CHATBOT_INLINE_OVERRIDES__ === 'object' && window.__CHATBOT_INLINE_OVERRIDES__ !== null
         ? window.__CHATBOT_INLINE_OVERRIDES__
         : {};
+    const inlineHeight = typeof overrides.inlineHeight === 'string' && overrides.inlineHeight.trim()
+      ? overrides.inlineHeight.trim()
+      : null;
 
     function adjustIframeSize() {
       if (!isChatExpanded) {
         container.style.height = '100px';
       } else {
-        container.style.height = isIframeEnlarged ? '500px' : '450px';
+        container.style.height = inlineHeight || (isIframeEnlarged ? '500px' : '450px');
       }
     }
 
