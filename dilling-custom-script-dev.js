@@ -65,6 +65,7 @@
     dillingfr: "french",
     dillingeu: "english",
     dillingde: "german",
+    dillingpl: "polish",
   };
   var EXPAND_DELAY_MS = 5000;
   var COLLAPSE_DELAY_MS = 5000;
