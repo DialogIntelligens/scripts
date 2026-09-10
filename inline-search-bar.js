@@ -248,46 +248,11 @@
   }
 
   // Function to send message to chatbot
-  function sendMessageToChatbot(message) {
-    const chatIframe = document.getElementById('chat-iframe');
-    const chatButton = document.getElementById('chat-button');
-
-    if (chatIframe && chatButton) {
-      // Check if chat is closed (iframe is hidden)
-      if (chatIframe.style.display === 'none' || !chatIframe.style.display) {
-        // Simulate clicking the chat button to open it
-        if (typeof toggleChatWindow === 'function') {
-          toggleChatWindow();
-        } else {
-          // Fallback: manually toggle the elements
-          chatIframe.style.display = 'block';
-          chatButton.style.display = 'none';
-          const minimizeBtn = document.getElementById('minimize-button');
-          if (minimizeBtn) minimizeBtn.style.display = 'block';
-          const container = document.getElementById('chat-container');
-          if (container) {
-            container.classList.add('chat-open');
-            container.classList.remove('minimized');
-          }
-        }
-      }
-
-      // Wait for the chat to open, then send message via postMessage
-      setTimeout(() => {
-        if (chatIframe && chatIframe.contentWindow) {
-          console.log('📤 Sending external message to chatbot iframe:', message);
-          chatIframe.contentWindow.postMessage({
-            action: 'externalMessage',
-            message: message,
-            source: 'inline-search-widget'
-          }, '*');
-        } else {
-          console.warn('Chatbot iframe contentWindow not available');
-        }
-      }, 1000);
-    } else {
-      console.warn('Chatbot elements not found. Make sure universal-chatbot.js is loaded first.');
-    }
+  async function sendMessageToChatbot(message) {
+    const api = window.DialogIntelligens;
+    if (!api || typeof api.getAvailability !== 'function' || !(await api.getAvailability()).enabled) return;
+    // The public API loads the src, opens the window and delivers the message.
+    if (typeof api.open === 'function') api.open(message, 'inline-search-widget');
   }
 
   // Initialize all search widgets on the page
@@ -300,37 +265,69 @@
     }
 
     widgets.forEach(widget => {
-      createSearchWidget(widget);
+      registerWidget(widget);
     });
 
   }
 
-  // Wait for chatbot and DOM to be ready
+  // Configuration readiness does not depend on a launcher: the off group and
+  // hidden installations deliberately have none. Keep the entire wrapper collapsed.
+  const widgets = new Map();
+  let availability = null;
+  function renderWidget(element, entry) {
+    const enabled = availability && availability.enabled === true;
+    element.hidden = !enabled;
+    element.style.setProperty('display', enabled ? entry.display : 'none', enabled ? entry.priority : 'important');
+    if (!enabled) {
+      element.replaceChildren();
+      entry.rendered = false;
+    } else if (!entry.rendered) {
+      createSearchWidget(element, entry.config);
+      entry.rendered = true;
+    }
+  }
+  function registerWidget(element, config) {
+    const entry = widgets.get(element) || { display: element.style.getPropertyValue('display'),
+      priority: element.style.getPropertyPriority('display'), rendered: false };
+    if (config !== undefined) entry.rendered = false;
+    entry.config = config || entry.config || {};
+    widgets.set(element, entry);
+    renderWidget(element, entry);
+  }
+  function updateAvailability(value) {
+    availability = value;
+    widgets.forEach((entry, element) => renderWidget(element, entry));
+  }
+
+  // Wait for the public API, with a bounded wait if the loader fails.
   function init() {
+    initWidgets();
+    const deadline = Date.now() + 30000;
     const checkReady = () => {
-      const chatButton = document.getElementById('chat-button');
-      if (chatButton && document.readyState === 'complete') {
-        initWidgets();
-      } else {
+      const api = window.DialogIntelligens;
+      if (api && typeof api.getAvailability === 'function' && typeof api.onAvailabilityChange === 'function') {
+        let revision = 0;
+        api.onAvailabilityChange(value => { revision++; updateAvailability(value); });
+        const requestedAt = revision;
+        api.getAvailability().then(value => {
+          if (revision === requestedAt) updateAvailability(value);
+        }).catch(() => updateAvailability({ enabled: false }));
+      } else if (Date.now() < deadline) {
         setTimeout(checkReady, 100);
       }
     };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkReady);
-    } else {
-      checkReady();
-    }
+    checkReady();
   }
 
   // Start initialization
-  init();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
 
   // Expose global function for manual initialization if needed
   window.initChatbotSearchWidget = function(elementIdOrClass, customConfig) {
     const element = document.querySelector(elementIdOrClass);
     if (element) {
-      createSearchWidget(element, customConfig);
+      registerWidget(element, customConfig);
     } else {
       console.warn(`Element not found: ${elementIdOrClass}`);
     }
