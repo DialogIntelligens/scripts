@@ -19,5 +19,5 @@ For a local browser regression against the loader, run
 `pnpm --filter @dialogintelligens/chatbot-script test:availability` in the dialogintelligens
 repository with `DI_INLINE_SCRIPT_PATH` set to this repository's `inline-search-bar.js`.
 The test covers Bot on/off, hidden/inline mode, reloads, custom components, refresh failure,
-and restoration on the next configuration poll. Authoring must remain disabled until the
-updated loader and every custom embed have been validated on the participating storefront.
+and restoration on the next configuration poll. Validate the updated loader and every custom
+embed on the participating storefront before launching its experiment.
