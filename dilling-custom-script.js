@@ -180,6 +180,12 @@
     universalScript.id = UNIVERSAL_SCRIPT_ID;
     universalScript.async = true;
     universalScript.src = buildUniversalScriptUrl(script, id);
+    // Dilling loads this through Google Tag Manager and cannot set the attribute itself, so the
+    // chatbot starts without tracking until their consent tool calls window.Diverge.setConsent("all").
+    universalScript.setAttribute(
+      "data-consent",
+      (script && script.getAttribute("data-consent")) || "essential",
+    );
     (document.head || document.documentElement).appendChild(universalScript);
   }
 
