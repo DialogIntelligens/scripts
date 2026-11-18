@@ -127,6 +127,7 @@
            privacyLink:
              'https://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf',
            inputPlaceholder: 'Skriv dit spørgsmål her...',
+           inlineWelcomeMessage: 'Få hjælp fra vores chatbot Buddy',
            firstMessage: '',
 
            /* feature flags */
