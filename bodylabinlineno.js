@@ -126,6 +126,7 @@
            /* overrides (keep these hardcoded) */
            privacyLink:
              'https://dialogintelligens.dk/wp-content/uploads/2024/08/Privatlivspolitik-bodylab.pdf',
+           inlineWelcomeMessage: 'Få hjelp fra vår chatbot Buddy',
 
            /* feature flags */
            gptInterface: true,
